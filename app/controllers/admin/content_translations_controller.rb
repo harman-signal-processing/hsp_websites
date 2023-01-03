@@ -71,6 +71,7 @@ class Admin::ContentTranslationsController < AdminController
     end
 
     @content_translations += ContentTranslation.description_translatables_for(@record, website.brand, @target_locale)
+    @content_translations += ContentTranslation.feature_translatables_for(@record, website.brand, @target_locale)
 
     if request.post?
       @content_translations.each do |content_translation|

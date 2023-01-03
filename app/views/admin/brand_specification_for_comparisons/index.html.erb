@@ -22,7 +22,12 @@ available for comparisons.</p>
 
 <ul>
   <% @brand_specification_for_comparisons.each do |bsfc| %>
-    <li id="bsfc_<%= bsfc.id %>"><%= link_to bsfc.specification.name, [:admin, bsfc.specification] %>
+    <li id="bsfc_<%= bsfc.id %>">
+      <% if bsfc.specification.present? %>
+        <%= link_to bsfc.specification.name, [:admin, bsfc.specification]  %>
+      <% else %>
+        <em>Deleted spec <%= bsfc.specification_id %></em>
+      <% end %>
     <%= link_to(image_tag("icons/trash.gif", lazy: false),
                 admin_brand_specification_for_comparison_path(bsfc),
                 confirm: "Are you sure?",

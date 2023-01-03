@@ -1,0 +1,52 @@
+<h1>Locales</h1>
+
+<% if can? :create, Locale %>
+<ul class="button-group round">
+	<li><%= link_to 'New locale', new_admin_locale_path, class: "small success button" %></li>
+</ul>
+<% end %>
+
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <p>The locales here are available for translation everywhere on the platform. This allows us to
+      launch individual product and product family pages in multiple languages without launching an
+      entire site in that language.</p>
+    <p><strong>Caution:</strong> Editing/creating locale codes requires a restart of the application
+      on all servers. This is because the locale codes are read when generating URLs (which happens
+      as the application starts). Do not edit/create locale codes unless you can immediately restart
+      the application.</p>
+    <p><em>Why doesn't a particular locale appear in the top nav of the site?</em> Typically we don't
+      place a locale in the top-nav until it has gone through a full translation. This includes
+      translating the YAML file and most of the product/product family content. Once that is done,
+      <%= link_to [:admin, website.brand] do %> edit the <%= website.brand.name %> websites<% end %>
+      and add the locale to each one. Mark it as "complete" to make it appear in the top nav.</p>
+    <p>If you add a locale to a website without making it "complete", then it will be available
+      as an option for products and product families to be included or excluded from that locale.</p>
+    <p>Confused? Me too.</p>
+  </div>
+  <div class="small-12 medium-6 columns">
+    <table width="100%">
+      <thead>
+        <tr>
+          <th colspan="2">Code</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% Locale.primaries.order(:code).find_each do |locale| %>
+        <tr>
+          <td colspan="2"><%= link_to locale.code, [:admin, locale] %></td>
+          <td><%= link_to locale.name, [:admin, locale]  %></td>
+        </tr>
+        <% locale.regionals.order(:code).find_each do |regional| %>
+          <tr>
+            <td>&nbsp;</td>
+            <td><%= link_to regional.code, [:admin, regional] %></td>
+            <td><%= link_to regional.name, [:admin, regional]  %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

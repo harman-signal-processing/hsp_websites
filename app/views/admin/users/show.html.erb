@@ -33,11 +33,11 @@
 
     <% if @user.role?(:online_retailer) %>
       <div class="group">
-        <h3>If this person is an online retailer, select which retailers he/she can maintain:</h3>
+        <h3>If this person is an online retailer, select which retailers they can maintain:</h3>
         <%= form_for [:admin, @online_retailer_user], remote: true do |f| %>
           <%= hidden_field_tag "called_from", "user" %>
           <%= f.hidden_field :user_id %>
-          <%= f.collection_select :online_retailer_id, OnlineRetailer.all, :id, :name %> 
+          <%= f.collection_select :online_retailer_id, OnlineRetailer.all, :id, :name %>
           <%= submit_tag 'add', class: "small round button"  %>
           or <%= link_to 'create a new retailer', new_admin_online_retailer_path %>
       <% end %>

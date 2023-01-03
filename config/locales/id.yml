@@ -1,2 +1,9 @@
 id:
   view_this_page_in_another_language: Lihat halaman ini dalam bahasa lain
+
+  product_page:
+      compare_selected_products: Bandingkan Produk yang Dipilih
+      select_products_to_compare: Pilih 2 hingga 4 Produk untuk Dibandingkan
+  activerecord:
+    models:
+      product: Produk

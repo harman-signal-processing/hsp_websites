@@ -10,7 +10,7 @@ ThinkingSphinx::Index.define :product_family, name: "product_family_en_US", with
   # :nocov:
 end
 
-(WebsiteLocale.pluck(:locale).uniq - ["en", "en-US"]).each do |locale|
+(Locale.all_unique_locales - ["en", "en-US"]).each do |locale|
   locale_underscored = locale.to_s.gsub(/\-/, "_")
 
   ThinkingSphinx::Index.define :product_family, name: "product_family_#{ locale_underscored }", with: :active_record do

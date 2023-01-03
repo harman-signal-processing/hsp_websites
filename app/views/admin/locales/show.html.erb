@@ -1,0 +1,57 @@
+<h1>Locale: <%= @this_locale.name %></h1>
+
+<ul class="button-group round">
+	<li><%= link_to admin_locales_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+	<li><%= link_to edit_admin_locale_path(@this_locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+	<li><%= link_to [:admin, @this_locale], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
+</ul>
+
+<p>
+  <b>Name:</b>
+  <%= @this_locale.name %>
+</p>
+
+<p>
+  <b>Code:</b>
+  <%= @this_locale.code %>
+</p>
+
+<p>
+  <b>Language Code:</b>
+  <%= link_to_unless_current @this_locale.language_code, [:admin, @this_locale.primary] %>
+</p>
+
+<% if @this_locale.is_regional? %>
+  <p>
+    <b>Regional Code:</b>
+    <%= @this_locale.regional_code %>
+  </p>
+<% else %>
+  <p>
+    <b>Regionals:</b>
+    <%= @this_locale.regionals.map{|r| link_to(r.regional_code, [:admin, r])}.join(", ").html_safe %>
+  </p>
+<% end %>
+
+<div class="group">
+	<h4 class="subheader">Defined for these websites:</h4>
+
+	<ul id="website_locales" class="list">
+	  <% @this_locale.website_locales.find_each do |wl| %>
+      <% if wl.website.present? # some older websites were deleted without clearing out the locales %>
+        <%= render "/admin/shared/website_locale_row", wl: wl, called_from: "locale" %>
+      <% end %>
+	  <% end %>
+	</ul>
+</div>

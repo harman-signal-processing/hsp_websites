@@ -191,8 +191,8 @@ private
         session['geo_usa'] = (clean_country_code == "us") ? true : false
       else
         unless session['geo_country']
-          lookup = Geokit::Geocoders::IpGeocoder.do_geocode(request.remote_ip)
-          if lookup.success? || lookup.country_code
+          lookup = Geokit::Geocoders::IpApiGeocoder.do_geocode(request.remote_ip)
+          if lookup.present? && lookup.country_code.present?
             session['geo_country'] = lookup.country_code
             session['geo_usa'] = lookup.is_us?
             session['geo_usa_state'] = lookup.state
@@ -237,9 +237,6 @@ private
       redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
 
-    # 2022-10 [AA] No longer restricting by "active" locales since RV is making a
-    #   habit of launching product pages in all sorts of languages without actually
-    #   launching the site in that language properly.
     # Handling inactive locales for the current site
     #if !website.list_of_available_locales.include?(I18n.locale.to_s)
     #  unless can?(:manage, Product) # Admins can view non-active locales

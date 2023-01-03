@@ -433,6 +433,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :features,
         :us_reps,
         :effects,
+        :locales,
         :signups,
         :dealers,
         :badges,

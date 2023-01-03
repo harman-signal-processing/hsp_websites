@@ -1,2 +1,9 @@
 ja:
   view_this_page_in_another_language: このページを別の言語で表示
+
+  product_page:
+      compare_selected_products: 選択した製品を比較する
+      select_products_to_compare: 製品を2〜4台選択して比較できます
+  activerecord:
+    models:
+      product: 製品

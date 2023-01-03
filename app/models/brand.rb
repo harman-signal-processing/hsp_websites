@@ -248,7 +248,7 @@ class Brand < ApplicationRecord
 
   def value_for(key, locale=I18n.locale)
     # start with the current, full locale
-    locales_to_search = [locale]
+    locales_to_search = [locale.to_s]
 
     # add a parent locale if present
     if parent_locale = (I18n.locale.to_s.match(/^(.*)-/)) ? $1 : false # "es-MX" => "es"
@@ -263,11 +263,11 @@ class Brand < ApplicationRecord
       found_settings[ls.locale] = ls.value
     end
 
-    # loop through in order and return the preferred setting
-    locales_to_search.each do |l|
-      if found_settings[l].present?
-        return found_settings[l]
-      end
+    # merge the locales_to_search with the keys of what was found
+    # to basically sort the found keys in order of preference
+    matched_locales = locales_to_search & found_settings.keys
+    if matched_locales.size > 0
+      return found_settings[matched_locales.first]
     end
 
     return nil

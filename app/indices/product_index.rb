@@ -36,7 +36,7 @@ ThinkingSphinx::Index.define :product, name: "product_real_time_en_US", with: :r
   indexes specifications_accessories_content
 end
 
-(WebsiteLocale.pluck(:locale).uniq - ["en", "en-US"]).each do |locale|
+(Locale.all_unique_locales - ["en", "en-US"]).each do |locale|
   locale_underscored = locale.to_s.gsub(/\-/, "_")
 
   ThinkingSphinx::Index.define :product, name: "product_#{ locale_underscored }", with: :active_record do

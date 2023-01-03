@@ -2,14 +2,16 @@ module Api
   module V2
     class PdfsController < ApplicationController
       before_action :set_brand
-      respond_to :xml, :json, :html
+      respond_to :xml, :json, :html, :text
       layout "minimal"
 
       def index
       	
       	product_document_pdfs = []
       	website.brand.products.each do |product|
-      	  product_document_pdfs << product.product_documents.where("document_file_name like ?","%.pdf%")
+          if !product.product_status.is_hidden?
+            product_document_pdfs << product.product_documents.where("document_file_name like ?","%.pdf%")
+          end
       	end
         site_element_pdfs = website.brand.site_elements.where("resource_file_name like ? or executable_file_name like ?","%.pdf%","%.pdf%")
         product_documents_and_site_element_pdfs = product_document_pdfs.flatten + site_element_pdfs.to_ary
