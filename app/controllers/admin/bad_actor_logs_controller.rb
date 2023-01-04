@@ -19,6 +19,11 @@ class Admin::BadActorLogsController < AdminController
   def create
     respond_to do |format|
       if @bad_actor_log.save
+        logger = ActiveSupport::Logger.new("log/brandsite_bad_actor.log")
+        time = Time.now
+        formatted_datetime = time.strftime('%Y-%m-%d %I:%M:%S %p')
+        logger.error "#{ @bad_actor_log.ip_address } - - [#{formatted_datetime}] \"#{ @bad_actor_log.reason }\" "
+
         format.html { redirect_to(admin_bad_actor_logs_url, notice: 'BadActorLog was successfully created.') }
       else
         format.html {
