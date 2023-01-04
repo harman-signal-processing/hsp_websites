@@ -35,13 +35,18 @@
             <%#= link_to page_link(result), page_link(result) %>
             <%related_products = get_pdf_item_related_products(result)%>
             <%if related_products.present? %>
+              <%discontinued_text = "<span style='color:red;font-size:80%;'>(Discontinued)</span>"%>
+
               <h6>Related Products:</h6>
               <% if related_products.class.name == "Product" %>
                 <%= link_to related_products.name, related_products %>
+                <%=discontinued_text.html_safe if related_products.discontinued?%>
               <% else %>
                 <ul class="large-block-grid-3">
                 <% related_products.each do |product| %>
-                  <li><%= link_to product.name, product %></li>
+                  <li><%= link_to product.name, product %>
+                      <%=discontinued_text.html_safe if product.discontinued?%>
+                  </li>
                 <% end %>
                 </ul>
               <% end %>

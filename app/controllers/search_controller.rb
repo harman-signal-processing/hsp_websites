@@ -40,7 +40,7 @@ class SearchController < ApplicationController
   end
 
   def include_discontinued_products?
-    @include_discontinued_products = !!params[:include_discontinued_products]
+    @include_discontinued_products = !!params[:include_discontinued_products] || !!params[:paginate_include_discontinued_products]
   end
 
   def pdf_only_search_results?
