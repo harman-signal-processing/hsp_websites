@@ -1,6 +1,6 @@
     <%
       no_filters_present = !params[:apply_filters].present? && !params[:rental_vtx].present? && !params[:rental_prx_one].present? && !params[:rental_eon_one_mk2].present? && !params[:rental_eon700_series].present? && !params[:service].present?
-      if no_filters_present
+      if no_filters_present || @results.count == 0
         # check all the filter boxes
         @filter_rental_vtx = true
         @filter_rental_prx_one = true
@@ -9,6 +9,13 @@
         @filter_service = true
       end
     %>
+    <span style="font-size:x-small;">Search within distance range</span><br/>
+    <ul class="small-block-grid-1 large-block-grid-4" id="location_range_filter">
+      <li><input type="radio" name="within_miles" value="150" <% if params[:within_miles] == "150" %>checked="checked"<% end %>><label>150 mi/241 km</label></li>
+      <li><input type="radio" name="within_miles" value="300"<% if params[:within_miles] == "300" || !params[:within_miles].present? %>checked="checked"<% end %>><label>300 mi/483 km</label></li>
+      <li><input type="radio" name="within_miles" value="600"<% if params[:within_miles] == "600" %>checked="checked"<% end %>><label>600 mi/966 km</label></li>
+      <li><input type="radio" name="within_miles" value="1200"<% if params[:within_miles] == "1200" %>checked="checked"<% end %>><label>1200 mi/1931 km</label></li>
+    </ul>
     <% if website.brand.dealers_include_rental_and_service? %>
     <div style="margin-bottom: 4px;">Include dealers with the following products or service:</div>
       <input type="hidden" name="apply_filters" value="1"/>
