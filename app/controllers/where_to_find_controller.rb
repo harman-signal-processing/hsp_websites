@@ -241,7 +241,9 @@ class WhereToFindController < ApplicationController
   def get_results(brand, origin, opts={})
     results = []
     max = 999
-    within_miles = 150
+    clean_within_miles_param = sanitize_param_value(params[:within_miles]).to_i
+    within_miles_param = (clean_within_miles_param > 0) ? clean_within_miles_param : 300
+    within_miles = within_miles_param
 
     brand.dealers.select{|d| d.distance_from(origin) <= within_miles}.each do |d|
       unless results.length >= max || d.exclude? || filter_out?(brand,d)
