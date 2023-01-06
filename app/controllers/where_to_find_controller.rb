@@ -254,7 +254,7 @@ class WhereToFindController < ApplicationController
 
     if !!origin.try(:state)
       # adding dealers in state to the list
-      brand.dealers.where(state: origin.state).find_each do |d|
+      brand.dealers.where(state: origin.state, country: origin.country).find_each do |d|
         unless d.exclude? || filter_out?(brand,d)
           d.distance = d.distance_from(origin)
           results << d unless results.include?(d)
