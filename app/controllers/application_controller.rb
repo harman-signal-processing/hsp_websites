@@ -131,6 +131,7 @@ private
     # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
     if request.content_type.to_s.match?(/json/i) && request.post?
       BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{request.env["RAW_POST_DATA"]}")
+      log_bad_actors(request.remote_ip, "POSTing JSON")
       raise ActionController::UnpermittedParameters.new ["not allowed"]
     end
 
@@ -140,6 +141,7 @@ private
       # We could raise an exception anytime there's something non-numeric in the page parameter
       #raise ActionController::UnpermittedParameters.new ["not allowed"]
       BadActorLog.create(ip_address: request.remote_ip, reason: "Page param overload", details: "#{request.inspect}\n\n#{params.inspect}")
+      log_bad_actors(request.remote_ip, "Page param overload")
 
       # But I think it's more fun to just strip out non-numeric characters and pretend
       # nothing happened so the hackers don't get any kind of indication of what's going on.
@@ -154,6 +156,7 @@ private
       # checking all params as a string to avoid extra looping
       if has_sqli?(params.to_unsafe_h.flatten.to_s)
         BadActorLog.create(ip_address: request.remote_ip, reason: "SQLi attempt", details: "#{request.inspect}\n\n#{params.inspect}")
+        log_bad_actors(request.remote_ip, "SQLi attempt")
         raise ActionController::UnpermittedParameters.new(["pESop jup"])
       end
 
@@ -161,11 +164,19 @@ private
       if params[:locale].present?
         if params[:locale].to_s.match?(/[^a-zA-Z\-]/)
           BadActorLog.create(ip_address: request.remote_ip, reason: "Overloading locale param", details: "#{request.inspect}\n\n#{params.inspect}")
+          log_bad_actors(request.remote_ip, "Overloading locale param")
           raise ActionController::UnpermittedParameters.new(["Dema chigicha pai"])
         end
       end
     end
 
+  end
+
+  def log_bad_actors(ip_address, reason)
+    logger = ActiveSupport::Logger.new("log/brandsite_bad_actor.log")
+    time = Time.now
+    formatted_datetime = time.strftime('%Y-%m-%d %I:%M:%S %p')
+    logger.error "#{ ip_address } - - [#{formatted_datetime}] \"#{ reason }\" ~~ #{request.inspect}"
   end
 
   # use this as a before_action filter in controllers where big bad hackers are trying to request
