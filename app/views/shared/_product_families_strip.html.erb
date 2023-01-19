@@ -12,7 +12,7 @@
               <% if p %>
                 <%= image_tag p.primary_photo.product_attachment.url(:medium), alt: pf.name, lazy: product_photo_is_png?(p) %>
               <% end %>
-              <h3 class="text-center"><%= pf.name %></h3>
+              <h3 class="text-center"><%= translate_content pf, :name %></h3>
             <% end %>
             <div class="text-center product-family-total-count"
                  data-product-family-id="<%= pf.to_param %>"
