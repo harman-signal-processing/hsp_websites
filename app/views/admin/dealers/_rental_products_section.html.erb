@@ -11,7 +11,7 @@
 	    <ul id="brand_dealer_rental_products" class="sortable_list">
 	      <% rental_product_associations =  Dealer.rental_product_associations(website.brand, @dealer)%>
 	      <% if rental_product_associations.present? %>
-    	    <% rental_product_associations.sort_by(&:position).each do |item| %>
+          <% rental_product_associations.sort_by{ |i| i.position || 0 }.each do |item| %>
     	      <%= render "rental_product_row", item: item, called_from: "dealer" %>
     	    <% end %>
     	 <% end %>
