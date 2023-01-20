@@ -23,9 +23,9 @@ module FeaturesHelper
       img = ""
       if feature.image.present?
         if opt[:format].present? && opt[:format] == "mobile"
-          img = feature.image.url(:medium)
+          img = translate_image_url(feature, :image, size: :medium)
         else
-          img = feature.image.url(:extra_large)
+          img = translate_image_url(feature, :image, size: :extra_large)
         end
         content_class[:style] = "background-image: url(#{img});"
       end
@@ -52,9 +52,9 @@ module FeaturesHelper
       img = ""
       if feature.image.present?
         if opt[:format].present? && opt[:format] == "mobile"
-          img = feature.image.url(:medium)
+          img = translate_image_url(feature, :image, size: :medium)
         else
-          img = feature.image.url(:original)
+          img = translate_image_url(feature, :image, size: :original)
         end
       end
 
@@ -70,7 +70,7 @@ module FeaturesHelper
   def render_split_feature(feature, opt={})
     small_image_panel = content_tag :div,
       class: "hide-for-medium-up show-for-small small-12 columns" do
-      image_tag feature.image.url(:large)
+      translate_image_tag(feature, :image, size: :large)
     end
     image_panel = content_tag :div, raw('&nbsp;'),
       class: "medium-7 hide-for-small columns image-container",
