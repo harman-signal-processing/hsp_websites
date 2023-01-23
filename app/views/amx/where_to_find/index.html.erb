@@ -51,7 +51,7 @@
           <br/>
         </div>
       </div>
-    <% elsif website.brand.has_us_sales_reps? && I18n.locale.to_s.match(/en/i) %>
+    <% elsif website.brand.has_us_sales_reps? && I18n.locale.to_s.match?(/US/i) %>
       <div class="row">
         <div class="medium-8 columns end">
 
@@ -102,7 +102,7 @@
   </div>
 </div>
 
-<% if website.brand.has_online_retailers? %>
+<% if website.brand.has_online_retailers? && (I18n.locale.to_s.match?(/US/) || country_is_usa_or_canada) %>
 	<br/>
   <div class="row">
     <div class="large-12 columns">

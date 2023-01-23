@@ -3,9 +3,6 @@ class WhereToFindController < ApplicationController
   respond_to :html, :json
 
   def index
-    unless I18n.locale.to_s.match(/en/i)
-      redirect_to international_distributors_path and return
-    end
     @page_title = website.brand.name.to_s.match(/duran audio/i) ? t('titles.enquire') : t('titles.where_to_buy')
     @us_regions = website.brand.us_regions_for_website
     @us_region = UsRegion.new

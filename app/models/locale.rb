@@ -70,4 +70,8 @@ class Locale < ApplicationRecord
     @code_parts ||= code.to_s.split("-")
   end
 
+  def self.get_language(locale_code)
+    self.new(code: locale_code.to_s).language_code
+  end
+
 end

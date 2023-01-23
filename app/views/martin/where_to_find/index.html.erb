@@ -90,7 +90,7 @@
 </div>
 
 
-<% if website.brand.has_online_retailers? %>
+<% if website.brand.has_online_retailers? && (I18n.locale.to_s.match?(/US/) || country_is_usa_or_canada) %>
 	<br/>
   <div class="row">
     <div class="large-12 columns">

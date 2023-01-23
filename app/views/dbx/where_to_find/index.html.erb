@@ -36,7 +36,7 @@
           <%= submit_tag t('find_us_dealers'), class: "postfix button" %>
         </div>
       </div>
-      <% if website.brand.has_us_sales_reps? %>
+      <% if website.brand.has_us_sales_reps? && I18n.locale.to_s.match?(/US/) %>
         <i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
       <% end %>
     </form>
@@ -66,6 +66,7 @@
   <div class="large-4 end columns">&nbsp;</div>
 </div>
 
+<% if country_is_usa_or_canada || I18n.locale.to_s.match?(/US/) %>
 <br/>
 <div class="row">
   <div class="large-12 columns">
@@ -84,6 +85,7 @@
     </ul>
   </div>
 </div>
+<% end %>
 
 <%= content_for :extra_js do %>
   <script>

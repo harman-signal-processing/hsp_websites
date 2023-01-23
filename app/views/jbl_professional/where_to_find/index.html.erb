@@ -44,7 +44,7 @@
             </div>
           </div>
           <%= render_partial "where_to_find/filters" %>
-          <% if website.brand.has_us_sales_reps? %>
+          <% if website.brand.has_us_sales_reps? && I18n.locale.to_s.match?(/US/) %>
             <i style="font-size: 80%">Or, <%= link_to "find a sales rep", us_reps_path %> to become a dealer.</i>
           <% end %>
           <% if website.has_vertec_vtx_signup %>
@@ -54,7 +54,7 @@
           <br/>
         </div>
       </div>
-    <% elsif website.brand.has_us_sales_reps? %>
+    <% elsif website.brand.has_us_sales_reps? && I18n.locale.to_s.match?(/US/) %>
       <div class="row">
         <div class="medium-6 columns end">
 
@@ -101,16 +101,13 @@
         <%= raw website.where_to_buy_blurb %>
       </div>
     <% end %>
-    <% if !!!(website.brand.name.to_s.match(/digitech|lexicon|dod/i)) %>
-      <%= render_partial "shared/rental" %>
-      <%= render_partial "shared/consultant_portal" %>
-
-    <% end %>
+    <%= render_partial "shared/rental" %>
+    <%= render_partial "shared/consultant_portal" %>
   </div>
 </div>
 
-<% if website.brand.has_online_retailers? && country_is_usa_or_canada %>
-  <%= render_partial 'where_to_find/retailers' %>
+<% if website.brand.has_online_retailers? %>
+  <%= render_partial 'where_to_find/online_retailers' %>
 <% end %>
 
 <%= content_for :extra_js do %>
