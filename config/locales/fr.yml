@@ -1,0 +1,515 @@
+fr:
+  about: à propos de
+  add_to_cart: achetez maintenant
+  address: adresse
+  all: tout
+  all_rights_reserved: Tous droits réservés.
+  artists: artistes
+  authorized_service_partner_assets_url: Ressources des partenaires de service agréés
+  back: retour
+  back_to: revenir à
+  back_to_artists: Revenir aux artistes
+  back_to_news_list: Revenir à la liste des news
+  billing_address: Adresse de facturation
+  browse_products: Parcourir les produits
+  buy: acheter
+  buy_it_now: Buy It Now
+  cancel: annuler
+  check_it_out: allez voir
+  check_our_software_page: Visitez notre page de téléchargement des logiciels.
+  close: fermer
+  community: communauté
+  company: société
+  compare: comparer
+  contact_consultant: Assistance aux consultants
+  contact_tech_support: Contacter l’assistance technique
+  contact_us: Nous contacter
+  country: Pays
+  current_news: news récentes
+  dealer_distance: miles
+  dealer_login: accès revendeur
+  discontinued: arrêté
+  discontinued_products: Produits arrêtés
+  discontinued_products_downloads: Téléchargement pour produits arrêtés
+  download: télécharger
+  download_promotion_form: Téléchargez un formulaire de promotion
+  downloads: téléchargements
+  email: email
+  enquire: se renseigner
+  events: événements
+  events_around_the_world: Événements dans le monde entier
+  explore: explorez
+  find_a_dealer: Trouver un revendeur
+  find_a_dealer_near_you: trouvez un revendeur près de chez vous
+  find_dealers: trouver dans les environs
+  find_my_serial_number: Trouver mon numéro de série
+  find_us_dealers: trouver dans les environs
+  firmware: firmware
+  firmware_downloads: firmware
+  forum: forum
+  get_it: Obtenir
+  get_started_not_registered: Numéro de série introuvable !
+  global_dealers: Revendeurs dans le monde entier
+  global_search_location: Saisissez une ville ou un code postal pour de meilleurs résultats de recherche
+  go: aller
+  go_to_top: haut de page
+  harman: HARMAN
+  have_a_question: Vous avez une question ?
+  home: page d’accueil
+  images: Images
+  installations: installations
+  international_distributors: dans le monde
+  jump_to_a_download_type: "Choisir un type de téléchargement :"
+  knowledgebase: Base de connaissances
+  language_region: "Langue/Région"
+  last_updated: Dernière mise à jour
+  learn_more: en savoir plus
+  learning_sessions: Sessions de formation en ligne
+  legacy_products: Anciens produits
+  looking_for_software: Recherche de logiciel/firmware ?
+  mac_gui: "Interface graphique/logiciel bibliothécaire pour Mac"
+  media: Médias
+  message: Message
+  mixing_with_professionals: Mixer avec des professionnels
+  more: en savoir plus
+  more_details: plus de détails
+  more_info: plus d’informations
+  name: nom
+  near_zipcode: "proche de %{zip}"
+  new_products: Nouveaux produits HARMAN
+  news: news
+  news_signup: Rejoignez notre liste de diffusion
+  no: non
+  older: plus ancien...
+  on_tour_with: en tournée avec
+  online_dealers_us: Revendeurs en ligne (US)
+  other: autres
+  our_story: notre histoire
+  outlet_store: "magasin d'usine"
+  parts_list_url: Listes de pièces détachées
+  platform: plate-forme
+  plugin: "Plug-in"
+  privacy_policy: Politique de confidentialité
+  product_details: Informations sur le produit
+  product_registration: Enregistrement du produit
+  product_reviews: évaluations des produits
+  product_selector: Sélecteur de produit
+  product_support: assistance
+  product_types: types de produit
+  products: produits
+  products_used_by: "Produits utilisés par %{artist}"
+  professionals: professionnels
+  promotions: promotions
+  quality: qualité
+  regarding: à propos de
+  register_your_product: "Enregistrez votre %{product}"
+  related_products: Produits associés
+  rental_companies: Loueurs
+  resource_downloads: ressources
+  rohs: conformité RoHS
+  sda: SDA
+  search: recherche
+  search_again: nouvelle recherche
+  select_your_country: choisissez votre pays
+  shipping_address: Adresse de livraison
+  sitemap: plan du site
+  social_media: Réseaux sociaux
+  software: logiciel
+  software_downloads: logiciel
+  sound_community: communauté du son
+  spare_part_sales: Vente de pièces détachées
+  store: magasin
+  subject: Objet
+  submit: envoyer
+  submit_warranty_registration: envoyer le formulaire
+  subscribe_via_rss: "S'abonner via RSS"
+  support: Assistance
+  support_contact_form: formulaire de contact de l’assistance
+  support_services: Services d’assistance
+  tech_support: Assistance technique
+  technical_forum: Forum technique
+  technology: technologie
+  terms_of_use: "conditions d’utilisation"
+  touring_with: tournée avec
+  training: formation
+  training_courses: Cours de formation
+  troubleshooting: Astuces de dépannage et FAQ
+  anytime_support: Centre d’aide 24/7
+  updater: mise à jour
+  us_dealers: Revendeurs États-Unis
+  us_zip_code: Ville et état aux États-Unis ou code zip
+  user_forum: forum utilisateur
+  user_groups: groupes d’utilisateur
+  users_around_the_world: Utilisateurs dans le monde
+  uses: utilisations
+  valid: valide
+  version: version
+  videos: Vidéos
+  view_full_line: voir toute la gamme
+  view_this_page_in_another_language: Voir cette page dans une autre langue
+  visit: visitez
+  visit_the: visitez le/la
+  warranty: Garantie
+  warranty_policy: contrat de garantie
+  warranty_registration: enregistrement du produit
+  whats_on: "À l’affiche"
+  where_to_buy: où acheter
+  white_papers: Livres blancs
+  windows_gui: "GUI/Librarian Windows"
+  yes: oui
+  your_name: Votre nom
+  zip_all: "zip (complet)"
+
+  nav:
+    about: à propos de
+    about_our_solutions: À propos de nos solutions
+    amplifiers: amplificateurs
+    av_and_it: AV et IT
+    av_basics: "Bases de l’AV"
+    avb: AVB
+    blu_link: BLU link
+    buying_av: Acheter du matériel AV
+    case_studies: Études de cas
+    cobranet: CobraNet
+    collaboration: Collaboration
+    consultant_support: Assistance pour consultant
+    contact_us: Nous contacter
+    crown_around_the_world: crown dans le monde
+    dante: Dante
+    documentation_downloads: Téléchargement des documentations
+    downloads: Téléchargements
+    higher_education: Enseignement supérieur
+    k12_education: Enseignement primaire et secondaire
+    learn: Découvrir
+    learning_spaces: Espaces de formation en ligne
+    markets: Marchés
+    market_applications: Applications
+    media: Médias
+    meeting_rooms: Salles de réunion
+    microphones: microphones
+    network_audio: audio en réseau
+    our_story: notre histoire
+    product_archive: Archives produits
+    product_registration: Enregistrement du produit
+    quality: Assurance qualité
+    safety_documents: Documents de sécurité
+    compliance: Conformité
+    secure_av: AV sécurisé
+    security: Sécurité
+    service: Service
+    solution_guides: Guides des solutions
+    software: Logiciel
+    support_login: "Connexion à l'assistance"
+    sustainability: Durabilité
+    system_design_tools: Outils de conception de système
+    technology: technologie
+    video_conferencing: Visioconférence
+    videos: Vidéos
+
+  language:
+      en: English
+      es: Spanish
+      fr: Français
+      de: German
+      zh: Chinese
+
+  document_type:
+      application_guide: Guide d’applications
+      brochure: Brochure
+      cad_drawing_front: Dessin CAD avant
+      cad_drawing_rear: Dessin CAD arrière
+      cad_files: Fichiers CAD
+      calibration_procedure: Procédure de calibration
+      cut_sheet: Gabarit de découpe
+      install_guide: Guide d’installation
+      other: Autres documents
+      owners_manual: "Manuel de l’utilisateur"
+      parts_list: Liste des pièces
+      photo: Photo
+      preset_list: Liste de préréglages
+      quick_reference_guide: Guide de référence rapide
+      quickstart_guide: Guide de démarrage
+      safety_sheet: Document de sécurité et de conformité
+      schematic: Synoptique
+      service_manual: Service Manual
+      spec_sheet: Manuel d’entretien
+      voip_reference_guide: Guide de référence VoIP
+
+  resource_type:
+      3rd_party_resource: Ressources pour produits tiers
+      application_guide: Guide d’applications
+      brochure: Brochure
+      custom_controls: Contrôles personnalisés
+      data_sheet: Gabarit de découpe
+      image: Image
+      information_document: Document d’information
+      install_guide: Guide d’installation
+      launch_poster: Affiche de lancement
+      license_agreement: Contrat de licence
+      owner_s_manuals: "Manuel de l’utilisateur"
+      readme: Lisez-moi
+      speaker_tuning: Calage d’enceinte
+      tech_note: Remarque technique
+      training_resource: Ressources de formation
+      wallpaper: Fond d’écran
+      whitepaper: Livre blancs
+
+  product_page:
+      artists: Artistes
+      audio_demos: Démos audio
+      compare_selected_products: Comparer les produits sélectionnés
+      description: Présentation globale
+      details: Plus de détails
+      documentation: Documentation
+      downloads: Téléchargements
+      downloads_and_docs: Téléchargements
+      effects: Effets
+      extended_description: plus de détails
+      faqs: FAQ
+      features: Caractéristiques
+      gallery: Galerie
+      labels:
+          accessories: Accessoires
+          effects: Effets
+          features: Caractéristiques
+      larger_images: Grandes images
+      news: News
+      news_and_reviews: "News et bancs d’essai"
+      parats: Pièces détachées
+      parts_service: "Pièces détachées et réparations"
+      pedals: Pédales
+      photometrics: Photométrie
+      rebate_forms: Formulaires de remise
+      review: Banc d’essai
+      reviews: Bancs d’essai
+      select_products_to_compare: Sélectionnez 2 à 6 produits à comparer
+      solutions: Recommandé pour
+      special_offer: Offre spéciale
+      specifications: Caractéristiques techniques
+      specs_manuals_etc: "caractéristiques techniques, manuels, bancs d’essai, etc..."
+      support: "Assistance/FAQ"
+      tones: Bibliothèque de signaux de test
+      training_modules: Modules de formation
+      videos: Vidéos
+
+  product_support_page:
+      detailed_problem_description: Description détaillée du problème
+      for_service_outside_the_us: "Pour les demandes d’assistance en dehors des États-Unis,"
+      please_contact_your_distributor: "veuillez contacter votre distributeur %{brand} local."
+
+  solutions_page:
+    explore_more: En savoir plus
+    explore_solutions: explorer les solutions
+    harman_family: La famille HARMAN de marques et de produits
+    harman_pro_solutions: Solutions HARMAN Professional
+    vertical_market_solutions: "Solutions %{vertical_market}"
+
+  titles:
+      about_us: "À propos de %{brand}"
+      archived_news: News archivées
+      artists: Artistes
+      blog: "Blog %{brand}"
+      buy_direct: "Acheter directement %{brand}"
+      buy_now: Acheter tout de suite
+      buy_online: "Cliquez sur le logo d'un détaillant ci-dessous pour acheter en ligne :"
+      compliance: "Documents de conformité et de sécurité"
+      connect_with_us: Connectez-vous avec nous
+      contact: Contacts
+      contact_us: Nous contacter
+      current_promotions: Promotions actuelles
+      dealer_search_results: Résultats de recherche de revendeur
+      enquire: Se renseigner auprès des partenaires de distribution
+      events: "Événements %{brand}"
+      facebook_page: "Page% Facebook {brand}"
+      factory_service: "Formulaire d'autorisation de retour/réparation en usine"
+      featured_artists: Artistes présentés
+      international_distributors: Distributeurs mondiaux
+      locate_us_service_center: Localisez votre centre d’assistance le plus proche (États-Unis)
+      mailing_address: Adresse postale
+      more_resources: Plus de ressources
+      news: "Nouvelles %{brand}"
+      part_request: Demande de pièces détachées
+      pop: Demander une démo pratique
+      product_comparison: Comparaison de produits
+      product_families: Produits
+      product_reviews: Évaluations de produit
+      product_support: Assistance produit
+      products: Tous les produits
+      products_on_tour: Produits de tournée
+      promotions: Promotions
+      related_products: Produits associés
+      replacement_products: Produits de substitution
+      rma_request: Renvoyer la demande d’autorisation
+      rohs: Directive RoHS
+      safety_and_certifications: "Sécurité et certifications"
+      search_results: Résultats de recherche
+      service_centers: Centres d’assistance
+      support: Assistance
+      warranty_registration: Enregistrement du produit
+      where_to_buy: Où acheter
+      youtube_channel: "Chaîne %{brand}"
+
+  errors:
+      geocoding: "Il y a eu une erreur de géocodage dans l'adresse/code postal fourni(e)."
+      no_dealers_found: "Désolé, aucun revendeur n'a été trouvé près de %{zip}"
+      no_service_centers_found: "Désolé, aucun centre d’assistance n'a été trouvé près de %{zip}"
+
+  meta:
+      description:
+          artists: "Découvrez comment les musiciens tirent le meilleur parti des produits %{brand}."
+          featured_artists: "Les plus grands musiciens utilisent les produits %{brand}."
+          products_on_tour: Découvrez quels produits sont actuellement en tournée avec quels artistes.
+          support: "Ressources d'assistance pour vos produits %{brand}, y compris les FAQ, les manuels, l'enregistrement des produits et les centres de d’assistance."
+          warranty_registration: "Enregistrez votre produit %{brand}"
+          where_to_buc: "Où acheter les produits %{brand}"
+
+      keywords:
+          where_to_buy: acquérir, acheter, revendeurs
+
+  blurbs:
+      captcha_explanation: "Veuillez répondre à cette question afin que nous puissions vérifier que vous n'êtes pas un robot. (Il n'y a qu'une seule réponse correcte)"
+      contact_form_thankyou: "Merci de nous avoir contactés. Nous reviendrons vers vous sous peu."
+      fixtures_request_thankyou: "Merci de nous avoir contactés. Nous répondrons à votre demande et vous recontacterons dans les meilleurs délais."
+      amx_itg_module_request_thankyou: "Merci de nous avoir contactés. Nous répondrons à votre demande de nouveau module ITG et vous recontacterons dans les meilleurs délais."
+      amx_partner_interest_form_thankyou: "Merci de nous avoir contactés. Nous répondrons à votre demande AMX Partner Interest et vous recontacterons dans les meilleurs délais."
+      international_distributors: "Les distributeurs internationaux aident à la vente des produits, à l'assistance technique, aux demandes de manuels, aux pièces de rechange et au service de garantie. La garantie n'est valable que dans le pays d'achat."
+      parts_request_thankyou: "Votre message a été reçu !  Nous répondrons à votre email dans les prochaines 24 heures."
+      product_support: "Consultez les documents d'assistance pour votre produit en sélectionnant le numéro de modèle ci-dessous :"
+      rma_request_thankyou: "Votre message a été reçu !  Nous répondrons à votre email dans les prochaines 24 heures."
+      rohs_intro: "En ce qui concerne la directive RoHS 2002 / 95 / CE du Parlement et du Conseil européen du 27 janvier 2003 relative à la limitation de l'utilisation de certaines substances dangereuses dans les équipements électriques et électroniques, nous déclarons qu'à notre connaissance, tous les produits énumérés ci-dessous répondent et satisfont à toutes les exigences de la directive susmentionnée."
+      software_downloads: "Trouvez les derniers pilotes et logiciels pour les produits %{brand}"
+      subscribe: "Inscrivez-vous pour recevoir des messages réguliers de %{brand} concernant les mises à jour des produits et les promotions spéciales."
+      use_date_code: "Certains de nos produits n’ont pas de numéro de série. Dans ce cas, saisissez le code de date figurant sur la boîte du produit ou à l'arrière de l'appareil."
+      warranty_comments: "Remarque : si vous avez une question ou un problème technique, veuillez le soumettre via notre %{support_form_link}."
+      warranty_registration: "Protégez votre investissement en enregistrant vos produits %{brand} pour rester au courant des dernières nouvelles et autres développements."
+      warranty_registration_success: "Merci d'avoir enregistré votre produit. Veillez à conserver votre ticket de caisse daté comme preuve d'achat."
+
+  subjects:
+      dealer_questions: Questions des revendeurs
+      general_questions: Question générale/autre
+      manual_request: Demande de manuel
+      order_status: Statut de commande (revendeurs uniquement)
+      product_parts: Pièces détachées pour un produit
+      product_question: Question sur un produit
+      product_repair: Réparation de produit
+      select_a_subject: Choisissez un sujet
+      technical_support: Assistance technique
+      web_comments: Commentaires internet
+  devise:
+      artist_registrations:
+          artist:
+              destroyed: 'À bientôt ! Votre compte a été supprimé avec succès. Nous espérons vous revoir bientôt.'
+              inactive_signed_up: "Merci ! Un email de confirmation vous sera envoyé. Veuillez vous référer aux instructions contenues dans l’email pour continuer."
+              signed_up: 'Bienvenue ! Votre inscription est effective.'
+              signed_up_but_inactive: "Votre inscription est effective. Cependant, nous n'avons pas pu vous connecter car votre compte n'est pas encore activé."
+              signed_up_but_locked: "Votre inscription est effective. Cependant, nous n'avons pas pu vous connecter car votre compte est verrouillé."
+              signed_up_but_unconfirmed: 'Un message contenant un lien de confirmation a été envoyé à votre adresse de email. Veuillez ouvrir le lien pour activer votre compte.'
+              update_needs_confirmation: "vous avez mis à jour votre compte avec succès, mais nous devons vérifier votre nouvelle adresse de email. Veuillez relever vos emails et cliquer sur le lien de confirmation pour finaliser la confirmation de votre nouvelle adresse de email."
+              updated: 'Vous avez bien mis à jour votre compte.'
+
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d, %Y"
+      long: "%B %d, %Y"
+      month_day: "%b %d"
+      blog_month_day: "%B %d"
+      mmddyy: "%m/%d/%y"
+      mmddyyyy: "%m/%d/%Y"
+
+  time:
+    formats:
+      log: "%b %d, %Y, %I:%M %p"
+  activerecord:
+    models:
+      artist: Artiste
+      artist_tier: Catégorie d’artiste
+      brand: Marque
+      dealer: Revendeur
+      distributor: Distributeur
+      download_registration: Enregistrement pour téléchargement
+      effect: Effet
+      effect_type: Type d’effet
+      events: Events
+      faq: FAQ
+      market_segment: Marché vertical
+      marketing_attachment: Pièce jointe
+      marketing_project: Projet
+      marketing_project_type: Modèle de projet
+      marketing_task: Tâche
+      news: News
+      online_retailer: Distributeur en ligne
+      page: Page
+      product: Produit
+      promotion: Promotion
+      registered_download: Téléchargement autorisé
+      service_center: Centre d’assistance
+      site_element: Ressources du site
+      software: Logiciel
+      specification: Caractéristiques techniques
+      warranty_registration: Enregistrement du produit
+      website: Site internet
+
+    attributes:
+      warranty_registration:
+        address1: Adresse
+        city: Ville
+        comments: Commentaires
+        country: Pays
+        email: Email
+        first_name: Prénom
+        last_name: Nom
+        phone: Téléphone
+        product_id: Produit
+        purchase_price: Prix d’achat
+        purchased_from: Distributeur agréé chez qui le produit a été acheté
+        purchased_on: Date d’achat
+        serial_number: Numéro de série
+        state: État
+        title: Civilité
+        zip: Code postal
+      contact_message:
+        account_number: Numéro de compte
+        billing_address: Adresse
+        billing_city: Ville
+        billing_state: État
+        billing_zip: Code postal
+        board_location: Emplacement du circuit imprimé
+        company: Société
+        fax: Fax
+        operating_system: Système d’exploitation
+        part_number: Référence de pièce détachée HARMAN
+        phone: Téléphone
+        product: Produit
+        product_serial_number: Numéro de série du produit
+        product_sku: Numéro de SKU
+        purchased_on: Date d’achat
+        shipping_address: Adresse
+        shipping_city: Ville
+        shipping_country: Pays
+        shipping_state: État
+        shipping_zip: Code postal
+        warranty: "Sous garantie ?"
+      download_registration:
+          code_you_received: Numéro de série unique
+          serial_number: Numéro de série du produit
+
+  jbl_commercial:
+    commercial_solutions_series: Série Solutions commerciales
+    cs_series: CS Series
+
+  crown:
+    around_the_world_blurb: Découvrez les concerts, les stades et tout ce que Crown propose
+    crown_around_the_world: Crown dans le monde
+    read_about_the_exciting: "Cliquez ci-dessous pour tout savoir sur ce que nous faisons de passionnant !"
+
+  search_page:
+    artist: Artiste
+    cut_sheet: Gabarit de découpe
+    news: News
+    other: Autre
+    page: Page d’accueil
+    product: Produit
+    productfamily: Famille de produit
+    productreview: Évaluation de produit
+    software: Logiciel

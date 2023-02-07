@@ -51,6 +51,7 @@ gem 'daemons'
 gem 'httparty'
 gem 'devise'
 gem 'devise-async'
+gem 'devise-i18n'
 gem 'cancancan'
 gem 'gravtastic'
 gem "recaptcha", require: "recaptcha/rails"
