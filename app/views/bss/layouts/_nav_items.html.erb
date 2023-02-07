@@ -7,7 +7,7 @@
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
         <%= product_family_nav_links(product_family, depth: 2) %>
 			<% end %>
-			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
+			<li><%= link_to t('discontinued_products').titleize, discontinued_products_path %></li>
 		</ul>
 	</li>
 

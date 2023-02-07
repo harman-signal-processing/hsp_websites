@@ -1,6 +1,6 @@
 <% set_meta_tags title: "Discontinued Products",
 				 reverse: true %>
-<h1 class="page_title">Discontinued Products</h1>
+<h1 class="page_title"><%= t('discontinued_products').titleize %></h1>
 <p>&nbsp;</p>
 
 <% displayed_products = [] %>
@@ -19,8 +19,8 @@
             <ul>
               <% product_group.each do |product| %>
                 <% if product.is_a?(Product) %>
-                  <li><%= link_to product.name, product %>
-                    <%= product.short_description %></li>
+                  <li><%= link_to translate_content(product, :name), product %>
+                    <%= translate_content(product, :short_description) %></li>
                 <% end %>
               <% end %>
             </ul>
@@ -47,8 +47,8 @@
                 <ul>
                   <% product_group.each do |product| %>
                     <% if product.is_a?(Product) %>
-                      <li><%= link_to product.name, product %>
-                        <%= product.short_description %></li>
+                      <li><%= link_to translate_content(product, :name), product %>
+                        <%= translate_content(product, :short_description) %></li>
                     <% end %>
                   <% end %>
                 </ul>
@@ -68,7 +68,7 @@
 <h2>Other Discontinued Products</h2>
 <ul>
 	<% other_products.each do |product| %>
-	<li><%= link_to product.name, product %></li>
+	<li><%= link_to translate_content(product, :name), product %></li>
 	<% end %>
 </ul>
 <% end %>
