@@ -68,7 +68,7 @@ gem "simple_form", ">= 5.0.0"
 gem 'country_select'
 gem 'chosen-rails'
 gem 'language_list'
-gem 'ransack'
+gem 'ransack', "< 4.0.0" # 4.0.0 requires whitelisting params to search by
 gem "dalli"
 gem "rabl"
 gem "money"
