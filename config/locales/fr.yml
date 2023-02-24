@@ -94,7 +94,7 @@ fr:
   product_registration: Enregistrement du produit
   product_reviews: évaluations des produits
   product_selector: Sélecteur de produit
-  product_support: assistance
+  product_support: Support
   product_types: types de produit
   products: produits
   products_used_by: "Produits utilisés par %{artist}"
@@ -161,7 +161,7 @@ fr:
   zip_all: "zip (complet)"
 
   nav:
-    about: à propos de
+    about: À propos de
     about_our_solutions: À propos de nos solutions
     amplifiers: amplificateurs
     av_and_it: AV et IT
