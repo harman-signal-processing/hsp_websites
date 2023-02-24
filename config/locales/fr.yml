@@ -333,7 +333,7 @@ fr:
       product_comparison: Comparaison de produits
       product_families: Produits
       product_reviews: Évaluations de produit
-      product_support: Assistance produit
+      product_support: Support produit
       products: Tous les produits
       products_on_tour: Produits de tournée
       promotions: Promotions
@@ -344,7 +344,7 @@ fr:
       safety_and_certifications: "Sécurité et certifications"
       search_results: Résultats de recherche
       service_centers: Centres d’assistance
-      support: Assistance
+      support: Support
       warranty_registration: Enregistrement du produit
       where_to_buy: Où acheter
       youtube_channel: "Chaîne %{brand}"
@@ -374,7 +374,7 @@ fr:
       amx_partner_interest_form_thankyou: "Merci de nous avoir contactés. Nous répondrons à votre demande AMX Partner Interest et vous recontacterons dans les meilleurs délais."
       international_distributors: "Les distributeurs internationaux aident à la vente des produits, à l'assistance technique, aux demandes de manuels, aux pièces de rechange et au service de garantie. La garantie n'est valable que dans le pays d'achat."
       parts_request_thankyou: "Votre message a été reçu !  Nous répondrons à votre email dans les prochaines 24 heures."
-      product_support: "Consultez les documents d'assistance pour votre produit en sélectionnant le numéro de modèle ci-dessous :"
+      product_support: "Consultez les documents de support pour votre produit en sélectionnant le numéro de modèle ci-dessous :"
       rma_request_thankyou: "Votre message a été reçu !  Nous répondrons à votre email dans les prochaines 24 heures."
       rohs_intro: "En ce qui concerne la directive RoHS 2002 / 95 / CE du Parlement et du Conseil européen du 27 janvier 2003 relative à la limitation de l'utilisation de certaines substances dangereuses dans les équipements électriques et électroniques, nous déclarons qu'à notre connaissance, tous les produits énumérés ci-dessous répondent et satisfont à toutes les exigences de la directive susmentionnée."
       software_downloads: "Trouvez les derniers pilotes et logiciels pour les produits %{brand}"
