@@ -10,16 +10,16 @@
       <% if p %>
         <%= image_tag p.primary_photo.product_attachment.url(:medium),
           lazy: false,
-          alt: product_family.name %>
+          alt: translate_content(product_family, :name) %>
       <% end %>
       <% if product_family.root? %>
-        <h3 class="text-center"><%= product_family.name %>
+        <h3 class="text-center"><%= translate_content(product_family, :name) %>
         <% if top_level_families.length == 1 %>
-          Product Selector
+          <%=t "product_selector".titleize %>
         <% end %>
         </h3>
       <% else %>
-        <div class="text-center"><%= product_family.name %></div>
+        <div class="text-center"><%= translate_content(product_family, :name) %></div>
       <% end %>
     <% end %>
   <% end %>
