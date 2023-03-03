@@ -1,0 +1,26 @@
+<% dashes ||= 0 %>
+<tr>
+  <td>
+    <span style="<%='font-weight: bold' if record.respond_to?(:parent) && record.parent.blank? %>">
+      <% dashes.times do %>- <% end %>
+      <%= link_to_translate(record, @target_locale) %>
+    </span>
+    <% if record.respond_to?(:locales) && !(record.locales(website).include?(@target_locale)) %>
+      <span data-tooltip aria-haspopup="true" class="has-tip"
+        title="This item is not configured to appear on the site for the '<%= @target_locale %>' locale. You can provide translations, but you will need to contact an administrator to have it appear.">
+        <%= fa_icon "info-circle" %>
+      </span>
+    <% end %>
+  </td>
+  <% if record.respond_to?(:post_on) %>
+    <td><%=l record.post_on %></td>
+  <% end %>
+  <td class="text-center">
+    <%= translation_summary_for(record, @target_locale) %>
+  </td>
+</tr>
+<% if record.respond_to?(:children) %>
+  <% @records.where(parent_id: record.id).each do |subrecord| %>
+    <%= render_partial 'list_row', record: subrecord, dashes: (dashes + 1) %>
+  <% end %>
+<% end %>

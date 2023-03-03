@@ -1,5 +1,19 @@
 module Admin::ContentTranslationsHelper
 
+  # Need to know what "name" to show for the given record which
+  # could have a :name, :title, or :something_else
+  def link_to_translate(object, locale=I18n.default_locale)
+    # ct = ContentTranslation.where(content_type: object.class.to_s,
+    #       content_id: object.id,
+    #       content_method: "hmmm",
+    #       locale: locale)
+    link_to(name_for(object), combined_admin_content_translations_path(
+                    locale: I18n.locale,
+                    target_locale: locale,
+                    type: object.class.to_s.underscore,
+                    id: object.id) )
+  end
+
   def fields_translated_for(item, target_locale)
     ContentTranslation.where(
       content_type: item.class,

@@ -1,6 +1,27 @@
 <%= content_for :dashboard do %>
+  <% if @record.respond_to?(:locales) && !(@record.locales(website).include?(@target_locale)) %>
+    <div class="alert-box info">
+      <%= fa_icon "info-circle" %> &nbsp;
+      This item is not configured to appear on the site for the '<%= @target_locale %>' locale. You can provide
+      translations, but you will need to
+      <% if can?(:manage, @record) %>
+        <%= link_to [:admin, @record], target: "_blank" do %>
+          edit the locales for this <%= @record.class %>
+        <% end %>
+      <% else %>
+        contact an administrator
+      <% end %>
+      in order for it to appear on the '<%= @target_locale %>' site.
+    </div>
+  <% end %>
+
   <h1>"<%= @target_locale %>" translation for <%= @model_class.titleize %>:</h1>
-  <h3 class="subheader"><%= name_for(@record) %></h3>
+  <h3 class="subheader">
+    <% if @record.respond_to?(:parent) && !@record.root? %>
+      <%= parent_names_for(@record).join(" :: ") %> ::
+    <% end %>
+    <%= name_for(@record) %>
+  </h3>
 
   <% if @content_translations.length > 0 || @media_translations.length > 0 %>
 
