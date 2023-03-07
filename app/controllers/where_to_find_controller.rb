@@ -67,7 +67,7 @@ class WhereToFindController < ApplicationController
 
   def vtx_owners_list
     Rails.cache.fetch("jbl_vtx_owners", expires_in: 6.hours) do
-      vtx_dealers = website.brand.dealers
+      vtx_dealers = website.brand.dealers.where.not(exclude: 1)
       vtx_dealers.reject{|item| !item.has_rental_products_for(website.brand, "vt") }.sort_by{|item| [item.region, item.country, item.name] }
     end
   end
