@@ -26,6 +26,7 @@ class MainController < ApplicationController
     @featured_products = website.featured_products
     @featured_video   = website.featured_video
     @current_promotions = I18n.locale.match(/en|us/i) ? Promotion.current_for_website(website) : []
+    @leftover_slides = []
 
     respond_to do |format|
       format.html {

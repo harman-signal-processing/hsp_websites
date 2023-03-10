@@ -1,0 +1,8 @@
+<% if @leftover_slides.size > 0 %>
+
+  <div class="homepage_block">
+    <%= orbit_slideshow(slides: @leftover_slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+  </div>
+
+<% end %>
+
