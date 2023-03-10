@@ -1,4 +1,4 @@
-<%= cache ["slideshow", website.brand, I18n.locale] do %>
+<%#= cache ["slideshow", website.brand, I18n.locale] do %>
   <% # Quick and easy way to test how videos look without uploading them. %>
   <% if Rails.env.development? || Rails.env.staging? %>
     <% tmp_file = ENV["#{website.folder}_test_vid"] %>
@@ -42,4 +42,4 @@
     <% slides = Setting.slides(website, limit: 5) %>
     <%= video_background_with_features(slides, tagline: true, hide_for_small: true, pattern_overlay: true) %>
   <% end %>
-<% end %>
+<%# end %>
