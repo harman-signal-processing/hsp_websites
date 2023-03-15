@@ -66,7 +66,7 @@ gem 'therubyrhino'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 5.0.0"
 gem 'country_select'
-gem 'chosen-rails'
+gem 'chosen-rails', git: 'https://github.com/adamtao/chosen-rails'
 gem 'language_list'
 gem 'ransack', "< 4.0.0" # 4.0.0 requires whitelisting params to search by
 gem "dalli"
