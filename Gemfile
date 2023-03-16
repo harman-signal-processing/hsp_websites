@@ -37,7 +37,7 @@ gem 'asset_sync'
 gem "kt-paperclip", ">= 7.0"
 gem 'kt-paperclip-compression'
 gem 'kt-delayed_paperclip'
-gem 's3_direct_upload'
+gem 's3_direct_upload', git: 'https://github.com/adamtao/s3_direct_upload'
 gem 'meta-tags'
 gem 'tinymce-rails',
   git: 'https://github.com/spohlenz/tinymce-rails.git',
