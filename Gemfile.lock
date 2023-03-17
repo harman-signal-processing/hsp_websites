@@ -637,6 +637,9 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sqlite3 (1.6.1)
+      mini_portile2 (~> 2.8.0)
+    sqlite3 (1.6.1-x86_64-linux)
     sshkit (1.21.4)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -799,6 +802,7 @@ DEPENDENCIES
   spring
   sprockets
   sprockets-rails
+  sqlite3
   sshkit
   strscan (= 3.0.4)
   therubyrhino
