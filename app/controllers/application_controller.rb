@@ -516,20 +516,18 @@ end
 # it tends to screw up titles in other languages. Here we can do
 # different titleizeing based on the locale.
 #
-# One flaw is we can't pass 'keep_id_suffix' to the original
-# aliased method. We rarely, if ever, use that option anyway.
-#
 # The default approach for all non-English languages is to do
 # nothing, but we may want to use "upcase_first()" instead.
 #
 module ActiveSupport
 	module Inflector
-		alias_method :original_titleize, :titleize
 
 		def titleize(word, keep_id_suffix: false)
 			case I18n.locale.to_s
         when /^en/i
-					original_titleize(word)
+          humanize(underscore(word), keep_id_suffix: keep_id_suffix).gsub(/\b(?<!\w['’`()])[a-z]/) do |match|
+            match.capitalize
+          end
         when /^fr/i
           upcase_first(word)
 			else
