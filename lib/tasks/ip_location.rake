@@ -9,6 +9,8 @@ namespace :ip do
     # BEGIN TASK METHOD DEFINITIONS
     
     def get_ip_info(ip)
+      # remove any potential comma at the end of the ip
+      ip = ip.gsub(",","")
       remote_base_url = "http://ip-api.com/json/"
       url = "#{remote_base_url}#{ip}"
       filename = "/home/ubuntu/environment/tmp/_ip_info/ip_info.txt"

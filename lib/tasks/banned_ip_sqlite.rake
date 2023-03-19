@@ -34,6 +34,8 @@ namespace :banned_ips do
     # BEGIN TASK METHOD DEFINITIONS
     
     def get_ip_info(ip)
+      # remove any potential comma at the end of the ip
+      ip = ip.gsub(",","")
       remote_base_url = "http://ip-api.com/json/"
       url = "#{remote_base_url}#{ip}"
       filename = "/home/ubuntu/environment/tmp/_ip_info/ip_info.txt"
@@ -261,7 +263,8 @@ namespace :banned_ips do
     error_message = match[:error_message]
     
   else
-    pattern = /^(?<ip_address>[\d\.]+) - (?<country>.+?) - - \[(?<timestamp>.+)\] "(?<http_method>.+?) (?<path>.+?) (?<http_version>.+?)" (?<http_status>\d+) (?<response_size>\d+) "(?<referrer>.*?)" "(?<user_agent>.*?)" "(?<load_balancer>.*?)" ~~ (?<hostname>.+)$/
+    # pattern = /^(?<ip_address>[\d\.]+) - (?<country>.+?) - - \[(?<timestamp>.+)\] "(?<http_method>.+?) (?<path>.+?) (?<http_version>.+?)" (?<http_status>\d+) (?<response_size>\d+) "(?<referrer>.*?)" "(?<user_agent>.*?)" "(?<load_balancer>.*?)" ~~ (?<hostname>.+)$/
+    pattern = /^(?<ip_address>[\d\.]+) - (?<country>.+?) - (?<username>.+?) \[(?<timestamp>.+)\] "(?<http_method>.+?) (?<path>.+?) (?<http_version>.+?)" (?<http_status>\d+) (?<response_size>\d+) "(?<referrer>.*?)" "(?<user_agent>.*?)" "(?<load_balancer>.*?)" ~~ (?<hostname>.+)$/
     match = pattern.match(details_string)
     
     # binding.pry
