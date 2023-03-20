@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_20_143152) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -1846,7 +1846,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
   create_table "softwares", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.string "ware_file_name"
-    t.integer "ware_file_size"
+    t.bigint "ware_file_size"
     t.string "ware_content_type"
     t.datetime "ware_updated_at", precision: nil
     t.integer "download_count"
