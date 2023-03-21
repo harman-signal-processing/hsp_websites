@@ -1339,21 +1339,18 @@ div#product_buy_now_box {
 	text-align: left;
 	letter-spacing: 0.02em;
 }
+
 dl.accordion {
   margin-bottom: 20px;
   border: 1px solid $light-gray;
   border-top: none;
 	dd.accordion-navigation {
     border-top: 1px solid $light-gray;
-		ul {
-			margin-left: 10px;
-			list-style: none;
-			li:before {
-				content: "\2022 \00A0";
-				color: $primary-color;
-				font-weight: bold;
-			}
-		}
+    position: relative;
+    a > h3 {
+      font-weight: normal;
+      margin: 0.2em 0;
+    }
 		ul.docs, ul.downloads, ul.news {
 			margin-left: 0px;
 			list-style:none;
@@ -1370,6 +1367,9 @@ dl.accordion {
 		}
 	}
 }
+
+dl.accordion > dd > a > h3:after { content:"\f067"; font-family: FontAwesome; display: block; position: absolute; right: 20px; top: 20px; font-weight: normal;}
+dl.accordion > dd.active > a > h3:after { content:"\f068"; font-family: FontAwesome; display: block; position: absolute; right: 20px; top: 20px;}
 
 ul.docs, ul.downloads, ul.support {
   margin-left: 0 !important;

@@ -102,6 +102,17 @@
 </div>
 
 <div class="row">
+  <div class="large-12 columns">
+    <% if @product.brand.collapse_content? %>
+      <p><em>Note: <%= @product.brand.name %> is configured to use collapsed content for all products. 
+          To edit collapsing on a per-product basis, first <%= link_to "edit the brand's settings", edit_admin_brand_path(@product.brand) %>.</em></p>
+    <% else %>
+      <%= f.input :collapse_content, label: "Content is collapsed to reduce scrolling" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
   <div class="large-6 columns">
     <%= f.input :legal_disclaimer %>
   </div>

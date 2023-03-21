@@ -277,6 +277,7 @@ class Admin::ProductsController < AdminController
       :description,
       :extended_description,
       :features,
+      :collapse_content,
       product_prices_attributes: {},
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},

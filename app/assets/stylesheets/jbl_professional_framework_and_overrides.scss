@@ -31,7 +31,7 @@ $small-font-color: lighten($header-font-color, 35%);
 
 $paragraph-font-weight: 400;
 $accordion-navigation-padding: rem-calc(14);
-$accordion-navigation-bg-color: scale-color($light-gray, $lightness: 25%);
+$accordion-navigation-bg-color: scale-color($light-gray, $lightness: 75%);
 $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -13%);
 $accordion-content-padding: rem-calc(12);
 $accordion-navigation-font-size: rem-calc(13);
