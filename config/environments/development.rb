@@ -80,4 +80,6 @@ Rails.application.configure do
   # trying to load those brands' homepage.
   #config.assets.unknown_asset_fallback = true # As of rails 5.1 defaults to false
 
+  # Use middleware to show code coverage report
+  config.middleware.use Rack::Static, :urls => ['/coverage'], :root => Rails.root.to_s, :index => 'index.html'
 end

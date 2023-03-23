@@ -17,17 +17,34 @@
     </div>
   <% end %>
   <% if @product.product_reviews.length > 0 %>
-    <div class="reviews-slider">
+    <% if @product.collapse_content? || @product.brand.collapse_content? %>
       <% @product.product_reviews.reverse.each do |p| %>
-        <div class="slide">
-          <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
-            <p><%= link_to translate_content(p, :title), p %></p>
-          <% else %>
-            <p><%= raw translate_content(p, :body) %></p>
-          <% end %>
+        <div class="row">
+          <div class="small-12 medium-2 large-1 columns text-center">
+            <%=image_tag "icons/review.jpg", alt: "Review" %>
+          </div>
+          <div class="small-12 medium-10 large-11 columns">
+            <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
+              <%= link_to translate_content(p, :title), p %>
+            <% else %>
+              <%= raw translate_content(p, :body) %>
+            <% end %>
+          </div>
         </div>
       <% end %>
-    </div>
+    <% else %>
+      <div class="reviews-slider">
+        <% @product.product_reviews.reverse.each do |p| %>
+          <div class="slide">
+            <% if p.external_link.present? || p.review.present? || p.body.length > 400 %>
+              <p><%= link_to translate_content(p, :title), p %></p>
+            <% else %>
+              <p><%= raw translate_content(p, :body) %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
 </div>

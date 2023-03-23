@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_20_143152) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_20_193553) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -384,6 +384,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_143152) do
     t.boolean "has_product_selector"
     t.boolean "show_lead_form_on_buy_page", default: false
     t.boolean "harman_owned", default: true
+    t.boolean "collapse_content", default: false
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -1547,6 +1548,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_143152) do
     t.text "meta_description"
     t.boolean "hide_contact_buttons"
     t.string "firmware_name"
+    t.boolean "collapse_content", default: false
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true

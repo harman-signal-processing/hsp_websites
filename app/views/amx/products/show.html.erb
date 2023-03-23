@@ -99,7 +99,6 @@ set_meta_tags title: @product.name,
     </div>
   </div>
 
-  <%#= draw_top_subnav @product, active_tab: @active_tab %>
 </div>
 
 <a name="description" data-magellan-destination="description"></a>
@@ -291,7 +290,7 @@ set_meta_tags title: @product.name,
         <% end %>
       <% end %>
 
-      <%= render_partial 'products/side_banners' %>
+      <%= render_partial 'shared/other_languages_button', item: @product %>
     </div>
 
 	</div>

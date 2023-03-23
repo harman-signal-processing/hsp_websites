@@ -13,6 +13,12 @@
   <%= simple_form_for [:admin, @product] do |f| %>
     <input type="hidden" name="return_to" value="<%= product_path(@product) %>">
 
+    <% if website.brand.collapse_content? %>
+      <p><em>Note: <%= website.brand.name %> is configured to use collapsed content for all products. 
+          To edit collapsing on a per-product basis, first edit the brand's settings.</em></p>
+    <% else %>
+      <%= f.input :collapse_content, label: "Content is collapsed to reduce scrolling" %>
+    <% end %>
     <% # use the loop to show things in the right order %>
     <% @product.collect_tabs(website.brand.main_tabs, false).each do |t| %>
       <% if t.key == "description" %>
