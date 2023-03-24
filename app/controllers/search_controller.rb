@@ -81,6 +81,7 @@ class SearchController < ApplicationController
       software_but_not_active = (r.is_a?(Software) && !r.active)
       is_product_review = r.is_a?(ProductReview)
       is_landing_page_with_login = r.is_a?(Page) && r.requires_login?
+      is_product_family_page_with_login = r.is_a?(ProductFamily) && r.requires_login?
 
       # exclude if any of these are true
       r unless (
@@ -91,7 +92,8 @@ class SearchController < ApplicationController
           does_not_belong_to_website ||
           software_but_not_active ||
           is_product_review ||
-          is_landing_page_with_login
+          is_landing_page_with_login ||
+          is_product_family_page_with_login
         )
 
     end.paginate(page: params[:page], per_page: 10)  #  @results = ferret_results.select do |r|
