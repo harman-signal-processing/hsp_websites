@@ -133,6 +133,12 @@
       <br/>
       <%= f.input :photometric_id, label: "Photometric ID", hint: "From legacy photometric system" %>
     <% end %>
+    <% if website.firmware_page %>
+      <br/>
+      <%= f.input :firmware_name,
+        label: "Firmware Name(s)",
+        hint: "This will automatically add a firmware links on the product page with its latest version. Separate multiples with | " %>
+    <% end %>
 
     <br/>
     <%= f.submit "Save Changes", class: "small button" %>
