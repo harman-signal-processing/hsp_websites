@@ -72,4 +72,10 @@ class Page < ApplicationRecord
     end
   end
 
+  # Merge the list of available translations plus our usual English locales
+  # Then remove the current locale
+  # Pass in "website" to keep compatibility with other models
+  def other_locales_with_translations(website)
+    (content_translations.pluck(:locale).uniq + ["en", "en-US"]) - [I18n.locale.to_s]
+  end
 end
