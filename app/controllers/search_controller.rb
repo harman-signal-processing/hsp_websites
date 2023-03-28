@@ -82,6 +82,11 @@ class SearchController < ApplicationController
       is_product_review = r.is_a?(ProductReview)
       is_landing_page_with_login = r.is_a?(Page) && r.requires_login?
       is_product_family_page_with_login = r.is_a?(ProductFamily) && r.requires_login?
+      is_product_family_and_has_parent_with_lang_that_should_not_be_included = false
+
+      if r.is_a?(ProductFamily)
+        exclude_product_family_because_of_parent_locale = exclude_product_family_because_of_parent_locale(r)
+      end
 
       # exclude if any of these are true
       r unless (
@@ -93,12 +98,21 @@ class SearchController < ApplicationController
           software_but_not_active ||
           is_product_review ||
           is_landing_page_with_login ||
-          is_product_family_page_with_login
+          is_product_family_page_with_login ||
+          exclude_product_family_because_of_parent_locale
         )
 
     end.paginate(page: params[:page], per_page: 10)  #  @results = ferret_results.select do |r|
 
   end  #  def fetch_thinking_sphinx_results
+
+  def exclude_product_family_because_of_parent_locale(r)
+    is_product_family_and_has_parent_with_locale_different_from_user_locale = false
+    if !(r.find_ultimate_parent.family_locales.include? "#{I18n.locale.to_s}")
+        is_product_family_and_has_parent_with_locale_different_from_user_locale = true
+    end
+    is_product_family_and_has_parent_with_locale_different_from_user_locale
+  end  #  def exclude_product_family_because_of_parent_locale
 
   def thinking_sphinx_results_for_locale(query)
 

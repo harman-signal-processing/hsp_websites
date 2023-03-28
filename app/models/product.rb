@@ -360,10 +360,10 @@ class Product < ApplicationRecord
   def locales(website)
     if product_families.size > 0
       @locales ||= product_families.map do |pf|
-        pf.locales(website)
+        pf.find_ultimate_parent.locales(website)
       end.flatten.uniq - locales_where_hidden
     else
-      website.list_of_all_locales - locales_where_hidden
+      @locales ||= website.list_of_all_locales - locales_where_hidden
     end
   end
 
