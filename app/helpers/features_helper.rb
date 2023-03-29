@@ -1,5 +1,22 @@
 module FeaturesHelper
 
+  def feature_page_location(feature)
+    location = []
+    location << "Banner slide" if feature.use_as_banner_slide
+    location << "Under products" if feature.show_below_products
+    location << "Under videos" if feature.show_below_videos
+    location << "default location" if location.empty?
+    location.join(",")
+  end
+
+  def get_custom_feature_list(features, location_where_feature_to_be_used='default')
+    if location_where_feature_to_be_used == "default"
+      features.where(use_as_banner_slide: 0, show_below_products: 0, show_below_videos: 0)
+    else
+      features.where("#{location_where_feature_to_be_used}": 1)
+    end
+  end
+
   # Selects which type of feature to render
   def render_feature(feature, opt={})
     render_pre_content(feature) + render_styled_feature(feature, opt)
@@ -119,6 +136,7 @@ module FeaturesHelper
       if l["href"].to_s.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/i)
         video_id = $5
         l["target"] = "_blank"
+        l["class"] ||= ""
         l["class"] += " start-video"
         l["data-videoid"] = video_id
         l["href"] = play_video_url(video_id)
