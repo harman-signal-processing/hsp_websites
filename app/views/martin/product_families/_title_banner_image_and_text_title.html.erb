@@ -1,0 +1,12 @@
+<div class="product-family-banner-container text-center">
+  <%= image_tag @product_family.title_banner.url, alt: @product_family.name %>
+</div>
+<% if @product_family.intro.present? %>
+  <br/>
+  <div class="row">
+    <div class="medium-8 small-12 columns">
+      <%= raw translate_content(@product_family, :intro) %>
+    </div>
+  </div>
+<% end %>
+
