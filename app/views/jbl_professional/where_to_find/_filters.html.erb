@@ -6,6 +6,7 @@
         @filter_rental_prx_one = true
         @filter_rental_eon_one_mk2 = true
         @filter_rental_eon700_series = true
+        @filter_rental_prx900_series = true
         @filter_service = true
       end
     %>
@@ -45,7 +46,12 @@
                 <label for="rental_eon700_series">
                   <input type="checkbox" value="1" name="rental_eon700_series" id="rental_eon700_series" <% if @filter_rental_eon700_series %>checked="checked"<% end %>> EON700 Series
                 </label>
-              </li>               
+              </li>
+              <li>
+                <label for="rental_prx900_series">
+                  <input type="checkbox" value="1" name="rental_prx900_series" id="rental_prx900_series" <% if @filter_rental_prx900_series %>checked="checked"<% end %>> PRX900 Series
+                </label>
+              </li>
             <% end %>
             <% if website.brand.dealers.where(service: true).count > 0 %>
               <li>

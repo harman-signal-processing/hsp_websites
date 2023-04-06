@@ -28,6 +28,10 @@ class Dealer < ApplicationRecord
           results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
           results << ProductFamily.find_by_cached_slug("eon700-series")
         end
+        if results.pluck(:cached_slug).grep(/prx9/).any?
+          results.delete_if {|item| item.cached_slug.include?("prx9") }
+          results << ProductFamily.find_by_cached_slug("prx900-series")
+        end
       rescue => e
         error_message = "Error in Dealer.rental_products_and_product_families. BrandDealer #{brand_dealer.id} #{e.message}"
         puts error_message
@@ -347,7 +351,6 @@ class Dealer < ApplicationRecord
         sheet.column(13).width = 50 # Rental Products
       end  #  if product_slugs.present?
 
-
       row = 1
 
       dealers.each do |dealer|
@@ -370,8 +373,7 @@ class Dealer < ApplicationRecord
             sheet[row, 12] = dealer.website
             if product_slugs.present?
               (start_col_for_products..end_col_for_products).each do |column_index|
-                product_column_slug = product_slugs[column_index-12]
-
+                product_column_slug = product_slugs[column_index-13]
                 begin
                   if dealer.rental_product_slugs(brand).split(",").include?(product_column_slug)
                     sheet[row, column_index] = "X"
@@ -382,8 +384,6 @@ class Dealer < ApplicationRecord
 
               end  #  (start_col_for_products..end_col_for_products).each do |column_index|
             end  #  if product_slugs.present?
-
-            # sheet[row, 12] = dealer.rental_product_slugs(brand)
 
         row += 1
       end  #  dealers.each do |dealer|
@@ -539,6 +539,10 @@ class Dealer < ApplicationRecord
       if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
         results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
         results << ProductFamily.find_by_cached_slug("eon700-series")
+      end
+      if results.pluck(:cached_slug).grep(/prx9/).any?
+        results.delete_if {|item| item.cached_slug.include?("prx9") }
+        results << ProductFamily.find_by_cached_slug("prx900-series")
       end  #  if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
       results.pluck(:name).join(', ')
     end  #  Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
@@ -546,19 +550,24 @@ class Dealer < ApplicationRecord
 
   def rental_product_slugs(brand)
     Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+      # calls instance method rental_products(brand) which calls scope (class) method rental_products(brand,dealer)
       results = rental_products(brand).to_ary
 
       if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
         results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
         results << ProductFamily.find_by_cached_slug("eon700-series")
-      end  #  if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
-      results.pluck(:cached_slug).join(', ')
+      end
+      if results.pluck(:cached_slug).grep(/prx9/).any?
+        results.delete_if {|item| item.cached_slug.include?("prx9") }
+        results << ProductFamily.find_by_cached_slug("prx900-series")
+      end
+      results.pluck(:cached_slug).join(',')
     end  #  Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
   end  #  def rental_product_slugs(brand)
 
   def has_rental_products_for(brand, cached_slug)  #  this currently only applies to jbl pro
     results = false
-    if cached_slug == "jbl-eon7" || cached_slug == "vt"
+    if cached_slug == "jbl-eon7" || cached_slug == "prx9" || cached_slug == "vt"
       results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.select{|item| item.start_with? "#{cached_slug}"}.present?
     else
       results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.include? "#{cached_slug}"
@@ -567,6 +576,7 @@ class Dealer < ApplicationRecord
   end  #  def has_rental_products_for(brand, cached_slug)
 
   def rental_products(brand)
+    # calls scope method rental_products, returns a set of activerecord relations
     self.class.rental_products(brand,self)
   end
 end  #  class Dealer < ApplicationRecord
