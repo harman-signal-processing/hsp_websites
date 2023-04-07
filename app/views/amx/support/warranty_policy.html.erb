@@ -1,0 +1,65 @@
+<% set_meta_tags reverse: true %>
+<h1 class="page_title text-center">
+  <%= website.brand.name %> Limited Product Warranty And Software License
+</h1>
+
+<div class="text-center">
+
+  <p><%= website.brand.name %> is a HARMAN Professional brand and its products
+  are covered by the below Limited Product Warranty.</p>
+
+  <h4>LIMITED PRODUCT WARRANTY</h4>
+  For HARMAN Professional Products<br/>
+  Purchased from HARMAN Professional Authorized Dealers<br/>
+
+  <%=raw website.extra_warranty_header_content %>
+
+</div>
+
+<div class="row">
+  <div class="large-8 small-12 columns">
+    <%= render_partial "shared/standard_warranty_details" %>
+  </div>
+  <div class="large-4 small-12 columns">
+    <%= render_partial "shared/extended_warranty" %>
+    <%= raw website.extra_regional_warranty_side_content %>
+    <%= raw website.extra_warranty_side_content %>
+
+		<table class="specs">
+			<tr>
+				<th>Product</th>
+				<th>Warranty Period</th>
+			</tr>
+			<% @product_families.each do |product_family| %>
+			<tr>
+        <td class="name">
+          <%= link_to product_family do %>
+            <%= product_family.name %>
+          <% end %>
+        </td>
+				<td><%= pluralize(product_family.warranty_period, "year", plural: "years") %></td>
+			</tr>
+			<% end %>
+			<% @products.each do |product| %>
+			<tr>
+        <td class="name">
+          <%= link_to product do %>
+            <%= product.brand.name unless product.brand_id == website.brand_id %>
+            <%= product.name %>
+          <% end %>
+        </td>
+				<td><%= pluralize(product.warranty_period, "year", plural: "years") %></td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+  <p>&nbsp;</p>
+  <% if can?(:manage_warranty_of, Product) %>
+    <div class="text-right">
+      <%= link_to edit_warranty_products_path do %>
+        <%= fa_icon "edit" %>
+        Manage Warranty Periods
+      <% end %>
+    </div>
+  <% end %>
+</div>
