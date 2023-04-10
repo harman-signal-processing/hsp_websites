@@ -88,7 +88,10 @@ class Admin::DealersController < AdminController
   end
 
   def export_dealer_list
-    dealers = website.brand.dealers.where.not(exclude: 1).sort_by{|item| [item.region, item.country, item.name] }
+    dealers = website.brand.dealers
+            .where.not(exclude: 1)
+            .or(website.brand.dealers.where(exclude: nil))
+            .sort_by{|item| [item.region, item.country, item.name] }
     if website.brand.name == "JBL Professional"
       # get products slug list
       if website.value_for("jblpro-dealer-list-product-slugs").present?
