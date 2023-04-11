@@ -162,9 +162,9 @@ en:
   zip_all: "zip (all)"
 
   nav:
-    about: about
+    about: About
     about_our_solutions: About Our Solutions
-    amplifiers: amplifiers
+    amplifiers: Amplifiers
     av_and_it: AV & IT
     av_basics: AV Basics
     avb: AVB
@@ -175,7 +175,7 @@ en:
     collaboration: Collaboration
     consultant_support: Consultant Support
     contact_us: Contact Us
-    crown_around_the_world: crown around the world
+    crown_around_the_world: Crown Around the World
     dante: Dante
     documentation_downloads: Documentation Downloads
     downloads: Downloads
@@ -187,9 +187,10 @@ en:
     market_applications: Applications
     media: Media
     meeting_rooms: Meeting Rooms
-    microphones: microphones
-    network_audio: network audio
-    our_story: our story
+    microphones: Microphones
+    network_audio: Network Audio
+    our_story: Our Story
+    press: Press
     product_archive: Product Archive
     product_registration: Product Registration
     quality: Quality Assurance
@@ -203,7 +204,7 @@ en:
     support_login: Support Login
     sustainability: Sustainability
     system_design_tools: System Design Tools
-    technology: technology
+    technology: Technology
     video_conferencing: Video Conferencing
     videos: Videos
 
