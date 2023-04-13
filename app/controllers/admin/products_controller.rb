@@ -70,6 +70,7 @@ class Admin::ProductsController < AdminController
   # GET /admin/products/new
   # GET /admin/products/new.xml
   def new
+    @product.brand = website.brand
     @product.layout_class = website.brand.default_layout_class_for_products
     respond_to do |format|
       format.html { render_template } # new.html.erb
