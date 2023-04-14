@@ -91,12 +91,6 @@ module MainHelper
         end
       end
 
-      # An ugly exception to show JBL Commercial under the Commercial
-      # category for Crown.
-      if product_family.name.to_s.match(/commercial/i) && product_family.brand_id == 11 # crown
-        child_links << content_tag(:li, link_to("JBL Commercial", "//www.jblcommercialproducts.com/", target: "_blank"))
-      end
-
       dropdown_class = (child_links + product_links).length > 0 ? "has-dropdown" : ""
 
       nav_html =
