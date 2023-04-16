@@ -214,6 +214,54 @@ namespace :banned_ips do
     path = match[:path]
     path = path.truncate(200)
     
+    # I renamed the jail from rails-brandsites-bad-actors to rails-bad-actors because iptables was complaining that the jail name should be under 29 characters
+  when "rails-bad-actors"
+    pattern = /^(?<ip_address>[\d\.]+) - - \[(?<timestamp>,\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}, [AP]M)\] "(?<attack_type>[^"]+)" ~~ #<ActionDispatch::Request (?<http_method>[A-Z]+) "(?<path>[^"]+)" for (?<request_ip_address>[\d\.]+)>$/
+    # "114.30.18.65 - - [,2023-03-10 12:08:10, AM] \"POSTing JSON\" ~~ #<ActionDispatch::Request POST \"https://www.martin.com/en-US/support/warranty_registration\" for 114.30.18.65>"
+    #   /^
+    #   (?<ip_address>[\d\.]+) - -
+    #   \[(?<timestamp>,\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}, [AP]M)\]
+    #   "(?<attack_type>[^"]+)" ~~ #<ActionDispatch::Request
+    #   (?<http_method>[A-Z]+)
+    #   "(?<path>[^"]+)"
+    #   for
+    #   (?<request_ip_address>[\d\.]+)
+    #   >$/
+
+        #  Let's examine each part of the pattern in more detail:
+        #
+        #  ^ -
+        #  (?<ip_address>[\d\.]+) - This part of the pattern uses a named capture group ip_address to match any sequence of digits (\d) or dots (\.). This is used to capture the client's IP address.
+        #  - - - This matches the two dashes between the client IP address and the timestamp.
+        #  \[ - This matches the opening square bracket for the timestamp.
+        #  (?<timestamp>,\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}, [AP]M) - This is a named capture group timestamp that matches the date and time of the request. It matches a comma, followed by a four-digit year (\d{4}), a two-digit month (\d{2}), a two-digit day (\d{2}), a space, a two-digit hour (\d{2}), a colon, a two-digit minute (\d{2}), a colon, a two-digit second (\d{2}), a comma, a space, and either AM or PM.
+        #  \] - This matches the closing square bracket and space after the timestamp.
+        #  "(?<attack_type>[^"]+)" - This is a named capture group attack_type that matches any non-empty sequence of characters that are not double quotes ("). This is used to capture the type of attack.
+        #  ~~ #<ActionDispatch::Request - This matches a fixed string ~~ #<ActionDispatch::Request that appears after the attack type in the log line.
+        #  (?<http_method>[A-Z]+) - This is a named capture group http_method that matches any sequence of one or more uppercase letters (A-Z). This is used to capture the HTTP method used in the request.
+        #  "(?<path>[^"]+)" - This is a named capture group path that matches any non-empty sequence of characters that are not double quotes ("). This is used to capture the path of the requested resource.
+        #  for - This matches the fixed string for that appears after the path in the log line.
+        #  (?<request_ip_address>[\d\.]+) - This is a named capture group request_ip_address that matches any sequence of digits (\d) or dots (\.). This is used to capture the IP address of the server that fulfilled the request.
+        #  >$ - This matches the end of the line.
+
+    match = pattern.match(details_string)
+
+    begin
+        ip_address = match[:ip_address]
+        # binding.pry
+    rescue => e
+      binding.pry
+      puts "Error (rails-bad-actors): ------------- #{e}"
+      puts ban_details
+    end
+
+    attack_type = match[:attack_type]
+    timestamp = match[:timestamp]
+
+    http_method = match[:http_method]
+    path = match[:path]
+    path = path.truncate(200)
+
   when "manual-ban"
     # no pattern
   when "rails-brandsites-500"
