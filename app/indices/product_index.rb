@@ -1,7 +1,7 @@
 ThinkingSphinx::Index.define :product, name: "product_en", with: :active_record do
   # :nocov:
-  indexes name,
-  	sap_sku,
+  indexes name, :as => :product_name
+  indexes sap_sku,
   	keywords,
   	short_description,
   	short_description_1,
@@ -9,7 +9,7 @@ ThinkingSphinx::Index.define :product, name: "product_en", with: :active_record 
   	short_description_3,
   	short_description_4
 
-  indexes product_descriptions.content_part1, as: :description, :facet => true
+  indexes product_descriptions.content_part1, as: :product_description, :facet => true
   # :nocov:
 end
 
@@ -19,8 +19,8 @@ end
 
 ThinkingSphinx::Index.define :product, name: "product_en_US", with: :active_record do
   # :nocov:
-  indexes name,
-  	sap_sku,
+  indexes name, :as => :product_name
+  indexes sap_sku,
   	keywords,
   	short_description,
   	short_description_1,
@@ -28,7 +28,7 @@ ThinkingSphinx::Index.define :product, name: "product_en_US", with: :active_reco
   	short_description_3,
   	short_description_4
 
-  indexes product_descriptions.content_part1, as: :description, :facet => true
+  indexes product_descriptions.content_part1, as: :product_description, :facet => true
   # :nocov:
 end
 

@@ -108,7 +108,7 @@ class SearchController < ApplicationController
 
   def exclude_product_family_because_of_parent_locale(r)
     is_product_family_and_has_parent_with_locale_different_from_user_locale = false
-    if !(r.find_ultimate_parent.family_locales.include? "#{I18n.locale.to_s}")
+    if r.find_ultimate_parent.family_locales.present? && !(r.find_ultimate_parent.family_locales.include? "#{I18n.locale.to_s}")
         is_product_family_and_has_parent_with_locale_different_from_user_locale = true
     end
     is_product_family_and_has_parent_with_locale_different_from_user_locale

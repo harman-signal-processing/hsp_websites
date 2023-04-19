@@ -20,6 +20,7 @@
           <!-- item title link  -->
           <div style="margin-bottom: 5px;">
             <%= link_to translate_content(result, result.link_name_method), page_link(result), class:"result-item-title-link", style:"display:inline" %>
+            <%= "<span style='color:grey;font-size:smaller;white-space:nowrap;'>(#{result.parent.name})</span>".html_safe if result.class.name == "ProductFamily" && result.has_parent? %>
             <%discontinued_text = "<span style='color:red;'>(Discontinued)</span>"%>
             <%=discontinued_text.html_safe if (result.class.name == "Product" && result.discontinued?)%>
           </div>

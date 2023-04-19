@@ -1,12 +1,16 @@
 ThinkingSphinx::Index.define :software, name: "software_en", with: :active_record do
   # :nocov:
-  indexes name, version, platform, description
+  indexes name, :as => :software_name
+  indexes description, :as => :software_description
+  indexes version, platform
   # :nocov:
 end
 
 ThinkingSphinx::Index.define :software, name: "software_en_US", with: :active_record do
   # :nocov:
-  indexes name, version, platform, description
+  indexes name, :as => :software_name
+  indexes description, :as => :software_description
+  indexes version, platform
   # :nocov:
 end
 
