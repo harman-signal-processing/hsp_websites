@@ -1,12 +1,26 @@
 ThinkingSphinx::Index.define :page, name: "page_en", with: :active_record do
   # :nocov:
-  indexes title, keywords, description, body, custom_route
+  indexes title, :as => :landing_page_title
+  indexes keywords, :as => :landing_page_keywords
+  indexes description, :as => :landing_page_description
+  indexes body, :as => :landing_page_body
+  indexes custom_route, :as => :landing_page_custom_route
+
+  set_property :delta => :delayed
+  set_property :delta_column => :updated_at
   # :nocov:
 end
 
 ThinkingSphinx::Index.define :page, name: "page_en_US", with: :active_record do
   # :nocov:
-  indexes title, keywords, description, body, custom_route
+  indexes title, :as => :landing_page_title
+  indexes keywords, :as => :landing_page_keywords
+  indexes description, :as => :landing_page_description
+  indexes body, :as => :landing_page_body
+  indexes custom_route, :as => :landing_page_custom_route
+
+  set_property :delta => :delayed
+  set_property :delta_column => :updated_at
   # :nocov:
 end
 

@@ -1,12 +1,16 @@
 ThinkingSphinx::Index.define :news, name: "news_en", with: :active_record do
   # :nocov:
-  indexes title, body, keywords
+  indexes title, :as => :news_title
+  indexes body, :as => :news_body
+  indexes keywords, :as => :news_keywords
   # :nocov:
 end
 
 ThinkingSphinx::Index.define :news, name: "news_en_US", with: :active_record do
   # :nocov:
-  indexes title, body, keywords
+  indexes title, :as => :news_title
+  indexes body, :as => :news_body
+  indexes keywords, :as => :news_keywords
   # :nocov:
 end
 

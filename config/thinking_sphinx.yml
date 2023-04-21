@@ -7,6 +7,14 @@ development:
   dict: keywords
   min_infix_len: 2
   charset_table: "+,-,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
+  field_weights:
+    product_family_name: 100
+    product_name: 5
+    product_description: 5
+    software_name: 5
+    software_description: 5
+  attribute_weights:
+    id: 100
   ngram_len: 1
   ngram_chars: U+3000..U+2FA1F
   mysql41: 9433
@@ -18,6 +26,14 @@ production:
   dict: keywords
   min_infix_len: 2
   charset_table: "+,-,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
+  field_weights:
+    product_family_name: 100
+    product_name: 5
+    product_description: 5
+    software_name: 5
+    software_description: 5
+  attribute_weights:
+    id: 100
   ngram_len: 1
   ngram_chars: U+3000..U+2FA1F
   mysql41: 9433

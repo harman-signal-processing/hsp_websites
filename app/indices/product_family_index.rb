@@ -1,12 +1,22 @@
 ThinkingSphinx::Index.define :product_family, name: "product_family_en", with: :active_record do
   # :nocov:
-  indexes name, intro, keywords
+  indexes name, :as => :product_family_name
+  indexes intro, :as => :product_family_intro
+  indexes keywords, :as => :product_family_keywords
+
+  set_property :delta => :delayed
+  set_property :delta_column => :updated_at
   # :nocov:
 end
 
 ThinkingSphinx::Index.define :product_family, name: "product_family_en_US", with: :active_record do
   # :nocov:
-  indexes name, intro, keywords
+  indexes name, :as => :product_family_name
+  indexes intro, :as => :product_family_intro
+  indexes keywords, :as => :product_family_keywords
+
+  set_property :delta => :delayed
+  set_property :delta_column => :updated_at
   # :nocov:
 end
 
