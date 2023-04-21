@@ -2432,7 +2432,7 @@ form.new_custom_shop_line_item, form.edit_custom_shop_line_item {
     width: 68px;
 }
 /*****/
-/***** Case studis on product pages ******/
+/***** Case studies on product pages ******/
 .case_study_row {
   min-height: rem-calc(200px);
   background-size: cover;
@@ -2441,6 +2441,45 @@ form.new_custom_shop_line_item, form.edit_custom_shop_line_item {
   background-position: center center;
   padding-top: rem-calc(80px);
   padding-bottom: rem-calc(80px);
+}
+/********/
+/**** New case study layout with multiple images **/
+.panel.featured-case-study {
+  border: none !important;
+  h6 {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: rem-calc(13px);
+    color: $dark-gray;
+  }
+  h2 {
+    letter-spacing: normal;
+    font-weight: 500;
+    text-transform: none;
+    margin-bottom: rem-calc(20px);
+  }
+  .cs-collage {
+    position: relative;
+    margin-bottom: rem-calc(20px);
+
+    div.youtube-player {
+      width: 79.5%;
+      padding-bottom: 51.5%;
+    }
+
+    img.cs-main-image {
+      padding-right: 20.5%;
+    }
+    .cs-detail-images {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 19%;
+    }
+    img.cs-detail-image {
+      margin-bottom: 7.25%;
+    }
+  }
 }
 
 /****** Category Banners *****/
