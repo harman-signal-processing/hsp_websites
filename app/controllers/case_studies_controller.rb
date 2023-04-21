@@ -46,6 +46,7 @@ class CaseStudiesController < ApplicationController
     end  #  if @asset_type.present? && ["pdf","video"].include? @asset_type
 
     @banner_image = get_banner_image
+    render_template
   end  #  def index
 
   def show
@@ -53,6 +54,7 @@ class CaseStudiesController < ApplicationController
     @case_study = CaseStudy.find_by_slug_and_website_or_brand(case_study_slug, website)
 
     @products = @case_study[:product_ids].size > 0 ? Product.where(id: @case_study[:product_ids]) : []
+    render_template
   end
 
   private
