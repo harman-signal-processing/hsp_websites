@@ -213,7 +213,8 @@
                       (can?(:manage, Dealer) && website.has_dealers?) ||
                       (can?(:manage, SalesRegion) && website.send_contact_form_to_regional_support?) ||
                       (can?(:manage, ServiceCenter) && website.has_service_centers?) ||
-                      (can?(:manage, JblVertecVtxOwner) && website.brand.name.downcase == "jbl professional")%>
+                      (can?(:manage, JblVertecVtxOwner) && website.brand.name.downcase == "jbl professional") ||
+                      (can?(:manage, ManufacturerPartner) && website.brand.name.downcase == "amx")%>
                     <li class="has-dropdown"><%= link_to "Partners", '#' %>
                     <ul class="dropdown">
                       <% if can?(:manage, OnlineRetailer) && website.has_online_retailers? %>
@@ -234,9 +235,13 @@
                       <% if can?(:manage, ServiceCenter) && website.has_service_centers? %>
                         <li><%= link_to "Service Centers", admin_service_centers_path %></li>
                       <% end %>
-                      <% if can?(:manage, JblVertecVtxOwner) %>
+                      <% if can?(:manage, JblVertecVtxOwner) && website.brand.name.downcase == "jbl professional" %>
                         <li><%= link_to "JBL Vertec/VTX Owner Approvals", admin_jbl_vertec_vtx_owners_path %></li>
                       <% end %>
+                      <% if can?(:manage, ManufacturerPartner) && website.brand.name.downcase == "amx" %>
+                        <li><%= link_to "AMX InConcert Partners", admin_manufacturer_partners_path %></li>
+                      <% end %>
+
                     </ul>
                     </li>
                   <% end %>
