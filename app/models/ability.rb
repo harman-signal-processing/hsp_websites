@@ -83,6 +83,7 @@ class Ability
         can :manage_warranty_of, Product
         can :manage, ScheduledTask
         can :manage, ScheduledTaskAction
+        can :manage, ManufacturerPartner
       end
       if user.role?(:sales_admin)
         can :read, Product
