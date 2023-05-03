@@ -26,7 +26,7 @@
 
   <% if secondary_product_family_groups.exists? %>
     <% secondary_product_family_groups.each do |secondary_product_family_group| %>
-      <li class="has-dropdown hide-for-medium"><%= link_to translate_content(secondary_product_family_group, :name), '#' %>
+      <li class="has-dropdown"><%= link_to translate_content(secondary_product_family_group, :name), '#' %>
         <ul class="dropdown">
           <% secondary_product_family_group.children_with_current_products(website, locale: I18n.locale).each do |product_family| %>
             <%= product_family_nav_links(product_family, depth: 2) %>
