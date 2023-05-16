@@ -413,6 +413,7 @@ fr:
       short: "%b %d, %Y"
       long: "%B %d, %Y"
       month_day: "%b %d"
+      month_year: "%b %Y"
       blog_month_day: "%B %d"
       mmddyy: "%m/%d/%y"
       mmddyyyy: "%m/%d/%Y"

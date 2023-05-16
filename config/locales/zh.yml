@@ -338,6 +338,7 @@ zh:
       short: "%b%d日"
       long: "%Y年%b%d日"
       month_day: "%b %d日"
+      month_year: "%b %Y"
       blog_month_day: "%B %d日"
       pretty_date_time: "%B %d日, %Y %I:%M %p"
       mmddyy: "%m/%d/%y"

@@ -13,7 +13,7 @@
                   <%= flag_for(item) %>
                   <i>
                     <% if item.version.present? %>version <%= item.version %>, <% end %>
-                    updated: <%=l item.updated_at.to_date, format: :short %>
+                    updated: <%=l item.updated_at.to_date, format: :month_year %>
                   </i>
                 </div>
               </div>
@@ -29,7 +29,7 @@
                 <%= flag_for(item) %>
                 <i>
                   <% if item.version.present? %>version <%= item.version %>, <% end %>
-                  updated: <%=l item.updated_at.to_date, format: :short %>
+                  updated: <%=l item.updated_at.to_date, format: :month_year %>
                 </i>
               </div>
           <% end %>
@@ -41,7 +41,7 @@
             <%= number_to_human_size(item.executable_file_size) %>
           <% end %>
         </td>
-        <td class="hide-for-small"><%=l item.updated_at.to_date, format: :short %></td>
+        <td class="hide-for-small"><%=l item.updated_at.to_date, format: :month_year %></td>
 
       <% elsif item.resource_file_name.present? %>
         <td>
@@ -55,7 +55,7 @@
                   <%= flag_for(item) %>
                   <i>
                     <% if item.version.present? %>version <%= item.version %>, <% end %>
-                    updated: <%=l item.updated_at.to_date, format: :short %>
+                    updated: <%=l item.updated_at.to_date, format: :month_year %>
                   </i>
                 </div>
               </div>
@@ -71,7 +71,7 @@
                 <%= flag_for(item) %>
                 <i>
                   <% if item.version.present? %>version <%= item.version %>, <% end %>
-                  updated: <%=l item.updated_at.to_date, format: :short %>
+                  updated: <%=l item.updated_at.to_date, format: :month_year%>
                 </i>
               </div>
           <% end %>
@@ -79,7 +79,7 @@
         <td class="text-center hide-for-small"> <%= item.version %>&nbsp;</td>
         <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
         <td> <%= number_to_human_size(item.resource_file_size) %> </td>
-        <td class="hide-for-small"><%=l item.updated_at.to_date, format: :short %></td>
+        <td class="hide-for-small"><%=l item.updated_at.to_date, format: :month_year %></td>
 
       <% elsif item.content.present? %>
         <td>
@@ -89,7 +89,7 @@
             <%= flag_for(item) %>
             <i>
               <% if item.version.present? %>version <%= item.version %>, <% end %>
-              updated: <%=l item.updated_at.to_date, format: :short %>
+              updated: <%=l item.updated_at.to_date, format: :month_year %>
             </i>
           </div>
         </td>
@@ -103,7 +103,7 @@
         &nbsp; </td>
         <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
         <td>&nbsp;</td>
-        <td class="hide-for-small"><%=l item.updated_at.to_date, format: :short %></td>
+        <td class="hide-for-small"><%=l item.updated_at.to_date, format: :month_year %></td>
       <% end %>
 
     <% elsif item.is_a?(ProductDocument) %>
@@ -114,14 +114,14 @@
           <%= flag_for(item) %>
           <i>
             <% if item.respond_to?(:version) && item.version.present? %>version <%= item.version %>, <% end %>
-            updated: <%=l item.updated_at.to_date, format: :short %>
+            updated: <%=l item.updated_at.to_date, format: :month_year %>
           </i>
         </div>
       </td>
       <td class="text-center hide-for-small"> <% if item.respond_to?(:version) %><%= item.version %><% end %>&nbsp; </td>
       <td class="text-center hide-for-small"> <%= flag_for(item) %>&nbsp; </td>
       <td> <%= number_to_human_size(item.document_file_size) %> </td>
-      <td class="hide-for-small"><%=l item.updated_at.to_date, format: :short %></td>
+      <td class="hide-for-small"><%=l item.updated_at.to_date, format: :month_year %></td>
 
     <% elsif item.is_a?(Software) %>
       <td>
@@ -134,7 +134,7 @@
                 <%= flag_for(item) %>
                 <i>
                   <% if item.version.present? %>version <%= item_version(item) %>, <% end %>
-                  updated: <%=l item.updated_at.to_date, format: :short %>
+                  updated: <%=l item.updated_at.to_date, format: :month_year %>
                 </i>
               </div>
             </div>
@@ -149,7 +149,7 @@
               <%= flag_for(item) %>
               <i>
                 <% if item.version.present? %>version <%= item_version(item) %>, <% end %>
-                updated: <%=l item.updated_at.to_date, format: :short %>
+                updated: <%=l item.updated_at.to_date, format: :month_year %>
               </i>
             </div>
         <% end %>
@@ -168,7 +168,7 @@
           <%= number_to_human_size(item.ware_file_size) %>
         <% end %>
       </td>
-      <td class="hide-for-small"><%=l item.updated_at.to_date, format: :short %></td>
+      <td class="hide-for-small"><%=l item.updated_at.to_date, format: :month_year %></td>
     <% end %>
 
   </tr>
@@ -185,7 +185,7 @@
             <%= number_to_human_size(sa.software_attachment_file_size) %>
           <% end %>
         </td>
-        <td><%=l item.updated_at.to_date, format: :short %></td>
+        <td><%=l item.updated_at.to_date, format: :month_year %></td>
       </tr>
     <% end %>
   <% end %>
