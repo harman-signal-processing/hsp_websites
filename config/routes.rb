@@ -386,7 +386,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :customizable_attributes,
         :product_part_group_part,
         :sales_region_countries,
-        :product_introductions,
         :online_retailer_links,
         :online_retailer_users,
         :manufacturer_partners,
@@ -427,7 +426,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :audio_demos,
         :promotions,
         :us_regions,
-        :demo_songs,
         :websites,
         :captchas,
         :features,
@@ -517,8 +515,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     resources :market_segments, path: :markets
     resources :pages,
       :installations,
-      :product_reviews,
-      :demo_songs
+      :product_reviews
     get "/market_segments/:id", to: redirect("/markets/%{id}")
     resources :promotions, only: [:index, :show, :new, :edit]
     resources :product_families, only: [:index, :show] do
@@ -529,12 +526,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
     end
     resources :testimonials, only: :show
-    get 'introducing/:id' => 'products#introducing', as: :product_introduction
-    get 'products/songlist/:id.:format' => 'products#songlist', as: :product_songlist
     resources :products, only: [:index, :discontinued] do
       member do
         get :buy_it_now
-        get :songlist
         get :preview
         get :photometric
         get :bom

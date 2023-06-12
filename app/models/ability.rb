@@ -53,7 +53,6 @@ class Ability
         cannot :read, User
         cannot :manage, Website
         cannot :manage, Brand
-        cannot :manage, ProductIntroduction
         can :read, WarrantyRegistration
         can :read, ContactMessage
         can :manage, PricingType

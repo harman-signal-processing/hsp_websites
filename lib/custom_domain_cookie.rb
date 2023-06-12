@@ -1,9 +1,10 @@
 # Custom Domain Cookie
 #
 # Set the cookie domain to the custom domain if it's present
+#
+# :nocov:
 class CustomDomainCookie
 
-  # :nocov:
   def initialize(app, default_domain)
     @app = app
     @default_domain = default_domain
@@ -20,6 +21,6 @@ class CustomDomainCookie
   def custom_domain?(host)
     host !~ /#{@default_domain.sub(/^\./, '')}/i
   end
-  # :nocov:
 
 end
+# :nocov:

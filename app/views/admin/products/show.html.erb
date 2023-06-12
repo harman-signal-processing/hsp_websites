@@ -32,24 +32,6 @@
 
 <h3><%= @product.short_description %></h3>
 
-<% if can? :manage, ProductIntroduction %>
-<p>
-	<b>Intro page:</b>
-	<% if !!(@product.product_introduction) %>
-	<%= link_to "Edit", edit_admin_product_introduction_path(@product.product_introduction) %>
-	<% else %>
-	<%= link_to "Create", new_admin_product_introduction_path(product_id: @product.to_param) %>
-	<% end %>
-</p>
-<% end %>
-
-<% if !!(@product.product_introduction) && !@product.product_introduction.expired? %>
-<p>
-	<b>This product has an introductory landing page:</b><br/>
-	<%= link_to product_introduction_url(@product), product_introduction_path(@product) %>
-</p>
-<% end %>
-
 <p>
   <b>Sap sku:</b>
   <%=h @product.sap_sku %>

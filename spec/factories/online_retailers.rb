@@ -13,4 +13,8 @@ FactoryBot.define do
     url { 'http://nuthin.lvh.me/bla/bla.html' }
   end
 
+  factory :online_retailer_user do
+    online_retailer
+    user
+  end
 end
