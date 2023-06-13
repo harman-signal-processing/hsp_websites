@@ -80,6 +80,11 @@
                       <% end %>
                     </em>
                   <% end %>
+                  <% if product.brand.redirect_product_pages_to_parent_brand? && product.brand != website.brand && product.brand.default_website.present? %>
+                    <p>Redirects to: <%= link_to product_url(product, host: product.brand.default_website.url), product_url(product, host: product.brand.default_website.url) %></p>
+                  <% elsif product.product_page_url.present? %>
+                    <p>Redirects to: <%= link_to product.product_page_url, product.product_page_url %></p>
+                  <% end %>
                 <% end %>
               </td>
               <td class="text-center">
