@@ -49,8 +49,10 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product, locale: product_locale), status: :moved_permanently and return
     end
 
-    if @product.product_page_url.present?
-      if @product.product_page_url.to_s.match(/jblbag/i) || website.brand.name.to_s.match?(/jbl commercial/i)
+    if @product.brand != website.brand && website.brand.redirect_product_pages_to_parent_brand? && website.brand.default_website.present?
+      redirect_to product_url(@product, host: @product.brand.default_website.url), allow_other_host: true and return false
+    elsif @product.product_page_url.present?
+      unless @product.product_page_url.match?(/#{request.original_url}/i)
         redirect_to @product.product_page_url, allow_other_host: true and return false
       end
     end

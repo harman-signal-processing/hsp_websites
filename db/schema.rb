@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_20_193553) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_181626) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -385,6 +385,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_193553) do
     t.boolean "show_lead_form_on_buy_page", default: false
     t.boolean "harman_owned", default: true
     t.boolean "collapse_content", default: false
+    t.boolean "redirect_product_pages_to_parent_brand"
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -568,19 +569,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_193553) do
     t.datetime "updated_at", precision: nil
     t.string "queue"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
-  end
-
-  create_table "demo_songs", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.integer "product_attachment_id"
-    t.integer "position"
-    t.string "title"
-    t.string "mp3_file_name"
-    t.integer "mp3_file_size"
-    t.string "mp3_content_type"
-    t.datetime "mp3_updated_at", precision: nil
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.index ["product_attachment_id"], name: "index_demo_songs_on_product_attachment_id"
   end
 
   create_table "distributor_users", id: :integer, charset: "latin1", force: :cascade do |t|
@@ -1085,7 +1073,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_193553) do
     t.datetime "product_media_thumb_updated_at", precision: nil
     t.bigint "width"
     t.bigint "height"
-    t.string "songlist_tag"
     t.boolean "no_lightbox"
     t.boolean "hide_from_product_page"
     t.text "product_attachment_meta"
@@ -1283,29 +1270,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_193553) do
     t.string "secondary_uom"
     t.string "secondary_uom_formula"
     t.integer "stepsize", default: 1
-  end
-
-  create_table "product_introductions", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.integer "product_id"
-    t.string "layout_class"
-    t.date "expires_on"
-    t.text "content"
-    t.text "extra_css"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "top_image_file_name"
-    t.integer "top_image_file_size"
-    t.string "top_image_content_type"
-    t.datetime "top_image_updated_at", precision: nil
-    t.string "box_bg_image_file_name"
-    t.integer "box_bg_image_file_size"
-    t.string "box_bg_image_content_type"
-    t.datetime "box_bg_image_updated_at", precision: nil
-    t.string "page_bg_image_file_name"
-    t.integer "page_bg_image_file_size"
-    t.string "page_bg_image_content_type"
-    t.datetime "page_bg_image_updated_at", precision: nil
-    t.index ["product_id"], name: "index_product_introductions_on_product_id"
   end
 
   create_table "product_part_group_parts", charset: "utf8", force: :cascade do |t|
