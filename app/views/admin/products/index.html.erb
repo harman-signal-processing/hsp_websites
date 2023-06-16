@@ -68,11 +68,15 @@
                 <% end %>
               </td>
               <td>
-                <%= cache ["admin_product_family_summary_for", product] do %>
-                  <%=raw product.product_families.where(brand_id: website.brand_id).map{|pf|
-                    link_to(pf.name, [:admin, pf]) + " " + content_tag(:em, pf.locales(website).join(', '))
-                  }.join("<br/>".html_safe) %>
-                  <% if product.product_families.length == 0 %>
+                <%= cache ["admin_product_family_summary_for", product, website.brand] do %>
+                  <% these_families = product.product_families.where(brand_id: website.brand_id) %>
+                  <% if these_families.size > 0 %>
+                    <ul>
+                      <% these_families.each do |pf| %>
+                        <li><%= link_to(pf.name, [:admin, pf]) %> <em><%= pf.locales(website).join(', ') %></em></li>
+                      <% end %>
+                    </ul>
+                  <% else %>
                     <em>Does not appear in navigation.
 
                       <% if product.accessory_to_products.length > 0 %>
@@ -80,11 +84,12 @@
                       <% end %>
                     </em>
                   <% end %>
-                  <% if product.brand.redirect_product_pages_to_parent_brand? && product.brand != website.brand && product.brand.default_website.present? %>
-                    <p>Redirects to: <%= link_to product_url(product, host: product.brand.default_website.url), product_url(product, host: product.brand.default_website.url) %></p>
-                  <% elsif product.product_page_url.present? %>
-                    <p>Redirects to: <%= link_to product.product_page_url, product.product_page_url %></p>
-                  <% end %>
+                <% end %>
+
+                <% if product.brand.redirect_product_pages_to_parent_brand? && product.brand != website.brand && product.brand.default_website.present? %>
+                  <p>Redirects to: <%= link_to product_url(product, host: product.brand.default_website.url), product_url(product, host: product.brand.default_website.url) %></p>
+                <% elsif product.product_page_url.present? %>
+                  <p>Redirects to: <%= link_to product.product_page_url, product.product_page_url %></p>
                 <% end %>
               </td>
               <td class="text-center">
