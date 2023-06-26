@@ -1,5 +1,3 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryBot.define do
 	factory :distributor do
 		sequence(:name) {|n| "Distributor #{n}" }

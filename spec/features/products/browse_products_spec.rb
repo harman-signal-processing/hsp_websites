@@ -10,12 +10,6 @@ feature "Browse Products" do
 
   describe "homepage" do
 
-    # it "should redirect to the locale homepage" do
-    #   skip "must_respond_with doesn't work in new MiniTest-rails"
-    #   get root_url(host: @website.url)
-    #   must_respond_with :redirect
-    # end
-
     it "should have nav links" do
       visit root_path
 
@@ -101,17 +95,41 @@ feature "Browse Products" do
 
   end
 
-  describe "discontinued product page" do
-    before do
-      @product = FactoryBot.create(:discontinued_product, brand: @website.brand)
-    end
+  describe "discontinued" do
+    let(:product) { create(:discontinued_product, brand: @website.brand) }
+    let(:product_family) { create(:product_family, brand: @website.brand) }
 
-    it "should label the product as discontinued" do
-      visit product_path(@product, locale: I18n.default_locale)
+    it "product page should label the product as discontinued" do
+      visit product_path(product, locale: I18n.default_locale)
 
       expect(page).to have_content "discontinued"
     end
 
+    it "index should link to discontinued product" do
+      product_family.products << product
+
+      visit discontinued_products_path(locale: I18n.default_locale)
+
+      expect(page).to have_link product.name
+    end
+
+  end
+
+  describe "other locale products" do
+    let(:product) { create(:product, brand: @website.brand) }
+    let(:product_family) { create(:product_family, brand: @website.brand) }
+
+    before do
+      create(:website_locale, website: @website, locale: "zh")
+      create(:locale_product_family, product_family: product_family, locale: "zh")
+      product.product_families << product_family
+    end
+
+    it "should redirect to the locale where the product is available" do
+      visit product_path(product, locale: I18n.default_locale)
+
+      expect(page.current_path).to eq(product_path(product, locale: "zh"))
+    end
   end
 
 end

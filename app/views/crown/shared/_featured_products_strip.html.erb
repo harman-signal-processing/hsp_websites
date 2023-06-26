@@ -4,7 +4,6 @@
 		<% @featured_products.each_with_index do |featured_product, i| %>
 			<% if (i%2 <= 0) %>
 			<div class="row featured_product_container" id="featured_product_<%= i %>">
-				<%= featured_product_icons(featured_product, i) %>
 				<div class="large-7 columns">
 					<div class="featured_image_container show-for-large-up left
 						<%= link_to(image_tag(featured_product.photo.product_attachment.url(:full_width), alt: featured_product.name, lazy: false, class: "featured_image"), featured_product) %>

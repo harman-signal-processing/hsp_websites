@@ -38,36 +38,6 @@
 			<div class="large-6 columns"></div>
 		</div>
 
-		<div class="row">
-			<div class="large-8 columns">
-				<fieldset>
-					<legend>Demo songs for this resource (not common)</legend>
-
-					<%= f.input :songlist_tag, label: "Unique songlist name",
-						hint: "(as embedded in the flash file--required if the flash demo references external mp3 files)" %>
-
-					<h5 class="subheader">Attached Demo Songs</h5>
-					<table class="data" width="100%">
-						<tr>
-							<td>title</td>
-							<td>mp3</td>
-							<td></td>
-						</tr>
-					<%= f.fields_for :demo_songs do |demo_song| %>
-						<tr id="demo_song_<%= demo_song.object.id %>">
-							<td><%= demo_song.text_field :title %></td>
-							<td><%= demo_song.file_field :mp3 %></td>
-							<td><% if !demo_song.object.new_record? %>
-								<%= link_to image_tag("icons/trash.gif", lazy: false), [:admin, demo_song.object], method: :delete, remote: true %>
-								<%= link_to demo_song.object.mp3_file_name, demo_song.object.mp3.url %>
-								<% end %>
-							</td>
-						</tr>
-					<% end %>
-					</table>
-				</fieldset>
-			</div>
-		</div>
 	<% end %>
 
   <fieldset>
