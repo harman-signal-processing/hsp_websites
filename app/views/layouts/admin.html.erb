@@ -247,15 +247,7 @@
                   <% end %>
 
                   <% if can? :manage, ContentTranslation %>
-                    <li class="has-dropdown"><%= link_to "Translations", '#' %>
-                    <ul class="dropdown">
-                      <% Locale.order(:name).each do |locale| %>
-                        <% unless I18n.default_locale.to_s == locale.code.to_s %>
-                          <li><%= link_to(locale.name, admin_content_translations_path(locale.code.to_s)) %></li>
-                        <% end %>
-                      <% end %>
-                    </ul>
-                    </li>
+                    <li><%= link_to "Translations", admin_content_translation_languages_path %></li>
                   <% end %>
 
                   <% if website.has_system_configurator? && can?(:manage, System) %>

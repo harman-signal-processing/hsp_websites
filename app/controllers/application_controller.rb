@@ -162,6 +162,7 @@ private
 
       # Check if the user is trying to pass something sinister in with the locale param
       if params[:locale].present?
+        params[:locale].gsub!(/(\\|\/|\")$/, "") # removing trailing slash and double quote some have bookmarked
         if params[:locale].to_s.match?(/[^a-zA-Z\-]/)
           BadActorLog.create(ip_address: request.remote_ip, reason: "Overloading locale param", details: "#{request.inspect}\n\n#{params.inspect}")
           log_bad_actors(request.remote_ip, "Overloading locale param")

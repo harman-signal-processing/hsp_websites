@@ -6,11 +6,11 @@ class Admin::ProductsController < AdminController
   # GET /admin/products
   # GET /admin/products.xml
   def index
+    @products = website.products
     if params[:q].present?
-      @search = website.products.ransack(params[:q])
+      @search = @products.ransack(params[:q])
       @products = @search.result
     else
-      @products = Product.where(brand_id: website.brand_id)
       @search = @products.ransack
     end
     respond_to do |format|

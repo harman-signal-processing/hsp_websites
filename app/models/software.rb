@@ -68,7 +68,7 @@ class Software < ApplicationRecord
   # Revert to previous version (if any) when deleting/inactivating software
   def revert_version
     if previous_versions.length > 0
-      new_version = previous_versions.last
+      new_version = previous_versions.first
       previous_versions.update_all(current_version_id: new_version.id)
       new_version.update(current_version_id: nil, active: true)
     end

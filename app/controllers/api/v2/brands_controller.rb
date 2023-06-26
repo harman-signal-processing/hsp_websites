@@ -5,8 +5,10 @@ module Api
     class BrandsController < ApplicationController
       respond_to :xml, :json, :html
 
+      # Only active brands, plus AKG for Consultant portal page on HPro site
+      # This removes former Harman brands
       def index
-        @brands = Brand.all
+        @brands = Brand.where(live_on_this_platform: true).or(Brand.where(name: "AKG"))
         respond_with @brands
       end
 

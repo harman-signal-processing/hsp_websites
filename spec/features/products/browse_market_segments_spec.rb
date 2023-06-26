@@ -22,6 +22,8 @@ feature "Browse Market Segments" do
     let(:market_segment) { create(:market_segment, brand: @website.brand) }
 
     it "shows the market segment page" do
+      expect(CaseStudy).to receive(:find_by_website_or_brand).with(@website).and_return([])
+
       visit market_segment_path(market_segment, locale: I18n.default_locale)
 
       expect(page).to have_content(market_segment.name)

@@ -450,6 +450,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get "scheduled_tasks/:id/value_field/:field_name" => 'scheduled_tasks#value_field'
 
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations
+      get 'content_translation/languages' => 'content_translations#languages', as: :content_translation_languages
       scope path: '/:target_locale', target_locale: /#{Locale.all_unique_locales.join('|')}/ do
         resources :content_translations do
           collection {get :list, :combined}
