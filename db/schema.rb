@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_181626) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_26_220023) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -950,6 +950,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_181626) do
     t.datetime "link_checked_at", precision: nil
     t.string "link_status", default: "200"
     t.integer "position"
+    t.boolean "exclusive", default: false
     t.index ["brand_id"], name: "index_online_retailer_links_on_brand_id"
     t.index ["online_retailer_id", "brand_id"], name: "index_online_retailer_links_on_online_retailer_id_and_brand_id"
     t.index ["online_retailer_id", "product_id"], name: "index_online_retailer_links_on_online_retailer_id_and_product_id"

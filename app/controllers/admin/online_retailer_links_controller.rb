@@ -95,7 +95,8 @@ class Admin::OnlineRetailerLinksController < AdminController
       :product_id,
       :brand_id,
       :online_retailer_id,
-      :url
+      :url,
+      :exclusive
     )
   end
 end

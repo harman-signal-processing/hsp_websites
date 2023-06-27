@@ -247,6 +247,8 @@ module ProductsHelper
         buy_it_now_international(product, button, options)
 		  elsif !product.direct_buy_link.blank?
         buy_it_now_direct_from_factory(product, button, options)
+      elsif !!product.exclusive_retailer_link
+        buy_it_now_exclusive(product, button, options)
       elsif @online_retailer_link # http param[:bin] provided
         buy_it_now_direct_to_retailer(product, button)
 		  else
@@ -261,6 +263,8 @@ module ProductsHelper
 
   def button_for(product, options)
     if product.direct_buy_link.blank?
+      text = t("buy_it_now")
+    elsif !!product.exclusive_retailer_link
       text = t("buy_it_now")
     elsif product.parent_products.size > 0 # as in e-pedals
       text = t("get_it")
@@ -307,6 +311,14 @@ module ProductsHelper
       class: button_class(button, options),
       target: "_blank",
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"))
+  end
+
+  def buy_it_now_exclusive(product, button, options={})
+    link_to(button,
+      product.exclusive_retailer_link.url,
+      class: button_class(button, options) + " buy_it_now_popup",
+      data: (options[:reveal_id]) ? {:'reveal-id' => options[:reveal_id]} : {windowname: 'dealer_popup'},
+      onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Exclusive', '#{product.exclusive_retailer_link.online_retailer.name}', '#{product.name}'])"))
   end
 
   def buy_it_now_direct_from_factory(product, button, options={})
