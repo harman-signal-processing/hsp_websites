@@ -7,6 +7,7 @@ class OnlineRetailer < ApplicationRecord
   has_many :online_retailer_links, -> { where("product_id IS NOT NULL") }, dependent: :destroy
   has_attached_file :retailer_logo,
     styles: {
+      exclusive: "300x100#",
       medium: "300x300>",
       small: "175x175>",
       thumb: "100x100>",

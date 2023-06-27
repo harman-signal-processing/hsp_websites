@@ -1101,6 +1101,9 @@ div.product-title-block, div.small-title-block {
   }
   div.product-price-row {
     margin: -20px 0;
+    img {
+      margin-top: -10px;
+    }
   }
   div.product-price {
     h6.price-label {

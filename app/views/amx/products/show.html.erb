@@ -310,22 +310,24 @@ set_meta_tags title: @product.name,
       </div>
     </div>
     <% end %>
-    <div class="row">
-      <div class="large-7 columns">
-        <%= form_tag partner_search_path, method: :get %>
-        <div class="row collapse">
-          <div class="large-8 small-7 columns">
-            <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
+    <% if !@product.exclusive_retailer_link %>
+      <div class="row">
+        <div class="large-7 columns">
+          <%= form_tag partner_search_path, method: :get %>
+          <div class="row collapse">
+            <div class="large-8 small-7 columns">
+              <%= text_field_tag "zip", session[:zip], placeholder: t('us_zip_code') %>
+            </div>
+            <div class="large-4 small-5 columns">
+              <%= submit_tag t('find_us_dealers'), class: "postfix button" %>
+            </div>
           </div>
-          <div class="large-4 small-5 columns">
-            <%= submit_tag t('find_us_dealers'), class: "postfix button" %>
-          </div>
+          </form>
         </div>
-        </form>
       </div>
-    </div>
-    <p><%= image_tag "small-gray-world-map.png", alt: "" %>
-      Also available from <%= link_to t("international_distributors"), international_distributors_path %> distributors.</p>
+      <p><%= image_tag "small-gray-world-map.png", alt: "" %>
+        Also available from <%= link_to t("international_distributors"), international_distributors_path %> distributors.</p>
+    <% end %>
   </div>
 <% end %>
 

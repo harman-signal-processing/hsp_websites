@@ -1,5 +1,7 @@
-<div class="product-price">
-  <% if website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
+<% if !!@product.exclusive_retailer_link && !@product.direct_buy_link.present? %>
+  <%= image_tag(@product.exclusive_retailer_link.online_retailer.retailer_logo.url(:exclusive), alt: "Buy from #{ @product.exclusive_retailer_link.online_retailer.name }", lazy: false) %>
+<% elsif website.show_pricing? && I18n.default_locale.match(/#{I18n.locale}/i) %>
+  <div class="product-price">
     <% calculate_pricing_for_product_page(@product, @promo) %>
 
     <% if @product.msrp.to_f > 0.0 %>
@@ -54,5 +56,5 @@
 
     <% end %>
 
-  <% end %>
-</div>
+  </div>
+<% end %>

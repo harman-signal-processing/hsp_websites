@@ -25,6 +25,9 @@
       <% elsif !(orl.link_status.match(/^2/)) %>
         <span style="background: #F00; padding: 2px 5px; color: white">unknown error</span>
       <% end %>
+      <% if orl.exclusive? %>
+        [EXCLUSIVE!]
+      <% end %>
     </span>
   </li>
 <% end %>

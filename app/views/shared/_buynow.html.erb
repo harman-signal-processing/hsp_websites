@@ -1,15 +1,40 @@
-<ul class="large-block-grid-4 small-block-grid-2">
+<% if !!product.exclusive_retailer_link %>
+	<p><strong>You are now leaving the <%= website.brand.name %> website.</strong> <%= website.brand.name %> offers links to
+	a third-party website that may be of interest to our website visitors. When you click on these links you will leave the
+	<%= website.brand.name %> website and will be redirected to another site. These sites are not under the control of
+	<%= website.brand.name %>.</p>
 
-<% product.preferred_retailer_links.each do |prl| %>
-	<li class="retailer_logo preferred">
-		<%= render "shared/online_retailer_link", orl: prl %>
-	</li>
+	<p><%= website.brand.name %> is not responsible for the content of linked third party websites. We are not an agent for
+	these third parties, nor do we guarantee their products. We make no representation or warranty regarding the accuracy of
+	the information contained in the linked sites.</p>
+
+	<p>Also, please be aware that the security and privacy policies on these sites may be different than <%= website.brand.name %>
+	policies, so please read third party privacy and security policies closely. When you use a third-party site, you will be
+	subject to its terms and licenses and no longer be protected by <%= website.brand.name %> privacy policy or security
+	practices.</p>
+
+	<p>If you have any questions or concerns about the products and services offered on linked third party websites, please
+	contact the third party directly. By clicking on the CONTINUE button below, you acknowledge the above statement and will
+	be taken to the linked site. If you want to remain on the <%= website.brand.name %> site, select the CANCEL button.
+
+  <p>
+    <%= link_to "CONTINUE", product.exclusive_retailer_link.url, target: "_blank", class: "button" %>
+    <a onclick="$('.buy_it_now_popup').foundation('reveal', 'close')">cancel</a>
+  </p>
+<% else %>
+	<ul class="large-block-grid-4 small-block-grid-2">
+
+	<% product.preferred_retailer_links.each do |prl| %>
+		<li class="retailer_logo preferred">
+			<%= render "shared/online_retailer_link", orl: prl %>
+		</li>
+	<% end %>
+
+	<% product.randomized_retailer_links.each do |orl| %>
+		<li class="retailer_logo">
+			<%= render "shared/online_retailer_link", orl: orl %>
+		</li>
+	<% end %>
+
+	</ul>
 <% end %>
-
-<% product.randomized_retailer_links.each do |orl| %>
-	<li class="retailer_logo">
-		<%= render "shared/online_retailer_link", orl: orl %>
-	</li>
-<% end %>
-
-</ul>

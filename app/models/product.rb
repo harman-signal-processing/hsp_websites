@@ -384,6 +384,10 @@ class Product < ApplicationRecord
     @preferred_retailer_links ||= active_retailer_links.select{|orl| orl if orl.online_retailer.preferred.to_i > 0}
   end
 
+  def exclusive_retailer_link
+    @exclusive_retailer_link ||= active_retailer_links.select{|orl| orl if orl.exclusive?}.first
+  end
+
   # Collect tabs of info to be displayed on product page.
   # To create a new tab:
   # 1. Add it to this array by appending the brand's "side_tabs" setting
