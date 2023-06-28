@@ -1,6 +1,6 @@
 <%= simple_form_for([:admin, @page]) do |f| %>
   <%= f.input :title %>
-
+  <%= f.input :exclude_from_search, label: "Exclude from site search results" %>
   <div class="row">
     <div class="large-6 columns">
       <%= f.input :custom_route, label: "Custom URL", disabled: disable_field_for?(f.object, :custom_route),

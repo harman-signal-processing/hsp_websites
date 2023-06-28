@@ -10,12 +10,14 @@
 	<tr>
 		<th><b>Page URL</b> (click to visit page)</th>
 		<th style="padding-left: 8px"><b>Page Title</b> (click to edit page)</th>
+		<th><span style="font-size:xx-small;">Exclude from site search</span></th>
 		<th>Last Updated<br /><span style="font-size:xx-small;"><%=Time.zone.name.gsub("(","<br />(").html_safe%></span></th>
 	</tr>
 <% @pages.each do |page| %>
 	<tr>
 		<td><%= link_to page_link(page), page_link(page) %></td>
 		<td style="padding-left: 8px"><%= link_to page.title, [:admin, page] %></td>
+		<td style="text-align:center"><span style="font-size:xx-small;"><%= (page.exclude_from_search?) ? "Yes" : "No" %></span></td>
 		<td><span style="font-size:x-small;"><%=l page.updated_at, format: :log %></span></td>
 	</tr>
 <% end %>

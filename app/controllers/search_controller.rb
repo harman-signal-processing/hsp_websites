@@ -81,6 +81,7 @@ class SearchController < ApplicationController
       software_but_not_active = (r.is_a?(Software) && !r.active)
       is_product_review = r.is_a?(ProductReview)
       is_landing_page_with_login = r.is_a?(Page) && r.requires_login?
+      is_landing_page_to_exclude = r.is_a?(Page) && r.exclude_from_search?
       is_product_family_page_with_login = r.is_a?(ProductFamily) && r.requires_login?
       is_product_family_and_has_parent_with_lang_that_should_not_be_included = false
 
@@ -98,6 +99,7 @@ class SearchController < ApplicationController
           software_but_not_active ||
           is_product_review ||
           is_landing_page_with_login ||
+          is_landing_page_to_exclude ||
           is_product_family_page_with_login ||
           exclude_product_family_because_of_parent_locale
         )
