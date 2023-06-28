@@ -95,7 +95,8 @@ class Admin::PagesController < AdminController
       :username,
       :custom_css,
       :layout_class,
-      :custom_js
+      :custom_js,
+      :exclude_from_search
     )
   end
 end

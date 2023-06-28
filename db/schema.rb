@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_26_220023) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_28_204826) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -1005,6 +1005,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_220023) do
     t.text "custom_css"
     t.string "layout_class"
     t.text "custom_js"
+    t.boolean "exclude_from_search", default: false
     t.index ["brand_id"], name: "index_pages_on_brand_id"
     t.index ["cached_slug"], name: "index_pages_on_cached_slug", unique: true
     t.index ["custom_route"], name: "index_pages_on_custom_route"
