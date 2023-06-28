@@ -131,7 +131,7 @@
             <div class="small-12 medium-3 columns">
               <%= select_tag :brand_id,
                 options_from_collection_for_select(
-                  Brand.where(id: Product.pluck(:brand_id).uniq).order(Arel.sql("upper(name)")),
+                  Brand.where(id: Product.pluck(:brand_id).uniq, harman_owned: true).order(Arel.sql("upper(name)")),
                   "cached_slug", "name", website.brand.cached_slug
               ), class: "brand-select" %>
             </div>
