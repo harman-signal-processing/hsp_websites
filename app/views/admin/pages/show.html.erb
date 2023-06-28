@@ -35,7 +35,10 @@
   <b>Description:</b>
   <%= @page.description %>
 </p>
-
+<p>
+  <b>Exclude from site search results?</b>
+  <%= (@page.exclude_from_search?) ? "Yes" : "No" %>
+</p>
 <% if @page.requires_login? %>
 <p>
 	<b>This page is password protected. Use the following to access the page:</b><br/>
