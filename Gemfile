@@ -45,6 +45,7 @@ gem 'tinymce-rails',
 gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
+gem 'maxmind-geoip2'
 gem 'thinking-sphinx'
 gem 'delayed_job_active_record'
 gem 'daemons'
