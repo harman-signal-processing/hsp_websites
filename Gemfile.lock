@@ -743,6 +743,7 @@ DEPENDENCIES
   chosen-rails!
   coffee-rails
   colorize
+  countries
   country_select
   daemons
   dalli

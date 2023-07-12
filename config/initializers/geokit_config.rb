@@ -1,5 +1,6 @@
 # Include a little hack to get things working with Rails3
 #  require Rails.root.join('lib', 'merge_conditions.rb')
+require Rails.root.join('lib', 'geolite2city.rb')
 
 # For geocoder_plus
 # require 'api_cache'
@@ -90,6 +91,7 @@ Geokit::Geocoders::provider_order = [:bing, :google] #:geonames] #, :yahoo, :goo
 # The IP provider order. Valid symbols are :ip,:geo_plugin.
 # As before, make sure you read up on relevant Terms of Use for each.
 # Geokit::Geocoders::ip_provider_order = [:external,:geo_plugin,:ip]
+Geokit::Geocoders::ip_provider_order = [:geolite2_city, :ip_api]
 
 # Disable HTTPS globally.  This option can also be set on individual
 # geocoder classes.
