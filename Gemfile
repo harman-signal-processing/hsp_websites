@@ -66,6 +66,7 @@ gem 'execjs'
 gem 'therubyrhino'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 5.0.0"
+gem 'countries'
 gem 'country_select'
 gem 'chosen-rails', git: 'https://github.com/adamtao/chosen-rails'
 gem 'language_list'
