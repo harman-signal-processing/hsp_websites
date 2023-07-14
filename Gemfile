@@ -95,6 +95,9 @@ gem 'slack-notifier'
 gem 'google-api-client', '~> 0.36'
 gem 'wicked_pdf'
 
+# For doing some production analysis separate from main logger
+gem 'multi_logger'
+
 group :production, :staging do
   gem 'passenger_monit'
 end
