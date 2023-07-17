@@ -28,8 +28,8 @@
     <ul class="dropdown">
       <li><%= link_to "InConcert Partners", "/#{I18n.locale}/partners" %></li>
       <li><%= link_to "Valued Independent Partners (VIP)", "/#{I18n.locale}/vips" %></li>
-    </ul>  
-  
+    </ul>
+
   <% if website.has_solution_pages? %>
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
@@ -86,7 +86,7 @@
   </li>
 
   <!-- About -->
-  <li class="has-dropdown"><%= link_to t("nav.about").titleize, "/#" %>
+  <li class="has-dropdown"><%= link_to t("nav.about").titleize, "#" %>
     <ul class="dropdown">
       <li><a href="/about-us">Our History</a></li>
       <li><%= link_to t("nav.quality"), "/#{I18n.locale}/amx-quality-assurance" %></li>
