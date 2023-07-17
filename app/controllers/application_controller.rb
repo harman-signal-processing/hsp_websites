@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :catch_criminals
+  before_action :set_geo, :catch_criminals
   # before_action :set_locale
   before_action :respond_to_htm
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -195,33 +195,6 @@ private
 
   # TODO: the big if statement below setting the locale needs to be refactored and will eventually include plenty of other countries
   def set_locale
-    # This isn't really setting the locale, we're just trying
-    # to be smart and pick the user's country for "Buy It Now"
-    begin
-      if params['geo']
-        session['geo_country'] = clean_country_code
-        session['geo_usa'] = (clean_country_code == "us") ? true : false
-      else
-        unless session['geo_country']
-          # MultiGeocoder should automatically use IP services in the order of
-          # preference indicated in config/initializers/geokit_config.rb
-          lookup = Geokit::Geocoders::MultiGeocoder.do_geocode(request.remote_ip)
-          if lookup.present? && lookup.country_code.present?
-            session['geo_country'] = lookup.country_code
-            session['geo_usa'] = lookup.is_us?
-            session['geo_usa_state'] = lookup.state
-          else
-            session['geo_country'] = "US"
-            session['geo_usa'] = true
-            session['geo_usa_state'] = nil
-          end
-        end
-      end
-    rescue
-      #session['geo_country'] = "US"
-      #session['geo_usa'] = true
-    end
-
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     # This is where we set the locale:
@@ -258,6 +231,33 @@ private
     #    redirect_to url_for(request.params.merge(locale: website.list_of_available_locales.first)) and return false
     #  end
     #end
+  end
+
+  def set_geo
+    begin
+      if params['geo']
+        session['geo_country'] = clean_country_code
+        session['geo_usa'] = (clean_country_code == "us") ? true : false
+      else
+        unless session['geo_country']
+          # MultiGeocoder should automatically use IP services in the order of
+          # preference indicated in config/initializers/geokit_config.rb
+          lookup = Geokit::Geocoders::MultiGeocoder.do_geocode(request.remote_ip)
+          if lookup.present? && lookup.country_code.present?
+            session['geo_country'] = lookup.country_code
+            session['geo_usa'] = lookup.is_us?
+            session['geo_usa_state'] = lookup.state
+          else
+            session['geo_country'] = "US"
+            session['geo_usa'] = true
+            session['geo_usa_state'] = nil
+          end
+        end
+      end
+    rescue
+      #session['geo_country'] = "US"
+      #session['geo_usa'] = true
+    end
   end
 
   # locale selector
