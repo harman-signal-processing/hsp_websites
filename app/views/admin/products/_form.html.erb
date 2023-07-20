@@ -48,7 +48,7 @@
   <div class="large-6 columns">
     <%= f.input :product_page_url,
       label: "External product page URL",
-      hint: "Not commonly used. Example usage is when the brand isn't live on this platform or the product is managed by a 3rd party." %>
+      hint: "If present, redirects visitors to the URL above. Useful for 3rd party sites (ie, jblbags) or if the product has been renamed/moved." %>
   </div>
   <% if website.firmware_page %>
     <div class="large-6 column">
@@ -99,6 +99,17 @@
 	<div class="large-6 columns">
 		<%= f.input :features_tab_name, hint: "Show a different tab name for 'features'." %>
 	</div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <% if @product.brand.collapse_content? %>
+      <p><em>Note: <%= @product.brand.name %> is configured to use collapsed content for all products. 
+          To edit collapsing on a per-product basis, first <%= link_to "edit the brand's settings", edit_admin_brand_path(@product.brand) %>.</em></p>
+    <% else %>
+      <%= f.input :collapse_content, label: "Content is collapsed to reduce scrolling" %>
+    <% end %>
+  </div>
 </div>
 
 <div class="row">
@@ -166,15 +177,18 @@
 				<%= f.input :msrp, label: "MSRP", placeholder: "0.00" %>
 				<%= f.input :street_price, placeholder: "0.00" %>
 				<%= f.input :sale_price, placeholder: "0.00" %>
-				<%= f.input :direct_buy_link,
-					hint: "(aka, add to cart link)",
-					placeholder: "https://#{website.url}/add-to-cart/..." %>
+      <% end %>
 
-				<div class="bigger_hint">Providing a link above will convert the "Buy It Now" button on the product page
-					into an "Add To Cart" button linking directly to the link above. If you'd rather include
-					this link among other online retailer links, then leave this field blank and use the "online retailers" 
-					section of this site instead.</div>
-			<% end %>
+      <%= f.input :direct_buy_link,
+        hint: "(aka, add to cart link)",
+        placeholder: "https://#{website.url}/add-to-cart/..." %>
+
+      <div class="bigger_hint">Providing a link above will convert the "Buy It Now" button on the product page
+        into an "Add To Cart" button linking directly to the link above. If you'd rather include
+        this link among other online retailer links, then leave this field blank and use the "online retailers"
+        section of this site instead. This field is typically used to send customers directly to a HARMAN
+        ecommerce site.
+      </div>
 
 			<% if website.brand.employee_store? && !website.brand.live_on_this_platform? %>
 			<p>

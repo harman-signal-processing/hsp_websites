@@ -38,10 +38,10 @@ module ProductsHelper
   end
 
   # Zurb's way of doing the accordion I had previously hand-written
-  #
+  # Note: this usually appears under the side nav and is intended for short content
   def draw_info_accordion(product, options={})
     acc = ""
-    side_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.collect_tabs(website.brand.side_tabs)
+    side_tabs = product.collect_tabs(website.brand.side_tabs)
 
     side_tabs.each_with_index do |product_tab, i|
       active = "active" if i == 0
@@ -60,98 +60,16 @@ module ProductsHelper
       data: {accordion: true})
   end
 
-  def draw_info_boxes(product, options={})
-    default_options = {hide_on_load: true}
-    options = default_options.merge options
-    return discontinued_boxes(product) if product.discontinued?
-    ret = ""
-    side_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.tabs
-    side_tabs.each do |product_tab|
-      hidden = (options[:hide_on_load]) ? "display: none;" : ""
-      ret += "<div id=\"#{product_tab.key}\" class=\"product_detail_box\">" +
-        "<h2>" + link_to_function(tab_title(product_tab), "$('##{product_tab.key}_content').toggle()") + "</h2>" +
-        content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_tab_content") do
-          render_partial("products/#{product_tab.key}", product: product)
-        end
-      ret += "</div>"
-    end
-    raw(ret)
-  end
-
-  # So, these are the tabs that can be clicked on to show the contents
-  def draw_main_tabs(product, options={})
-    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
-    if main_tabs.size > 1
-      ret = options[:zurb] ? "<dl class='tabs' data-tab>" : "<ul id='product_main_tabs'>"
-      main_tabs.each_with_index do |product_tab,i|
-        if options[:active_tab]
-          current = (product_tab.key == options[:active_tab]) ? "active current" : ""
-        else
-          current = (i == 0) ? "active current" : ""
-        end
-        if options[:zurb]
-          ret += content_tag(
-            :dd,
-            link_to(
-              tab_title(product_tab, product: product),
-              "##{product_tab.key}_content",
-            ),
-            class: current
-          )
-        else
-          ret += content_tag(:li, link_to(tab_title(product_tab, product: product), product_path(product, tab: product_tab.key), data: { tabname: product_tab.key }), class: current, id: "#{product_tab.key}_tab")
-        end
-      end
-      ret += options[:zurb] ? "</dl>" : "</ul>"
-      raw(ret)
-    end
-  end
-
-  # These are the actual main tab contents
-  def draw_main_tabs_content(product, options={})
-    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
-
-    ret = "<div class=\"section-container tabs-content\">"
-
-    main_tabs.each_with_index do |product_tab,i|
-      next if product_tab.key == "photometrics"
-
-      if options[:zurb]
-
-        if options[:active_tab]
-          active_class = (product_tab.key == options[:active_tab]) ? "active" : ""
-        else
-          active_class = (i == 0) ? "active" : ""
-        end
-
-        ret += content_tag(:div, id: "#{product_tab.key}_content", class: "product_main_tab_content content #{active_class}") do
-          render_partial("products/#{product_tab.key}", product: product)
-        end
-
-      else
-
-        if options[:active_tab]
-          hidden = (product_tab.key == options[:active_tab]) ? "" : "display: none;"
-        else
-          hidden = (i == 0) ? "" : "display: none;"
-        end
-
-        ret += content_tag(:div, id: "#{product_tab.key}_content", style: hidden, class: "product_main_tab_content") do
-          render_partial("products/#{product_tab.key}", product: product)
-        end
-
-      end
-    end  #  main_tabs.each_with_index do |product_tab,i|
-
-    ret += "</div>"
-    raw(ret)
-  end  #  def draw_main_tabs_content(product, options={})
-
   def draw_side_nav(product, options={})
-    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
+    # set collapse_content to true at the brand or product level to use accordion
+    # instead of side nav. When collapse_content = true, side nav retains links to
+    # photometrics, parts and hpro contact buttons
+    collapse_content = product.collapse_content? || product.brand.collapse_content?
+
+    main_tabs = product.main_tabs
+    side_links = []
+    ret = "<div class='side-nav-container' data-magellan-expedition='static'>"
     if main_tabs.size > 1
-      ret = "<div class='side-nav-container' data-magellan-expedition='static'>"
-      ret += "<dl class='side-nav'>"
       main_tabs.each_with_index do |product_tab,i|
         if options[:active_tab]
           current = (product_tab.key == options[:active_tab]) ? "active" : ""
@@ -159,7 +77,7 @@ module ProductsHelper
           current = (i == 0) ? "active" : ""
         end
         if product_tab.key == "photometrics"
-          ret += content_tag(
+          side_links << content_tag(
             :dd,
             link_to(
               tab_title(product_tab, product: product),
@@ -169,7 +87,7 @@ module ProductsHelper
           )
         elsif product_tab.key == "parts"
           if can?(:read, Part)
-            ret += content_tag(
+            side_links << content_tag(
               :dd,
               link_to(
                 "#{tab_title(product_tab, product: product)} #{fa_icon('key')}".html_safe,
@@ -178,7 +96,7 @@ module ProductsHelper
             )
           end
         else
-          ret += content_tag(
+          side_links << content_tag(
             :dd,
             link_to(
               tab_title(product_tab, product: product),
@@ -188,85 +106,80 @@ module ProductsHelper
             data: {
               :'magellan-arrival' => product_tab.key
             }
-          )
+          ) unless collapse_content
         end
       end
-      ret += "</dl>"
-      unless hide_contact_buttons?(product)
-        ret += hpro_contact_buttons
+      if side_links.size > 0
+        ret += content_tag(:dl, raw(side_links.join("")), class: "side-nav")
+        ret += tag.hr
       end
-      ret += "</div>"
-      raw(ret)
     end
-  end
-
-  def draw_top_subnav(product, options={})
-    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
-    top_tabs = main_tabs.select do |t|
-      t unless t.key.to_s.match(/feature|news|training|support|spec/i)
+    unless hide_contact_buttons?(product)
+      ret += hpro_contact_buttons
     end
-    if top_tabs.size > 1
-      ret = "<div class='top-subnav-container' data-magellan-expedition='fixed'>"
-      ret += "<dl class='sub-nav'>"
-      top_tabs.each_with_index do |product_tab,i|
-        if options[:active_tab]
-          current = (product_tab.key == options[:active_tab]) ? "active" : ""
-        else
-          current = (i == 0) ? "active" : ""
-        end
-        tt = tab_title(product_tab, product: product)
-        tt.gsub!(/Specifications?/, "Specs")
-        tt.gsub!(/Documentation/, "Docs")
-        ret += content_tag(
-          :dd,
-          link_to(
-            tt,
-            "##{product_tab.key}",
-          ),
-          class: current,
-          data: {
-            :'magellan-arrival' => product_tab.key
-          }
-        )
-      end
-      ret += "</dl>"
-      ret += "</div>"
-      raw(ret)
-    end
+    ret += "</div>"
+    raw(ret)
   end
 
   def draw_main_product_content(product, options={})
-    main_tabs = (options[:tabs]) ? parse_tabs(options[:tabs], product) : product.main_tabs
+    main_tabs = product.main_tabs
+
+    # set collapse_content to true at the brand or product level to use accordion
+    collapse_content = product.collapse_content? || product.brand.collapse_content?
 
     ret = ""
+    first_tab = main_tabs[0]
+    if options[:active_tab]
+      active_class = (first_tab.key == options[:active_tab]) ? "active" : ""
+    else
+      active_class = "active"
+    end
+    ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
+      render_partial("products/#{first_tab.key}", product: product)
+    end
 
+    main_tabs_content = ""
     main_tabs.each_with_index do |product_tab,i|
-      next if product_tab.key == "photometrics" || product_tab.key == "parts"
+      next if i == 0 || product_tab.key == "photometrics" || product_tab.key == "parts"
 
       if options[:active_tab]
         active_class = (product_tab.key == options[:active_tab]) ? "active" : ""
       else
-        active_class = (i == 0) ? "active" : ""
+        active_class = ""
       end
 
-      if i > 0
-        ret += link_to('', '', name: product_tab.key)
-        ret += content_tag(:div, '', class: "overline")
-        ret += content_tag(:div, class: "row product-subheader", id: "product-#{product_tab.key}") do
-          content_tag(:div, class: "small-10 columns") do
-            content_tag(
-            :h3,
-            tab_title(product_tab, product: product),
-            class: 'content-nav',
-            data: {:'magellan-destination' => product_tab.key}
-          )
+      this_tab_content = ""
+      if collapse_content
+        this_tab_content += link_to("#panel_#{product_tab.key}") do
+          content_tag(:h3, tab_title(product_tab, product: product))
+        end
+      else
+        this_tab_content += link_to('', '', name: product_tab.key)
+        this_tab_content += content_tag(:div, '', class: "overline")
+        this_tab_content += content_tag(:div, class: "row product-subheader", id: "product-#{product_tab.key}") do
+            content_tag(:div, class: "small-10 columns") do
+              content_tag(
+              :h3,
+              tab_title(product_tab, product: product),
+              class: 'content-nav',
+              data: {:'magellan-destination' => product_tab.key}
+            )
           end + admin_links_for(product_tab, product)
         end
       end
-      ret += content_tag(:div, class: "product_main_tab_content content #{active_class}") do
+
+      this_tab_content += content_tag(:div, class: "product_main_tab_content content #{active_class}", id: "panel_#{product_tab.key}") do
         render_partial("products/#{product_tab.key}", product: product)
       end
+
+      main_tabs_content += collapse_content ?
+        content_tag(:dd, raw(this_tab_content), class: "accordion-navigation") :
+        this_tab_content
     end
+
+    ret += collapse_content ?
+      content_tag(:dl, raw(main_tabs_content), class: "accordion", data: {accordion: true}) :
+      main_tabs_content
 
     raw(ret)
   end
@@ -305,62 +218,16 @@ module ProductsHelper
     end
   end
 
-  def parse_tabs(tabs, product)
-    selected_tabs = tabs.split("|")
-    r = []
-    begin
-      r << ProductTab.new("description") if selected_tabs.include?("description")
-      r << ProductTab.new("extended_description") if !product.extended_description.blank? && selected_tabs.include?("extended_description")
-      r << ProductTab.new("audio_demos") if product.audio_demos.size > 0 && selected_tabs.include?("audio_demos")
-      r << ProductTab.new("configuration_tool") if product.configuration_tool_content_present? && selected_tabs.include?("configuration_tool")
-      r << ProductTab.new("documentation") if (product.product_documents.size > 0 || product.current_promotions.size > 0 || product.viewable_site_elements.size > 0) && selected_tabs.include?("documentation")
-      r << ProductTab.new("downloads") if (product.softwares.size > 0 || product.site_elements.size > 0 || product.executable_site_elements.size > 0) && selected_tabs.include?("downloads")
-      r << ProductTab.new("downloads_and_docs") if (product.softwares.size > 0 || product.product_documents.size > 0 || product.site_elements.size > 0) && selected_tabs.include?("downloads_and_docs")
-      r << ProductTab.new("parts_service") if selected_tabs.include?("parts_service")
-      r << ProductTab.new("features") if product.features && selected_tabs.include?("features")
-      r << ProductTab.new("specifications") if product.product_specifications.size > 0 && selected_tabs.include?("specifications")
-      r << ProductTab.new("training_modules") if product.training_modules.size > 0 && selected_tabs.include?("training_modules")
-      r << ProductTab.new("reviews") if (product.product_reviews.size > 0 || product.artists.size > 0) && selected_tabs.include?("reviews")
-      r << ProductTab.new("artists") if product.artists.size > 0 && selected_tabs.include?("artists")
-      r << ProductTab.new("news_and_reviews") if product.news_and_reviews.size > 0 && selected_tabs.include?("news_and_reviews")
-      r << ProductTab.new("gallery") if product.images_for("product_page").size > 0 && selected_tabs.include?("gallery")
-      r << ProductTab.new("recommended_accessories") if !product.discontinued? && product.alternatives.size > 0 && selected_tabs.include?("recommended_accessories")
-      r << ProductTab.new("news") if product.current_news.size > 0 && selected_tabs.include?("news")
-      r << ProductTab.new("support") if selected_tabs.include?("support")
-    rescue
-      # Fine then, no tabs for you
-    end
-    r
-  end
-
   # Shows the HTML5 audio demos for this product
   def draw_audio_demos(product)
     ret = ""
     if product.audio_demos.size > 0
-    # ret += '<div id="sm2-container"></div>'
-    ret += '<ul class="graphic">'
-    product.audio_demos.each do |audio_demo|
-      ret += content_tag(:li, link_to(audio_demo.name, audio_demo.wet_demo.url, class: "sm2_link"))
-    end
-    ret += "</ul>"
-    end
-    raw(ret)
-  end
-
-  def discontinued_boxes(product)
-    ret = ""
-    rendered_tab_names = []
-    tabs = product.main_tabs + product.tabs
-    tabs.each do |product_tab|
-      next if product_tab.key == 'description' || product_tab.key == 'extended_description' # these already appear in the view
-      next if rendered_tab_names.include?(product_tab.key)
-      ret += "<div id=\"#{product_tab.key}\" class=\"product_detail_box\">" +
-        "<h2>" + tab_title(product_tab) + "</h2>" +
-        content_tag(:div, id: "#{product_tab.key}_content") do
-          render_partial("products/#{product_tab.key}", product: product)
-        end
-      ret += "</div>"
-      rendered_tab_names << product_tab.key
+      # ret += '<div id="sm2-container"></div>'
+      ret += '<ul class="graphic">'
+      product.audio_demos.each do |audio_demo|
+        ret += content_tag(:li, link_to(audio_demo.name, audio_demo.wet_demo.url, class: "sm2_link"))
+      end
+      ret += "</ul>"
     end
     raw(ret)
   end
@@ -380,6 +247,8 @@ module ProductsHelper
         buy_it_now_international(product, button, options)
 		  elsif !product.direct_buy_link.blank?
         buy_it_now_direct_from_factory(product, button, options)
+      elsif !!product.exclusive_retailer_link
+        buy_it_now_exclusive(product, button, options)
       elsif @online_retailer_link # http param[:bin] provided
         buy_it_now_direct_to_retailer(product, button)
 		  else
@@ -394,6 +263,8 @@ module ProductsHelper
 
   def button_for(product, options)
     if product.direct_buy_link.blank?
+      text = t("buy_it_now")
+    elsif !!product.exclusive_retailer_link
       text = t("buy_it_now")
     elsif product.parent_products.size > 0 # as in e-pedals
       text = t("get_it")
@@ -440,6 +311,14 @@ module ProductsHelper
       class: button_class(button, options),
       target: "_blank",
       onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"))
+  end
+
+  def buy_it_now_exclusive(product, button, options={})
+    link_to(button,
+      product.exclusive_retailer_link.url,
+      class: button_class(button, options) + " buy_it_now_popup",
+      data: (options[:reveal_id]) ? {:'reveal-id' => options[:reveal_id]} : {windowname: 'dealer_popup'},
+      onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Exclusive', '#{product.exclusive_retailer_link.online_retailer.name}', '#{product.name}'])"))
   end
 
   def buy_it_now_direct_from_factory(product, button, options={})
@@ -519,14 +398,6 @@ module ProductsHelper
     end
   end
 
-  # Weird sorting for the epedal coverflow. Puts the first pedals in the middle
-  # and goes out from there.
-  def coverflow_shuffle(c)
-    evens = []
-    c.each_with_index {|p,i| evens << p if i.even? }
-    evens.reverse + (c - evens)
-  end
-
   def swf_tag(source, options={}, &block)
     link_to("Download legacy resource", source)
   end
@@ -535,21 +406,6 @@ module ProductsHelper
   def spec_value(product_spec)
     val = product_spec.value
     (val.match(/^yes\s*?$/i)) ? image_tag("icons/check.png", alt: val) : raw(translate_content(product_spec, :value))
-  end
-
-  # Finds the best side banner for the enterprise/entertainment thingey.
-  # First looks for a brand-specific, locale-specific image
-  # Then looks for just a brand-specific image
-  # Otherwise, delivers the global default image
-  def side_banner_image(banner_type)
-    banner_filename = "#{banner_type}_side_banner.jpg"
-    if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/#{banner_filename}"))
-      "#{website.folder}/#{I18n.locale}/#{banner_filename}"
-    elsif File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{banner_filename}"))
-      "#{website.folder}/#{banner_filename}"
-    else
-      banner_filename
-    end
   end
 
   def render_parts_tree(nodes, options={})
@@ -643,11 +499,10 @@ module ProductsHelper
     end
     buttons = find_a_dealer + have_a_question
     buttons += contact_consultant if website.brand.show_consultant_button?
-    content_tag(:hr) +
-      content_tag(:div, class: "hpro-buttons-label")do
-        "HARMAN Professional Solutions:"
-      end +
-      content_tag(:div, buttons, class: "row collapse")
+    content_tag(:div, class: "hpro-buttons-label")do
+      "HARMAN Professional Solutions:"
+    end +
+    content_tag(:div, buttons, class: "row collapse")
   end
 
   def hide_contact_buttons?(product)

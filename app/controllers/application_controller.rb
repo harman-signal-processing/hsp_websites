@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :catch_criminals
+  before_action :set_geo, :catch_criminals
   # before_action :set_locale
   before_action :respond_to_htm
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -131,6 +131,7 @@ private
     # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
     if request.content_type.to_s.match?(/json/i) && request.post?
       BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{request.env["RAW_POST_DATA"]}")
+      log_bad_actors(request.remote_ip, "POSTing JSON")
       raise ActionController::UnpermittedParameters.new ["not allowed"]
     end
 
@@ -140,6 +141,7 @@ private
       # We could raise an exception anytime there's something non-numeric in the page parameter
       #raise ActionController::UnpermittedParameters.new ["not allowed"]
       BadActorLog.create(ip_address: request.remote_ip, reason: "Page param overload", details: "#{request.inspect}\n\n#{params.inspect}")
+      log_bad_actors(request.remote_ip, "Page param overload")
 
       # But I think it's more fun to just strip out non-numeric characters and pretend
       # nothing happened so the hackers don't get any kind of indication of what's going on.
@@ -154,18 +156,28 @@ private
       # checking all params as a string to avoid extra looping
       if has_sqli?(params.to_unsafe_h.flatten.to_s)
         BadActorLog.create(ip_address: request.remote_ip, reason: "SQLi attempt", details: "#{request.inspect}\n\n#{params.inspect}")
+        log_bad_actors(request.remote_ip, "SQLi attempt")
         raise ActionController::UnpermittedParameters.new(["pESop jup"])
       end
 
       # Check if the user is trying to pass something sinister in with the locale param
       if params[:locale].present?
+        params[:locale].gsub!(/(\\|\/|\")$/, "") # removing trailing slash and double quote some have bookmarked
         if params[:locale].to_s.match?(/[^a-zA-Z\-]/)
           BadActorLog.create(ip_address: request.remote_ip, reason: "Overloading locale param", details: "#{request.inspect}\n\n#{params.inspect}")
+          log_bad_actors(request.remote_ip, "Overloading locale param")
           raise ActionController::UnpermittedParameters.new(["Dema chigicha pai"])
         end
       end
     end
 
+  end
+
+  def log_bad_actors(ip_address, reason)
+    logger = ActiveSupport::Logger.new("log/brandsite_bad_actor.log")
+    time = Time.now
+    formatted_datetime = time.strftime('%Y-%m-%d %I:%M:%S %p')
+    logger.error "#{ ip_address } - - [#{formatted_datetime}] \"#{ reason }\" ~~ #{request.inspect}"
   end
 
   # use this as a before_action filter in controllers where big bad hackers are trying to request
@@ -183,31 +195,6 @@ private
 
   # TODO: the big if statement below setting the locale needs to be refactored and will eventually include plenty of other countries
   def set_locale
-    # This isn't really setting the locale, we're just trying
-    # to be smart and pick the user's country for "Buy It Now"
-    begin
-      if params['geo']
-        session['geo_country'] = clean_country_code
-        session['geo_usa'] = (clean_country_code == "us") ? true : false
-      else
-        unless session['geo_country']
-          lookup = Geokit::Geocoders::IpApiGeocoder.do_geocode(request.remote_ip)
-          if lookup.present? && lookup.country_code.present?
-            session['geo_country'] = lookup.country_code
-            session['geo_usa'] = lookup.is_us?
-            session['geo_usa_state'] = lookup.state
-          else
-            session['geo_country'] = "UK"
-            session['geo_usa'] = false
-            session['geo_usa_state'] = nil
-          end
-        end
-      end
-    rescue
-      #session['geo_country'] = "US"
-      #session['geo_usa'] = true
-    end
-
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     # This is where we set the locale:
@@ -243,6 +230,33 @@ private
     #    redirect_to url_for(request.params.merge(locale: website.list_of_available_locales.first)) and return false
     #  end
     #end
+  end
+
+  def set_geo
+    begin
+      if params['geo']
+        session['geo_country'] = clean_country_code
+        session['geo_usa'] = (clean_country_code == "us") ? true : false
+      else
+        unless session['geo_country']
+          # MultiGeocoder should automatically use IP services in the order of
+          # preference indicated in config/initializers/geokit_config.rb
+          lookup = Geokit::Geocoders::MultiGeocoder.do_geocode(request.remote_ip)
+          if lookup.present? && lookup.country_code.present?
+            session['geo_country'] = lookup.country_code
+            session['geo_usa'] = lookup.is_us?
+            session['geo_usa_state'] = lookup.state
+          else
+            session['geo_country'] = "US"
+            session['geo_usa'] = true
+            session['geo_usa_state'] = nil
+          end
+        end
+      end
+    rescue
+      #session['geo_country'] = "US"
+      #session['geo_usa'] = true
+    end
   end
 
   # locale selector
@@ -498,4 +512,30 @@ class ::Hash
     merger = proc { |_, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : Array === v1 && Array === v2 ? v1 | v2 : [:undefined, nil, :nil].include?(v2) ? v1 : v2 }
     merge(second.to_h, &merger)
   end
+end
+
+# Monkey-patching titleize function because we use it a lot, but
+# it tends to screw up titles in other languages. Here we can do
+# different titleizeing based on the locale.
+#
+# The default approach for all non-English languages is to do
+# nothing, but we may want to use "upcase_first()" instead.
+#
+module ActiveSupport
+	module Inflector
+
+		def titleize(word, keep_id_suffix: false)
+			case I18n.locale.to_s
+        when /^en/i
+          humanize(underscore(word), keep_id_suffix: keep_id_suffix).gsub(/\b(?<!\w['’`()])[a-z]/) do |match|
+            match.capitalize
+          end
+        when /^fr/i
+          upcase_first(word)
+			else
+				word
+			end
+		end
+
+	end
 end

@@ -6,11 +6,11 @@ class Admin::ProductsController < AdminController
   # GET /admin/products
   # GET /admin/products.xml
   def index
+    @products = website.products
     if params[:q].present?
-      @search = website.products.ransack(params[:q])
+      @search = @products.ransack(params[:q])
       @products = @search.result
     else
-      @products = Product.where(brand_id: website.brand_id)
       @search = @products.ransack
     end
     respond_to do |format|
@@ -70,6 +70,7 @@ class Admin::ProductsController < AdminController
   # GET /admin/products/new
   # GET /admin/products/new.xml
   def new
+    @product.brand = website.brand
     @product.layout_class = website.brand.default_layout_class_for_products
     respond_to do |format|
       format.html { render_template } # new.html.erb
@@ -277,6 +278,7 @@ class Admin::ProductsController < AdminController
       :description,
       :extended_description,
       :features,
+      :collapse_content,
       product_prices_attributes: {},
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},

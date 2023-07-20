@@ -25,7 +25,7 @@ server "aws-production3",  user: 'brandsites', roles: %w{web app background}, pr
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-set :delayed_job_queues, ['brandsites', 'paperclip', 'mailers']
+set :delayed_job_queues, ['brandsites', 'paperclip', 'mailers', 'default']
 
 # Configuration
 # =============

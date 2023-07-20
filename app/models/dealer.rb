@@ -28,6 +28,10 @@ class Dealer < ApplicationRecord
           results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
           results << ProductFamily.find_by_cached_slug("eon700-series")
         end
+        if results.pluck(:cached_slug).grep(/prx9/).any?
+          results.delete_if {|item| item.cached_slug.include?("prx9") }
+          results << ProductFamily.find_by_cached_slug("prx900-series")
+        end
       rescue => e
         error_message = "Error in Dealer.rental_products_and_product_families. BrandDealer #{brand_dealer.id} #{e.message}"
         puts error_message
@@ -303,7 +307,7 @@ class Dealer < ApplicationRecord
       )
 
       sheet.row(0).default_format = column_header_format
-      standard_headers = ['Region*', 'Country*', 'Dealer_ID', 'Dealer Name*', 'Address*', 'Address 2', 'Address 3', 'Town/City*', 'Postalcode/ZIP*', 'Phone', 'Email', 'Website']
+      standard_headers = ['Region*', 'Country*', 'Dealer_ID', 'Dealer Name*', 'Address*', 'Address 2', 'Address 3', 'Town/City*', 'State/Province', 'Postalcode/ZIP*', 'Phone', 'Email', 'Website']
       if product_slugs.present?
         sheet.row(0).concat (standard_headers + product_slugs)
       else
@@ -317,20 +321,21 @@ class Dealer < ApplicationRecord
       sheet.column(5).width = 40 # Address 2
       sheet.column(6).width = 40 # Address 3
       sheet.column(7).width = 20 # City
-      sheet.column(8).width = 20 # Postal Code
-      sheet.column(9).width = 20 # Phone
-      sheet.column(10).width = 20 # Email
-      sheet.column(11).width = 20 # Website
+      sheet.column(8).width = 20 # State
+      sheet.column(9).width = 20 # Postal Code
+      sheet.column(10).width = 20 # Phone
+      sheet.column(11).width = 20 # Email
+      sheet.column(12).width = 20 # Website
       if product_slugs.present?
         product_header_format = Spreadsheet::Format.new(:align => 'center')
         product_discontinued_header_format = Spreadsheet::Format.new(:align => 'center', color: :red)
         product_value_format = Spreadsheet::Format.new(:align => 'center')
 
-        start_col_for_products = 12
-        end_col_for_products = product_slugs.count+12
+        start_col_for_products = 13
+        end_col_for_products = product_slugs.count+13
 
         (start_col_for_products..end_col_for_products).each do |column_index|
-          product = product_slugs[column_index-12]
+          product = product_slugs[column_index-13]
           # for the header row
           if product.present? && discontinued_product_slugs.include?(product)
             sheet.row(0).set_format(column_index, product_discontinued_header_format)
@@ -338,14 +343,13 @@ class Dealer < ApplicationRecord
             sheet.row(0).set_format(column_index, product_header_format)
           end
 
-          sheet.column(column_index).width = 15
+          sheet.column(column_index).width = 16
           # for all values in column
           sheet.column(column_index).default_format = product_value_format
         end
       else
-        sheet.column(12).width = 50 # Rental Products
+        sheet.column(13).width = 50 # Rental Products
       end  #  if product_slugs.present?
-
 
       row = 1
 
@@ -362,14 +366,14 @@ class Dealer < ApplicationRecord
             sheet[row, 5] = addr2
             sheet[row, 6] = addr3
             sheet[row, 7] = dealer.city
-            sheet[row, 8] = dealer.zip
-            sheet[row, 9] = dealer.telephone
-            sheet[row, 10] = dealer.email
-            sheet[row, 11] = dealer.website
+            sheet[row, 8] = dealer.state
+            sheet[row, 9] = dealer.zip
+            sheet[row, 10] = dealer.telephone
+            sheet[row, 11] = dealer.email
+            sheet[row, 12] = dealer.website
             if product_slugs.present?
               (start_col_for_products..end_col_for_products).each do |column_index|
-                product_column_slug = product_slugs[column_index-11]
-
+                product_column_slug = product_slugs[column_index-13]
                 begin
                   if dealer.rental_product_slugs(brand).split(",").include?(product_column_slug)
                     sheet[row, column_index] = "X"
@@ -380,8 +384,6 @@ class Dealer < ApplicationRecord
 
               end  #  (start_col_for_products..end_col_for_products).each do |column_index|
             end  #  if product_slugs.present?
-
-            # sheet[row, 12] = dealer.rental_product_slugs(brand)
 
         row += 1
       end  #  dealers.each do |dealer|
@@ -537,6 +539,10 @@ class Dealer < ApplicationRecord
       if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
         results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
         results << ProductFamily.find_by_cached_slug("eon700-series")
+      end
+      if results.pluck(:cached_slug).grep(/prx9/).any?
+        results.delete_if {|item| item.cached_slug.include?("prx9") }
+        results << ProductFamily.find_by_cached_slug("prx900-series")
       end  #  if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
       results.pluck(:name).join(', ')
     end  #  Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
@@ -544,19 +550,24 @@ class Dealer < ApplicationRecord
 
   def rental_product_slugs(brand)
     Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+      # calls instance method rental_products(brand) which calls scope (class) method rental_products(brand,dealer)
       results = rental_products(brand).to_ary
 
       if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
         results.delete_if {|item| item.cached_slug["jbl-eon7"].present? }
         results << ProductFamily.find_by_cached_slug("eon700-series")
-      end  #  if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
-      results.pluck(:cached_slug).join(', ')
+      end
+      if results.pluck(:cached_slug).grep(/prx9/).any?
+        results.delete_if {|item| item.cached_slug.include?("prx9") }
+        results << ProductFamily.find_by_cached_slug("prx900-series")
+      end
+      results.pluck(:cached_slug).join(',')
     end  #  Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
   end  #  def rental_product_slugs(brand)
 
   def has_rental_products_for(brand, cached_slug)  #  this currently only applies to jbl pro
     results = false
-    if cached_slug == "jbl-eon7" || cached_slug == "vt"
+    if cached_slug == "jbl-eon7" || cached_slug == "prx9" || cached_slug == "vt"
       results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.select{|item| item.start_with? "#{cached_slug}"}.present?
     else
       results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.include? "#{cached_slug}"
@@ -565,6 +576,7 @@ class Dealer < ApplicationRecord
   end  #  def has_rental_products_for(brand, cached_slug)
 
   def rental_products(brand)
+    # calls scope method rental_products, returns a set of activerecord relations
     self.class.rental_products(brand,self)
   end
 end  #  class Dealer < ApplicationRecord

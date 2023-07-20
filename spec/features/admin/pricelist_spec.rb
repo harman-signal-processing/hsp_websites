@@ -75,11 +75,6 @@ feature "Admin Pricing", :devise do
       visit admin_product_prices_path(locale: I18n.default_locale)
     end
 
-    it "should have a button to export price list to Excel" do
-      expect(page).to have_link "Excel", href: admin_product_prices_path(loc: "us", format: 'xls', locale: I18n.default_locale)
-      expect(page).to have_link "Excel", href: admin_product_prices_path(loc: "intl", format: 'xls', locale: I18n.default_locale)
-    end
-
     it "should have a form to update prices" do
       expect(page).to have_field "product_attr[#{@website.products.first.to_param}][msrp]"
     end

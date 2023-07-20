@@ -1,2 +1,0 @@
-module WhereToFindHelper
-end

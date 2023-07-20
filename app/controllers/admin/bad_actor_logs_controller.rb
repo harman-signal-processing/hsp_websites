@@ -19,6 +19,7 @@ class Admin::BadActorLogsController < AdminController
   def create
     respond_to do |format|
       if @bad_actor_log.save
+        log_bad_actors(@bad_actor_log.ip_address, @bad_actor_log.reason)
         format.html { redirect_to(admin_bad_actor_logs_url, notice: 'BadActorLog was successfully created.') }
       else
         format.html {
@@ -39,6 +40,13 @@ class Admin::BadActorLogsController < AdminController
   end
 
   private
+
+  def log_bad_actors(ip_address, reason)
+    logger = ActiveSupport::Logger.new("log/brandsite_bad_actor.log")
+    time = Time.now
+    formatted_datetime = time.strftime('%Y-%m-%d %I:%M:%S %p')
+    logger.error "#{ ip_address } - - [#{formatted_datetime}] \"#{ reason }\" ~~ Admin entered for #{website.url}"
+  end
 
   def load_bad_actor_logs_for_index
     @days = params[:days] || "30"

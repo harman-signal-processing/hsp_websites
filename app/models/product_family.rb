@@ -69,6 +69,22 @@ class ProductFamily < ApplicationRecord
       .map{|item| self.new(id: item.keys[0], name: item.values[0]) }
   }
 
+  def family_locales
+    self.locale_product_families.pluck(:locale)
+  end
+
+  def has_parent?
+    parent.present?
+  end
+
+  def find_ultimate_parent
+    if has_parent?
+      parent.find_ultimate_parent
+    else
+      self
+    end
+  end
+
   def slug_candidates
     [
       :name,
@@ -224,6 +240,8 @@ class ProductFamily < ApplicationRecord
       locale_product_families.pluck(:locale)
     elsif self.parent.present? && self.parent.locale_product_families.size > 0
       parent.locales(website)
+    elsif self.find_ultimate_parent.locale_product_families.size > 0
+      self.find_ultimate_parent.locales(website)
     else
       website.list_of_all_locales
     end

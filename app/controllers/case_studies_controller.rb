@@ -45,7 +45,8 @@ class CaseStudiesController < ApplicationController
       end
     end  #  if @asset_type.present? && ["pdf","video"].include? @asset_type
 
-    @banner_image = website.brand.site_elements.find_by(name:"Case Studies Banner")
+    @banner_image = get_banner_image
+    render_template
   end  #  def index
 
   def show
@@ -53,6 +54,7 @@ class CaseStudiesController < ApplicationController
     @case_study = CaseStudy.find_by_slug_and_website_or_brand(case_study_slug, website)
 
     @products = @case_study[:product_ids].size > 0 ? Product.where(id: @case_study[:product_ids]) : []
+    render_template
   end
 
   private
@@ -100,5 +102,28 @@ class CaseStudiesController < ApplicationController
       vertical_markets.sort_by!{|v| ActiveSupport::Inflector.transliterate v[:name]} unless locale == "zh"
       vertical_markets
   end  #  def get_vertical_markets_translations(vertical_markets)
+
+  private
+
+  # Tries to find the best banner image for the current language
+  # To add a banner image for a new language, upload it as a SiteElement
+  # with the name "Case Studies Banner", and select the corresponding language.
+  # The method below _should_ take care of the rest.
+  def get_banner_image
+    banner_language_options = [
+      Locale.get_language(I18n.locale),
+      Locale.get_language(I18n.default_locale),
+      '', nil].uniq
+
+    # Replacing ruby's nil with SQL's NULL (but leaving '' alone)
+    banner_sorting_string = banner_language_options.map.with_index do |lang, i|
+      i == banner_language_options.size - 1 ? "NULL" : "'#{lang}'"
+    end.join(',')
+
+    website.brand.site_elements.
+      where(name:"Case Studies Banner", language: banner_language_options).
+      order(Arel.sql("FIELD(language, #{banner_sorting_string})")).
+      first
+  end
 
 end  #  class CaseStudiesController < ApplicationController

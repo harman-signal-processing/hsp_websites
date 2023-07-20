@@ -31,6 +31,8 @@
   </div>
 <% end %>
 
+<%= render_partial 'shared/other_languages_button', item: @page %>
+
 <%= content_for :custom_css do %>
 	<style type="text/css">
 		<%=raw @page.custom_css %>

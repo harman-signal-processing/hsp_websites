@@ -17,7 +17,21 @@
 	</style>
 <% end %>
 
-<%= render_partial 'features' %>
+<% banner_slide_features = get_custom_feature_list(@product_family.features, "use_as_banner_slide") %>
+<% default_features = get_custom_feature_list(@product_family.features, "default") %>
+<% if banner_slide_features.present? && banner_slide_features.count > 1 %>
+  <%= render_partial 'product_families/features_carousel', banner_slide_features: banner_slide_features %>
+<% elsif default_features.present? %>
+  <%= render_partial 'product_families/features', features: default_features %>
+<% else %>
+  <%= content_for :feature do %>
+    <% if @product_family.title_banner.present? %>
+      <%= render_partial 'product_families/title_banner_image_and_text_title' %>
+    <% else %>
+      <%= render_partial 'product_families/text_banner_only' %>
+    <% end %>
+  <% end %>
+<% end %>
 
 <div class="product_family_body">
   <% if current_user && can?(:manage, @product_family) %>
@@ -38,7 +52,7 @@
 
       <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
         <h5>Product Categories</h5>
-        <% if @children_with_current_products.length > 22 || @product_family.name.to_s.match?(/install/i) %>
+        <% if @children_with_current_products.length > 22 || @product_family.name.to_s == "Installed" %>
           <div class="row">
             <% @children_with_current_products.in_groups(3).each do |group| %>
               <div class="large-4 medium-4 small-12 columns product-subgroups">
@@ -118,6 +132,9 @@
 
   <% end %>
 
+  <% show_below_products_features = get_custom_feature_list(@product_family.features, "show_below_products") %>
+  <%= render_partial 'product_families/features', features: show_below_products_features %>
+
   <%= render_partial 'case_studies' %>
 
   <% if @product_family.accessories_content.present? %>
@@ -127,6 +144,8 @@
 
   <% if @product_family.product_family_videos.size > 0 %>
     <%= render_partial "videos", product_family: @product_family %>
+    <% show_below_videos_features = get_custom_feature_list(@product_family.features, "show_below_videos") %>
+    <%= render_partial 'product_families/features', features: show_below_videos_features %>
   <% end %>
 
   <% if @product_family.post_content.present? %>

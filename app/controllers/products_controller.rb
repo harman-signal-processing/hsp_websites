@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_locale
-  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :introducing, :photometric, :bom, :compliance]
+  before_action :ensure_best_url, only: [:show, :buy_it_now, :preview, :photometric, :bom, :compliance]
   before_action :verify_warranty_admin_ability, only: [:edit_warranty, :update_warranty]
 
   # GET /products
@@ -48,10 +48,15 @@ class ProductsController < ApplicationController
       product_locale = @product.locales(website).first
       redirect_to product_path(@product, locale: product_locale), status: :moved_permanently and return
     end
-    # After JBL goes live, we can revisit this...
-    if @product.product_page_url.present? && @product.product_page_url.to_s.match(/jblbag/i)
-      redirect_to @product.product_page_url, allow_other_host: true and return false
+
+    if @product.brand != website.brand && website.brand.redirect_product_pages_to_parent_brand? && website.brand.default_website.present?
+      redirect_to product_url(@product, host: @product.brand.default_website.url), allow_other_host: true and return false
+    elsif @product.product_page_url.present?
+      unless @product.product_page_url.match?(/#{request.original_url}/i)
+        redirect_to @product.product_page_url, allow_other_host: true and return false
+      end
     end
+
     if website.has_suggested_products?
       @suggestions = @product.suggested_products
     end
@@ -107,33 +112,6 @@ class ProductsController < ApplicationController
       #     head :ok
       #   end
       # }
-    end
-  end
-
-  # New for September 2012, we are now going to have landing pages for
-  # epedals when they're introduced. The content is basically the same
-  # dan thing as a regular product page. Why do we do this? I don't know.
-  # But, here's how you would link to it:
-  #
-  # Example:
-  #    /en/introducing/unplugged
-  #
-  # Somehow I need to remove access to the landing page after some time
-  # since it features the introductory 99 cent price.
-  def introducing
-    if @product.show_on_website?(website) || can?(:manage, @product)
-      @product_introduction = ProductIntroduction.where(product_id: @product.id).first || ProductIntroduction.new
-      if @product_introduction.expired?
-        redirect_to @product, status: :moved_permanently
-      elsif !@product_introduction.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing", "#{@product_introduction.layout_class}.html.erb"))
-        render template: "#{website.folder}/products/introducing/#{@product_introduction.layout_class}", layout: set_layout
-      elsif !@product.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "introducing", "#{@product.layout_class}.html.erb"))
-        render template: "#{website.folder}/products/introducing/#{@product.layout_class}", layout: set_layout
-      else
-        render_template
-      end
-    else
-      render plain: "No active product found" and return
     end
   end
 
@@ -207,21 +185,6 @@ class ProductsController < ApplicationController
         @spec_groups = SpecificationGroup.where(id: spec_group_ids).order("position")
       end
       render_template
-    end
-  end
-
-  # GET /products/songlist/1.xml
-  # where "1" is a ProductAttachment id (not a Product id)
-  def songlist
-    begin
-      @product_attachment = ProductAttachment.where(songlist_tag: params[:id]).first
-      @songs = @product_attachment.demo_songs
-    rescue
-      @songs = [DemoSong.new]
-    end
-    respond_to do |format|
-      format.html { render plain: "This method is designed as an XML call only. Please add '.xml' to your request."}
-      format.xml
     end
   end
 

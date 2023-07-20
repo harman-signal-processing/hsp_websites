@@ -145,7 +145,9 @@ class Admin::BrandsController < AdminController
       :show_consultant_button,
       :has_product_selector,
       :show_lead_form_on_buy_page,
-      :harman_owned
+      :collapse_content,
+      :harman_owned,
+      :redirect_product_pages_to_parent_brand
     )
   end
 end

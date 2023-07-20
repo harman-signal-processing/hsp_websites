@@ -1,0 +1,116 @@
+<%= content_for :feature do %>
+  <% if @banner_image.present? %>
+    <h1><img alt="<%= website.brand.name %> <%= t('nav.case_studies') %>" src="<%=@banner_image.url%>"></h1>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="medium-10 columns">
+    <div class="case-studies">
+      <% if @case_studies.empty? %>
+        No case studies found matching criteria.
+        <br />See <%= link_to case_studies_path do %><%= t('all').titleize %> <%= t('case_study').pluralize.titleize %><% end %>.
+      <% end %>
+
+      <% @case_studies.each do |case_study| %>
+        <% banner_present = !(case_study[:banner_urls][:small_panel].include? "missing/banners") %>
+
+        <% if case_study[:youtube_id].present? && banner_present && case_study[:case_study_images].length >= 2 %>
+          <!-- New layout with video player, main image thumbnail plus 2 other thumbnails -->
+          <div class="panel featured-case-study">
+            <h6><%= case_study[:vertical_markets].first[:name] %></h6>
+            <div class="cs-collage">
+              <div class="youtube-player flex-video">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= case_study[:youtube_id] %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              </div>
+
+              <div class="cs-detail-images">
+                <%= image_tag case_study[:banner_urls][:small_200_2x], alt: "#{case_study[:headline]} small image", class: "cs-detail-image" %>
+                <% case_study[:case_study_images][0,2].each_with_index do |csi, i| %>
+                  <%= image_tag csi[:image_urls][:small_200_2x], alt: "#{case_study[:headline]} detail image #{i}", class: "cs-detail-image" %>
+                <% end %>
+              </div>
+            </div>
+            <h6><%=l case_study[:created_at].to_date, format: :long %></h6>
+            <h2><%= link_to case_study[:headline], case_study_path(case_study[:slug]) %></h2>
+            <%= link_to "learn more", case_study_path(case_study[:slug]), class: "small radius button" %>
+          </div>
+
+        <% elsif banner_present && case_study[:case_study_images].length >= 3 %>
+          <!--New layout with main image plus 3 other thumbnails-->
+          <div class="panel featured-case-study">
+            <h6><%= case_study[:vertical_markets].first[:name] %></h6>
+            <div class="cs-collage">
+              <%= image_tag case_study[:banner_urls][:medium_860_2x], alt: "#{case_study[:headline]} medium image", class: "cs-main-image", lazy: false %>
+              <div class="cs-detail-images">
+                <% case_study[:case_study_images][0,3].each_with_index do |csi, i| %>
+                  <%= image_tag csi[:image_urls][:small_200_2x], alt: "#{case_study[:headline]} detail image #{i}", class: "cs-detail-image" %>
+                <% end %>
+              </div>
+            </div>
+            <h6><%=l case_study[:created_at].to_date, format: :long %></h6>
+            <h2><%= link_to case_study[:headline], case_study_path(case_study[:slug]) %></h2>
+            <%= link_to "learn more", case_study_path(case_study[:slug]), class: "small radius button" %>
+          </div>
+
+        <% else %>
+          <div class="row">
+            <div class="small-12 medium-3 columns">
+              <%= link_to case_study_path(case_study[:slug]) do %>
+                <% if banner_present %>
+                  <%= image_tag case_study[:banner_urls][:small_panel], alt: "#{case_study[:headline]} thumbnail image" %>
+                <% elsif case_study[:youtube_id].present? %>
+                  <%= image_tag "https://i.ytimg.com/vi/#{case_study[:youtube_id]}/mqdefault.jpg", alt: "#{case_study[:headline]} thumbnail image" %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="small-12 medium-9 columns">
+              <h5><%= link_to case_study[:headline], case_study_path(case_study[:slug]) %>
+                  <% if case_study[:pdf_url].present? %><i class="fa fa-file-pdf-o"></i> <% end %>
+                  <% if case_study[:youtube_id].present? %><i class="fa fa-video-camera"></i> <% end %>
+              </h5>
+              <div><strong><%=l case_study[:created_at].to_date, format: :long %></strong></div>
+              <div class="show-for-small">
+                <%= raw case_study[:description] %>
+              </div>
+              <div class="show-for-medium-up">
+                <p><%= truncate(strip_html(textilize(case_study[:content])), length: 250).gsub(/The Opportunity\s?/, "The Opportunity: ") %></p>
+              </div>
+            </div>
+          </div>
+          <hr/>
+        <% end %>
+      <% end %>
+    </div>
+    <%#= will_paginate @case_studies, renderer: WillPaginateInfinite::InfinitePagination %>
+  </div>
+
+  <div class="medium-2 columns">
+
+    <div class="callout panel case-studies-subnav">
+      <h5>Sort by Application</h5>
+      <hr/>
+
+      <ul>
+        <% @vertical_markets.each do |v| %>
+          <li>
+            <% if @vertical_market && @vertical_market == v[:slug] %>
+              <em style="color: #888"><%= v[:name] %> (<%= @vertical_case_study_counts[v[:slug]] %>)</em>
+            <% else %>
+              <%= link_to case_studies_by_vertical_market_path(v[:slug]) do %>
+                <%= v[:name] %> (<%= @vertical_case_study_counts[v[:slug]] %>)
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if @vertical_market %>
+          <li><%= link_to case_studies_path do %>
+            <%= t('all').titleize %> <%= t('case_study').pluralize.titleize %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div><!-- <div class="callout panel">  -->
+  </div><!-- <div class="medium-3 columns">  -->
+
+</div><!-- <div class="row">  -->

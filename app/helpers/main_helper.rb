@@ -69,21 +69,6 @@ module MainHelper
     end
   end
 
-  # Developed for the 2014 dbx site
-  def featured_product_icons(product, num)
-    dir = Rails.root.join('app', 'assets', 'images', website.folder, "#{product.friendly_id}_icons")
-
-    if Dir.exists?(dir)
-      icons = []
-      Dir.foreach(dir) do |icon|
-        next if icon =~ /^\./
-        icons << image_tag("#{website.folder}/#{product.friendly_id}_icons/#{icon}")
-      end
-
-      content_tag(:div, icons.shuffle.join.html_safe, id: "featured_icons_#{num}", class: "hidden_icons hide-for-small")
-    end
-  end
-
   def product_family_nav_links(product_family, options={})
     if product_family.locales(website).include?(I18n.locale.to_s)
       default_options = {depth: 99}
@@ -162,9 +147,9 @@ module MainHelper
 
   def flag_for(item)
     if item.respond_to?(:language) && item.language.present?
-      begin
+      if File.exist?(Rails.root.join("app", "assets", "images", "icons", "flags", "#{item.language.to_s.downcase}.png"))
         image_tag("icons/flags/#{item.language.to_s.downcase}.png", alt: item.language, lazy: false)
-      rescue Sprockets::Rails::Helper::AssetNotFound
+      else
         ""
       end
     end

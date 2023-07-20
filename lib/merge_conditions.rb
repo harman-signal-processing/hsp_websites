@@ -1,7 +1,7 @@
+# :nocov:
 module Geokit
   module ActsAsMappable
     module ClassMethods
-      
       def merge_conditions(*conditions)
         segments = []
 
@@ -14,7 +14,7 @@ module Geokit
 
         "(#{segments.join(') AND (')})" unless segments.empty?
       end
-      
     end
   end
 end
+# :nocov:

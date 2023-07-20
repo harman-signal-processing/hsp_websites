@@ -7,7 +7,7 @@
 			<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
-			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
+			<li><%= link_to t('discontinued_products').titleize, discontinued_products_path %></li>
       <% if ( website.has_dealers? || website.has_distributors? || website.has_online_retailers? ) && I18n.locale.to_s.match?(/us/i) %>
         <li><%= link_to "Promotions", promotions_path %></li>
       <% end %>

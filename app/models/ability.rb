@@ -53,7 +53,6 @@ class Ability
         cannot :read, User
         cannot :manage, Website
         cannot :manage, Brand
-        cannot :manage, ProductIntroduction
         can :read, WarrantyRegistration
         can :read, ContactMessage
         can :manage, PricingType
@@ -83,6 +82,7 @@ class Ability
         can :manage_warranty_of, Product
         can :manage, ScheduledTask
         can :manage, ScheduledTaskAction
+        can :manage, ManufacturerPartner
       end
       if user.role?(:sales_admin)
         can :read, Product

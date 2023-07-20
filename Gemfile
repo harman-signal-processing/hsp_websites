@@ -37,7 +37,7 @@ gem 'asset_sync'
 gem "kt-paperclip", ">= 7.0"
 gem 'kt-paperclip-compression'
 gem 'kt-delayed_paperclip'
-gem 's3_direct_upload'
+gem 's3_direct_upload' #, git: 'https://github.com/adamtao/s3_direct_upload'
 gem 'meta-tags'
 gem 'tinymce-rails',
   git: 'https://github.com/spohlenz/tinymce-rails.git',
@@ -45,12 +45,14 @@ gem 'tinymce-rails',
 gem 'mechanize'
 gem 'geokit', '>= 1.8.5'
 gem 'geokit-rails'
+gem 'maxmind-geoip2'
 gem 'thinking-sphinx'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'httparty'
 gem 'devise'
 gem 'devise-async'
+gem 'devise-i18n'
 gem 'cancancan'
 gem 'gravtastic'
 gem "recaptcha", require: "recaptcha/rails"
@@ -64,10 +66,11 @@ gem 'execjs'
 gem 'therubyrhino'
 gem 'whenever' #, require: false
 gem "simple_form", ">= 5.0.0"
+gem 'countries'
 gem 'country_select'
-gem 'chosen-rails'
+gem 'chosen-rails', git: 'https://github.com/adamtao/chosen-rails'
 gem 'language_list'
-gem 'ransack'
+gem 'ransack', "< 4.0.0" # 4.0.0 requires whitelisting params to search by
 gem "dalli"
 gem "rabl"
 gem "money"
@@ -91,6 +94,9 @@ gem "exception_notification"
 gem 'slack-notifier'
 gem 'google-api-client', '~> 0.36'
 gem 'wicked_pdf'
+
+# For doing some production analysis separate from main logger
+gem 'multi_logger'
 
 group :production, :staging do
   gem 'passenger_monit'

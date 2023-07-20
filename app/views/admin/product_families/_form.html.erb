@@ -131,7 +131,7 @@
       <%= f.input :has_full_width_features %>
 
       <% unless f.object.new_record? %>
-        <%= f.association :brand, label: "Move this family to another brand" %>
+        <%= f.association :brand, label: "Move this family to another brand", collection: Brand.where(harman_owned: true).order(Arel.sql("upper(name)")) %>
       <% end %>
 
       <fieldset>

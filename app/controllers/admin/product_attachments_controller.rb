@@ -132,13 +132,11 @@ class Admin::ProductAttachmentsController < AdminController
       :product_media,
       :width,
       :height,
-      :songlist_tag,
       :no_lightbox,
       :hide_from_product_page,
       :product_attachment_meta,
       :full_width_banner_url,
-      :show_as_full_width_banner,
-      demo_song_ids: []
+      :show_as_full_width_banner
     )
   end
 end

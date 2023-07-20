@@ -10,12 +10,6 @@ class Admin::ProductPricesController < AdminController
   	@loc = params[:loc] || "US"
     respond_to do |format|
       format.html { render_template } # index.html.erb
-      format.xls {
-        send_data(
-          Pricelist.new(website.brand, loc: @loc, website: website, locale: I18n.locale).to_s,
-        	filename: "#{website.brand.name}_#{@loc.upcase}_price_list_#{Time.zone.now.year}-#{Time.zone.now.month}-#{Time.zone.now.day}.xls"
-        )
-      }
     end
   end
 

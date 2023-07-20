@@ -2,6 +2,4 @@
 # to appear here. However, be sure at least one entry exists under the primary key.
 
 en-US:
-    foo: bar
-    all: "All"
-    case_study: "Case Study"
+  foo: bar

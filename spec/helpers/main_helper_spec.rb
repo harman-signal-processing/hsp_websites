@@ -76,4 +76,17 @@ RSpec.describe MainHelper do
     end
   end
 
+  describe "flag_for(item)" do
+    it "tries to load a flag" do
+      item = build(:site_element, language: "fr")
+      flag = helper.flag_for(item)
+      expect(flag).to match("fr.png")
+    end
+
+    it "catches an exception when flag is not found" do
+      item = build(:site_element, language: "goblygook")
+      flag = helper.flag_for(item)
+      expect(flag).to eq("")
+    end
+  end
 end

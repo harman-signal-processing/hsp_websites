@@ -74,20 +74,13 @@
     </thead>
     <tbody>
       <% @records.each do |record| %>
-        <%# next if record.respond_to?(:locales) && !(record.locales(website).include?(@target_locale)) %>
-        <tr>
-          <td>
-            <span style="<%='font-weight: bold' if record.respond_to?(:parent) && record.parent.blank? %>">
-              <%= link_to_translate(record, @target_locale) %>
-            </span>
-          </td>
-          <% if record.respond_to?(:post_on) %>
-            <td><%=l record.post_on %></td>
+        <% if record.respond_to?(:parent) %>
+          <% if record.parent.blank? %>
+            <%= render_partial 'list_row', record: record %>
           <% end %>
-          <td class="text-center">
-            <%= translation_summary_for(record, @target_locale) %>
-          </td>
-        </tr>
+        <% else %>
+          <%= render_partial 'list_row', record: record %>
+        <% end %>
       <% end %>
     </tbody>
   </table>

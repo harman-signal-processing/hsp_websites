@@ -1,0 +1,34 @@
+<div class="container product_family_header">
+  <div class="row">
+
+    <div class="large-8 small-12 columns">
+      <h1><%= translate_content(@product_family, :name) %></h1>
+      <p><%=raw translate_content(@product_family, :intro) %></p>
+    </div>
+
+    <% if @product_family.to_param.to_s.match(/^soundweb\-london/) %>
+      <div class="large-4 small-12 columns text-center">
+        <%= link_to( "/resource/london-comparison-chart.pdf", target: "_blank") do %>
+          <img src="/resource/soundweb-london-comparison-chart-thumbnail"  alt="<%= translate_content(@product_family, :name) %>">
+          <h5>Soundweb London<br/>Comparison Chart</h5>
+        <% end %>
+      </div>
+    <% elsif @product_family.to_param.to_s.match(/^drivecore\-install/) %>
+      <div class="large-4 small-12 columns text-center">
+        <%= link_to( "/resource/drivecore-install-product-comparison-chart.pdf", target: "_blank") do %>
+          <img src="/resource/drivecore-comparison-thumbnail.png"  alt="<%= translate_content(@product_family, :name) %>">
+          <h5>DriveCore Install (DCi)<br/>Comparison Chart</h5>
+        <% end %>
+      </div>
+    <% elsif @product_family.to_param.to_s.match(/^cdi\-drivecore/) %>
+      <div class="large-4 small-12 columns text-center">
+        <%= link_to( "/resource/cdi-drivecore-product-comparison-chart.pdf", target: "_blank") do %>
+          <img src="/resource/cdi-drivecore-comparison-thumbnail.png"  alt="<%= translate_content(@product_family, :name) %>">
+          <h5>CDi DriveCore<br/>Comparison Chart</h5>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_28_204826) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -384,6 +384,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
     t.boolean "has_product_selector"
     t.boolean "show_lead_form_on_buy_page", default: false
     t.boolean "harman_owned", default: true
+    t.boolean "collapse_content", default: false
+    t.boolean "redirect_product_pages_to_parent_brand"
     t.index ["cached_slug"], name: "index_brands_on_cached_slug", unique: true
     t.index ["name"], name: "index_brands_on_name", unique: true
   end
@@ -567,19 +569,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
     t.datetime "updated_at", precision: nil
     t.string "queue"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
-  end
-
-  create_table "demo_songs", id: :integer, charset: "utf8", force: :cascade do |t|
-    t.integer "product_attachment_id"
-    t.integer "position"
-    t.string "title"
-    t.string "mp3_file_name"
-    t.integer "mp3_file_size"
-    t.string "mp3_content_type"
-    t.datetime "mp3_updated_at", precision: nil
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.index ["product_attachment_id"], name: "index_demo_songs_on_product_attachment_id"
   end
 
   create_table "distributor_users", id: :integer, charset: "latin1", force: :cascade do |t|
@@ -961,6 +950,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
     t.datetime "link_checked_at", precision: nil
     t.string "link_status", default: "200"
     t.integer "position"
+    t.boolean "exclusive", default: false
     t.index ["brand_id"], name: "index_online_retailer_links_on_brand_id"
     t.index ["online_retailer_id", "brand_id"], name: "index_online_retailer_links_on_online_retailer_id_and_brand_id"
     t.index ["online_retailer_id", "product_id"], name: "index_online_retailer_links_on_online_retailer_id_and_product_id"
@@ -1015,6 +1005,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
     t.text "custom_css"
     t.string "layout_class"
     t.text "custom_js"
+    t.boolean "exclude_from_search", default: false
     t.index ["brand_id"], name: "index_pages_on_brand_id"
     t.index ["cached_slug"], name: "index_pages_on_cached_slug", unique: true
     t.index ["custom_route"], name: "index_pages_on_custom_route"
@@ -1084,7 +1075,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
     t.datetime "product_media_thumb_updated_at", precision: nil
     t.bigint "width"
     t.bigint "height"
-    t.string "songlist_tag"
     t.boolean "no_lightbox"
     t.boolean "hide_from_product_page"
     t.text "product_attachment_meta"
@@ -1282,29 +1272,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
     t.string "secondary_uom"
     t.string "secondary_uom_formula"
     t.integer "stepsize", default: 1
-  end
-
-  create_table "product_introductions", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.integer "product_id"
-    t.string "layout_class"
-    t.date "expires_on"
-    t.text "content"
-    t.text "extra_css"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "top_image_file_name"
-    t.integer "top_image_file_size"
-    t.string "top_image_content_type"
-    t.datetime "top_image_updated_at", precision: nil
-    t.string "box_bg_image_file_name"
-    t.integer "box_bg_image_file_size"
-    t.string "box_bg_image_content_type"
-    t.datetime "box_bg_image_updated_at", precision: nil
-    t.string "page_bg_image_file_name"
-    t.integer "page_bg_image_file_size"
-    t.string "page_bg_image_content_type"
-    t.datetime "page_bg_image_updated_at", precision: nil
-    t.index ["product_id"], name: "index_product_introductions_on_product_id"
   end
 
   create_table "product_part_group_parts", charset: "utf8", force: :cascade do |t|
@@ -1547,6 +1514,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
     t.text "meta_description"
     t.boolean "hide_contact_buttons"
     t.string "firmware_name"
+    t.boolean "collapse_content", default: false
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true
@@ -1846,7 +1814,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_211453) do
   create_table "softwares", id: :integer, charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.string "ware_file_name"
-    t.integer "ware_file_size"
+    t.bigint "ware_file_size"
     t.string "ware_content_type"
     t.datetime "ware_updated_at", precision: nil
     t.integer "download_count"

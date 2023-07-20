@@ -297,14 +297,7 @@ module ApplicationHelper
           end
         end
 
-        static_slides = slides.reject{|f| /^#{fname}\./ =~ f.slide_file_name }
-        if static_slides.length > 0
-          ret += content_tag(:div, class: "row") do
-            content_tag(:div, class: "large-12 #{ hide_for_small } columns") do
-              orbit_slideshow(slides: static_slides, duration: 6000, navigation_arrows: false, transition: "fade")
-            end
-          end
-        elsif website.homepage_headline
+        if website.homepage_headline
           if website.homepage_headline_product_id
             headline_slide = content_tag(:h1, website.homepage_headline)
             product = Product.find(website.homepage_headline_product_id)
@@ -339,6 +332,7 @@ module ApplicationHelper
 
         ret = content_tag(:div, ret.html_safe, id: "video-container", class: hide_for_small)
         ret += content_tag(:div, "", class: "bouncing-arrow") unless options[:hide_arrow]
+        @leftover_slides = slides.reject{|f| /^#{fname}\./ =~ f.slide_file_name }
 
       else
 

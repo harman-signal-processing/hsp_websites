@@ -1,7 +1,10 @@
 class Admin::ContentTranslationsController < AdminController
   load_and_authorize_resource only: [:index, :list]
-  skip_authorization_check only: :combined
-  before_action :get_target_locale
+  skip_authorization_check only: [:combined, :languages]
+  before_action :get_target_locale, except: :languages
+
+  def languages
+  end
 
   def index
   end

@@ -100,6 +100,18 @@ $slick-arrow-color: $dark-gray;
   .top-bar input {
     border: none;
   }
+  .top-bar-section {
+    a.parent-link.js-generated {
+      font-weight: 500;
+      text-transform: uppercase;
+      background-color: $topbar-bg-color;
+      letter-spacing: .05rem;
+      font-size: 105%;
+      &:after {
+        content: ": ";
+      }
+    }
+  }
   @media only screen and (max-width: 1300px) and (min-width: 1076px) {
     .top-bar-section {
       ul {
@@ -1101,6 +1113,9 @@ div.product-title-block, div.small-title-block {
   }
   div.product-price-row {
     margin: -20px 0;
+    img {
+      margin-top: -10px;
+    }
   }
   div.product-price {
     h6.price-label {
@@ -1339,21 +1354,18 @@ div#product_buy_now_box {
 	text-align: left;
 	letter-spacing: 0.02em;
 }
+
 dl.accordion {
   margin-bottom: 20px;
   border: 1px solid $light-gray;
   border-top: none;
 	dd.accordion-navigation {
     border-top: 1px solid $light-gray;
-		ul {
-			margin-left: 10px;
-			list-style: none;
-			li:before {
-				content: "\2022 \00A0";
-				color: $primary-color;
-				font-weight: bold;
-			}
-		}
+    position: relative;
+    a > h3 {
+      font-weight: normal;
+      margin: 0.2em 0;
+    }
 		ul.docs, ul.downloads, ul.news {
 			margin-left: 0px;
 			list-style:none;
@@ -1370,6 +1382,9 @@ dl.accordion {
 		}
 	}
 }
+
+dl.accordion > dd > a > h3:after { content:"\f067"; font-family: FontAwesome; display: block; position: absolute; right: 20px; top: 20px; font-weight: normal;}
+dl.accordion > dd.active > a > h3:after { content:"\f068"; font-family: FontAwesome; display: block; position: absolute; right: 20px; top: 20px;}
 
 ul.docs, ul.downloads, ul.support {
   margin-left: 0 !important;
@@ -2432,7 +2447,7 @@ form.new_custom_shop_line_item, form.edit_custom_shop_line_item {
     width: 68px;
 }
 /*****/
-/***** Case studis on product pages ******/
+/***** Case studies on product pages ******/
 .case_study_row {
   min-height: rem-calc(200px);
   background-size: cover;
@@ -2441,6 +2456,45 @@ form.new_custom_shop_line_item, form.edit_custom_shop_line_item {
   background-position: center center;
   padding-top: rem-calc(80px);
   padding-bottom: rem-calc(80px);
+}
+/********/
+/**** New case study layout with multiple images **/
+.panel.featured-case-study {
+  border: none !important;
+  h6 {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: rem-calc(13px);
+    color: $dark-gray;
+  }
+  h2 {
+    letter-spacing: normal;
+    font-weight: 500;
+    text-transform: none;
+    margin-bottom: rem-calc(20px);
+  }
+  .cs-collage {
+    position: relative;
+    margin-bottom: rem-calc(20px);
+
+    div.youtube-player {
+      width: 79.5%;
+      padding-bottom: 51.5%;
+    }
+
+    img.cs-main-image {
+      padding-right: 20.5%;
+    }
+    .cs-detail-images {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 19%;
+    }
+    img.cs-detail-image {
+      margin-bottom: 7.25%;
+    }
+  }
 }
 
 /****** Category Banners *****/

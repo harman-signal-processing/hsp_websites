@@ -20,13 +20,13 @@
 			<% (ProductFamily.parents_with_current_products(website, I18n.locale) - secondary_product_family_groups).each do |product_family| %>
 				<%= product_family_nav_links(product_family, depth: 2) %>
 			<% end %>
-			<li><%= link_to "Discontinued Products", discontinued_products_path %></li>
+			<li><%= link_to t('discontinued_products').titleize, discontinued_products_path %></li>
 		</ul>
 	</li>
 
   <% if secondary_product_family_groups.exists? %>
     <% secondary_product_family_groups.each do |secondary_product_family_group| %>
-      <li class="has-dropdown hide-for-medium"><%= link_to translate_content(secondary_product_family_group, :name), '#' %>
+      <li class="has-dropdown"><%= link_to translate_content(secondary_product_family_group, :name), '#' %>
         <ul class="dropdown">
           <% secondary_product_family_group.children_with_current_products(website, locale: I18n.locale).each do |product_family| %>
             <%= product_family_nav_links(product_family, depth: 2) %>
@@ -40,11 +40,10 @@
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
-  <li class="has-dropdown"><%= link_to t("nav.case_studies"), case_studies_path %>
+  <li class="has-dropdown"><%= link_to t('news').titleize, '#' %>
     <ul class="dropdown">
-      <% if website.has_news? %>
-        <li><%= link_to t('news').titleize, news_index_path %></li>
-      <% end %>
+      <li><%= link_to t("nav.case_studies").titleize, case_studies_path %></li>
+      <li><%= link_to t('nav.press').titleize, news_index_path %></li>
     </ul>
   </li>
 

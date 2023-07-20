@@ -32,24 +32,6 @@
 
 <h3><%= @product.short_description %></h3>
 
-<% if can? :manage, ProductIntroduction %>
-<p>
-	<b>Intro page:</b>
-	<% if !!(@product.product_introduction) %>
-	<%= link_to "Edit", edit_admin_product_introduction_path(@product.product_introduction) %>
-	<% else %>
-	<%= link_to "Create", new_admin_product_introduction_path(product_id: @product.to_param) %>
-	<% end %>
-</p>
-<% end %>
-
-<% if !!(@product.product_introduction) && !@product.product_introduction.expired? %>
-<p>
-	<b>This product has an introductory landing page:</b><br/>
-	<%= link_to product_introduction_url(@product), product_introduction_path(@product) %>
-</p>
-<% end %>
-
 <p>
   <b>Sap sku:</b>
   <%=h @product.sap_sku %>
@@ -213,10 +195,12 @@
 				<%= simple_form_for [:admin, @online_retailer_link], remote: true do |f| %>
 					<%= hidden_field_tag "called_from", "product" %>
 					<%= f.hidden_field :product_id %>
-					<%= f.input :url, label: "Link" %>
+          <%= f.association :online_retailer, collection: OnlineRetailer.order("name") %>
+          <%= f.input :exclusive, label: "Exclusive provider of this product" %>
+          <%= f.label :url, label: "Link", required: true %>
 					<div class="row collapse">
 						<div class="large-10 small-8 columns">
-							<%= f.association :online_retailer, label: false, collection: OnlineRetailer.order("name") %>
+              <%= f.input :url, label: false %>
 						</div>
 						<div class="large-2 small-4 columns">
 							<%= submit_tag 'add link', class: "postfix button"  %>

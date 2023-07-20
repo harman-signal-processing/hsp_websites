@@ -3,9 +3,6 @@ class WhereToFindController < ApplicationController
   respond_to :html, :json
 
   def index
-    unless I18n.locale.to_s.match(/en/i)
-      redirect_to international_distributors_path and return
-    end
     @page_title = website.brand.name.to_s.match(/duran audio/i) ? t('titles.enquire') : t('titles.where_to_buy')
     @us_regions = website.brand.us_regions_for_website
     @us_region = UsRegion.new
@@ -70,7 +67,7 @@ class WhereToFindController < ApplicationController
 
   def vtx_owners_list
     Rails.cache.fetch("jbl_vtx_owners", expires_in: 6.hours) do
-      vtx_dealers = website.brand.dealers
+      vtx_dealers = website.brand.dealers.where.not(exclude: 1)
       vtx_dealers.reject{|item| !item.has_rental_products_for(website.brand, "vt") }.sort_by{|item| [item.region, item.country, item.name] }
     end
   end
@@ -241,7 +238,9 @@ class WhereToFindController < ApplicationController
   def get_results(brand, origin, opts={})
     results = []
     max = 999
-    within_miles = 150
+    clean_within_miles_param = sanitize_param_value(params[:within_miles]).to_i
+    within_miles_param = (clean_within_miles_param > 0) ? clean_within_miles_param : 300
+    within_miles = within_miles_param
 
     brand.dealers.select{|d| d.distance_from(origin) <= within_miles}.each do |d|
       unless results.length >= max || d.exclude? || filter_out?(brand,d)
@@ -254,7 +253,7 @@ class WhereToFindController < ApplicationController
 
     if !!origin.try(:state)
       # adding dealers in state to the list
-      brand.dealers.where(state: origin.state).find_each do |d|
+      brand.dealers.where(state: origin.state, country: origin.country).find_each do |d|
         unless d.exclude? || filter_out?(brand,d)
           d.distance = d.distance_from(origin)
           results << d unless results.include?(d)
@@ -284,6 +283,7 @@ class WhereToFindController < ApplicationController
       @filter_rental_prx_one = !!params[:rental_prx_one]
       @filter_rental_eon_one_mk2 = !!params[:rental_eon_one_mk2]
       @filter_rental_eon700_series = !!params[:rental_eon700_series]
+      @filter_rental_prx900_series = !!params[:rental_prx900_series]
       @filter_service = !!params[:service]
 
 
@@ -292,6 +292,7 @@ class WhereToFindController < ApplicationController
       return false if @filter_rental_prx_one && dealer.rental? && dealer.has_rental_products_for(brand,'prx-one')
       return false if @filter_rental_eon_one_mk2 && dealer.rental? && dealer.has_rental_products_for(brand,'jbl-eon-one-mk2')
       return false if @filter_rental_eon700_series && dealer.rental? && dealer.has_rental_products_for(brand,'jbl-eon7')
+      return false if @filter_rental_prx900_series && dealer.rental? && dealer.has_rental_products_for(brand,'prx9')
       return false if @filter_service && dealer.service?
 
       true

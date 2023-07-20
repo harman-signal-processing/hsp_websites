@@ -9,7 +9,8 @@ class Locale < ApplicationRecord
   def self.all_unique_locales
     begin
       if Rails.env.test? # not cool, but only thing I can get working for testing
-        [I18n.default_locale, "en-US"]
+        #[I18n.default_locale, "en-US"]
+        ALL_LOCALES
       else
         # 2022-10 [AA] Now that we launch pages without completing the
         #   translation, we just enable ALL locales for routing
@@ -68,6 +69,10 @@ class Locale < ApplicationRecord
   # Split the code into segments so we can isolate parts of it
   def code_parts
     @code_parts ||= code.to_s.split("-")
+  end
+
+  def self.get_language(locale_code)
+    self.new(code: locale_code.to_s).language_code
   end
 
 end

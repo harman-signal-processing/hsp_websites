@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-        <% @results.each do |site_element| %>
+        <% @results.sort_by{|item| item.updated_at}.reverse.each do |site_element| %>
           <%= render_partial 'shared/download_table_row', item: site_element %>
         <% end %>
         </tbody>

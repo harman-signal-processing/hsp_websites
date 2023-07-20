@@ -14,6 +14,10 @@
 
 <%= content_for :big_bottom_box do %>
   <p>&nbsp;</p>
+
+  <%# The video banner method sets @leftover_slides if it finds static images that didn't get used %>
+  <%= render_partial "shared/leftover_slides_strip" %>
+
   <%= render_partial "shared/features_carousel_strip" %>
   <%= render_partial "shared/featured_products_strip" %>
   <%#= render_partial "shared/training_strip" %>

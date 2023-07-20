@@ -77,6 +77,7 @@
     <% end %>
     <% if current_user && can?(:manage, @software) %>
       <div class="text-right">
+        <p>Download count: <%= @software.download_count %></p>
         <%= link_to edit_software_path(@software) do %>
           <%= fa_icon "edit" %> edit software
         <% end %>

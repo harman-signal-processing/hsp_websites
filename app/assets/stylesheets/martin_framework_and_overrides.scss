@@ -1230,6 +1230,41 @@ input#query {
     }
   }
 }
+.panel.featured-case-study {
+  border-top: 5px solid $martin-yellow !important;
+}
+.panel.case-studies-subnav {
+  border: none !important;
+  h5 {
+    font-size: rem-calc(20px);
+    font-weight: 500;
+    line-height: 1.5;
+    text-transform: none;
+    color: black;
+  }
+  ul {
+      margin-left: 0;
+      padding-left: 0;
+      list-style-type: none;
+    li {
+      font-size: rem-calc(12px);
+      margin-left: 0;
+      padding-left: 0;
+      list-style-type: none;
+      padding-bottom: rem-calc(8px);
+      text-transform: uppercase;
+      color: $dark-gray;
+      a {
+        font-weight: 500 !important;
+        color: $dark-gray !important;
+        &:hover {
+          color: $medium-gray !important;
+        }
+      }
+    }
+  }
+}
+
 .buy-button {
   @include button(
     $bg: $martin-yellow

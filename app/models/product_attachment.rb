@@ -36,9 +36,6 @@ class ProductAttachment < ApplicationRecord
   process_in_background :product_attachment
   process_in_background :product_media
 
-  has_many :demo_songs, -> { order('position') }
-  accepts_nested_attributes_for :demo_songs, reject_if: :all_blank
-  validates :songlist_tag, uniqueness: { case_sensitive: false, allow_blank: true }
   acts_as_list scope: :product_id
   before_save :hide_banner_from_carousel
   after_save :update_primary_photo

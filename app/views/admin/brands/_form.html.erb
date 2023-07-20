@@ -16,6 +16,7 @@
       <div class="large-6 columns">
         <%= f.input :has_market_segments, label: "Has vertical markets" %>
         <%= f.input :has_products %>
+        <%= f.input :redirect_product_pages_to_parent_brand, label: "Redirect products that belong to other brands to its brand site" %>
         <%= f.input :has_product_registrations %>
       	<%= f.input :product_trees, label: "Products can have sub-products (epedals, expansion cards, etc.)" %>
       	<%= f.input :has_effects %>
@@ -32,6 +33,7 @@
         <%= f.input :has_system_configurator %>
         <%= f.input :has_parts_library %>
         <%= f.input :always_redirect_to_youtube, label: "Redirect videos page to brand YouTube site" %>
+        <%= f.input :collapse_content, label: "Collapse content for ALL of this brand's products." %>
       </div>
       <div class="large-6 columns">
         <%= f.input :has_photometrics %>
@@ -50,7 +52,7 @@
       	<%= f.input :has_training, label: "Has training resources" %>
         <%= f.input :has_installations %>
         <%= f.input :has_get_started_pages %>
-        <%= f.input :offers_rentals, label: "Offers rentals (links to harman pro alliance site)." %>
+        <%#= f.input :offers_rentals %>
         <%= f.input :employee_store, label: "Show on employee store" %>
       	<%= f.input :live_on_this_platform, label: "Live on this platform (employee store will link back to this site)" %>
         <%= f.input :has_product_selector %>

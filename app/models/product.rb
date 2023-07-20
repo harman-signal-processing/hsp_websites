@@ -3,7 +3,6 @@ class Product < ApplicationRecord
   friendly_id :slug_candidates
 
   attr_accessor :old_id
-  has_one :product_introduction
   has_many :product_family_products, dependent: :destroy
   has_many :product_families, through: :product_family_products
   has_many :market_segment_product_families, through: :product_families
@@ -360,10 +359,10 @@ class Product < ApplicationRecord
   def locales(website)
     if product_families.size > 0
       @locales ||= product_families.map do |pf|
-        pf.locales(website)
+        pf.find_ultimate_parent.locales(website)
       end.flatten.uniq - locales_where_hidden
     else
-      website.list_of_all_locales - locales_where_hidden
+      @locales ||= website.list_of_all_locales - locales_where_hidden
     end
   end
 
@@ -383,6 +382,10 @@ class Product < ApplicationRecord
 
   def preferred_retailer_links
     @preferred_retailer_links ||= active_retailer_links.select{|orl| orl if orl.online_retailer.preferred.to_i > 0}
+  end
+
+  def exclusive_retailer_link
+    @exclusive_retailer_link ||= active_retailer_links.select{|orl| orl if orl.exclusive?}.first
   end
 
   # Collect tabs of info to be displayed on product page.

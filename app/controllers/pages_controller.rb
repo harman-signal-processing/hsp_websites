@@ -14,6 +14,7 @@ class PagesController < ApplicationController
   def show
     respond_to do |format|
       format.html {
+        logger.landing_pages.debug("#{request.url}, #{request.remote_ip}, GeoCountry: #{session[:geo_country]}")
         if !@page.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "pages", "#{@page.layout_class}.html.erb"))
           render template: "#{website.folder}/pages/#{@page.layout_class}", layout: set_layout
         else

@@ -1,15 +1,5 @@
 <h1>Price List</h1>
 
-<p>Products which do not have MSRP defined will not appear on the price list.</p>
-
-<ul class="button-group round">
-	<li><%= link_to 'Excel Price Sheet (US)', admin_product_prices_path(format: 'xls', loc: "us"), class: "small secondary button" %></li>
-	<li><%= link_to 'Excel Price Sheet (Intl)', admin_product_prices_path(format: 'xls', loc: "intl"), class: "small secondary button" %></li>
-<% if can? :create, PricingType %>
-	<li><%= link_to 'New Pricing column', new_admin_pricing_type_path, class: "small success button" %></li>
-<% end %>
-</ul>
-
 <%= form_tag update_all_admin_product_prices_path, method: :put %>
 	<table class="data" style="width: 100%">
 		<tr>

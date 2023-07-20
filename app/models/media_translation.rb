@@ -34,11 +34,12 @@ class MediaTranslation < ApplicationRecord
     {
       "product_family" => %w{family_photo}, # family_banner title_banner },
       "news"           => %w{news_photo},
+      "feature"        => %w{image},
     }
   end
 
   def self.translatable_classes
-    [ProductFamily, News]
+    [ProductFamily, News, Feature]
   end
   def self.fields_to_translate_for(object, brand)
     translatables(brand)[object.class.name.underscore] || []
