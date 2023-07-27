@@ -137,7 +137,7 @@ private
 
     # SQL injection attacks where a paginated resource has the page number loaded with SQL.
     # It wouldn't give hackers anything, but this should avoid the dumb error reports.
-    if params[:page].present? && params[:page].to_s.match?(/[^\w\-\d]/)
+    if params[:page].present? && params[:page].to_s.match?(/[^\w\-]/)
       # We could raise an exception anytime there's something non-numeric in the page parameter
       #raise ActionController::UnpermittedParameters.new ["not allowed"]
       BadActorLog.create(ip_address: request.remote_ip, reason: "Page param overload", details: "#{request.inspect}\n\n#{params.inspect}")
@@ -197,25 +197,58 @@ private
   def set_locale
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
+    current_country = ISO3166::Country.new( clean_country_code.upcase )
+    cross_section_languages = current_country.languages_official && website.list_of_available_locales
+
     # This is where we set the locale:
+
+    # If params[:locale] is provided, do some smart redirecting for the English variations
     if params.key?(:locale)
-      if params[:locale].to_s == "en-US" && !(session['geo_usa']) && website.list_of_available_locales.include?("en")
-        I18n.locale = "en"
-      elsif params[:locale].to_s == "en" && !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
-        I18n.locale == "en-US"
-      else
-        I18n.locale = params[:locale]
+      I18n.locale = params[:locale]
+      case params[:locale]
+        when "en-US"
+          if in_apac? && website.list_of_available_locales.inclue?("en-asia")
+            I18n.locale = "en-asia"
+          elsif !session[:geo_usa] && website.list_of_available_locales.include?("en")
+            I18n.locale = "en"
+          end
+        when "en-asia"
+          if !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
+            I18n.locale = "en-US"
+          elsif !in_apac? && website.list_of_available_locales.include?("en")
+            I18n.locale = "en"
+          end
+        when "en"
+          if in_apac? && website.list_of_available_locales.inclue?("en-asia")
+            I18n.locale = "en-asia"
+          elsif !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
+            I18n.locale = "en-US"
+          end
       end
+
+    # When no params[:locale] is provided, go through these rulse to pick one:
     elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
-    elsif session['geo_country'] == "CN" && website.list_of_available_locales.include?("zh")
-      I18n.locale = 'zh'
-    elsif session['geo_country'] == "UK" && website.list_of_available_locales.include?("en")
-      I18n.locale = 'en'
+
+    # When to use our custom en-asia locale
+    elsif in_apac? && this_country.languages_official.include?("en") && website.list_of_available_locales.include?("en-asia")
+      I18n.locale = "en-asia"
+
+    # If the visitor's country's official languages matches one of our available locales, choose the first one
+    elsif cross_section_languages.size > 0
+      I18n.locale = cross_section_languages.first
+
+    # If the visitor's country code matches one of our available locales, choose that.
+    elsif website.list_of_available_locales.include?( clean_country_code )
+      I18n.locale = clean_country_code
+
     elsif website.locale
       I18n.locale = website.locale
+
+    # I don't think we ever get to the locale selector anymore
     elsif website.show_locales? && controller_path == "main" && action_name == "default_locale"
       locale_selector # otherwise the default locale is appended to the URL. #ugly
+
     else
       redirect_to root_path, status: :moved_permanently and return false
     end

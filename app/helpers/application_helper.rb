@@ -10,9 +10,9 @@ module ApplicationHelper
   # Determines if we should hide the given locale from a user
   def exclude_locale_from_options?(locale)
     if !(session['geo_usa']) && locale.to_s.match?(/\-US/i)
-      return true
-    elsif !!(session['geo_usa']) && locale.to_s == "en"
-      return true
+      return true # Hide en-US if we're not in the US
+    elsif !!(session['geo_usa'])  && ["en", "en-asia"].include?(locale.to_s)
+      return true # Hide en, en-asia if we are in the US
     end
     return false
   end
@@ -484,19 +484,19 @@ module ApplicationHelper
 
   def file_type_icon(item, size=17)
     img = case true
-          when 
-            # item.is_a?(SiteElement) 
-            (item.respond_to?(:executable_content_type) && !!item.executable_content_type.to_s.match(/pdf/i)) || 
-            (item.respond_to?(:resource_content_type) && !!item.resource_content_type.to_s.match(/pdf/i)) || 
+          when
+            # item.is_a?(SiteElement)
+            (item.respond_to?(:executable_content_type) && !!item.executable_content_type.to_s.match(/pdf/i)) ||
+            (item.respond_to?(:resource_content_type) && !!item.resource_content_type.to_s.match(/pdf/i)) ||
             (item.respond_to?(:resource_file_name) && !!item.resource_file_name.to_s.match(/pdf$/i)) ||
-            
+
             # item.is_a?(ProductDocument)
-            (item.respond_to?(:document_content_type) && !!item.document_content_type.to_s.match(/pdf/i)) || 
+            (item.respond_to?(:document_content_type) && !!item.document_content_type.to_s.match(/pdf/i)) ||
             (item.respond_to?(:document_file_name) && !!item.document_file_name.to_s.match(/pdf$/i)) ||
-            
+
             # item.is_a?(SoftwareAttachment)
             (item.respond_to?(:software_attachment_content_type) && !!item.software_attachment_content_type.to_s.match(/pdf/i))
-            
+
             "icons/pdf_#{size}.png"
           else
             "icons/download_#{size}.png"

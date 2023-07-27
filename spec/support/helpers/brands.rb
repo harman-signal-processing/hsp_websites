@@ -1,14 +1,6 @@
 module Features
   module Brands
 
-    def digitech_brand
-      @digitech_brand ||= FactoryBot.create(:digitech_brand)
-    end
-
-    def digitech_site
-      @digitech_site ||= FactoryBot.create(:website_with_products, folder: "digitech", brand: digitech_brand)
-    end
-
     def lexicon_brand
       @lexicon_brand ||= FactoryBot.create(:lexicon_brand)
     end
