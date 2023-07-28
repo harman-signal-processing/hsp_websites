@@ -198,41 +198,49 @@ private
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     current_country = ISO3166::Country.new( clean_country_code.upcase )
-    cross_section_languages = current_country.languages_official && website.list_of_available_locales
+    cross_section_languages = current_country.languages_official & website.list_of_available_locales
 
     # This is where we set the locale:
 
     # If params[:locale] is provided, do some smart redirecting for the English variations
     if params.key?(:locale)
       I18n.locale = params[:locale]
-      case params[:locale]
-        when "en-US"
-          if in_apac? && website.list_of_available_locales.inclue?("en-asia")
-            I18n.locale = "en-asia"
-          elsif !session[:geo_usa] && website.list_of_available_locales.include?("en")
-            I18n.locale = "en"
-          end
-        when "en-asia"
-          if !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
-            I18n.locale = "en-US"
-          elsif !in_apac? && website.list_of_available_locales.include?("en")
-            I18n.locale = "en"
-          end
-        when "en"
-          if in_apac? && website.list_of_available_locales.inclue?("en-asia")
-            I18n.locale = "en-asia"
-          elsif !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
-            I18n.locale = "en-US"
-          end
+      unless can?(:manage, Product) # lets admins around geofencing
+        case params[:locale]
+          when "en-US"
+            if in_apac? && website.list_of_available_locales.include?("en-asia")
+              I18n.locale = "en-asia"
+            elsif !session[:geo_usa] && website.list_of_available_locales.include?("en")
+              I18n.locale = "en"
+            end
+          when "en-asia"
+            if !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
+              I18n.locale = "en-US"
+            elsif !in_apac? && website.list_of_available_locales.include?("en")
+              I18n.locale = "en"
+            end
+          when "en"
+            if in_apac? && website.list_of_available_locales.include?("en-asia")
+              I18n.locale = "en-asia"
+            elsif !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
+              I18n.locale = "en-US"
+            end
+        end
       end
 
     # When no params[:locale] is provided, go through these rulse to pick one:
     elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
 
-    # When to use our custom en-asia locale
-    elsif in_apac? && this_country.languages_official.include?("en") && website.list_of_available_locales.include?("en-asia")
-      I18n.locale = "en-asia"
+    # When in apac
+    elsif in_apac?
+      if current_country.languages_official.include?("zh") && website.list_of_available_locales.include?("zh")
+        I18n.locale = "zh"
+      elsif website.list_of_available_locales.include?("en-asia")
+        I18n.locale = "en-asia"
+      end
+
+    #TODO: handle language-country locales like pt-BR
 
     # If the visitor's country's official languages matches one of our available locales, choose the first one
     elsif cross_section_languages.size > 0
@@ -254,6 +262,7 @@ private
     end
 
     if params[:locale] && params[:locale].to_s != I18n.locale.to_s
+      logger.inspector.debug(" Redirecting to #{ request.params.merge(locale: I18n.locale)} ")
       redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
 
