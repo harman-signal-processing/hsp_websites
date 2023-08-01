@@ -1,62 +1,58 @@
 <%= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
+
+  <!-- Products -->
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
 		<ul class="dropdown">
       <% if website.has_product_selector? %>
         <li><%= link_to t("product_selector"), product_selector_path %></li>
       <% end %>
-      <li class="has-dropdown"><%= link_to t("nav.amplifiers").titleize, product_families_path %>
-        <ul class="dropdown">
+
           <%
             amp_families = ProductFamily.parents_with_current_products(website, I18n.locale)
           %>
           <% amp_families.each do |product_family| %>
             <% unless product_family.hide_from_navigation? %>
-              <%= product_family_nav_links(product_family, depth: 2) %>
+              <%= product_family_nav_links(product_family, depth: 3) %>
             <% end %>
           <% end %>
-        </ul>
-      </li>
-      <% if website.show_market_nav.to_i > 0 %>
-        <% MarketSegment.with_current_products(website, I18n.locale).each do |market_segment| %>
-          <li class="has-dropdown"><%= link_to translate_content(market_segment, :name), market_segment, class: "disabled" %>
-            <ul class="dropdown">
-              <% market_segment.product_families_with_current_products.each do |product_family| %>
-                <%= product_family_nav_links(product_family, depth: 1) %>
-              <% end %>
-              <% if market_segment.name.to_s.match(/commercial/i) %>
-                <li><%= link_to "JBL Commercial", "https://jblcommercialproducts.com/", target: "_blank" %></li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-      <% end %>
-      <% amp_families.each do |product_family| %>
-        <% if product_family.hide_from_navigation? %>
-          <%= product_family_nav_links(product_family, depth: 1) %>
-        <% end %>
-      <% end %>
 
-      <li><%= link_to t("nav.microphones").titleize, "/#{I18n.locale}/akg-mics" %></li>
-      <li class="has-dropdown show-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
-        <ul class="dropdown">
-          <li><%= link_to t('nav.about_our_solutions'), "/#{I18n.locale}/network-audio" %></li>
-          <li><%= link_to t('nav.blu_link'), "/#{I18n.locale}/network-audio#blu-link" %></li>
-          <li><%= link_to t('nav.dante'), "/#{I18n.locale}/network-audio#dante" %></li>
-          <li><%= link_to t('nav.cobranet'), "/#{I18n.locale}/network-audio#cobranet" %></li>
-          <li><%= link_to t('nav.avb'), "/#{I18n.locale}/network-audio#avb" %></li>
-        </ul>
-      </li>
-      <% if I18n.locale == I18n.default_locale && (website.has_dealers? || website.has_distributors? || website.has_online_retailers?) %>
-        <li><%= link_to "Promotions", promotions_path %></li>
-      <% end %>
+
+      <%# amp_families.each do |product_family| %>
+        <%# if product_family.hide_from_navigation? %>
+          <%#= product_family_nav_links(product_family, depth: 1) %>
+        <%# end %>
+      <%# end %>
+
 			<li><%= link_to t('discontinued_products').titleize, discontinued_products_path %></li>
 		</ul>
 	</li>
+	<!-- end Products -->
 
   <% if website.has_solution_pages? && I18n.locale.to_s.match(/en/i) %>
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
-
+  
+  <!-- Applications -->
+    <li class="has-dropdown hide-for-medium"><%= link_to t('nav.market_applications').titleize, "#" %>
+      <% if website.show_market_nav.to_i > 0 %>
+        <ul class="dropdown">
+          <% MarketSegment.with_current_products(website, I18n.locale).sort_by(&:position).each do |market_segment| %>
+            <li class="has-dropdown"><%= link_to translate_content(market_segment, :name), market_segment, class: "disabled" %>
+              <ul class="dropdown">
+                <% market_segment.product_families_with_current_products.each do |product_family| %>
+                  <%= product_family_nav_links(product_family, depth: 1) %>
+                <% end %>
+                <% if market_segment.name.to_s.match(/commercial/i) %>
+                  <li><%= link_to "JBL Commercial", "https://jblcommercialproducts.com/", target: "_blank" %></li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+  
+  <!-- Network Audio -->
   <li class="has-dropdown hide-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
     <ul class="dropdown">
       <li><%= link_to t('nav.about_our_solutions'), "/#{I18n.locale}/network-audio" %></li>
