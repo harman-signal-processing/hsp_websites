@@ -86,7 +86,7 @@ jQuery ($) ->
 
   $('a.update-and-play-inline-video').click (e) ->
     e.preventDefault()
-    video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0"
+    video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0&enablejsapi=1"
     $("##{ $(@).data('containerid') } iframe").attr 'src', video_url
 
   $('a.start-video').click (e) ->
@@ -94,7 +94,7 @@ jQuery ($) ->
     if $(@).data('videoid').startsWith('PL')
       video_url = "https://www.youtube.com/embed/videoseries?list=#{ $(@).data('videoid') }"
     else
-      video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0"
+      video_url = "https://www.youtube.com/embed/#{ $(@).data('videoid') }?autostart=1&autoplay=1&rel=0&enablejsapi=1"
 
     $('#videoIFrame').attr 'data-src', video_url
     $('#videoModal').foundation 'reveal', 'open'
