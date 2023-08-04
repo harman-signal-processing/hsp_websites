@@ -27,7 +27,7 @@ module ProductsHelper
 
   def tab_title(product_tab, options={})
     title = options[:shorten] ? t("product_page.labels.#{product_tab.key}") : t("product_page.#{product_tab.key}")
-    if I18n.locale == I18n.default_locale || I18n.locale.to_s.match(/en/)
+    if I18n.locale.to_s.match(/en/)
       if options[:product] && custom_title = options[:product].rename_tab(product_tab.key)
         title = custom_title
       elsif custom_title = eval("website.#{product_tab.key}_tab_name")

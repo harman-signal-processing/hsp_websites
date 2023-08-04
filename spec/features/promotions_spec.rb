@@ -4,6 +4,7 @@ feature "Promotions" do
 
   before :all do
     @website = FactoryBot.create(:website_with_products)
+    FactoryBot.create(:website_locale, website: @website, default: false, locale: "en-US")
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
     @promo = FactoryBot.create(:promotion, brand: @website.brand)
@@ -19,7 +20,7 @@ feature "Promotions" do
 
   describe "product page" do
   	before do
-      visit product_path(@product, locale: I18n.default_locale)
+      visit product_path(@product, locale: "en-US") + "?geo=us&geo_country=us"
   	end
 
   	it "related current promo appears"  do
@@ -31,7 +32,7 @@ feature "Promotions" do
   	end
 
     it "should show link to rebate forms" do
-      expect(page).to have_link "Rebate Forms", href: promotions_path(locale: I18n.default_locale)
+      expect(page).to have_link "Rebate Forms", href: promotions_path(locale: "en-US")
     end
 
   end
@@ -39,11 +40,11 @@ feature "Promotions" do
   describe "promo overview page" do
 
     before do
-      visit promotions_path(locale: I18n.default_locale)
+      visit promotions_path(locale: "en-US") + "?geo=us&geo_country=us"
     end
 
   	it "lists current promos" do
-      expect(page).to have_link @promo.name, href: promotion_path(@promo, locale: I18n.default_locale)
+      expect(page).to have_link @promo.name, href: promotion_path(@promo, locale: "en-US")
     end
 
   	it "does not list expired promos" do

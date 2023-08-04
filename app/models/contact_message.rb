@@ -92,7 +92,7 @@ class ContactMessage < ApplicationRecord
       if options[:locale]
         q = q.where(locale: [options[:locale], options[:locale].gsub(/\-.*$/, '')])
       else
-        q = q.where(locale: [nil, I18n.default_locale, ''])
+        q = q.where(locale: [nil, I18n.default_locale, 'en-US', ''])
       end
       q.order(:position).each do |subj|
         s << [subj.name]

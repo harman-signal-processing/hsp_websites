@@ -86,7 +86,7 @@ RSpec.describe FeaturesHelper do
 
       content = update_youtube_links(og_content)
 
-      expect(content).to have_xpath("//a[@target='_blank'][@data-videoid='#{video_id}'][@class='test start-video'][@href='http://test.host/en-US/videos/play/#{video_id}']")
+      expect(content).to have_xpath("//a[@target='_blank'][@data-videoid='#{video_id}'][@class='test start-video'][@href='http://test.host/#{I18n.default_locale}/videos/play/#{video_id}']")
     end
 
     it "renders content with an updated link if class is missing" do
@@ -95,7 +95,7 @@ RSpec.describe FeaturesHelper do
 
       content = update_youtube_links(og_content)
 
-      expect(content).to have_xpath("//a[@target='_blank'][@data-videoid='#{video_id}'][@class=' start-video'][@href='http://test.host/en-US/videos/play/#{video_id}']")
+      expect(content).to have_xpath("//a[@target='_blank'][@data-videoid='#{video_id}'][@class=' start-video'][@href='http://test.host/#{I18n.default_locale}/videos/play/#{video_id}']")
     end
   end
 

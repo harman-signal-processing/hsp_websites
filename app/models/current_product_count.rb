@@ -14,7 +14,7 @@ class CurrentProductCount < ApplicationRecord
   def current_products_plus_child_products(family)
     cp = []
     family.current_products.each do |prod|
-      if prod.locales(brand_website).include?(locale)
+      if prod.locales(brand_website).include?(self.locale)
         cp << prod
       end
     end

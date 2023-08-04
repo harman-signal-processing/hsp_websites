@@ -29,11 +29,11 @@
 
 					<%= form_tag distributor_search_new_path, method: :get %>
 						<p><%= label_tag t('select_your_country') %>:<br/>
-									<%= select_tag :geo, 
-			            options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, country_code.upcase), 
+									<%= select_tag :geo,
+			            options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, country_code.upcase),
 			           # class: 'chosen-select',
 			            prompt: "Select Your Country"
-			            %> 
+			            %>
 							<%= submit_tag t('submit') %>
 						</p>
 					</form>
@@ -54,9 +54,9 @@
     <p>For general inquiries, please contact the brand corresponding to your equipment:</p>
     <ul>
       <li>AKG: <a href="https://akg.com/pro/technical-support" target="_blank">akg.com/pro</a></li>
-      <li>BSS: <a href="https://bssaudio.com/en-US/support" target="_blank">bssaudio.com/support</a></li>
-      <li>Crown: <a href="https://www.crownaudio.com/en-US/support" target="_blank">www.crownaudio.com/support</a></li>
-      <li>dbx: <a href="https://dbxpro.com/en-US/support" target="_blank">dbxpro.com/support</a></li>
+      <li>BSS: <a href="https://bssaudio.com/en/support" target="_blank">bssaudio.com/support</a></li>
+      <li>Crown: <a href="https://www.crownaudio.com/en/support" target="_blank">www.crownaudio.com/support</a></li>
+      <li>dbx: <a href="https://dbxpro.com/en/support" target="_blank">dbxpro.com/support</a></li>
       <li>JBL: <a href="https://jblproservice.com" target="_blank">jblproservice.com</a></li>
     </ul>
 

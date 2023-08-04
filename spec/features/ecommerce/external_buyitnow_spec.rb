@@ -2,6 +2,7 @@ feature "External Buy It Now" do
 
   before :all do
     @website = FactoryBot.create(:website_with_products)
+    FactoryBot.create(:website_locale, website: @website, locale: "en-US")
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
     @product = @website.products.first
@@ -15,7 +16,7 @@ feature "External Buy It Now" do
 
   describe "a product with an exclusive buy it now provider" do
     it "shows the logo on the product page and links directly to retailer" do
-      visit product_path(@product, locale: I18n.default_locale)
+      visit product_path(@product, locale: "en-US")
 
       find("img[src='#{ @online_retailer.retailer_logo.url(:exclusive) }']")
       expect(page).to have_link("Buy It Now", href: @retailer_link.url, class: "buy_it_now_popup")

@@ -77,4 +77,17 @@ namespace :utility do
   def copy_products(from_brand, to_brand)
     puts "Copying #{from_brand.name} Products...[SKIPPED: see comments in rake task]"
   end
+
+  desc "makes some changes in the db when changing our default locale from en-US to en"
+  task set_default_locale_to_en: :environment do
+
+    # Find any JBL slideshow frames with an empty locale and set them to "en-US"
+    # because there are a handful of them which are set for "en" (the new default locale)
+    Setting.where(brand_id: 19, setting_type: "slideshow frame", locale: nil).update_all(locale: "en-US")
+    Setting.where(brand_id: 19, setting_type: "slideshow frame", locale: "en").update_all(locale: nil)
+
+    Website.where(default_locale: "en-US").update_all(default_locale: "en")
+    Brand.where(default_locale: "en-US").update_all(default_locale: "en")
+  end
+
 end

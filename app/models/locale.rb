@@ -9,6 +9,7 @@ class Locale < ApplicationRecord
   def self.all_unique_locales
     begin
       if Rails.env.test? # not cool, but only thing I can get working for testing
+        #[I18n.default_locale, "en-US"]
         ALL_LOCALES
       else
         # 2022-10 [AA] Now that we launch pages without completing the

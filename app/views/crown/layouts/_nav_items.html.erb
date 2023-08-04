@@ -31,7 +31,7 @@
   <% if website.has_solution_pages? && I18n.locale.to_s.match(/en/i) %>
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
-  
+
   <!-- Applications -->
     <li class="has-dropdown hide-for-medium"><%= link_to t('nav.market_applications').titleize, "#" %>
       <% if website.show_market_nav.to_i > 0 %>
@@ -51,7 +51,7 @@
         </ul>
       <% end %>
     </li>
-  
+
   <!-- Network Audio -->
   <li class="has-dropdown hide-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
     <ul class="dropdown">

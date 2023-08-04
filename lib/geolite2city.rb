@@ -27,12 +27,13 @@ module Geokit
             provider: 'maxmind2_city',
             lat: res.location.latitude,
             lng: res.location.longitude,
-            city: res.city.name,
-            state: res.subdivisions.first.name,
-            zip: res.postal.code,
             country_code: res.country.iso_code
           })
-          loc.success = res.city.name && res.city.name != ''
+
+          loc.city = (res.city && res.city.name.present?) ? res.city.name : ""
+          loc.state = (res.subdivisions.size > 0 && res.subdivisions.first.name.present?) ? res.subdivisions.first.name : ""
+          loc.zip = (res.postal.present? && res.postal.code.present?) ? res.postal.code : ""
+          loc.success = res.country && res.country.name.present?
           loc
         rescue ::MaxMind::GeoIP2::AddressNotFoundError
           return GeoLoc.new
