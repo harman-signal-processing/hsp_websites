@@ -198,7 +198,11 @@ private
     raise ActionController::RoutingError.new("Site not found") unless website && website.respond_to?(:list_of_available_locales)
 
     current_country = ISO3166::Country.new( clean_country_code.upcase )
-    cross_section_languages = current_country.languages_official & website.list_of_available_locales
+    if current_country && current_country.languages_official.present?
+      cross_section_languages = current_country.languages_official & website.list_of_available_locales
+    else
+      cross_section_languages = []
+    end
 
     # This is where we set the locale:
 
