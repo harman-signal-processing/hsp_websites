@@ -1,30 +1,12 @@
 module SeoHelper
 
-  def canonical_locale
-    if website.locale && website.locale.to_s.match(/^(\w{2})/)
-      cl = $1
-      if website.list_of_available_locales.include?(cl)
-        cl
-      else
-        website.locale
-      end
-    else
-      I18n.default_locale
-    end
-  end
-
   def canonical_link
     tag(:link, rel: 'canonical', href: canonical_url)
   end
 
+  # Consolidates www and non www domains
   def canonical_url
-    url = request.protocol + website.brand.default_website.url
-    if request.path.match(/^\/(#{ dashed_locales_regex })/)
-      url_locale = $1
-      url + request.path.sub(/^\/#{ url_locale }/, "/#{ canonical_locale }") # es-MX => es
-    else
-      url + request.path # /landing-page => unchanged
-    end
+    request.protocol + website.brand.default_website.url + request.path
   end
 
   def cached_meta_tags
