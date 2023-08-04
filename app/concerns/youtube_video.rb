@@ -1,7 +1,7 @@
 module YoutubeVideo
 
   def embed_url
-    "#{base_url}#{youtube_id}"
+    "#{base_url}#{youtube_id}?enablejsapi=1"
   end
 
   def is_playlist?
