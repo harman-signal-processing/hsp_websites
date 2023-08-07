@@ -83,7 +83,6 @@ gem 'will_paginate_infinite',
 gem "possessive"
 gem 'RedCloth'
 gem 'figaro'
-gem 'goacoustic'
 gem 'oauth2'
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel

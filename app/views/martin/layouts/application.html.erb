@@ -10,12 +10,6 @@
       <meta name="facebook-domain-verification" content="<%= website.facebook_domain_verification %>" />
     <% end %>
 		<%= csrf_meta_tag %>
-    <%# Acoustic tracking %>
-    <% if Rails.env.production? %>
-      <meta name="com.goacoustic.brandeddomains" content="www.pages08.net,akg.com,amx.com,bssaudio.com,crownaudio.com,dbxpro.com,digitech.com,jblpro.com,lexiconpro.com,martin.com,pro.harman.com,soundcraft.com" />
-      <meta name="com.goacoustic.cothost" content="campaign-ca-1.goacoustic.com" />
-      <script src="https://www.sc.pages08.net/lp/static/js/iMAWebCookie.js?4724915e-155c1210684-6681ada67421f5d3ed5e65517ed2e77a&h=www.pages08.net" type="text/javascript"></script>
-    <% end %>
 		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
 			<meta property="og:site_name" content="<%= website.site_name %>" />
