@@ -819,7 +819,15 @@ class Product < ApplicationRecord
   # available translations plus our usual English locales
   # Then remove the current locale
   def other_locales_with_translations(website)
-    (locales(website) & (content_translations.pluck(:locale).uniq + ["en", "en-US"])) - [I18n.locale.to_s]
+    all_locales_with_translations(website) - [I18n.locale.to_s]
+  end
+
+  def all_locales_with_translations(website)
+    (locales(website) & (content_translations.pluck(:locale).uniq + ["en", "en-US"]))
+  end
+
+  def hreflangs(website)
+    locales(website) & all_locales_with_translations(website)
   end
 
   def copy!

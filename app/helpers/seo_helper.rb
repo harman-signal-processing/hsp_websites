@@ -19,23 +19,37 @@ module SeoHelper
   end
 
   def hreflang_links
-    ret = ""
-    url = request.protocol + website.brand.default_website.url
-    website.available_locales.each do |wl|
-      if wl.locale == canonical_locale # (default locale)
-        ret += tag(:link, rel: 'alternate', href: canonical_url, hreflang: "x-default")
-        ret += tag(:link, rel: 'alternate', href: canonical_url, hreflang: website.locale)
-      elsif request.path.match(/^\/(#{ dashed_locales_regex })\//)
-        original_url_locale = $1
-        wl_url = url + request.path.sub(/#{ original_url_locale }/, wl.locale)
-        ret += tag(:link, rel: 'alternate', href: wl_url, hreflang: wl.locale)
-      elsif request.path.match(/^\/(#{ parent_locales_regex })\//)
-        original_url_locale = $1
-        wl_url = url + request.path.sub(/#{ original_url_locale }/, wl.locale)
-        ret += tag(:link, rel: 'alternate', href: wl_url, hreflang: wl.locale)
+    langs = []
+
+    # skip since en-asia is not a SEO recognized locale
+    exclude_locales = ["en-asia"]
+
+    begin
+      if @hreflangs # defined in the controller for the current request
+        this_url_all_locales = @hreflangs
+      else
+        this_url_all_locales = website.available_locales.map{|wl| wl.locale}
       end
+
+      (this_url_all_locales.uniq - exclude_locales).each do |locale|
+        if request.path.match(/^\/(#{ dashed_locales_regex })/)
+          locale_url = full_url_for(request.params.merge(locale: locale))
+          langs << tag(:link, rel: 'alternate', href: locale_url, hreflang: locale.downcase)
+          if locale.to_s == I18n.default_locale.to_s
+            langs << tag(:link, rel: 'alternate', href: locale_url, hreflang: "x-default")
+          end
+        elsif request.path.match(/^\/(#{ parent_locales_regex })/)
+          locale_url = full_url_for(request.params.merge(locale: locale))
+          langs << tag(:link, rel: 'alternate', href: locale_url, hreflang: locale.downcase)
+          if locale.to_s == I18n.default_locale.to_s
+            langs << tag(:link, rel: 'alternate', href: locale_url, hreflang: "x-default")
+          end
+        end
+      end
+      langs.join("\n").html_safe
+    rescue
+      # avoid errors since this now runs on every page
     end
-    ret
   end
 
   def dashed_locales_regex

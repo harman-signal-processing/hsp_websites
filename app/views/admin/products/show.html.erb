@@ -538,7 +538,7 @@
 					<%= f.hidden_field :product_id %>
 					<div class="row collapse">
 						<div class="large-10 small-8 columns">
-							<%= f.association :suggested_product, 
+							<%= f.association :suggested_product,
 							  # collection: (website.current_products - [@product]).sort_by(&:name),
 							  collection: (Product.not_associated_with_these_products(@product.alternatives,website) - [@product]).sort_by(&:name),
 							  label: false,
@@ -700,7 +700,7 @@
         <%= hidden_field_tag :called_form, "product" %>
         <div class="row collapse">
           <div class="small-8 columns">
-            <%= f.association :badge, 
+            <%= f.association :badge,
             collection: Badge.not_associated_with_this_product(@product_badge.product),
             label: false,
             input_html: { class: 'chosen-select', multiple: true,  data: { placeholder: 'Select Badges'} }%>

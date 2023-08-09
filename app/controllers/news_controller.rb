@@ -42,6 +42,7 @@ class NewsController < ApplicationController
     end
     @related_news = @news.find_related_tags.where("post_on <= ?", Date.today).order("post_on DESC").limit(6)
     @recent_news = News.all_for_website(website, limit: 6) - [@news] - @related_news
+    @hreflangs = @news.hreflangs(website)
     respond_to do |format|
       format.html { render_template } # show.html.erb
       format.xml  { render xml: @news }

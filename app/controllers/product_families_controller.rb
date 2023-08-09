@@ -39,6 +39,7 @@ class ProductFamiliesController < ApplicationController
 
     respond_to do |format|
       format.html {
+        @hreflangs = @product_family.hreflangs(website)
 
         # If the family has no fancy features and only one product
         if @product_family.features.length == 0 && @product_family.current_products_plus_child_products(website).length == 1

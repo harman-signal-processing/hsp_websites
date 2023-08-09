@@ -78,6 +78,8 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html {
+        @hreflangs = @product.hreflangs(website)
+
         unless @product.show_on_website?(website)
           unless can?(:manage, @product) || (session[:preview_products] && session[:preview_products].include?(@product.friendly_id))
             if !@product.password.blank?
