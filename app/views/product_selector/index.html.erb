@@ -4,6 +4,18 @@
   </div>
 <% end %>
 
+<div id="intro">
+  <% if website.product_selector_intro %>
+    <%=raw website.product_selector_intro %>
+  <% else %>
+    <div class="text-center">
+      <h1>Discover the Perfect Products for Your Project</h1>
+      <p><em>Choose a category below to begin</em></p>
+    </div>
+  <% end %>
+  <p>&nbsp;</p>
+</div>
+
 <div id="ps-top-nav">
 	<div class="top-level-families">
 		<ul class="small-block-grid-<%= (top_level_families.length / 2).to_i %>  medium-block-grid-<%= top_level_families.length %>">
@@ -15,7 +27,7 @@
 </div>
 
 <div id="ps-sub-nav">
-  <div id="subgroups"><div class="text-center"><em>Select a category above to get started</em></div></div>
+  <div id="subgroups"></div>
 </div>
 
 <div class="spinner" style="display:none;">

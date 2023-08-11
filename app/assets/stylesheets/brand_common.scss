@@ -2203,17 +2203,32 @@ This solution was found here: https://foundation.zurb.com/forum/posts/581-block-
 
 /** Product selector **/
 div.top-level-families {
-  margin-bottom: rem-calc(12px);
+  margin-bottom: rem-calc(40px);
   li {
     display: table-cell;
     text-align: center;
+    .choose-subcategory-notice {
+      display: none;
+    }
+    &.selected {
+      border-bottom: 4px solid $primary-color;
+      .choose-subcategory-notice {
+        display: block;
+      }
+    }
   }
 }
 div#subgroups {
-  margin-bottom: rem-calc(12px);
+  margin: rem-calc(40px) 0;
   li {
     display: table-cell;
     text-align: center;
+    &.selected {
+      a {
+        font-weight: bold;
+      }
+      border-bottom: 4px solid $primary-color;
+    }
     img {
       max-height: 60px;
       width: auto;

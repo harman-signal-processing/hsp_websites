@@ -307,6 +307,9 @@ en:
     harman_pro_solutions: Harman Professional Solutions
     vertical_market_solutions: "%{vertical_market} solutions"
 
+  product_selector:
+      choose_a_subcategory: choose a subcategory below
+
   titles:
       about_us: "About %{brand}"
       archived_news: News Archive

@@ -1,6 +1,6 @@
 <li id="product_family_<%= product_family.to_param %>"
-    class="product_family_box <% unless product_family.root? %>subgroup<% end %>"
-    <% if @product_family && (@product_family == product_family || @product_family.parent == product_family)%>style="outline: 1px solid #CCC"<% end %>>
+    class="product_family_box <% unless product_family.root? %>subgroup<% end %>
+    <% if @product_family && (@product_family == product_family || @product_family.parent == product_family)%>selected<% end %>">
 
   <%= link_to product_family.root? ? [:product_selector, product_family] : product_selector_subfamily_product_selector_product_family_path(product_family.parent, product_family), class: "ps-start-spinner" do %>
     <% if product_family.family_photo.present? %>
@@ -18,6 +18,11 @@
           <%=t "product_selector".titleize %>
         <% end %>
         </h3>
+        <% if product_family.sub_groups.size > 0 %>
+          <div class="choose-subcategory-notice">
+            <em><%=t 'product_selector.choose_a_subcategory' %></em>
+          </div>
+        <% end %>
       <% else %>
         <div class="text-center"><%= translate_content(product_family, :name) %></div>
       <% end %>

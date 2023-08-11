@@ -441,8 +441,10 @@ function rerunFilter() {
   );
 
   // restore input settings from session
-  for (var i = 0; i < selected_sub_families.length; i++) {
-    $("input[name='sub_family[]'][val='"+selected_sub_families[i]+"'").prop('checked', true);
+  if (selected_sub_families) {
+    for (var i = 0; i < selected_sub_families.length; i++) {
+      $("input[name='sub_family[]'][val='"+selected_sub_families[i]+"'").prop('checked', true);
+    }
   }
 
   for (var filter_name in text_filter_data) {
@@ -523,13 +525,15 @@ function filterProducts(selected_sub_families, text_filter_data, select_filter_d
 
 jQuery(function($) {
   $("#ps-top-nav").on('click', ".ps-start-spinner", function() {
-		$("li.product_family_box").css("outline", "none");
-    $(this).parent("li").css("outline", "1px solid #CCC");
+		$("li.product_family_box").removeClass("selected"); //css("outline", "none");
+    $(this).parent("li").addClass("selected"); //css("outline", "1px solid #CCC");
     $(".spinner").show();
     $("ul#hidden-products").empty();
     $("#results-container form").empty();
     $("#options-container").empty();
     $("div#subgroups").empty();
+    $("div#intro").remove();
+    $("div.category-banner").remove();
     sessionStorage.removeItem('range_filter_data');
     sessionStorage.removeItem('slider_filter_data');
     sessionStorage.removeItem('upwards_slider_filter_data');
@@ -539,8 +543,8 @@ jQuery(function($) {
   });
 
   $("#ps-sub-nav").on('click', ".ps-start-spinner", function() {
-    $("li.subgroup").css("outline", "none");
-    $(this).parent("li").css("outline", "1px solid #CCC");
+    $("li.subgroup").removeClass("selected"); //css("outline", "none");
+    $(this).parent("li").addClass("selected"); //css("outline", "1px solid #CCC");
     $(".spinner").show();
     $("ul#hidden-products").empty();
     $("#results-container form").empty();
