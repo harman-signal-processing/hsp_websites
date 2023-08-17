@@ -8,9 +8,9 @@
         <% OnlineRetailer.brand_online_retailers(website).each do |online_retailer| %>
           <li>
             <% if !online_retailer.retailer_logo_file_name.blank? %>
-              <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank")%>
+              <%= link_to(image_tag(online_retailer.retailer_logo(:fixed)), online_retailer.direct_link, target: "_blank", class: "online_retailer")%>
             <% else %>
-              <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank" %>
+              <%= link_to online_retailer.name, online_retailer.direct_link, target: "_blank", class: "online_retailer" %>
             <% end %>
           </li>
         <% end %>

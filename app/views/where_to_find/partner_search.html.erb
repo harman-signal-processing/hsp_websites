@@ -64,9 +64,9 @@ $(document).ready(function() {
             <br/><%= dealer.telephone %>
           <% end %>
           <% if dealer.website.present? %>
-            <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank" %>
+            <br/><%= link_to dealer.website.downcase, dealer.website_link, target: "_blank", class: "wtb_dealer_website_link" %>
           <% elsif !dealer.email.blank? %>
-            <br/><%= mail_to dealer.email.downcase %>
+            <br/><%= mail_to dealer.email.downcase, class: "wtb_dealer_email_link" %>
           <% end %>
         </li>
       <% end %>
