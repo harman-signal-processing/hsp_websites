@@ -104,9 +104,9 @@ function load_side_column(markers) {
           var product_name = element[0];
           var product_slug = element[1];
           if (product_slug == "")
-            { innerHtml += "<a href='" + location.origin + "/product_families/" + product_slug + "'>" + product_name + "</a>"; }
+            { innerHtml += "<a href='" + location.origin + "/product_families/" + product_slug + "' class='wtb_dealer_product_link'>" + product_name + "</a>"; }
           else
-            { innerHtml += "<a href='" + location.origin + "/products/" + product_slug + "'>" + product_name + "</a>"; }
+            { innerHtml += "<a href='" + location.origin + "/products/" + product_slug + "' class='wtb_dealer_product_link'>" + product_name + "</a>"; }
 
           if (index+1 < products.length) { innerHtml += ", "};
         });  //  products.forEach((element, index)
@@ -123,9 +123,9 @@ function load_side_column(markers) {
       innerHtml += "<br/>" + marker.telephone;
     }
     if ( marker.website) {
-      innerHtml += "<br/><a href=\"https://" + marker.website + "\" target=\"_blank\">" + marker.website + "</a>";
+      innerHtml += "<br/><a href=\"https://" + marker.website + "\" target=\"_blank\" class=\"wtb_dealer_website_link\">" + marker.website + "</a>";
     } else if ( marker.email ) {
-      innerHtml += "<br/><a href=\"mailto:" + marker.email +"\">" + marker.email + "</a>";
+      innerHtml += "<br/><a href=\"mailto:" + marker.email +"\" class=\"wtb_dealer_email_link\">" + marker.email + "</a>";
     }
 
     $("<li/>").attr('id', "sidebar-item-" + (i + 1)).addClass("sidebar-item").html(innerHtml).appendTo("ul.dealer_results");
