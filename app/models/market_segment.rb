@@ -57,7 +57,9 @@ class MarketSegment < ApplicationRecord
   end
 
   def product_families_with_current_products
-    product_families.select{|pf| pf if pf.current_products.length > 0 }
+    # product_families.select{|pf| pf if pf.current_products.length > 0 }
+    binding.pry
+    product_families.select{|pf| pf if pf.has_current_products?(website) }
   end
 
   def all_current_products
