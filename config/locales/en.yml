@@ -307,7 +307,7 @@ en:
     harman_pro_solutions: Harman Professional Solutions
     vertical_market_solutions: "%{vertical_market} solutions"
 
-  product_selector:
+  product_selector_page:
       choose_a_subcategory: choose a subcategory below
 
   titles:
