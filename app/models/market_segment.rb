@@ -48,10 +48,18 @@ class MarketSegment < ApplicationRecord
     where(brand_id: brand_id).where(parent_id: nil).order(:position)
   end
 
-  def self.with_current_products(website, locale)
+  def self.with_current_products
     segments = []
     where(brand_id: website.brand_id).order(:created_at).each do |ms|
       segments << ms if ms.product_families_with_current_products.length > 0
+    end
+    segments
+  end
+
+  def self.with_current_products(website, locale)
+    segments = []
+    where(brand_id: website.brand_id).order(:created_at).each do |ms|
+      segments << ms if ms.product_families_with_current_products(website,locale).length > 0
     end
     segments
   end
@@ -60,12 +68,30 @@ class MarketSegment < ApplicationRecord
     product_families.select{|pf| pf if pf.current_products.length > 0 }
   end
 
+  def product_families_with_current_products(website,locale)
+    product_families.select{|pf|
+      if pf.current_products_plus_child_products(website, { depth: 1 }).length > 0
+        ms_pf = MarketSegmentProductFamily.where(market_segment_id: self.id, product_family_id: pf.id)
+        pf.position = ms_pf.first.position
+        pf
+      end
+    }
+  end
+
   def all_current_products
     @all_current_products ||= self.product_families_with_current_products.map{|pf| pf.current_products}.flatten.uniq
   end
 
+  def all_current_products(website, locale)
+    @all_current_products ||= self.product_families_with_current_products(website,locale).map{|pf| pf.current_products}.flatten.uniq
+  end
+
   def related_news
     @related_news ||= self.all_current_products.map{|p| p.current_news}.flatten.uniq
+  end
+
+  def related_news(website,locale)
+    @related_news ||= self.all_current_products(website,locale).map{|p| p.current_news}.flatten.uniq
   end
 
 end

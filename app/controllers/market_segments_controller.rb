@@ -17,7 +17,7 @@ class MarketSegmentsController < ApplicationController
     end
 
     @product_families = @market_segment.market_segment_product_families.map(&:product_family)
-    @news = @market_segment.related_news.sort_by(&:post_on).reverse[0,6]
+    @news = @market_segment.related_news(website,locale).sort_by(&:post_on).reverse[0,6]
     load_case_studies(@market_segment)
 
     respond_to do |format|

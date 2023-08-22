@@ -1,4 +1,4 @@
-<%= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
+<%#= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
 
   <!-- Products -->
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
@@ -39,8 +39,8 @@
           <% MarketSegment.with_current_products(website, I18n.locale).sort_by(&:position).each do |market_segment| %>
             <li class="has-dropdown"><%= link_to translate_content(market_segment, :name), market_segment, class: "disabled" %>
               <ul class="dropdown">
-                <% market_segment.product_families_with_current_products.each do |product_family| %>
-                  <%= product_family_nav_links(product_family, depth: 1) %>
+                <% market_segment.product_families_with_current_products(website, I18n.locale).sort_by(&:position).each do |product_family| %>
+                  <%= product_family_nav_links(product_family, depth: 2) %>
                 <% end %>
                 <% if market_segment.name.to_s.match(/commercial/i) %>
                   <li><%= link_to "JBL Commercial", "https://jblcommercialproducts.com/", target: "_blank" %></li>
@@ -120,4 +120,4 @@
 
   <%= extra_top_nav_links(divider: false) %>
 
-<% end %>
+<%# end %>
