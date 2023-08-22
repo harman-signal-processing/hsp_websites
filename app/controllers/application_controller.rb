@@ -212,9 +212,11 @@ private
       unless can?(:manage, Product) # lets admins around geofencing
         case params[:locale]
           when "en-US"
-            if in_apac? && website.list_of_available_locales.include?("en-asia")
-              I18n.locale = "en-asia"
-            elsif !session[:geo_usa] && website.list_of_available_locales.include?("en")
+            # 2023-08-22 AA disabled en-asia automatic redirect due to Portable Live Sound families being incomplete in en-asia
+            #if in_apac? && website.list_of_available_locales.include?("en-asia")
+            #  I18n.locale = "en-asia"
+            #elsif !session[:geo_usa] && website.list_of_available_locales.include?("en")
+            if !session[:geo_usa] && website.list_of_available_locales.include?("en")
               I18n.locale = "en"
             end
           when "en-asia"
@@ -224,9 +226,11 @@ private
               I18n.locale = "en"
             end
           when "en"
-            if in_apac? && website.list_of_available_locales.include?("en-asia")
-              I18n.locale = "en-asia"
-            elsif !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
+            # 2023-08-22 AA disabled en-asia automatic redirect due to Portable Live Sound families being incomplete in en-asia
+            #if in_apac? && website.list_of_available_locales.include?("en-asia")
+            #  I18n.locale = "en-asia"
+            #elsif !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
+            if !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
               I18n.locale = "en-US"
             end
         end
@@ -240,8 +244,9 @@ private
     elsif in_apac?
       if current_country.languages_official.include?("zh") && website.list_of_available_locales.include?("zh")
         I18n.locale = "zh"
-      elsif website.list_of_available_locales.include?("en-asia")
-        I18n.locale = "en-asia"
+    # 2023-08-22 AA disabled en-asia automatic redirect due to Portable Live Sound families being incomplete in en-asia
+    #  elsif website.list_of_available_locales.include?("en-asia")
+    #    I18n.locale = "en-asia"
       end
 
     #TODO: handle language-country locales like pt-BR
