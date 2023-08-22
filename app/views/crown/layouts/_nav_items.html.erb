@@ -1,4 +1,4 @@
-<%#= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
+<%= cache ["nav_items", website.brand, I18n.locale, Date.today] do %>
 
   <!-- Products -->
 	<li class="has-dropdown"><%= link_to t('products').titleize, product_families_path %>
@@ -120,4 +120,4 @@
 
   <%= extra_top_nav_links(divider: false) %>
 
-<%# end %>
+<% end %>
