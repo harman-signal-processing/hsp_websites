@@ -9,7 +9,7 @@ require "rails_helper"
 # to ALL_LOCALES in the i18n initializer. The routes.rb file creates routes
 # based on those locales in the test environment.
 
-feature "Geofencing", :devise do
+feature "Geofencing" do
 
   before :all do
     @website = FactoryBot.create(:website)

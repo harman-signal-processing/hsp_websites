@@ -209,7 +209,7 @@ private
     # If params[:locale] is provided, do some smart redirecting for the English variations
     if params.key?(:locale)
       I18n.locale = params[:locale]
-      unless can?(:manage, Product) # lets admins around geofencing
+      unless is_search_engine? || can?(:manage, Product) # lets admins and crawlers around geofencing
         case params[:locale]
           when "en-US"
             # 2023-08-22 AA disabled en-asia automatic redirect due to Portable Live Sound families being incomplete in en-asia
@@ -550,6 +550,11 @@ private
     else
       input.to_s.match?(sqli)
     end
+  end
+
+  # Check the user-agent for common search engine crawlers
+  def is_search_engine?
+    !!request.headers['User-Agent'].to_s.match?(/aolbuild|baidu|bingbot|bingpreview|msnbot|duckduckgo|adsbot-google|googlebot|mediapartners-google|teoma|slurp|yandex/i)
   end
 
   rescue_from ActionController::UnpermittedParameters do |error|
