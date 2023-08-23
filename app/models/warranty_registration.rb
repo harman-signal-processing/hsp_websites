@@ -8,7 +8,7 @@ class WarrantyRegistration < ApplicationRecord
   validates :serial_number, :purchased_on, presence: true, length: 1..127
   validates :email, presence: true, email: true, length: 1..127
   validates :company, presence: true, if: :require_company?
-  after_create :send_email_confirmation, :execute_promotion, :sync_with_service_department
+  after_create :execute_promotion, :sync_with_service_department
   attr_reader :purchase_city
 
   class << self
@@ -23,9 +23,7 @@ class WarrantyRegistration < ApplicationRecord
 
   # Sends a confirmation back to the customer
   def send_email_confirmation
-    # 12/2022 AA Disabling for now due to complaint from AWS. It seems spammers
-    # use the form to send this confirmation to other people's email address
-    #SiteMailer.delay.confirm_product_registration(self)
+    SiteMailer.delay.confirm_product_registration(self)
   end
 
   # This could be used to automatically send registrants promotion materials

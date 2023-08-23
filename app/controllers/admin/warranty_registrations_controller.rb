@@ -98,7 +98,7 @@ class Admin::WarrantyRegistrationsController < AdminController
   def resend_confirmation
     respond_to do |format|
       if @warranty_registration.send_email_confirmation
-        format.html { redirect_to([:admin, @warranty_registration], notice: "Email confirmation is being re-sent.") }
+        format.html { redirect_to([:admin, @warranty_registration], notice: "Email confirmation is being sent.") }
         format.xml { head :ok }
       else
         format.html { render action: "edit" }
@@ -106,7 +106,7 @@ class Admin::WarrantyRegistrationsController < AdminController
       end
     end
   end
-    
+
   # DELETE /admin/warranty_registrations/1
   # DELETE /admin/warranty_registrations/1.xml
   def destroy

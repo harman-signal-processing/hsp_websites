@@ -14,7 +14,7 @@
   <% end %>
   <li><%= link_to resend_confirmation_admin_warranty_registration_path(@warranty_registration), method: :put, class: "small button" do %>
         <%= fa_icon "envelope" %>
-        Re-send confrmation email
+        Send confrmation email to <%= @warranty_registration.email %>
       <% end %>
   </li>
 </ul>
@@ -70,7 +70,7 @@
   </tr>
   <tr>
     <td><b>Registered on:</b></td>
-    <td><%= @warranty_registration.registered_on %></td>
+    <td><%=l @warranty_registration.created_at.to_date, format: :long %></td>
   </tr>
   <tr>
     <td><b>Purchased on:</b></td>
