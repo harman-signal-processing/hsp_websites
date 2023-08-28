@@ -28,20 +28,24 @@
 
 	<div class="row">
     <div class="small-12 medium-4 columns">
-			<%= f.association :parent,
+  		<%= f.association :parent,
+          collection: ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family] - @product_family.children,
+          label_method: :tree_names
+        %>
+  	</div>
+    <div class="small-12 medium-4 columns">
+			<%= f.association :geo_parent,
         collection: ProductFamily.where(brand_id: website.brand.id).order(:name) - [@product_family] - @product_family.children,
-        label_method: :tree_names
+        label_method: :tree_names,
+        hint: "If this is family is a special localized version of another family"
       %>
-		</div>
+  	</div>
     <div class="small-12 medium-4 columns">
 			<% if website.page_layouts %>
 				<%= f.input :layout_class, label: "Page layout style",
 					hint: "(not all brands have multiple layouts)",
 					collection: website.page_layouts.split("|") %>
 			<% end %>
-		</div>
-    <div class="small-12 medium-4 columns">
-			<%= f.input :background_color, hint: "(optional page background: ie \"#CCCCCC\" or \"blue\")" %>
 		</div>
 	</div>
 

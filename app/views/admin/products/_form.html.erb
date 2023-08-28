@@ -104,7 +104,7 @@
 <div class="row">
   <div class="large-12 columns">
     <% if @product.brand.collapse_content? %>
-      <p><em>Note: <%= @product.brand.name %> is configured to use collapsed content for all products. 
+      <p><em>Note: <%= @product.brand.name %> is configured to use collapsed content for all products.
           To edit collapsing on a per-product basis, first <%= link_to "edit the brand's settings", edit_admin_brand_path(@product.brand) %>.</em></p>
     <% else %>
       <%= f.input :collapse_content, label: "Content is collapsed to reduce scrolling" %>
@@ -202,10 +202,17 @@
 </div>
 
   <div class="row">
-    <div class="large-12 columns">
+    <div class="large-6 columns">
       <%= f.input :hidden_locales,
             label: "Hide this product from the following locales",
             hint: "Comma-separated list of locales where this product should NOT appear." %>
+    </div>
+    <div class="large-6 columns">
+			<%= f.association :geo_parent,
+        collection: Product.where(brand_id: website.brand.id).order(:name) - [@product],
+      #  label_method: :tree_names,
+        hint: "If this is product is a special localized version of another product"
+      %>
     </div>
   </div>
 

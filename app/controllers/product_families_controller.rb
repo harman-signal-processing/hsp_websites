@@ -22,8 +22,11 @@ class ProductFamiliesController < ApplicationController
       redirect_to product_families_path, status: :moved_permanently and return
     end
     unless @product_family.locales(website).include?(I18n.locale.to_s)
-      pf_locale = @product_family.locales(website).first
-      redirect_to product_family_path(@product_family, locale: pf_locale), status: :moved_permanently and return
+      if @product_family.geo_alternative(website, I18n.locale)
+        redirect_to @product_family.geo_alternative(website, I18n.locale) and return
+      else
+        raise ActionController::RoutingError.new('Not Found')
+      end
     end
     # 2020-05-7 AA The installed audio page divides up the families oddly when using
     # depth: 9

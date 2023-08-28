@@ -205,6 +205,7 @@ class Admin::ProductFamiliesController < AdminController
       :product_nav_separator,
       :title,
       :custom_css,
+      :geo_parent_id,
       product_family_videos_attributes: {},
       product_family_products_attributes: {}
     )

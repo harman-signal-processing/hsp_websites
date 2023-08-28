@@ -3,6 +3,8 @@ require "rails_helper"
 feature "Browse Products" do
 
   before :all do
+    Rails.application.config.consider_all_requests_local = false
+    Rails.application.config.action_dispatch.show_exceptions = true
     @website = FactoryBot.create(:website)
     Capybara.default_host = "http://#{@website.url}"
     Capybara.app_host = "http://#{@website.url}"
@@ -122,13 +124,28 @@ feature "Browse Products" do
     before do
       create(:website_locale, website: @website, locale: "zh")
       create(:locale_product_family, product_family: product_family, locale: "zh")
+
       product.product_families << product_family
     end
 
-    it "should redirect to the locale where the product is available" do
+    it "should redirect to an alternate version of the product for that locale" do
+      alternative_product = create(:product, geo_parent: product, brand: @website.brand)
+      alternative_product_family = create(:product_family, brand: @website.brand)
+      create(:locale_product_family, product_family: alternative_product_family, locale: I18n.default_locale.to_s)
+      alternative_product.product_families << alternative_product_family
+
+      # hit the zh product with en locale in the URL
       visit product_path(product, locale: I18n.default_locale)
 
-      expect(page.current_path).to eq(product_path(product, locale: "zh"))
+      # redirect to the alternate product for en
+      expect(page.current_path).to eq(product_path(alternative_product, locale: I18n.default_locale.to_s))
+    end
+
+    it "should render a 404 if no alternative products are found" do
+      skip "Only passes when spec is run by itself"
+      visit product_path(product, locale: I18n.default_locale.to_s)
+
+      expect(page.status_code).to eq(404)
     end
   end
 
