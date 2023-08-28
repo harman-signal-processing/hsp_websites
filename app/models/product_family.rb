@@ -1,5 +1,6 @@
 class ProductFamily < ApplicationRecord
   include WaveReport
+  include GeoAlternative
   extend FriendlyId
   friendly_id :slug_candidates
 
@@ -237,13 +238,13 @@ class ProductFamily < ApplicationRecord
   # limitation specified.
   def locales(website)
     if locale_product_families.size > 0
-      locale_product_families.pluck(:locale)
+      locale_product_families.pluck(:locale) - geo_alternative_locales(website)
     elsif self.parent.present? && self.parent.locale_product_families.size > 0
-      parent.locales(website)
+      parent.locales(website) - geo_alternative_locales(website)
     elsif self.find_ultimate_parent.locale_product_families.size > 0
-      self.find_ultimate_parent.locales(website)
+      self.find_ultimate_parent.locales(website) - geo_alternative_locales(website)
     else
-      website.list_of_all_locales
+      website.list_of_all_locales - geo_alternative_locales(website)
     end
   end
 

@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  include GeoAlternative
   extend FriendlyId
   friendly_id :slug_candidates
 

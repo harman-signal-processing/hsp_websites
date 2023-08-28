@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_28_204826) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_25_192203) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -1201,8 +1201,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_28_204826) do
     t.string "product_nav_separator"
     t.string "title"
     t.text "custom_css"
+    t.integer "geo_parent_id"
     t.index ["brand_id"], name: "index_product_families_on_brand_id"
     t.index ["cached_slug"], name: "index_product_families_on_cached_slug", unique: true
+    t.index ["geo_parent_id"], name: "index_product_families_on_geo_parent_id"
     t.index ["parent_id"], name: "index_product_families_on_parent_id"
   end
 
@@ -1515,9 +1517,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_28_204826) do
     t.boolean "hide_contact_buttons"
     t.string "firmware_name"
     t.boolean "collapse_content", default: false
+    t.integer "geo_parent_id"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true
+    t.index ["geo_parent_id"], name: "index_products_on_geo_parent_id"
   end
 
   create_table "promotions", id: :integer, charset: "utf8", force: :cascade do |t|

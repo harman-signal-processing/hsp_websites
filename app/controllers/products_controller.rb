@@ -45,8 +45,11 @@ class ProductsController < ApplicationController
   #
   def show
     unless @product.locales(website).include?(I18n.locale.to_s)
-      product_locale = @product.locales(website).first
-      redirect_to product_path(@product, locale: product_locale), status: :moved_permanently and return
+      if @product.geo_alternative(website, I18n.locale.to_s)
+        redirect_to @product.geo_alternative(website, I18n.locale.to_s) and return
+      else
+        raise ActionController::RoutingError.new('Not Found')
+      end
     end
 
     if @product.brand != website.brand && website.brand.redirect_product_pages_to_parent_brand? && website.brand.default_website.present?

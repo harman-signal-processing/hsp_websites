@@ -358,6 +358,24 @@
           trying to provide a translation, make sure the locale in question is on the list.
         </p>
       <% end %>
+
+      <% if @product_family.geo_parent.present? %>
+        <strong>This family is marked as a Geo Alternative family of
+        <%= link_to @product_family.geo_parent.name, [:admin, @product_family.geo_parent] %>.</strong><br/><br/>
+        Visitors to the <strong><em><%= @product_family.geo_parent.name %></em></strong> family page coming from
+        locales listed above will be directed to <strong><em><%= @product_family.name %></em></strong> (this family) instead.
+      <% end %>
+
+      <% if @product_family.geo_children.size > 0 %>
+        <strong>This family has the following Geo Alternatives:</strong>
+        <ul>
+          <% @product_family.geo_children.each do |geo_child| %>
+            <li> <%= link_to geo_child.name, [:admin, geo_child] %> - <%= geo_child.locales(website).join(", ") %></li>
+          <% end %>
+        </ul>
+        Visitors to the <strong><em><%= @product_family.name %></em></strong> family page coming from locales
+        listed above will be directed to the corresponding alternative product family page instead.
+      <% end %>
     </div>
 
     <div class="group">
