@@ -12,8 +12,10 @@ module SeoHelper
   def cached_meta_tags
     @page_description ||= website.value_for('default_meta_tag_description')
     @page_keywords ||= website.value_for("default_meta_tag_keywords")
+    locale = Locale.where(code: I18n.locale.to_s).first
+    locale_name = (locale.present?) ? locale.name : I18n.locale.to_s.upcase
     begin
-      canonical_link + display_meta_tags(site: Setting.site_name(website))
+      canonical_link + display_meta_tags(site: "#{Setting.site_name(website)} | #{ locale_name }")
     rescue
     end
   end
