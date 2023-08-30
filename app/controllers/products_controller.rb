@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
       else
         # Log these to determine alternatives that need to be created
         product_locale = @product.locales(website).first
-        logger.geo.debug("#{request.url}, #{request.remote_ip}, GeoCountry: #{session[:geo_country]}, Redirecting to: #{ product_locale }")
+        logger.geo.debug("#{request.url}, #{request.remote_ip}, GeoCountry: #{session[:geo_country]}, I18n.locale: #{ I18n.locale.to_s }, Product Locales: #{ @product.locales(website).inspect }, Redirecting to: #{ product_locale }")
         redirect_to product_path(@product, locale: product_locale), status: :moved_permanently and return
         #raise ActionController::RoutingError.new('Not Found')
       end

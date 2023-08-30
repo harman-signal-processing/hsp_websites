@@ -456,10 +456,10 @@
           Visitors to the <strong><em><%= @product.name %></em></strong> product page coming from locales
           listed above will be directed to the corresponding alternative product page instead.
 
-          <% if @product.locales(website) && @product.geo_alternative_locales(website) %>
+          <% if @product.locales(website) & @product.geo_alternative_locales(website) %>
             <div class="alert-box alert"><%= fa_icon "warning" %> Please ensure locales only
             appear in the top list or in the alternative list. Locale(s) with conflict:
-            <%= (@product.locales(website) && @product.geo_alternative_locales(website)).map{|l| l}.join(", ") %>
+            <%= (@product.locales(website) & @product.geo_alternative_locales(website)).map{|l| l}.join(", ") %>
             </div>
           <% end %>
         <% end %>

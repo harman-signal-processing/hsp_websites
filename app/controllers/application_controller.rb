@@ -236,17 +236,16 @@ private
         end
       end
 
-    # When no params[:locale] is provided, go through these rulse to pick one:
+    # When no params[:locale] is provided, go through these rules to pick one:
     elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
 
     # When in apac
     elsif in_apac?
-      if current_country.languages_official.include?("zh") && website.list_of_available_locales.include?("zh")
+      if current_country.languages_official.include?("zh") && website.list_of_all_locales.include?("zh")
         I18n.locale = "zh"
-    # 2023-08-22 AA disabled en-asia automatic redirect due to Portable Live Sound families being incomplete in en-asia
-    #  elsif website.list_of_available_locales.include?("en-asia")
-    #    I18n.locale = "en-asia"
+      elsif website.list_of_available_locales.include?("en-asia")
+        I18n.locale = "en-asia"
       end
 
     #TODO: handle language-country locales like pt-BR
@@ -256,7 +255,7 @@ private
       I18n.locale = cross_section_languages.first
 
     # If the visitor's country code matches one of our available locales, choose that.
-    elsif website.list_of_available_locales.include?( clean_country_code )
+    elsif website.list_of_all_locales.include?( clean_country_code )
       I18n.locale = clean_country_code
 
     elsif website.locale
@@ -276,11 +275,12 @@ private
     end
 
     # Handling inactive locales for the current site
-    #if !website.list_of_available_locales.include?(I18n.locale.to_s)
-    #  unless can?(:manage, Product) # Admins can view non-active locales
-    #    redirect_to url_for(request.params.merge(locale: website.list_of_available_locales.first)) and return false
-    #  end
-    #end
+    if !website.list_of_all_locales.include?(I18n.locale.to_s)
+      unless can?(:manage, Product) # Admins can view non-active locales
+        logger.geo.debug(" #{ I18n.locale.to_s } is not a locale for #{ website.brand.name }, redirecting to #{ I18n.default_locale.to_s }")
+        redirect_to url_for(request.params.merge(locale: I18n.default_locale.to_s)) and return false
+      end
+    end
   end
 
   def set_geo
