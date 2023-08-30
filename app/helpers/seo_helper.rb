@@ -12,8 +12,10 @@ module SeoHelper
   def cached_meta_tags
     @page_description ||= website.value_for('default_meta_tag_description')
     @page_keywords ||= website.value_for("default_meta_tag_keywords")
+    locale = Locale.where(code: I18n.locale.to_s).first
+    locale_name = (locale.present?) ? locale.name : I18n.locale.to_s.upcase
     begin
-      canonical_link + display_meta_tags(site: Setting.site_name(website))
+      canonical_link + display_meta_tags(site: "#{Setting.site_name(website)} | #{ locale_name }")
     rescue
     end
   end
@@ -46,6 +48,15 @@ module SeoHelper
           end
         end
       end
+
+      # Adding a noindex to the current page IF the current locale is not included
+      # in the list of locales for this page. This means there are not any translations
+      # provided for the current locale and the current page--which would happen
+      # when we may have one or more pages translated, but not the whole site.
+      if langs.size > 0 && !this_url_all_locales.include?(I18n.locale.to_s)
+        langs << tag(:meta, name: "robots", content: "noindex")
+      end
+
       langs.join("\n").html_safe
     rescue
       # avoid errors since this now runs on every page
