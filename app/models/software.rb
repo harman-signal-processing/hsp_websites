@@ -142,6 +142,18 @@ class Software < ApplicationRecord
     @locales ||= (locale_softwares.size > 0) ? locale_softwares.pluck(:locale) : website.list_of_all_locales
   end
 
+  def other_locales_with_translations(website)
+    all_locales_with_translations(website) - [I18n.locale.to_s]
+  end
+
+  def all_locales_with_translations(website)
+    content_translations.pluck(:locale).uniq + ["en", "en-US"]
+  end
+
+  def hreflangs(website)
+    all_locales_with_translations(website)
+  end
+
   # Final upload processing step
   def self.transfer_and_cleanup(id)
     software = find(id)

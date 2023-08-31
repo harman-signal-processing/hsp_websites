@@ -3,6 +3,10 @@
                  description: translate_content(@page, :description),
                  keywords: @page.keywords %>
 
+<% if @page.exclude_from_search? %>
+  <% set_meta_tags noindex: true %>
+<% end %>
+
 <% if @page.layout_class == "full" %>
   <%= content_for :feature do %>
     <% if @page.features.size > 0 %>

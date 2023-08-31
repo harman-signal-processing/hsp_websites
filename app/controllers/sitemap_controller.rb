@@ -29,27 +29,31 @@ class SitemapController < ApplicationController
       changefreq: 'weekly',
       priority: 0.7 }
     ProductFamily.all_with_current_products(website, I18n.locale).each do |product_family|
-      @pages << { url: url_for(product_family),
-        updated_at: product_family.updated_at,
-        changefreq: 'weekly',
-        priority: 0.9 }
-    end
-    Product.all_for_website(website).each do |product|
-      if product.discontinued?
-        @pages << { url: url_for(product),
-          updated_at: product.updated_at,
-          changefreq: 'monthly',
-          priority: 0.6 }
-      else
-        @pages << { url: url_for(product),
-          updated_at: product.updated_at,
+      if product_family.hreflangs(website).include?(I18n.locale.to_s)
+        @pages << { url: url_for(product_family),
+          updated_at: product_family.updated_at,
           changefreq: 'weekly',
           priority: 0.9 }
       end
-      @pages << { url: buy_it_now_product_url(product),
-        updated_at: product.updated_at,
-        changefreq: 'weekly',
-        priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.size > 0)
+    end
+    Product.all_for_website(website).each do |product|
+      if product.hreflangs(website).include?(I18n.locale.to_s)
+        if product.discontinued?
+          @pages << { url: url_for(product),
+            updated_at: product.updated_at,
+            changefreq: 'monthly',
+            priority: 0.6 }
+        else
+          @pages << { url: url_for(product),
+            updated_at: product.updated_at,
+            changefreq: 'weekly',
+            priority: 0.9 }
+        end
+        @pages << { url: buy_it_now_product_url(product),
+          updated_at: product.updated_at,
+          changefreq: 'weekly',
+          priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.size > 0)
+      end
     end
     if website.has_software?
       @pages << { url: softwares_url,
@@ -57,17 +61,21 @@ class SitemapController < ApplicationController
         changefreq: 'weekly',
         priority: 0.7 }
       website.current_softwares.each do |software|
-        @pages << { url: url_for(software),
-          updated_at: software.updated_at,
-          changefreq: 'weekly',
-          priority: 0.8 }
+        if software.has_additional_info?
+          @pages << { url: url_for(software),
+            updated_at: software.updated_at,
+            changefreq: 'weekly',
+            priority: 0.8 }
+        end
       end
     end
     News.all_for_website(website).each do |news|
-      @pages << { url: url_for(news),
-        updated_at: news.updated_at,
-        changefreq: 'monthly',
-        priority: 0.7 }
+      if news.hreflangs(website).include?(I18n.locale.to_s)
+        @pages << { url: url_for(news),
+          updated_at: news.updated_at,
+          changefreq: 'monthly',
+          priority: 0.7 }
+      end
     end
     if website.has_artists?
       Artist.all_for_website(website).each do |artist|
@@ -78,7 +86,7 @@ class SitemapController < ApplicationController
       end
     end
     Page.all_for_website(website).each do |page|
-      unless page.requires_login?
+      unless page.requires_login? || page.exclude_from_search?
         purl = (!page.custom_route.blank?) ? "#{locale_root_url}/#{page.custom_route}" : url_for(page)
         @pages << { url: purl,
           updated_at: page.updated_at,

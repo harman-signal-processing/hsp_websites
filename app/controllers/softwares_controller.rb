@@ -21,6 +21,7 @@ class SoftwaresController < ApplicationController
       respond_to do |format|
         format.html {
           if @software.has_additional_info?
+            @hreflangs = @software.hreflangs(website)
             if !@software.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "softwares", "#{@software.layout_class}.html.erb"))
               render template: "#{website.folder}/softwares/#{@software.layout_class}", layout: set_layout
             else
