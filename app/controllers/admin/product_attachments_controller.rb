@@ -12,7 +12,7 @@ class Admin::ProductAttachmentsController < AdminController
   # GET /admin/product_attachments.xml
   def index
     respond_to do |format|
-      format.html { render_template } # index.html.erb
+      format.html { redirect_to admin_products_path and return false } # index.html.erb
       format.xml  { render xml: @product_attachments }
     end
   end
