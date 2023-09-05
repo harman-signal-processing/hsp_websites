@@ -120,6 +120,17 @@ class MainController < ApplicationController
     end
   end
 
+  # For debugging IP geocoding or other session problems.
+  # Comment-out when not actively working on a problem.
+  def session_info
+    @server_name = `hostname`.strip
+    @session_test = SecureRandom.hex
+    session['test'] = @session_test
+    respond_to do |format|
+      format.txt
+    end
+  end
+
   private
 
   def teaser_layout

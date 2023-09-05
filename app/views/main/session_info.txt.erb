@@ -1,0 +1,13 @@
+Time.now:               <%= Time.now %>
+Request.hostname:       <%= request.hostname %>
+Request.remote_ip:      <%= request.remote_ip %>
+session['geo_country']: <%= session['geo_country'] %>
+I18n.locale:            <%= I18n.locale %>
+Server Name:            <%= @server_name %>
+--
+@session_test:   <%= @session_test %>
+session['test']: <%= session['test'] %>
+Match? <%= !!(@session_test == session['test']).to_s %>
+--
+<%# Uncomment for full details %>
+<%#= request.env %>

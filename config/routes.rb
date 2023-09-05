@@ -2,6 +2,7 @@ require "domain_conditions"
 
 HarmanSignalProcessingWebsite::Application.routes.draw do
 
+  get '/session_info' => "main#session_info", defaults: { format: 'txt' }
   get '/nodetest' => "node_test#index"
   get "robots" => "main#robots", defaults: { format: 'txt' }
   get "analytics" => "main#analytics", defaults: { format: 'txt' }

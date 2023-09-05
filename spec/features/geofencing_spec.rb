@@ -77,6 +77,30 @@ feature "Geofencing" do
     end
   end
 
+  describe "New Zealand visitor" do
+    before :each do
+      # Fake IP address is in New Zealand
+      allow_any_instance_of(ActionDispatch::Request).to receive(:remote_ip) { '125.236.198.17' }
+    end
+
+    it "tries to visit en should redirect to en-asia" do
+      visit root_path(locale: "en")
+
+      expect(page.current_path).to eq("/en-asia")
+    end
+
+    it "tries to visit en-US should redirect to en-asia" do
+      visit root_path(locale: "en-US")
+
+      expect(page.current_path).to eq("/en-asia")
+    end
+
+    it "visits homepage with no locale in URL" do
+      visit ("/")
+
+      expect(page.current_path).to eq("/en-asia")
+    end
+  end
   describe "APAC visitor" do
     before :each do
       # Fake IP address is in Singapore
@@ -193,6 +217,19 @@ feature "Geofencing" do
       visit root_path(locale: "en-US")
 
       expect(page.current_path).to eq("/en")
+    end
+
+    it "visits homepage with no locale in URL" do
+      visit ("/")
+
+      expect(page.current_path).to eq("/en")
+    end
+  end
+
+  describe "Visitor with unknown IP" do
+    before :each do
+      # Fake IP address is internal
+      allow_any_instance_of(ActionDispatch::Request).to receive(:remote_ip) { '127.0.0.1' }
     end
 
     it "visits homepage with no locale in URL" do

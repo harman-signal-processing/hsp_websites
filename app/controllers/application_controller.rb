@@ -236,6 +236,11 @@ private
         end
       end
 
+    # Session is missing geo data for some reason, send to default
+    elsif !session['geo_country']
+      logger.geo.debug("Session data was missing, sending user to en")
+      I18n.locale = 'en'
+
     # When no params[:locale] is provided, go through these rules to pick one:
     elsif !!(session['geo_usa']) && website.list_of_available_locales.include?("en-US")
       I18n.locale = 'en-US'
@@ -270,7 +275,7 @@ private
     end
 
     if params[:locale] && params[:locale].to_s != I18n.locale.to_s
-      logger.inspector.debug(" Redirecting to #{ request.params.merge(locale: I18n.locale)} ")
+      logger.geo.debug("params[:locale] was #{params[:locale]}, Redirecting to #{ request.params.merge(locale: I18n.locale)} ")
       redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
 
@@ -298,15 +303,17 @@ private
             session['geo_usa'] = lookup.is_us?
             session['geo_usa_state'] = lookup.state
           else
-            session['geo_country'] = "US"
-            session['geo_usa'] = true
+            session['geo_country'] = "UK"
+            session['geo_usa'] = false
             session['geo_usa_state'] = nil
           end
         end
       end
     rescue
-      #session['geo_country'] = "US"
-      #session['geo_usa'] = true
+      session['geo_country'] = "UK"
+      session['geo_usa'] = false
+      session['geo_usa_state'] = nil
+      logger.geo.debug(" Problem with 'set_geo' method for: #{ request.remote_ip }, Session: #{ session.inspect } ")
     end
   end
 
