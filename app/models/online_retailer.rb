@@ -82,10 +82,14 @@ class OnlineRetailer < ApplicationRecord
 
   # Sets the overall link where this OnlineRetailer lists this site's Brand products.
   def set_brand_link(url, website)
-    if website.brand_id > 0
+    if website.brand_id.present?
       br = OnlineRetailerLink.where(online_retailer_id: self.id, brand_id: website.brand_id).first_or_initialize
-      br.url = url
-      br.save!
+      if url.present?
+        br.url = url
+        br.save!
+      elsif !br.new_record?
+        br.destroy
+      end
     else
       return false
     end
@@ -105,7 +109,7 @@ class OnlineRetailer < ApplicationRecord
     if website.brand_id > 0
       br = OnlineRetailerLink.where(online_retailer_id: self.id, brand_id: website.brand_id).first_or_initialize
       br.position = retailer_sort_order
-      br.save!
+      br.save
     else
       return false
     end
