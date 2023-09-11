@@ -213,11 +213,10 @@ private
         case params[:locale]
           when "en-US"
             # 2023-08-22 AA disabled en-asia automatic redirect due to Portable Live Sound families being incomplete in en-asia
-            #if in_apac? && website.list_of_available_locales.include?("en-asia")
-            #  I18n.locale = "en-asia"
-            #elsif !session[:geo_usa] && website.list_of_available_locales.include?("en")
             if !session[:geo_usa] && website.list_of_available_locales.include?("en")
               I18n.locale = "en"
+            #elsif in_apac? && website.list_of_available_locales.include?("en-asia")
+            #  I18n.locale = "en-asia"
             end
           when "en-asia"
             if !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
@@ -227,11 +226,10 @@ private
             end
           when "en"
             # 2023-08-22 AA disabled en-asia automatic redirect due to Portable Live Sound families being incomplete in en-asia
-            #if in_apac? && website.list_of_available_locales.include?("en-asia")
-            #  I18n.locale = "en-asia"
-            #elsif !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
             if !!session[:geo_usa] && website.list_of_available_locales.include?("en-US")
               I18n.locale = "en-US"
+            #elsif in_apac? && website.list_of_available_locales.include?("en-asia")
+            #  I18n.locale = "en-asia"
             end
         end
       end
@@ -489,8 +487,9 @@ private
     clean.blank? ? "us" : clean
   end
 
+  # NZ wants to see /en site instead of /en-asia
   def in_apac?
-    ISO3166::Country.find_all_countries_by_world_region('APAC').collect(&:alpha2).include? clean_country_code.upcase
+    (ISO3166::Country.find_all_countries_by_world_region('APAC').collect(&:alpha2) - ["NZ"]).include? clean_country_code.upcase
   end
   helper_method :in_apac?
 
