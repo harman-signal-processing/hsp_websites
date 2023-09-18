@@ -81,7 +81,7 @@ $(document).ready(function() {
           <% if dealer.rental? && dealer_rental_products.present? %>
             <span style="font-size:small;">
               <br/><i>Products Available:</i>
-              <% dealer_rental_products.each_with_index do |product, index| %>
+              <% dealer_rental_products.sort_by(&:name).each_with_index do |product, index| %>
                 <%=link_to product.name, product, target:"_blank", class: "wtb_dealer_product_link"%><%="," unless (dealer_rental_products.count == index+1) %>
               <% end %>
             </span>

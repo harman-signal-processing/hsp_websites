@@ -264,7 +264,7 @@ namespace :import do
       origin = Geokit::Geocoders::MultiGeocoder.geocode("#{zip} #{country}") if origin.lat.nil?
 
       dealer_products = []
-      start_col_for_products = 12
+      start_col_for_products = 13
       end_col_for_products = product_slugs.count+start_col_for_products
       # load product data
       (start_col_for_products..end_col_for_products).each do |column_index|
