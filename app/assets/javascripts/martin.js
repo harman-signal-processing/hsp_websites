@@ -109,4 +109,7 @@ $(function(){
     threshold: 200,
     effect: "fadeIn"
   });
+
+  $( "#market-segment-accordion" ).accordion({ collapsible: true, active: false });
+
 });

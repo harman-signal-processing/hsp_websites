@@ -109,7 +109,10 @@ class Admin::MarketSegmentsController < AdminController
       :parent_id,
       :position,
       :description,
-      :banner_image
+      :banner_image,
+      :hide_page_title,
+      :custom_css,
+      :custom_js
     )
   end
 end

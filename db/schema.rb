@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_25_192203) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_28_163405) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -880,6 +880,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_25_192203) do
     t.integer "parent_id"
     t.integer "position"
     t.text "description"
+    t.boolean "hide_page_title"
+    t.text "custom_css"
+    t.text "custom_js"
     t.index ["brand_id"], name: "index_market_segments_on_brand_id"
     t.index ["cached_slug"], name: "index_market_segments_on_cached_slug"
   end
