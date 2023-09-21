@@ -80,7 +80,9 @@ class Page < ApplicationRecord
   end
 
   def all_locales_with_translations(website)
-    content_translations.pluck(:locale).uniq + ["en", "en-US"]
+    direct_content_translations = content_translations.pluck(:locale).uniq
+    fancy_features_translations = features.map{|f| f.content_translations.pluck(:locale).uniq}.flatten
+    (direct_content_translations + fancy_features_translations + ["en", "en-US"]).uniq
   end
 
   def hreflangs(website)

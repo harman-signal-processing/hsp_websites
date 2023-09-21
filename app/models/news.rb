@@ -1,10 +1,3 @@
-# Someday it will be nice to automate this. Here is a sample api query
-# to the Google Blogger API
-#
-# https://www.googleapis.com/blogger/v3/blogs/6859338560143857989/posts/search?q=crown&key=api-key
-#
-# Need to authenticate first in order to use it
-#
 class News < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged

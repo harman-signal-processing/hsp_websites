@@ -19,6 +19,7 @@ class Feature < ApplicationRecord
     }, processors: [:thumbnail, :compression] }.merge(SETTINGS_STORAGE)
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
+  has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
   attr_accessor :delete_image
 
   before_update :delete_image_if_needed
