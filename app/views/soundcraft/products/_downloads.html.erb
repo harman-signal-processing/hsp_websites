@@ -48,6 +48,7 @@
               <% if software.previous_versions.length > 0 %>
                 <% previous_version = software.previous_versions.first %>
                 <% if previous_version.products.include?(product) %>
+                  <% previous_version.name += " [PREVIOUS VERSION]" unless previous_version.name.match(/previous version/i) %>
                   <%= render_partial 'shared/download_table_row', item: previous_version %>
 
                   <% previous_version.software_attachments.each do |sa| %>
