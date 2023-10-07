@@ -320,13 +320,13 @@ module ApplicationHelper
     pro_brands.each do |b|
       unless website.brand.name.match(/#{b[:name]}/i) || options[:exclude].match(/#{b[:name]}/i)
         links << link_to(b[:web], target: "_blank") do
-          image_tag("pro_brands/#{b[:name].downcase}.png", alt: b[:name], lazy: false)
+          image_tag("pro_brands/#{b[:name].downcase}.svg", alt: b[:name], id:"footer_logo_#{b[:name].downcase}", class:"footer_brand_logos", lazy: false)
         end
       end
     end
 
     harman_link = link_to(ENV['PRO_SITE_URL'], target: "_blank") do
-      image_tag("pro_brands/harman.png", alt: "Harman Professional", class:"hlogo", lazy: false)
+      image_tag("pro_brands/harman.svg", alt: "Harman Professional", class:"hlogo", lazy: false)
     end
 
     content_tag :div, id: "harmanpro_bar" do
