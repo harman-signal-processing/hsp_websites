@@ -15,6 +15,7 @@ class Admin::SettingsController < AdminController
   def homepage
     @slides = Setting.slides(website, showall: true)
     @new_slide = Setting.new(setting_type: "slideshow frame")
+    @new_banner = Banner.new(bannerable: website)
     if @slides.size > 0
       begin
         @new_slide.integer_value = @slides.last.integer_value + 1

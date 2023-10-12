@@ -1,18 +1,57 @@
 <h1>Homepage Stuff</h1>
 
+<% if website.homepage_feature_override.present? %>
+  <div class="alert alert-box">
+    This site has the an override defined for the homepage feature. None of the slides below will appear.
+    <%= link_to "Manage the override here.", [:admin, website.settings.where(name: "homepage_feature_override").first] %>
+  </div>
+<% else %>
+  <div class="info alert-box">
+    Note: It is possible to override the slides below by creating a setting named "<%= link_to "homepage_feature_override", new_admin_setting_path(name: "homepage_feature_override") %>"
+    with HTML code as its value.
+  </div>
+<% end %>
+
 <div class="group">
-  <h4 class="subheader">Slideshow</h4>
-  <% if website.homepage_feature_override.present? %>
-    <div class="alert alert-box">
-      This site has the an override defined for the homepage feature. None of the slides below will appear.
-      <%= link_to "Manage the override here.", [:admin, website.settings.where(name: "homepage_feature_override").first] %>
-    </div>
-  <% else %>
-    <div class="info alert-box">
-      Note: It is possible to override the slides below by creating a setting named "<%= link_to "homepage_feature_override", new_admin_setting_path(name: "homepage_feature_override") %>"
-      with HTML code as its value.
-    </div>
-  <% end %>
+  <h4 class="subheader">Banners (new style)
+  <small>Note: these new style banners appear before the old style slideshow.</small>
+  </h4>
+  <%= link_to_function "new banner", "$('#new_banner_form').toggle()", class: "small round success button" %>
+  <div id="new_banner_form" style="margin: 10px; display:none;" class="instructions">
+    <%= simple_form_for [:admin, @new_banner] do |f| %>
+      <%= f.hidden_field :bannerable_id %>
+      <%= f.hidden_field :bannerable_type %>
+      <%= f.input :name %>
+      <div class="row">
+        <div class="large-6 columns">
+          <%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_banner_start_on"} %>
+        </div>
+        <div class="large-6 columns">
+          <%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_banner_remove_on"} %>
+        </div>
+      </div>
+      <p><em>Hey, where are the rest of the fields?</em> Since the banners can have different content for different locales, you'll add content in the next step...</p>
+      <%= f.submit "create banner", class: "tiny round button" %>
+      <%= link_to_function "cancel", "$('#new_banner_form').hide()" %>
+    <% end %>
+  </div>
+
+  <ul id="banners" style="margin-top: 20px;">
+    <%= render partial: "admin/shared/banner", collection: website.banners %>
+  </ul>
+
+  <h4 class="subheader">Sorting</h4>
+  <p>We can't drag-and-drop to sort above because each locale can have the
+  banners in a different order. Choose a locale to sort its banners:</p>
+  <ul>
+    <% website.available_locales.each do |l| %>
+      <li><%= link_to l.locale, '#' %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="group">
+  <h4 class="subheader">Slideshow (old style)</h4>
   <%= link_to_function "new slide", "$('#new_slide_form').toggle()", class: "small round success button" %>
   <div id="new_slide_form" style="margin: 10px; display:none;" class="instructions">
     <%= simple_form_for [:admin, @new_slide] do |f| %>

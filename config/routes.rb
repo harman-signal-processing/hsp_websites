@@ -322,6 +322,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         end
       end
 
+      resources :banners do
+        resources :banner_locales
+      end
+
       resources :vip_programmers,
         :vip_locations,
         :vip_global_regions,

@@ -14,7 +14,7 @@
       <%= raw website.homepage_feature_override %>
     <% else %>
       <div class="small-12 columns">
-        <% slides = Setting.slides(website, limit: 5) %>
+        <% slides = website.homepage_banners %>
         <% if slides.size > 0 %>
           <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
         <% end %>

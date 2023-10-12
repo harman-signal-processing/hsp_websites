@@ -12,7 +12,7 @@
   <% if website.homepage_feature_override.present? %>
     <%= raw website.homepage_feature_override %>
   <% else %>
-    <% slides = Setting.slides(website, limit: 5) %>
+    <% slides = website.homepage_banners %>
     <% if slides.pluck(:slide_content_type).any? {|c| c.match?(/video/i) } %>
       <%= render_partial 'shared/video_banner' %>
     <% else %>

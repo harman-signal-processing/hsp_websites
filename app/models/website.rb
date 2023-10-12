@@ -1,6 +1,7 @@
 class Website < ApplicationRecord
   belongs_to :brand
   has_many :website_locales, dependent: :destroy
+  has_many :banners, as: :bannerable, dependent: :destroy
   validates :url, presence: true, uniqueness: { case_sensitive: false}
   validates :folder, presence: true
 
@@ -69,6 +70,22 @@ class Website < ApplicationRecord
 
   def list_of_all_locales
     self.website_locales.collect{|website_locale| website_locale.locale}
+  end
+
+  def homepage_banners(opts={})
+    opts[:limit] ||= 5
+
+    localized_banners = banners.joins(:banner_locales).
+      where("start_on IS NULL OR start_on <= ?", Date.today).
+      where("remove_on IS NULL OR remove_on > ?", Date.today).
+      where(banner_locales: { locale: I18n.locale.to_s }).
+      order("banner_locales.position").
+      limit(opts[:limit])
+
+    # room for more slides from the legacy settings?
+    open_slots = opts[:limit].to_i - localized_banners.size
+
+    localized_banners + Setting.slides(self, limit: open_slots)
   end
 
   def has_mac_software?

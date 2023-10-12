@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Website, :type => :model do
 
   before do
-    @website = FactoryBot.create(:website)
+    @website = create(:website)
   end
 
   subject { @website }
@@ -38,4 +38,12 @@ RSpec.describe Website, :type => :model do
 
   end
 
+  describe "homepage banners" do
+    it "returns a set of banners" do
+      banner = create(:banner, bannerable: @website)
+      create(:banner_locale, banner: banner, locale: I18n.locale)
+
+      expect(@website.homepage_banners).to include(banner)
+    end
+  end
 end

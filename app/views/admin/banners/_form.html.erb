@@ -1,0 +1,13 @@
+<%= simple_form_for [:admin, @banner] do |f| %>
+  <%= f.input :name %>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.input :start_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_banner_start_on"} %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.input :remove_on, as: :string, input_html: { class: 'ui-datepicker', id: "new_banner_remove_on"} %>
+    </div>
+  </div>
+
+  <%= f.button :submit %>
+<% end %>

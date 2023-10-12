@@ -11,7 +11,7 @@
 
 <%= content_for :feature do %>
 	<%= cache ["slideshow", website.brand, I18n.locale] do %>
-		<% slides = Setting.slides(website, limit: 5) %>
+    <% slides = website.homepage_banners %>
 		<% if slides.size > 0 %>
 			<%= slideshow(slides: slides, duration: 8700, transition: "fade") %>
 		<% end %>
@@ -51,7 +51,7 @@
 				<%= render_partial "shared/column_for_#{website.homepage_column_two}" %>
 			<% elsif website.homepage_column_2 %>
 				<%= render_partial "shared/column_for_#{website.homepage_column_2}" %>
-			<% end %>	
+			<% end %>
 		</div>
 		<div class="column">
 			<% if website.homepage_column_three %>

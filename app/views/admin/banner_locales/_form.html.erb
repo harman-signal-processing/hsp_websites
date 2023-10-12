@@ -1,0 +1,35 @@
+<%= simple_form_for [:admin, @banner, @banner_locale] do |f| %>
+
+  <%= f.input :slide, label: "Banner Image" %>
+
+  <div class="row">
+    <div class="small-12 medium-8 columns">
+      <%= f.input :link %>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <%= f.input :position, hint: "The sort order for this banner on this locale." %>
+    </div>
+  </div>
+
+  <fieldset>
+    <legend>HTML overlay</legend>
+    <p>Optional content overlayed on top of the image provided above.</p>
+    <%= f.input :title, hint: "Appears as H1 when banner is in first position, otherwise as H2." %>
+    <%= f.input :content, input_html: { rows: 15 } %>
+    <%= f.label :css, label: "CSS" %>
+    <div class="row">
+      <div class="small-12 medium-9 columns">
+        <%= f.input :css, label: false, input_html: { rows: 20 } %>
+      </div>
+      <div class="small-12 medium-3 columns">
+        Tip: to limit your CSS to just this banner, wrap each rule in:
+        <code>div#banner_<%= @banner.id %></code>
+      </div>
+    </div>
+  </fieldset>
+
+  <%= f.input :default, label: "Use #{ @banner_locale.locale } as the default content for this banner" %>
+
+  <br/>
+  <%= f.button :submit %>
+<% end %>
