@@ -9,6 +9,31 @@
   <p>Products from other brands may appear below. If so, those appear in
     families on this site and should likely be translated for completeness.</p>
 
+  <h3>Upcoming Products (<%= website.upcoming_products.size %>)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Fields Translated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% website.upcoming_products.order(:name).each do |product| %>
+        <tr>
+          <td>
+            <%= link_to_translate(product, @target_locale) %>
+            <% if product.brand_id != website.brand_id %>
+              (<%= product.brand.name %>)
+            <% end %>
+          </td>
+          <td>
+            <%= translation_summary_for(product, @target_locale) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
   <h3>Current Products (<%= website.current_products(locale: @target_locale).size %>)</h3>
   <table>
     <thead>
