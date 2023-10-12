@@ -1,0 +1,48 @@
+<% set_meta_tags title: "#{translate_content(@market_segment, :name)} #{t('titles.product_families')}",
+				 reverse: true %>
+
+<%= content_for :feature do %>
+    <div class="row">
+      <div class="large-12 columns">
+        <% if @market_segment.hide_page_title %>
+          <% # hide page title %>
+        <% else %>
+          <h1>
+            <% if !@market_segment.banner_image_file_name.blank? %>
+              <%= image_tag(@market_segment.banner_image.url, alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+            <% elsif File.exist?(Rails.root.join("app", "assets", "images", website.folder, "market_segment_placeholder.jpg")) %>
+              <%= image_tag("#{website.folder}/market_segment_placeholder.jpg", alt: translate_content(@market_segment, :name), style: "width: 100%") %>
+            <% else %>
+              <%= translate_content(@market_segment, :name) %>
+            <% end %>
+          </h1>
+        <% end %>
+        <div id="market-segment-main-content"><%=raw translate_content(@market_segment, :description) %></div>
+      </div>
+    </div>
+<% end %>
+
+<%= content_for :custom_css do %>
+	<style type="text/css">
+		<%=raw @market_segment.custom_css %>
+	</style>
+<% end %>
+
+<%= content_for :extra_js do %>
+  <%= raw @market_segment.custom_js %>
+<% end %>
+
+<%= cache ["market_segment_content", website.brand, @market_segment, I18n.locale] do %>
+  <% if !!(website.show_comparisons) %>
+    <%= form_tag compare_products_path, method: :post %>
+  <% end %>
+
+  <% @product_families.each do |product_family| %>
+    <%= render_partial 'product_families/product_family', product_family: product_family, hlevel: 'h2' %>
+  <% end %>
+
+  <% if !!(website.show_comparisons) %>
+    </form>
+  <% end %>
+<% end %>
+
