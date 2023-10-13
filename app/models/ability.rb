@@ -71,6 +71,8 @@ class Ability
         can :manage, ProductDocument
         can :manage, SiteElement
         can :manage, ProductSoftware
+        can :manage, ProductSuggestion
+        can :manage, ProductStatus
         can :manage, Software
         can :manage, Promotion
         can :manage, SupportSubject

@@ -166,6 +166,13 @@ class Website < ApplicationRecord
     end
   end
 
+  def upcoming_products
+    Rails.cache.fetch("#{ cache_key_with_version}/upcoming_products", expires_in: 1.week) do
+      brand.products.unscope(:order).joins(:product_status).
+        where("product_statuses.name LIKE '%development%' OR product_statuses.name LIKE '%soon%'")
+    end
+  end
+
   def all_downloads(user)
     SiteElement.downloads(self, user).deep_merge ProductDocument.downloads(self)
   end
