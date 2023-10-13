@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_26_200454) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_28_163405) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -249,7 +249,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_200454) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "banner_locales", charset: "utf8mb4", force: :cascade do |t|
+  create_table "banner_locales", charset: "utf8", force: :cascade do |t|
     t.bigint "banner_id", null: false
     t.string "locale", null: false
     t.integer "position"
@@ -265,10 +265,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_200454) do
     t.string "link"
     t.boolean "default"
     t.index ["banner_id"], name: "index_banner_locales_on_banner_id"
-    t.index ["locale"], name: "index_banner_locales_on_locale", length: 191
+    t.index ["locale"], name: "index_banner_locales_on_locale"
   end
 
-  create_table "banners", charset: "utf8mb4", force: :cascade do |t|
+  create_table "banners", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.string "bannerable_type", null: false
     t.bigint "bannerable_id", null: false
@@ -276,7 +276,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_26_200454) do
     t.date "remove_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bannerable_type", "bannerable_id"], name: "index_banners_on_bannerable", length: { bannerable_type: 191 }
+    t.index ["bannerable_type", "bannerable_id"], name: "index_banners_on_bannerable"
   end
 
   create_table "brand_dealer_rental_products", charset: "utf8", force: :cascade do |t|
