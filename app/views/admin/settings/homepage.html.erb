@@ -36,16 +36,14 @@
     <% end %>
   </div>
 
-  <ul id="banners" style="margin-top: 20px;">
-    <%= render partial: "admin/shared/banner", collection: website.banners %>
-  </ul>
+  <%= render partial: "admin/shared/banner", collection: website.banners %>
 
   <h4 class="subheader">Sorting</h4>
   <p>We can't drag-and-drop to sort above because each locale can have the
   banners in a different order. Choose a locale to sort its banners:</p>
   <ul>
     <% website.available_locales.each do |l| %>
-      <li><%= link_to l.locale, '#' %></li>
+      <li><%= link_to l.locale, homepage_banner_sorting_admin_setting_path(l.locale) %></li>
     <% end %>
   </ul>
 </div>

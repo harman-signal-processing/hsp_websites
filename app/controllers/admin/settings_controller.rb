@@ -1,6 +1,7 @@
 class Admin::SettingsController < AdminController
   before_action :initialize_setting, only: :create
-  load_and_authorize_resource except: :new
+  load_and_authorize_resource except: [:new, :homepage_banner_sorting]
+  skip_authorization_check only: :homepage_banner_sorting
 
   # GET /admin/settings
   # GET /admin/settings.xml
@@ -46,6 +47,16 @@ class Admin::SettingsController < AdminController
       Setting.where(brand_id: website.brand_id, name: "homepage_column_3", setting_type: "string").first_or_initialize,
       Setting.where(brand_id: website.brand_id, name: "homepage_column_4", setting_type: "string").first_or_initialize
     ]
+  end
+
+  def homepage_banner_sorting
+    @target_locale = params[:id]
+    @banner_locales = BannerLocale.joins(:banner).
+      where(locale: @target_locale).
+      where( banners: { id: website.banners.pluck(:id) }).
+      order(:position)
+    @other_banners = website.banners.
+      where.not(id: @banner_locales.pluck(:banner_id))
   end
 
   # POST /admin/big_bottom_box

@@ -1,7 +1,8 @@
 class Admin::BannerLocalesController < AdminController
-  before_action :load_banner
+  before_action :load_banner, except: [:update_order]
   before_action :initialize_banner_locale, only: :create
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:update_order]
+  skip_authorization_check only: [:update_order]
 
   def edit
   end
@@ -27,6 +28,12 @@ class Admin::BannerLocalesController < AdminController
         format.html { render action: "edit" }
       end
     end
+  end
+
+  def update_order
+    update_list_order(BannerLocale, params["banner_locale"])
+    head :ok
+    website.add_log(user: current_user, action: "Sorted banner locales")
   end
 
   def destroy
