@@ -18,11 +18,9 @@ class Admin::BannersController < AdminController
     respond_to do |format|
       if @banner.save
         format.html { redirect_to([:admin, @banner], notice: 'Banner was successfully created.') }
-        format.xml  { render xml: @banner, status: :created, location: @banner }
         website.add_log(user: current_user, action: "Created banner: #{@banner.name}")
       else
         format.html { render action: "new" }
-        format.xml  { render xml: @banner.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -31,11 +29,9 @@ class Admin::BannersController < AdminController
     respond_to do |format|
       if @banner.update(banner_params)
         format.html { redirect_to([:admin, @banner], notice: 'Banner was successfully updated.') }
-        format.xml  { head :ok }
         website.add_log(user: current_user, action: "Updated banner: #{@banner.name}")
       else
         format.html { render action: "edit" }
-        format.xml  { render xml: @banner.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -47,11 +43,9 @@ class Admin::BannersController < AdminController
     @banner.destroy
     respond_to do |format|
       format.html { redirect_to(redirect_url) }
-      format.xml  { head :ok }
     end
     website.add_log(user: current_user, action: "Deleted banner: #{@banner.name}")
   end
-
 
   private
 
