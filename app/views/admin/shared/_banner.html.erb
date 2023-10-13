@@ -1,0 +1,37 @@
+<% unless banner.new_record? %>
+  <div id="banner_<%= banner.id %>">
+    <div class="row">
+      <div class="small-1 columns">
+        &nbsp;
+      </div>
+      <div class="small-1 columns">
+        <% if banner.default_content && banner.default_content.slide.present? %>
+          <%= image_tag(banner.default_content.slide.url(:tiny_square), width: 64, height: 64, lazy: false) %>
+        <% end %>
+      </div>
+      <div class="small-10 columns">
+        <%= link_to banner.name, [:admin, banner] %>
+        <%= link_to(image_tag("icons/trash.gif", lazy: false),
+                    admin_banner_path(banner),
+                    confirm: "Are you sure?",
+                    remote: true,
+                  method: :delete) %>
+        <p class="small">
+          Locales: <%= banner.banner_locales.map{|bl| bl.locale}.join(", ") %><br/>
+          <% if banner.start_on.present? %>
+            starts On: <%=l banner.start_on, format: :short %>
+            <% if banner.remove_on.present? %>
+              --
+            <% end %>
+          <% end %>
+          <% if banner.remove_on.present? %>
+            <% if banner.remove_on > Date.today %>
+              To be
+            <% end %>
+            removed on: <%=l banner.remove_on, format: :short %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

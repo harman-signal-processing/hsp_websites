@@ -186,11 +186,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection do
           get :homepage
           post :update_slides_order
+          post :update_banners_order
           post :update_features_order
           post :big_bottom_box
         end
         member do
           get :copy
+          get :homepage_banner_sorting
         end
       end
       resources :effect_types, only: [:create] do
@@ -320,6 +322,13 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         resources :training_classes do
           resources :training_class_registrations
         end
+      end
+
+      resources :banners do
+        resources :banner_locales
+      end
+      resources :banner_locales, only: :new do
+        collection { post :update_order }
       end
 
       resources :vip_programmers,

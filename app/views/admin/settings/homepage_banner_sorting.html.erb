@@ -1,0 +1,24 @@
+<h1>Homepage Banner Sorting for locale: <%= @target_locale %></h1>
+
+<ul class="button-group round">
+  <li><%= link_to homepage_admin_settings_path, class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+</ul>
+
+<div class="group">
+  <p>Drag and drop the banners below to sort their order for the "<%= @target_locale %>" homepage.</p>
+  <ul id="banner_locales" class="sortable_list" style="margin-top: 20px;">
+    <% @banner_locales.each do |bl| %>
+      <%= render "admin/shared/banner_locale", banner_locale: bl %>
+    <% end %>
+  </ul>
+</div>
+
+<% if @other_banners.size > 0 %>
+  <h5 class="subheader">Banners not configured to appear on this locale:</h5>
+  <p>If any of the banners below should appear in the sorting above, then edit the banner
+  and add "<%= @target_locale %>" to its list of locales.</p>
+
+  <%= render partial: "admin/shared/banner", collection: @other_banners %>
+<% end %>

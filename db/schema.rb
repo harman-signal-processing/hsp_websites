@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_28_163405) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_26_200454) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -247,6 +247,36 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_163405) do
     t.datetime "image_updated_at", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "banner_locales", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "banner_id", null: false
+    t.string "locale", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "slide_file_name"
+    t.string "slide_content_type"
+    t.datetime "slide_updated_at"
+    t.integer "slide_file_size"
+    t.text "content"
+    t.text "css"
+    t.string "link"
+    t.boolean "default"
+    t.index ["banner_id"], name: "index_banner_locales_on_banner_id"
+    t.index ["locale"], name: "index_banner_locales_on_locale", length: 191
+  end
+
+  create_table "banners", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "bannerable_type", null: false
+    t.bigint "bannerable_id", null: false
+    t.date "start_on"
+    t.date "remove_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bannerable_type", "bannerable_id"], name: "index_banners_on_bannerable", length: { bannerable_type: 191 }
   end
 
   create_table "brand_dealer_rental_products", charset: "utf8", force: :cascade do |t|
@@ -2502,6 +2532,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_163405) do
   add_foreign_key "amx_dxlink_combo_attributes", "amx_dxlink_combos"
   add_foreign_key "amx_dxlink_combos", "amx_dxlink_device_infos", column: "rx_id"
   add_foreign_key "amx_dxlink_combos", "amx_dxlink_device_infos", column: "tx_id"
+  add_foreign_key "banner_locales", "banners"
   add_foreign_key "manufacturer_partners", "site_elements"
   add_foreign_key "vip_location_global_regions", "vip_global_regions"
   add_foreign_key "vip_location_global_regions", "vip_locations"

@@ -1,0 +1,37 @@
+<h1><%= @banner_locale.locale %> rendition of <%= link_to @banner.name, [:admin, @banner] %></h1>
+
+<ul class="button-group round">
+  <li><%= link_to [:admin, @banner], class: "small secondary button" do %>
+    <%= fa_icon "angle-double-left" %>
+  <% end %>
+  </li>
+  <li><%= link_to edit_admin_banner_banner_locale_path(@banner, @banner_locale), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+  <li><%= link_to [:admin, @banner, @banner_locale], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
+</ul>
+
+<p>Default content for banner? <%= @banner_locale.default? ? "Yes" : "No" %></p>
+
+<p>Preview:</p>
+<% if @banner_locale.has_content? %>
+  <style><%= raw @banner_locale.css %></style>
+  <div class="slideshow-wrapper">
+    <div class="preloader"></div>
+    <ul data-orbit="true" data-options="resume_on_mouseout:true;timer_speed:6000;slide_number:false;animation_speed:500;animation:fade;navigation_arrows:false" style="background: white; min-height: 300px">
+      <%= slide_content_from_banner(@banner, @banner_locale.position, banner_content: @banner_locale) %>
+    </ul>
+  </div>
+
+  <br/><br/><br/>
+  <p><em>Note: since the full CSS for the site doesn't load within the admin page,
+  the preview may not be exactly what you'll see once published.</em></p>
+<% else %>
+  <p><em>Preview not available because content appears to be blank. This locale will use the default content for the banner.</em></p>
+<% end %>

@@ -1,0 +1,38 @@
+<% unless banner_locale.new_record? %>
+  <li id="banner_locale_<%= banner_locale.id %>">
+    <div class="row">
+      <div class="small-1 columns">
+        <span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
+      </div>
+      <div class="small-1 columns">
+        <% if banner_locale.has_content? %>
+          <%= image_tag(banner_locale.slide.url(:tiny_square), width: 64, height: 64, lazy: false) %>
+        <% elsif banner_locale.banner.default_content && banner_locale.banner.default_content.slide.present? %>
+          <%= image_tag(banner_locale.banner.default_content.slide.url(:tiny_square), width: 64, height: 64, lazy: false) %>
+        <% end %>
+      </div>
+      <div class="small-10 columns">
+        <%= link_to banner_locale.banner.name, [:admin, banner_locale.banner, banner_locale] %>
+        <%= link_to(image_tag("icons/trash.gif", lazy: false),
+                    admin_banner_banner_locale_path(banner_locale.banner, banner_locale),
+                    confirm: "Are you sure?",
+                    remote: true,
+                  method: :delete) %>
+        <p class="small">
+          <% if banner_locale.banner.start_on.present? %>
+            starts On: <%=l banner_locale.banner.start_on, format: :short %>
+            <% if banner_locale.banner.remove_on.present? %>
+              --
+            <% end %>
+          <% end %>
+          <% if banner_locale.banner.remove_on.present? %>
+            <% if banner_locale.banner.remove_on > Date.today %>
+              To be
+            <% end %>
+            removed on: <%=l banner_locale.banner.remove_on, format: :short %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </li>
+<% end %>

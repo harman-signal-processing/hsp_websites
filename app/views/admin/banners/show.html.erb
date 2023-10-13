@@ -1,0 +1,88 @@
+<h1>Banner: <%= @banner.name %></h1>
+
+<ul class="button-group round">
+  <li><%= link_to edit_admin_banner_path(@banner), class: "small secondary button" do %>
+      <%= fa_icon "edit" %>
+      Edit
+    <% end %>
+  </li>
+  <li><%= link_to [:admin, @banner], confirm: 'Are you sure?', method: :delete, class: "small alert button" do %>
+    <%= fa_icon "trash" %>
+    Delete
+  <% end %>
+  </li>
+</ul>
+
+<p>
+  Starts On:
+  <% if @banner.start_on.present? %>
+    <%=l @banner.start_on, format: :short %>
+  <% else %>
+    <%= fa_icon 'warning' %> not provided
+  <% end %>
+</p>
+
+<p>
+  Remove On:
+  <% if @banner.remove_on.present? %>
+    <%=l @banner.remove_on, format: :short %>
+  <% else %>
+    <%= fa_icon 'warning' %> not provided
+  <% end %>
+</p>
+
+<p>Association:
+  <%= link_to @banner.bannerable_type == "Website" ? homepage_admin_settings_path : [:admin, @banner.bannerable] do %>
+    <%# if @banner.bannerable.respond_to?(:name) %>
+      <%= @banner.bannerable.name %>
+    <%# end %>
+    <%= @banner.bannerable_type %>
+    <% if @banner.bannerable_type == "Website" %>
+      Homepage
+    <% end %>
+  <% end %>
+</p>
+
+<div class="group">
+  <h4>Banner Locales:</h4>
+
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <p>
+        If the banner should appear on multiple locales but you don't want to manage
+        different content for each locale, just set one of the locales (maybe <%= I18n.default_locale.to_s %>)
+        to be the default content for this banner.
+      </p>
+
+      <p>
+        Then, you'll still have to add each locale to the banner, but just don't worry
+        about providing content for any of the non-default locales.
+      </p>
+    </div>
+  </div>
+
+  <%= simple_form_for [:admin, @banner, BannerLocale.new] do |f| %>
+    <%= f.label :locale, "Add a locale" %>
+    <div class="row collapse">
+      <div class="small-8 columns">
+        <%= f.input :locale,
+          label: false,
+          as: :select,
+          collection: website.list_of_available_locales - @banner.banner_locales.map{|bl| bl.locale} %>
+      </div>
+      <div class="small-4 columns">
+        <%= f.button :submit %>
+      </div>
+    </div>
+  <% end %>
+
+  <ul>
+    <% @banner.banner_locales.each do |bl| %>
+      <li>
+        <%= link_to bl.locale, [:admin, @banner, bl] %>
+        <% if bl.default? %>(default content)<% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+

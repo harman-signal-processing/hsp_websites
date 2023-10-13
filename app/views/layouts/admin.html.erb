@@ -41,7 +41,7 @@
                       can?(:manage, SupportSubject) || can?(:manage, SiteElement) %>
                     <li class="has-dropdown"><%= link_to "Settings & Pages", '#' %>
                     <ul class="dropdown">
-                      <% if can?(:manage, Setting) && can?(:manage, Product) %>
+                      <% if can?(:manage, Setting) || can?(:manage, Banner) %>
                         <li><%= link_to "Homepage", homepage_admin_settings_path %></li>
                       <% end %>
                       <% if can?(:read, Setting) %>
