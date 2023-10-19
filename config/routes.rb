@@ -237,7 +237,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         collection { put :update_all }
       end
       resources :news do
-        member { get :delete_news_photo }
+        member {
+          get :delete_news_photo
+          get :delete_square
+        }
         resources :news_images
       end
 

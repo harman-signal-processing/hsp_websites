@@ -21,6 +21,23 @@ class News < ApplicationRecord
   }
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 
+  has_attached_file :square, {
+    styles: {
+      banner: "1500>x400",
+      large: "600>x370",
+      email: "580",
+      medium_square: "480x480#",
+      medium: "480x480>",
+      small: "240",
+      small_square: "250x250#",
+      thumb: "100x100>",
+      thumb_square: "100x100#",
+      tiny: "64x64>",
+      tiny_square: "64x64#"
+    }, processors: [:thumbnail, :compression] , default_url: "news_photo.jpg"
+  }
+  validates_attachment :square, content_type: { content_type: /\Aimage/i }
+
   alias_attribute :name, :title
 
   has_many :brand_news, dependent: :destroy

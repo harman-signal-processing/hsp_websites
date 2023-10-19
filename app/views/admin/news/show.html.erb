@@ -64,6 +64,23 @@
         </div>
   		<% end %>
 
+  		<% if @news.square.present? %>
+  		  <div>Square version<br/>
+  		    <div class="row">
+  		      <div class="small-6 columns">
+  		        <%= link_to @news.square.url do %>
+  		          <%= image_tag(@news.square.url(:medium_square), lazy: false) %>
+  		        <% end %>
+  		      </div>
+  		      <div class="small-6 column">
+  		        <%= link_to "Edit the article", edit_admin_news_path(@news) %>
+  		        to update the square image. Or,
+  		        <%= link_to "click here", delete_square_admin_news_path(@news), data: { confirm: "Are you sure? "} %>
+  		        to delete it.
+  		      </div>
+  		    </div>
+  		<% end %>
+
       <hr/>
       <h6>More pics:</h6>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_28_163405) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_19_202409) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -948,6 +948,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_28_163405) do
     t.string "video_ids"
     t.string "old_id"
     t.string "old_url"
+    t.string "square_file_name"
+    t.string "square_content_type"
+    t.integer "square_file_size"
+    t.datetime "square_updated_at"
     t.index ["cached_slug"], name: "index_news_on_cached_slug", unique: true
     t.index ["old_id"], name: "index_news_on_old_id"
   end

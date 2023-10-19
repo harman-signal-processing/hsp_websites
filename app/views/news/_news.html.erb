@@ -1,7 +1,11 @@
 <li>
   <div class="text-center">
     <%= link_to news do %>
-      <%= translate_image_tag(news, :news_photo, size: :medium_square, alt: :title, lazy: false) %>
+      <% if news.square.present? %>
+        <%= translate_image_tag(news, :square, size: :medium_square, alt: :title, lazy: false) %>
+      <% else %>
+        <%= translate_image_tag(news, :news_photo, size: :medium_square, alt: :title, lazy: false) %>
+      <% end %>
     <% end %>
   </div>
   <div class="news-summary">

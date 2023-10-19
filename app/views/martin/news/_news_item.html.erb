@@ -1,6 +1,10 @@
 <div class="row collapse">
   <div class="small-4 columns">
-    <div class="news-image-thumbnail-bg" style="background-image: url(<%= translate_image_url(news, :news_photo, size: :small_square) %>)">
+    <% if news.square.present? %>
+      <div class="news-image-thumbnail-bg" style="background-image: url(<%= translate_image_url(news, :square, size: :small_square) %>)">
+    <% else %>
+      <div class="news-image-thumbnail-bg" style="background-image: url(<%= translate_image_url(news, :news_photo, size: :small_square) %>)">
+    <% end %>
       &nbsp;
     </div>
   </div>

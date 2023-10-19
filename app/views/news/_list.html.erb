@@ -2,7 +2,11 @@
 <% news_list.each do |news| %>
   <tr>
 	<td class="date hide-for-small">
-		<% if !news.news_photo_file_name.blank? %>
+		<% if !news.square_file_name.blank? %>
+       <%= link_to news do %>
+         <%= translate_image_tag(news, :square, size: :thumb_square, style: "text-align: right; margin: 8px") %>
+       <% end %>
+		<% elsif !news.news_photo_file_name.blank? %>
        <%= link_to news do %>
          <%= translate_image_tag(news, :news_photo, size: :thumb_square, style: "text-align: right; margin: 8px") %>
        <% end %>

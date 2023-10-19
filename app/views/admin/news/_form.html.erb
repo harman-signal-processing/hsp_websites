@@ -7,6 +7,7 @@
       <%= f.input :post_on, as: :string, input_html: { class: 'ui-datepicker' } %>
       <%= f.input :tag_list, input_html: { value: f.object.tag_list.to_s }, hint: "Use commas to separate tags" %>
       <%= f.input :news_photo %>
+      <%= f.input :square, label: "Square photo", hint: "Optional. Use this when the main photo gets cropped weird when generating the square sizes." %>
     </div>
   </div>
   <br/>

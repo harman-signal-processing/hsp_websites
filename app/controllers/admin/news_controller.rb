@@ -75,6 +75,11 @@ class Admin::NewsController < AdminController
     redirect_to([:admin, @news], notice: "Main photo was removed.")
   end
 
+  def delete_square
+    @news.update(square: nil)
+    redirect_to([:admin, @news], notice: "Square photo was removed.")
+  end
+
   # DELETE /admin/news/1
   # DELETE /admin/news/1.xml
   def destroy
@@ -99,6 +104,7 @@ class Admin::NewsController < AdminController
       :body,
       :keywords,
       :news_photo,
+      :square,
       :quote,
       :video_ids,
       :old_id,

@@ -3,10 +3,17 @@
     <div class="slide">
       <%= link_to news do %>
         <div class="text-center">
-          <%= image_tag news.news_photo(:medium_square),
-            alt: translate_content(news, :title),
-            lazy: false,
-            data: { lazy: news.news_photo(:medium_square) } %>
+          <% if news.square.present? %>
+            <%= image_tag news.square(:medium_square),
+              alt: translate_content(news, :title),
+              lazy: false,
+              data: { lazy: news.square(:medium_square) } %>
+          <% else %>
+            <%= image_tag news.news_photo(:medium_square),
+              alt: translate_content(news, :title),
+              lazy: false,
+              data: { lazy: news.news_photo(:medium_square) } %>
+          <% end %>
         </div>
         <div class="white-text-box" data-equalizer-watch="news-headline">
           <h5><%= translate_content(news, :title) %></h5>
