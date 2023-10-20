@@ -133,13 +133,6 @@ nav.top-bar {
   padding: 0 0 0 0;
 }
 
-.logo-container {
-  img {padding: 0px 0px 0px 5px;}
-  a:hover {
-    background-color: transparent;
-  }
-}
-
 .top-bar-section ul li {
   background: transparent;
 }
@@ -209,14 +202,23 @@ nav.top-bar {
   .top-bar-section > ul > .divider, .top-bar-section > ul > [role="separator"] {
     height: 0px;
   }
-  .logo-container img {
-    padding: 0px 0px 0px 0px;
-  }
+
   #above_nav {
     height: 0px;
   }
 }
-
+.logo-container img {
+  @media only screen and (min-width: 720px) {
+    width: 123px;
+    padding: 0 0 0 0;
+    margin: -5px 13px 0 17px;
+  }
+  @media only screen and (max-width: 719px) {
+    width: 100px;
+    padding: 0 0 0 0;
+    margin: 6px 0 0 10px;
+  }
+}
 
 /* FOOTER ////////////////////////////////// */
 
@@ -441,4 +443,34 @@ footer {
 /** search box in top nav **/
 #search_form #query {
   width:120px;
+}
+
+/******** Footer Logos ********/
+.footer_brand_logos {
+  padding: 12px 0 0 0;
+}
+#footer_logo_akg, #footer_logo_bss, #footer_logo_dbx {
+  width: 50px;
+}
+#footer_logo_amx {
+  width: 57px;
+}
+#footer_logo_crown {
+  width: 77px;
+  padding: 8px 0 0 0;
+}
+#footer_logo_jbl {
+  width: 76px;
+  padding: 6px 0 0 0;
+}
+#footer_logo_lexicon {
+  width: 57px;
+}
+#footer_logo_martin {
+  width: 64px;
+  padding: 8px 0 0 0;
+}
+#footer_logo_soundcraft {
+  width: 79px;
+  padding: 6px 0 0 0;
 }

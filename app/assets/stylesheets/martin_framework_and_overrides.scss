@@ -143,15 +143,18 @@ $large-range: ($medium-breakpoint + em-calc(1), em-calc(1640)) !default;
     }
   }
 }
+
 .logo-container img {
-  padding: 24px 0px 0px 12px;
-  @media only screen and (min-width: 1320px) {
-    padding: 24px 0px 0px 69px;
+  @media only screen and (min-width: 720px) {
+    width: 123px;
+    padding: 14px 0 0 18px;
+    margin: 0 0 0 0;
   }
-  @media only screen and (max-width: 990px) {
-    height: 60px;
-		padding: 18px 0px 0px 6px;
-	}
+  @media only screen and (max-width: 719px) {
+    width: 100px;
+    padding: 0 0 0 0;
+    margin: 17px 0 0 0;
+  }
 }
 
 .top-bar {
@@ -1270,4 +1273,34 @@ input#query {
     $bg: $martin-yellow
   )
   color: black;
+}
+
+/******** Footer Logos ********/
+.footer_brand_logos {
+  padding: 12px 0 0 0;
+}
+#footer_logo_akg, #footer_logo_bss, #footer_logo_dbx {
+  width: 50px;
+}
+#footer_logo_amx {
+  width: 57px;
+}
+#footer_logo_crown {
+  width: 77px;
+  padding: 8px 0 0 0;
+}
+#footer_logo_jbl {
+  width: 76px;
+  padding: 6px 0 0 0;
+}
+#footer_logo_lexicon {
+  width: 57px;
+}
+#footer_logo_martin {
+  width: 64px;
+  padding: 8px 0 0 0;
+}
+#footer_logo_soundcraft {
+  width: 79px;
+  padding: 6px 0 0 0;
 }
