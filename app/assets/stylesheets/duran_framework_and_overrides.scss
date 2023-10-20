@@ -86,8 +86,8 @@ h2 { font-size: 19px; line-height: initial; text-transform: uppercase; font-weig
 
 @media only screen and (min-width: 720px) {
 	.logo-container img {
-		padding: 8px 10px 0px 16px;
-		width: 84px;
+		padding: 4px 10px 0px 16px;
+		width: 186px;
 	}
   .top-bar-section {
     li.has-form {
@@ -126,7 +126,9 @@ h2 { font-size: 19px; line-height: initial; text-transform: uppercase; font-weig
 
 @media only screen and (max-width: 719px) {
 	.logo-container img {
-		padding: 4px 0px 0px 6px;
+		padding: 9px 0px 0px 0px;
+		margin: 0 0 0 -19px;
+		width: 140px;
 	}
   .top-bar-section {
     li:not(.has-form) a:not(.button) {

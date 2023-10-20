@@ -276,7 +276,8 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 	    box-shadow: 0 8px 6px -6px #ccc;
 	}
 	#header-container img {
-		padding: 16px 0 0 64px;
+		padding: 16px 0 0 0;
+		width: 155px;
 	}	
 	nav.top-bar {
 		border-radius: 8px;
@@ -298,7 +299,7 @@ img, div.menu, .pngfix, input { behavior: url("/css/iepngfix.htc") }
 		margin-bottom: 10px;
 	}
 	#header-container img {
-		padding: 16px 0 0 0;
+		padding: 0 0 0 0;
 	}
 	img.no-resize-for-small { max-width: none; }
 	div#header-container {
