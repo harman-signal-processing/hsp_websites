@@ -12,8 +12,8 @@
 		<%= csrf_meta_tag %>
 		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
-			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.png")) %>
-			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.png") %>" />
+			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.svg")) %>
+			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.svg") %>" />
 			<% end %>
       <!--[if lt IE 9]>
         <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>

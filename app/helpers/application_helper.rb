@@ -54,10 +54,10 @@ module ApplicationHelper
   #
   def interchange_logo
     q = []
-    q << "[#{image_path("#{website.folder}/logo.png")}, (default)]"
-    q << "[#{image_path("#{website.folder}/logo.png")}, (large)]"
-    q << "[#{image_path("#{website.folder}/logo.png")}, (medium)]"
-    q << "[#{image_path("#{website.folder}/logo-sm.png")}, (only screen and (max-width: 720px))]"
+    q << "[#{image_path("#{website.folder}/logo.svg")}, (default)]"
+    q << "[#{image_path("#{website.folder}/logo.svg")}, (large)]"
+    q << "[#{image_path("#{website.folder}/logo.svg")}, (medium)]"
+    q << "[#{image_path("#{website.folder}/logo.white.svg")}, (only screen and (max-width: 720px))]"
 
     image_tag('', #"#{website.folder}/logo.png",
       class: "no-resize no-resize-for-small",
