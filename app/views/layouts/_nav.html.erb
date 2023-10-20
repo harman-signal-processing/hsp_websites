@@ -6,7 +6,11 @@
   <% end %>
 	<nav class="top-bar" data-topbar role="navigation">
 		<ul class="title-area">
-			<li class="name logo-container"><%= link_to image_tag(website.folder + '/logo.svg', alt: website.brand.name, lazy: false), locale_root_path %></li>
+		  <% if website.brand.name.downcase == "axys tunnel" %>
+			  <li class="name logo-container"><%= link_to image_tag(website.folder + '/logo-sm.png', alt: website.brand.name, lazy: false), locale_root_path %></li>
+			<% else %>
+			  <li class="name logo-container"><%= link_to image_tag(website.folder + '/logo.svg', alt: website.brand.name, lazy: false), locale_root_path %></li>
+			<% end %>
       <li class="toggle-topbar"><i class="fa fa-bars fa-2x extra-space-hamburger" aria-hidden="true"></i><a href="#" aria-label="Open the menu"><span></span></a></li>
 		</ul>
 		<section class="top-bar-section">
