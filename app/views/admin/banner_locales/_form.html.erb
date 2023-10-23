@@ -4,7 +4,8 @@
 
   <div class="row">
     <div class="small-12 medium-8 columns">
-      <%= f.input :link %>
+      <%= f.input :link,
+        hint: "Links beginning with a partial path (ie \"products/super-cool-widget\") will be relative to the visitor's language." %>
     </div>
     <div class="small-12 medium-4 columns">
       <%= f.input :position, hint: "The sort order for this banner on this locale." %>

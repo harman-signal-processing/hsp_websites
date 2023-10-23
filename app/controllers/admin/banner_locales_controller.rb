@@ -54,6 +54,7 @@ class Admin::BannerLocalesController < AdminController
   def banner_locale_params
     params.require(:banner_locale).permit(
       :locale,
+      :link,
       :title,
       :slide,
       :content,
