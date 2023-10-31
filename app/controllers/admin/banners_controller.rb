@@ -43,6 +43,7 @@ class Admin::BannersController < AdminController
     @banner.destroy
     respond_to do |format|
       format.html { redirect_to(redirect_url) }
+      format.js
     end
     website.add_log(user: current_user, action: "Deleted banner: #{@banner.name}")
   end
