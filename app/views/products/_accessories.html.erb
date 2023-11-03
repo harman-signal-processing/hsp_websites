@@ -10,7 +10,11 @@
 
     <div class="small-12 medium-5 columns">
       <% if accessory.photo %>
-        <%= image_tag(accessory.photo.product_attachment.url(:large), alt: "#{ accessory.name } Main photo") %>
+        <%= image_tag(
+          accessory.photo.product_attachment.url(:large),
+          alt: "#{ accessory.name } Main photo",
+          lazy: !!!(accessory.photo.product_attachment_file_name.match?(/png/i))
+          ) %>
       <% end %>
       <h6 class="subheader"><%= t('product_page.larger_images') %></h6>
       <% accessory.images_for("product_page").each do |product_attachment| %>
