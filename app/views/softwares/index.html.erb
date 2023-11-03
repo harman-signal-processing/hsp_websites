@@ -41,7 +41,7 @@
     <tbody>
       <% website.brand.current_softwares.sort_by{|s| s.name}.each do |software| %>
         <tr>
-          <td><%= link_to software.name, software %></td>
+          <td><%= link_to_software(software) %></td>
           <td><%= software.version unless software.version.blank? %></td>
           <td><%= software.platform unless software.platform.blank? %></td>
           <td><%=raw software.current_products.map{ |product| link_to product.name, product }.join(", ") %>

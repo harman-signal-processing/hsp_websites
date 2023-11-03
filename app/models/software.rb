@@ -118,6 +118,10 @@ class Software < ApplicationRecord
     :name
   end
 
+  def links_to_3rd_party_site?
+    self.link.present? && !(Website.all.pluck(:url).any? {|u| link.match? /#{u}/i })
+  end
+
   # Alias for search results content_preview
   def content_preview
     self.send(content_preview_method)

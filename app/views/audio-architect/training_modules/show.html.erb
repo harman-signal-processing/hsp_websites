@@ -25,7 +25,7 @@
 	<h3>Related Software</h3>
 	<ul>
 	<% @training_module.active_softwares.each do |software| %>
-		<li><%= link_to software.name, software %></li>
+		<li><%= link_to_software(software) %></li>
 	<% end %>
 	</ul>
 	<div class="clear"></div>

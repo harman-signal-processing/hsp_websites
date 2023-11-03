@@ -12,7 +12,7 @@
 
 <% if @software.replaced_by && @software.replaced_by.is_a?(Software) && (@software.replaced_by.active? || @software.replaced_by.active_without_products?) %>
 	<div class="alert">
-		Note: this is an old version. The current version is: <%= link_to @software.replaced_by.formatted_name, @software.replaced_by %>.
+		Note: this is an old version. The current version is: <%= link_to_software(@software.replaced_by) %>.
 	</div>
 <% end %>
 
@@ -20,9 +20,9 @@
 	<div class="aside">
 		<div class="download_box">
 			<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/download_button.png")) %>
-			<%= link_to image_tag("#{website.folder}/#{I18n.locale}/download_button.png", 
-							alt: t("download"), 
-							mouseover: "#{website.folder}/#{I18n.locale}/download_button_hover.png"), 
+			<%= link_to image_tag("#{website.folder}/#{I18n.locale}/download_button.png",
+							alt: t("download"),
+							mouseover: "#{website.folder}/#{I18n.locale}/download_button_hover.png"),
 					download_software_path(@software, locale: I18n.locale) %>
 			<% else %>
 			<h2><%= link_to t("download"), download_software_path(@software, locale: I18n.locale) %></h2>
@@ -35,7 +35,7 @@
 				<% end %>
 			</p>
 			<br/>
-			
+
 			<% @software.software_attachments.each do |sa| %>
 			<p>
 				<%= file_type_icon(sa) %>
