@@ -122,6 +122,10 @@ class Software < ApplicationRecord
     self.link.present? && !(Website.all.pluck(:url).any? {|u| link.match? /#{u}/i })
   end
 
+  def is_replaced?
+    replaced_by && replaced_by.is_a?(Software) && (replaced_by.active? || replaced_by.active_without_products?)
+  end
+
   # Alias for search results content_preview
   def content_preview
     self.send(content_preview_method)

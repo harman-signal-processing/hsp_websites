@@ -183,16 +183,16 @@ set_meta_tags title: @product.name,
     <% if @product.discontinued? && @product.alternatives.size > 0 %>
       	<hr/>
       	<h3 class="subheader"><%= t('titles.replacement_products') %></h3>
-      
+
       	<ul class="large-block-grid-3 small-block-grid-2">
       	<% @product.alternatives.each do |product| %>
       		<li><%= render_partial "product_families/product_square", product: product, compare: false %></li>
       	<% end %>
-      	</ul>      
+      	</ul>
       	<hr/>
     <% end %>
-    
-   
+
+
     <!-- MAIN CONTENT  -->
 		<!-- <%= @active_tab %> -->
     <%= draw_main_product_content @product, active_tab: @active_tab %>
@@ -298,7 +298,7 @@ set_meta_tags title: @product.name,
 
 <% end # cache %>
 
-<% if I18n.locale.to_s.match(/en/i) && !@online_retailer_link && !@product.hide_buy_it_now_button? %>
+<% if !@online_retailer_link && !@product.hide_buy_it_now_button? %>
   <div id="buy-it-now-popup" class="medium reveal-modal" data-reveal aria-labelledby="Buy <%= @product.name %>" aria-hidden="true" role="dialog">
     <div class="text-right">
       <a class="close-reveal-modal">&#215;</a>

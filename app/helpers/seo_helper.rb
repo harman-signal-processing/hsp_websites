@@ -15,7 +15,9 @@ module SeoHelper
     locale = Locale.where(code: I18n.locale.to_s).first
     locale_name = (locale.present?) ? locale.name : I18n.locale.to_s.upcase
     begin
-      canonical_link + display_meta_tags(site: "#{Setting.site_name(website)} | #{ locale_name }")
+      canonical_link +
+        noindex_for_some_content +
+        display_meta_tags(site: "#{Setting.site_name(website)} | #{ locale_name }")
     rescue
     end
   end
@@ -54,7 +56,7 @@ module SeoHelper
       # provided for the current locale and the current page--which would happen
       # when we may have one or more pages translated, but not the whole site.
       if langs.size > 0 && !this_url_all_locales.include?(I18n.locale.to_s)
-        langs << tag(:meta, name: "robots", content: "noindex")
+        langs << noindex_tag
       end
 
       langs.join("\n").html_safe
@@ -69,6 +71,23 @@ module SeoHelper
 
   def parent_locales_regex
     @parent_locales_regex ||= I18n.available_locales.select{|l| l.to_s unless l.match(/\-/)}.join("|")
+  end
+
+  def noindex_for_some_content
+    noindex_this_content = false
+
+    if controller_name.match?(/software/i) && instance_variable_get(:@software)
+      noindex_this_content = @software.is_replaced?
+
+    elsif instance_variable_get(:@warranty_registration)
+      noindex_this_content = @warranty_registration.product.present?
+    end
+
+    noindex_tag if noindex_this_content
+  end
+
+  def noindex_tag
+    tag(:meta, name: "robots", content: "noindex")
   end
 
 end
