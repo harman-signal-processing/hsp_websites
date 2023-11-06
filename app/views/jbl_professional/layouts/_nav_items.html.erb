@@ -34,7 +34,9 @@
     <li class="hide-for-medium"><%= link_to t('learning_sessions').titleize, "/#{I18n.locale}/learning-sessions/" %></li>
   <% end %>
 
-  <li class="hide-for-medium"><%= link_to t('training').titleize, "/#{I18n.locale}/training", target: "_blank" %></li>
+  <% if (website.training_url.present?) %>
+  <li class="hide-for-medium"><%= link_to t('training').titleize, website.training_url, target: "_blank" %></li>
+  <% end %>
 
   <li class="show-for-medium has-dropdown">
     <%= link_to 'learn'.titleize, '#', class: 'disabled' %>
@@ -43,7 +45,9 @@
         <li><%= link_to t('learning_sessions').titleize, "/#{I18n.locale}/learning-sessions" %></li>
       <% end %>
 
-      <li><%= link_to t('training').titleize, "/#{I18n.locale}/training", target: "_blank" %></li>
+      <% if (website.training_url.present?) %>
+      <li><%= link_to t('training').titleize, website.training_url, target: "_blank" %></li>
+      <% end %>
       <li class="has-dropdown"><%= link_to t('about').titleize, '#' %>
         <ul class="dropdown">
           <li><%= link_to 'innovation'.titleize, "/#{I18n.locale}/innovation" %></li>
