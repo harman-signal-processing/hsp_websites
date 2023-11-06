@@ -1,5 +1,6 @@
 <% @product.accessories.each do |accessory| %>
-  <%= link_to accessory, target: (accessory.product_page_url.present?) ? "_blank" : "_self" do %>
+  <%= link_to product_url(accessory, host: accessory.brand.default_website.url),
+    target: (accessory.product_page_url.present? || accessory.brand_id != website.brand_id) ? "_blank" : "_self" do %>
     <h5 style="background: #CCC; padding: 5px;"><%= translate_content(accessory, :name) %>
       <% if accessory.short_description.present? %>
         | <%= translate_content(accessory, :short_description) %>
@@ -41,7 +42,7 @@
           <% accessory.product_documents.includes(:product).each do |product_document| %>
           <li>
             <%= file_type_icon(product_document) %>
-            <%= link_to product_document.name(hide_product_name: true), product_document %>
+            <%= link_to product_document.name(hide_product_name: true), product_document_url(product_document, host: accessory.brand.default_website.url) %>
             [<%= number_to_human_size(product_document.document_file_size) %>]
           </li>
           <% end %>
