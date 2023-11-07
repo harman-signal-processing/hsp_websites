@@ -272,7 +272,7 @@ private
       redirect_to root_path, status: :moved_permanently and return false
     end
 
-    if params[:locale] && params[:locale].to_s != I18n.locale.to_s
+    if params[:locale] && params[:locale].to_s != I18n.locale.to_s && request.get?
       logger.geo.debug("params[:locale] was #{params[:locale]}, Redirecting to #{ request.params.merge(locale: I18n.locale)} ")
       redirect_to url_for(request.params.merge(locale: I18n.locale)) and return false
     end
