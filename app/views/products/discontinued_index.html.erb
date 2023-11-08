@@ -18,7 +18,7 @@
           <div class="small-12 medium-4 columns">
             <ul>
               <% product_group.each do |product| %>
-                <% if product.is_a?(Product) %>
+                <% if product.is_a?(Product) && product.locales(website).include?(I18n.locale.to_s) %>
                   <li><%= link_to translate_content(product, :name), product %>
                     <%= translate_content(product, :short_description) %></li>
                 <% end %>
@@ -46,7 +46,7 @@
               <div class="small-12 medium-4 columns">
                 <ul>
                   <% product_group.each do |product| %>
-                    <% if product.is_a?(Product) %>
+                    <% if product.is_a?(Product) && product.locales(website).include?(I18n.locale.to_s) %>
                       <li><%= link_to translate_content(product, :name), product %>
                         <%= translate_content(product, :short_description) %></li>
                     <% end %>

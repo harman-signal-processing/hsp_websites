@@ -26,7 +26,7 @@ and packaging of our audio amplifier and other audio products in strict accordan
     <ul style="margin: 20px 50px">
       <% @products.each do |product| %>
         <li>
-          <%= link_to product.name, product_path(product, locale: I18n.locale) %>
+          <%= link_to product.name, product %>
           <% unless product.sap_sku.blank? -%>(<%= product.sap_sku %>)<% end -%>
         </li>
       <% end %>
