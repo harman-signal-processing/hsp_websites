@@ -6,11 +6,10 @@ end
 <%= cache ["product_square", product, website, compare, I18n.locale] do %>
 
 <%
+	this_url = best_product_url(product)
 	if product.belongs_to_this_brand?(website)
-		this_url = product_url(product)
 		target = "_self"
 	else
-		this_url = product_url(product, locale: I18n.locale, host: product.brand.default_website.url)
 		target = "_blank"
 	end
 %>

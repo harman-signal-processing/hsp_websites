@@ -32,7 +32,7 @@
         <tr>
           <td><%= link_to_software(software) %></td>
           <td><%= software.version unless software.version.blank? %></td>
-          <td><%=raw software.current_products.map{ |product| link_to product.name, product }.join(", ") %>
+          <td><%=raw software.current_products.map{ |product| link_to product.name, best_product_url(product) }.join(", ") %>
           </td>
         </tr>
       <% end %>

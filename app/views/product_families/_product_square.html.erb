@@ -21,7 +21,7 @@ use_lazy_load = lazy_load_image?(product)
   end
 
 	if product.belongs_to_this_brand?(website)
-		this_url = product_url(product)
+		this_url = best_product_url(product)
 		css_class = "small_product_box#{ product.layout_class.to_s }"
 		target = "_self"
   elsif !product.brand.harman_owned?
@@ -29,7 +29,7 @@ use_lazy_load = lazy_load_image?(product)
 		css_class = "small_product_box#{ product.layout_class.to_s }"
     compare = false
 	else
-		this_url = product_url(product, locale: I18n.locale, host: product.brand.default_website.url)
+		this_url = best_product_url(product)
 		css_class = "small_product_box#{ product.brand.name.to_s.downcase }"
 		target = "_blank"
 	end

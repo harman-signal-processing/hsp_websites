@@ -15,7 +15,7 @@
   <tbody>
     <% @products.sort_by{|s| s.name}.each do |product| %>
       <tr>
-        <td><%= link_to product.name, product %></td>
+        <td><%= link_to product.name, best_product_url(product) %></td>
         <td><%= product.sap_sku.split(" ").join(", ") unless product.sap_sku.blank? %></td>
         <td><%=raw product.short_description %>
         </td>

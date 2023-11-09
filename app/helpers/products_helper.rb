@@ -1,5 +1,22 @@
 module ProductsHelper
 
+  # Links to product using the relevant locale for the product to avoid redirects.
+  # Also uses the product's brand's website host if it isn't the same as the current
+  # website.
+  def best_product_url(product)
+    best_locale = I18n.default_locale
+    product_locales = product.locales(website)
+    if product_locales.size > 0
+      best_locale = product_locales.include?(I18n.locale.to_s) ? I18n.locale : product_locales.first
+    end
+
+    if product.brand_id == website.brand_id
+      product_url(product, locale: best_locale)
+    else
+      product_url(product, locale: best_locale, host: product.brand.default_website.url)
+    end
+  end
+
   def link_to_product_attachment(product_attachment)
     if product_attachment.product_attachment_file_name.present?
       link_to product_attachment.product_attachment.url(:original),

@@ -234,7 +234,7 @@ class SupportController < ApplicationController
 
   # Simple list of RoHS compliant products
   def rohs
-    @products = website.current_products.select{|p| p if p.rohs && p.brand_id == website.brand_id && p.locales(website).include?(I18n.locale.to_s)}
+    @products = website.current_products.select{|p| p if p.rohs && p.brand_id == website.brand_id}
     render_template
   end
 
