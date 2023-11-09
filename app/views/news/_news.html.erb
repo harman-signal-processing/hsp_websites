@@ -9,7 +9,7 @@
     <% end %>
   </div>
   <div class="news-summary">
-    <p><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></p>
+    <p><%= link_to translate_content(news, :title), best_news_url(news) %></p>
     <small><%=l news.post_on, format: :long %></small>
   </div>
 </li>

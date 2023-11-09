@@ -58,11 +58,11 @@
               <div class="large-4 medium-4 small-12 columns product-subgroups">
                 <% group.each do |product_family| %>
                   <% if product_family.is_a?(ProductFamily) && product_family.parent_id == @product_family.id %>
-                    <h3><%= link_to translate_content(product_family, :name), product_family %></h3>
+                    <h3><%= link_to translate_content(product_family, :name), best_product_family_url(product_family) %></h3>
                     <% if product_family.children_with_current_products(website, locale: I18n.locale).length > 0 %>
                       <ul>
                         <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
-                          <li><%= link_to translate_content(pf, :name), pf %></li>
+                          <li><%= link_to translate_content(pf, :name), best_product_family_url(pf) %></li>
                         <% end %>
                       </ul>
                     <% end %>
@@ -76,7 +76,7 @@
           <% @children_with_current_products.where(parent_id: @product_family.id).each do |product_family| %>
             <li>
               <div id="<%= product_family.to_param %>">
-                <%= link_to product_family do %>
+                <%= link_to best_product_family_url(product_family) do %>
                   <div class="product_family_box">
                     <div data-equalizer-watch="family_thumbs" class="family_thumb">
                       <% if !product_family.family_photo_file_name.blank? %>

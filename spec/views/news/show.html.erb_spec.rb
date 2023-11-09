@@ -30,7 +30,8 @@ RSpec.describe "news/show", :type => :view do
   end
 
   it "should show related news if any" do
-    related_story = FactoryBot.build_stubbed(:news)
+    related_story = FactoryBot.create(:news)
+    related_story.brands << @website.brand
     assign(:related_news, [related_story])
     render
 
@@ -39,7 +40,8 @@ RSpec.describe "news/show", :type => :view do
   end
 
   it "should show recent news if no related news available" do
-    recent_story = FactoryBot.build_stubbed(:news)
+    recent_story = FactoryBot.create(:news)
+    recent_story.brands << @website.brand
     assign(:related_news, [])
     assign(:recent_news, [recent_story])
     render

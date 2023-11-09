@@ -26,11 +26,11 @@
     </div>
   <% end %>
 
-  <% if @product.show_recommended_verticals && @product.market_segments.distinct.length > 0 %>
+  <% if @product.show_recommended_verticals && @product.market_segments.where(brand_id: website.brand_id).distinct.length > 0 %>
     <p>
       <i>Recommended for:
         <%=
-          @product.market_segments.distinct.map do |ms|
+          @product.market_segments.where(brand_id: website.brand_id).distinct.map do |ms|
             link_to(translate_content(ms, :name), ms)
           end.join(", ").html_safe
         %>.

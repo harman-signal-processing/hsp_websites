@@ -14,7 +14,7 @@
 <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
   <% if product_family.locales(website).include?(I18n.locale.to_s) %>
     <li><div id="<%= product_family.to_param %>">
-      <%= link_to product_family do %>
+      <%= link_to best_product_family_url(product_family) do %>
         <% if !product_family.family_photo_file_name.blank? %>
 
             <%= translate_image_tag(product_family, :family_photo, alt: :name) %>

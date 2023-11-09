@@ -14,7 +14,7 @@
 	</td>
 	<td class="preview">
 		<%=l news.post_on, format: :long %><br/>
-		<b><%= link_to translate_content(news, :title), news_path(news, locale: I18n.locale) %></b><br/>
+		<b><%= link_to translate_content(news, :title), best_news_url(news) %></b><br/>
 		<%= truncate(strip_html(translate_content(news, :body)), length: 200) %>
 	</td>
   </tr>

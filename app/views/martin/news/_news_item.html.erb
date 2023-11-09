@@ -10,7 +10,7 @@
   </div>
   <div class="small-8 columns news-summary">
     <p><small><%=l news.post_on, format: :short %></small></p>
-    <p><%= link_to news do %>
+    <p><%= link_to news, best_news_url(news) do %>
         <%= truncate translate_content(news, :title), length: 90 %>
       <% end %>
     </p>
