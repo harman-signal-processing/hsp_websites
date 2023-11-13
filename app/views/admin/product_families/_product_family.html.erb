@@ -1,6 +1,12 @@
 <li id="product_family_<%= product_family.id %>">
 	<span class="handle"><%= image_tag("icons/drag_handle.gif", lazy: false) %></span>
   <%= link_to product_family.tree_names, [:admin, product_family] %>
+  <% if product_family.has_current_products?(website) %>
+    <span style="color:green;">Visible in navigation</span>
+  <% else %>
+    <span style="color:red;font-size:x-small;">Hidden in navigation, no current products</span>
+  <% end %>
+
   <% if product_family.locale_product_families.size > 0 %>
     <span style="color:#888;">
       [<%=product_family.locales(website).sort.join(", ")%>]
