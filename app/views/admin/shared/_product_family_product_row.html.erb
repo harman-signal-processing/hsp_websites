@@ -19,5 +19,13 @@
         confirm: "Are you sure? (This won't delete the product or the product family--it will only remove the product from the family.)",
         remote: true,
         method: :delete) %>
+
+        <% unless called_from == 'product' %>
+            <% if pfp.product.product_status.name == "In Production"%>
+                (<span style="color:green;"><%=pfp.product.product_status.name%></span>)
+            <% else %>
+                (<span style="color:red;"><%=pfp.product.product_status.name%></span>)
+            <% end %>
+        <% end %>
   </li>
 <% end %>
