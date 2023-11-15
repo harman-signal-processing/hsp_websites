@@ -1,10 +1,10 @@
 <div id="downloads_and_docs">
 	<% if product.softwares.size > 0 %>
-    <%= render_partial "products/downloads", product: product %>
+		<%= render_partial "products/downloads", product: product %>
 	<% end %>
 
-	<% if product.product_documents.size > 0 %>
-    <%= render_partial "products/documentation", product: product %>
+	<% if product.product_documents.size > 0 || product.all_related_downloads(I18n.locale.to_s, website).count > 0 %>
+		<%= render_partial "products/documentation", product: product %>
 	<% end %>
 </div>
 
