@@ -82,6 +82,12 @@ class SoftwaresController < ApplicationController
     end
   end
 
+  def increment_count
+    @software = Software.find(params[:id])
+    @software.increment_count
+    render plain: "success"
+  end
+
   # Software activation. Pass in the name of the software and the challenge phrase,
   # generate an activation key. This all started with the MPX-L. To use this for
   # other software, edit the software in the admin area and provide the

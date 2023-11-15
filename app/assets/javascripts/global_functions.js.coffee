@@ -1,4 +1,7 @@
 jQuery ($) ->
+  $('a.software-direct-link').click (e) ->
+    software_id = $(@).data('id')
+    $.get("/en/softwares/#{ software_id }/increment_count")
 
   $('a#locale_menu').click (e) ->
     e.preventDefault()

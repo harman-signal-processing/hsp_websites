@@ -29,7 +29,7 @@
     <tbody>
       <% website.brand.current_firmwares.sort_by{|s| s.name}.each do |firmware| %>
         <tr>
-          <td><%= link_to firmware.name, firmware %></td>
+          <td><%= link_to_software(firmware, label_method: :name) %></td>
           <td><%= firmware.version unless firmware.version.blank? %></td>
           <td><%=raw firmware.current_products.map{ |product| link_to product.name, product }.join(", ") %>
           </td>

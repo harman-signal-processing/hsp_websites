@@ -486,6 +486,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       member do
         get :download
         get :new_version
+        get :increment_count
       end
     end
     resources :software_attachments, only: [:download] do
