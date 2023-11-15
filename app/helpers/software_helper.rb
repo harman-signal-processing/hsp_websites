@@ -12,7 +12,7 @@ module SoftwareHelper
 
     # new record entries appear to be Martin firmware built on the fly
     if software.link.present? && software.new_record?
-      link_to(link_text, software.link, opt)
+      link_to(link_text, software.link, opts)
 
     # link to software details page if there is more info
     elsif software.has_additional_info?
@@ -21,7 +21,7 @@ module SoftwareHelper
     # link to software hosted by 3rd party, first show a popup
     elsif software.links_to_3rd_party_site?
       software_disclaimer_popup_for(software) +
-      link_to(link_text, '#', opts, data: { "reveal-id": "software_#{software.id}_popup"})
+      link_to(link_text, '#', data: { "reveal-id": "software_#{software.id}_popup"})
 
     # link directly to S3 file to avoid redirect (for SEO)
     elsif software.ware.present? && !software.ware_file_name.to_s.match?(/\.mu3$/i)
