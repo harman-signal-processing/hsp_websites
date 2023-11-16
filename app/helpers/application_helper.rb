@@ -3,8 +3,30 @@ module ApplicationHelper
   include ActsAsTaggableOn::TagsHelper
 
   # Generates a link to the current page, with the given locale
+  # If we can determine the current page is not relevant to the new locale,
+  # then try to link to a similar relevant resource. Otherwise,link to the
+  # homepage for the new locale instead
   def switch_locale(new_locale)
-    request.path.sub(/^\/[a-zA-Z\-]{2,8}/, "/#{new_locale}")
+    link_to_homepage = false
+
+    begin
+      if instance_variable = instance_variable_get("@#{controller_name.singularize}")
+        if instance_variable.respond_to?(:locales)
+          unless instance_variable.locales(website).include?(new_locale)
+            if instance_variable.respond_to?(:geo_alternative) && geo_alternative = instance_variable.geo_alternative(website, new_locale)
+              return url_for(request.params.merge(id: geo_alternative.to_param, locale: new_locale))
+            end
+            link_to_homepage = true
+          end
+        end
+      end
+    rescue
+      # avoid errors on top nav
+    end
+
+    link_to_homepage ?
+      "/#{new_locale}" :
+      full_url_for(request.params.merge(locale: new_locale))
   end
 
   # Determines if we should hide the given locale from a user
