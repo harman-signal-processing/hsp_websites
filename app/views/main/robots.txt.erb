@@ -4,11 +4,11 @@
 # User-Agent: *
 # Disallow: /
 
+# Global rules
 User-agent: *
 Disallow: /*.aspx*
 Disallow: */pdf_productsheet/pdfproduct/*
 Sitemap: <%= sitemap_url(format: 'xml', host: website.brand.default_website.url).gsub(/\?.*/, '') %>
-Crawl-delay: 4.5
 
 # Yandex tries to pull support page as a jpeg for some reason
 User-agent: Yandex
@@ -19,6 +19,6 @@ Disallow: /en/support.jpg
 User-agent: MJ12bot
 Disallow: /
 
-User-agent: *
-NOINDEX: /*.aspx*
-NOINDEX: */pdf_productsheet/pdfproduct/*
+# Bing rules
+User-agent: Bingbot
+Crawl-delay: 4.5
