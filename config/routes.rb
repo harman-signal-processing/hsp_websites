@@ -98,7 +98,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :vip_programmers, as: :vips, path: "vips", only: [:index, :show]
 
       match "support/amx_itg_new_module_request" => "module_requests#create", as: :amx_itg_new_module_request, via: [:get, :post]
-      match "support/amx_itg_new_module_request_upload" => "module_requests#upload", as: :amx_itg_new_module_request_upload, via: [:post]
+      # match "support/amx_itg_new_module_request_upload" => "module_requests#upload", as: :amx_itg_new_module_request_upload, via: [:post]
       match "tool/dxlink" => "amx_dxlink_tool#index", as: :amx_dxlink_tool, via: [:get, :post]
     end  # constraints(AmxDomain) do
 
