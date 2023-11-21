@@ -1,0 +1,43 @@
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "<%= product_families_url %>",
+        "name": "Product Families"
+      }
+    },
+    <%
+    position = 2
+    if primary_family = @product.primary_family(website)
+      [primary_family.ancestors.reverse, primary_family].flatten.each do |family|
+      %>
+        {
+          "@type": "ListItem",
+          "position": <%= position %>,
+          "item": {
+            "@id": "<%= product_family_url(family) %>",
+            "name": "<%= translate_content family, :name %>"
+          }
+        },
+      <%
+        position += 1
+      end
+    end
+    %>
+    {
+      "@type": "ListItem",
+      "position": <%= position %>,
+      "item": {
+        "@id": "<%= request.url %>",
+        "name": "<%= translate_content @product, :name %>"
+      }
+    }
+  ]
+}
+</script>

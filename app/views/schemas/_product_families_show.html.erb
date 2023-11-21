@@ -1,0 +1,36 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "<%= product_families_url %>",
+        "name": "Product Families"
+      }
+    },
+    <% position = 2 %>
+    <% @product_family.ancestors.reverse.each do |family| %>
+    {
+      "@type": "ListItem",
+      "position": <%= position %>,
+      "item": {
+        "@id": "<%= product_family_url(family) %>",
+        "name": "<%= translate_content family, :name %>"
+      }
+    },
+    <% position += 1 %>
+    <% end %>
+    {
+      "@type": "ListItem",
+      "position": <%= position %>,
+      "item": {
+        "@id": "<%= request.url %>",
+        "name": "<%= translate_content @product_family, :name %>"
+      }
+    }
+  ]
+}
+</script>

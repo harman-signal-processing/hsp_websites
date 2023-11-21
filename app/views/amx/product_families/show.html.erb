@@ -17,6 +17,8 @@
 	</style>
 <% end %>
 
+<div id="breadcrumbs"><%= breadcrumbs(@product_family) %></div>
+
 <%# banner_slide_features = @product_family.features.where(use_as_banner_slide: 1) %>
 <% banner_slide_features = get_custom_feature_list(@product_family.features, "use_as_banner_slide") %>
 <% default_features = get_custom_feature_list(@product_family.features, "default") %>

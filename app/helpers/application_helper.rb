@@ -122,7 +122,11 @@ module ApplicationHelper
   #
   def social_media_links(*networks)
     options = networks.last.is_a?(Hash) ? networks.pop : { size: "21x20"}
-    html = ''
+    if options[:style] && options[:style] == "link-list"
+      html = []
+    else
+      html = ''
+    end
     networks.to_a.each do |n|
       if n == 'rss'
         if options[:style] && File.exist?(Rails.root.join("app/assets/images/icons/#{options[:style]}/#{options[:size]}", "#{n}.png"))
@@ -169,11 +173,20 @@ module ApplicationHelper
                                      alt: n,
                                      :"aria-label" => n)
           end
-          html += link_to(presentation, v, target: "_blank", :"aria-label" => n)
+
+          if options[:style] == "link-list"
+            html << v
+          else
+            html += link_to(presentation, v, target: "_blank", :"aria-label" => n)
+          end
         end
       end
     end
-    raw(html)
+    if options[:style] && options[:style] == "link-list"
+      html
+    else
+      raw(html)
+    end
   end
 
   # Remove HTML from a string (helpful for truncated intros of

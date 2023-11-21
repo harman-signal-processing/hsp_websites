@@ -79,11 +79,7 @@ class ProductFamily < ApplicationRecord
   end
 
   def find_ultimate_parent
-    if has_parent?
-      parent.find_ultimate_parent
-    else
-      self
-    end
+    self.root
   end
 
   def slug_candidates

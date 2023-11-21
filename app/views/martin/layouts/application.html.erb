@@ -16,6 +16,7 @@
 			<meta property="og:locale" content="<%= I18n.locale %>" />
 			<meta property="og:url" content="<%= request.url %>" />
 			<%= hreflang_links %>
+      <%= page_schema %>
 
 			<% if website.twitter_name %>
 				<meta property="twitter:site" value="@<%= website.twitter_name %>" />

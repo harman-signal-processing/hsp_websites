@@ -90,4 +90,10 @@ module SeoHelper
     tag(:meta, name: "robots", content: "noindex")
   end
 
+  def page_schema
+    template_name = [controller_name, action_name].join("_")
+    if File.exist?(Rails.root.join("app", "views", "schemas", "_#{template_name}.html.erb"))
+      render "schemas/#{controller_name}_#{action_name}"
+    end
+  end
 end
