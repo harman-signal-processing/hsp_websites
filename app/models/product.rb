@@ -739,6 +739,18 @@ class Product < ApplicationRecord
     Product.where(id: product_accessories_where_this_is_the_accessory.pluck(:product_id))
   end
 
+  # Primary family is really just the first related product family
+  # which is active in the current locale. Used for breadcrumb schema
+  # and breadcrumb navigation.
+  def primary_family(website)
+    pffcl = product_families_for_current_locale(website)
+    pffcl.size > 0 ? pffcl.first : product_families.first
+  end
+
+  def product_families_for_current_locale(website)
+    product_families.where(brand_id: website.brand_id).select{|pf| pf if pf.locales(website).include?(I18n.locale.to_s)}
+  end
+
   def product_family_tree
     product_families.map{|pf| [pf, pf.family_tree]}.flatten.uniq.reject{|i| i.blank?}
   end

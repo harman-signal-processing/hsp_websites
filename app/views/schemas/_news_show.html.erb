@@ -1,0 +1,27 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "<%= request.url %>"
+  },
+  "headline": "<%= @news.title %>",
+  "image": "<%= translate_image_url(@news, :news_photo) %>",
+  "author": {
+    "@type": "Organization",
+    "name": "<%= website.brand.name %>",
+    "url": "<%= request.base_url %>"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "<%= website.brand.name %>",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "<%= request.base_url %>/logo.png"
+    }
+  },
+  "datePublished": "<%= @news.post_on.to_time.strftime("%FT%T") %>",
+  "dateModified": "<%= @news.updated_at.strftime("%FT%T") %>"
+}
+</script>

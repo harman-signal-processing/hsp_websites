@@ -393,16 +393,28 @@ module ProductsHelper
     end
   end
 
-  def breadcrumbs(product)
+  def breadcrumbs(item)
     crumbs = []
-    crumbs << link_to(t('products'), product_families_path)
-    product.product_families.where(brand_id: website.brand_id).includes(:products, :parent).each do |pf|
-      crumbs << link_to(translate_content(pf.parent, :name).downcase, pf.parent) if pf.parent && pf.parent.locales(website).include?(I18n.locale.to_s) && !pf.requires_login?
-      unless pf.current_products.size < 2
-        crumbs << link_to(strip_html(translate_content(pf, :name)).downcase, pf) if pf.locales(website).include?(I18n.locale.to_s) && !pf.requires_login?
+    crumbs << link_to(t('home').titleize, root_path)
+    crumbs << link_to(t('products').titleize, product_families_path)
+
+    if item.is_a?(Product)
+      if primary_family = item.primary_family(website)
+        crumbs += product_family_crumbs(primary_family)
+        crumbs << link_to(translate_content(primary_family, :name)) unless primary_family.requires_login?
       end
+
+    elsif item.is_a?(ProductFamily)
+      crumbs += product_family_crumbs(item)
     end
-    raw("#{t(:back_to)} #{crumbs.uniq.join(" :: ")}")
+
+    raw(crumbs.uniq.join(" &gt; "))
+  end
+
+  def product_family_crumbs(product_family)
+    product_family.ancestors.reverse.map do |pf|
+      link_to(translate_content(pf, :name), pf) unless pf.requires_login?
+    end
   end
 
   # Figure out which is the image path for the toggle effect on

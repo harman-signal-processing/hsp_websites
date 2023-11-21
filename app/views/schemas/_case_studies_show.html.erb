@@ -1,0 +1,29 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "<%= request.url %>"
+  },
+  "headline": "<%= @case_study[:headline] %>",
+  <% if @case_study[:banner_file_name].present? %>
+  "image": "<%= @case_study[:banner_urls][:large] %>",
+  <% end %>
+  "author": {
+    "@type": "Organization",
+    "name": "<%= website.brand.name %>",
+    "url": "<%= request.base_url %>"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "<%= website.brand.name %>",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "<%= request.base_url %>/logo.png"
+    }
+  },
+  "datePublished": "<%= @case_study[:created_at] %>",
+  "dateModified": "<%= @case_study[:updated_at] %>"
+}
+</script>
