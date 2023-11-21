@@ -26,6 +26,14 @@ namespace :maintain do
     end
   end
 
+  desc "Recount the products in the product family"
+  task update_current_product_counts: :environment do
+    Brand.all.each do |brand|
+      puts "Updating #{ brand.name } current product counts"
+      brand.update_current_product_counts
+    end
+  end
+
   def test_and_update(item)
     puts "Testing #{item.direct_url} ..." if Rails.env.development?
     begin

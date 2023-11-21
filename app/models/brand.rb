@@ -388,4 +388,13 @@ class Brand < ApplicationRecord
       .order("created_at DESC")
       .limit(40).select { |se| se if se.current_products.size > 0 }
   end
+
+  def update_current_product_counts
+    product_families.where(parent_id: nil).each do |parent_family|
+      parent_family.descendants.each{|d| d.update_current_product_counts}
+      parent_family.update_current_product_counts
+    end
+  end
+  handle_asynchronously :update_current_product_counts
+
 end
