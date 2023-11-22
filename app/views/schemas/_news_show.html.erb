@@ -21,7 +21,7 @@
       "url": "<%= request.base_url %>/logo.png"
     }
   },
-  "datePublished": "<%= @news.post_on.to_time.strftime("%FT%T") %>",
-  "dateModified": "<%= @news.updated_at.strftime("%FT%T") %>"
+  "datePublished": "<%= @news.post_on.to_time %>",
+  "dateModified": "<%= @news.updated_at %>"
 }
 </script>
