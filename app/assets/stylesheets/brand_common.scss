@@ -924,7 +924,7 @@ div.family_thumb {
     margin-top: 10px;
   }
   h3 {
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 4px;
     &.vertical {
       margin-top: 8px;
@@ -1354,6 +1354,11 @@ div#product_buy_now_box {
 	text-align: left;
 	letter-spacing: 0.02em;
 	margin-bottom: rem-calc(10px);
+	color: $dark-gray;
+
+	.current {
+	  color: $dark-gray;
+	}
 }
 
 dl.accordion {

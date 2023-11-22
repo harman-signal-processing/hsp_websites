@@ -401,13 +401,14 @@ module ProductsHelper
     if item.is_a?(Product)
       if primary_family = item.primary_family(website)
         crumbs += product_family_crumbs(primary_family)
-        crumbs << link_to(translate_content(primary_family, :name)) unless primary_family.requires_login?
+        crumbs << link_to(translate_content(primary_family, :name), primary_family) unless primary_family.requires_login?
       end
 
     elsif item.is_a?(ProductFamily)
       crumbs += product_family_crumbs(item)
     end
 
+    crumbs << content_tag(:span, translate_content(item, :name), class: "current")
     raw(crumbs.uniq.join(" &gt; "))
   end
 

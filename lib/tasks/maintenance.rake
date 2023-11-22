@@ -31,6 +31,7 @@ namespace :maintain do
     Brand.all.each do |brand|
       puts "Updating #{ brand.name } current product counts"
       brand.update_current_product_counts
+      brand.touch
     end
   end
 

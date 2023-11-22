@@ -29,7 +29,7 @@
 	<div class="small-12 columns list-news">
   <% end %>
     <% if @news.length > 0 %>
-      <h2><%= t "titles.news", brand: website.brand.name %></h2>
+      <h1><%= t "titles.news", brand: website.brand.name %></h1>
       <ul class="medium-block-grid-4 small-block-grid-2">
         <% @news.each do |item| %>
           <%= render item %>
