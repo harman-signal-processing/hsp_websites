@@ -29,8 +29,9 @@ feature "Buy It Now" do
     it "should have RETAILER google tracker" do
       visit product_path(@product, locale: @locale) + '?geo=us&geo_country=us'
       # Best I match is the beginning of the tracker onclick code. The entire code is:
-      # tracker = "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer.name}', '#{@product.name}'])"
-      expect(page).to have_xpath("//a[@href='#{@retailer_link.url}'][starts-with(@onclick, '_gaq.push')]")
+      # tracker (old) = "_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer.name}', '#{@product.name}'])"
+      # tracker (new) = "gtag('event', 'click', { 'event_category': 'BuyItNow-Dealer', 'event_action': '#{@online_retailer.name}', 'event_label': '#{@product.name}'})"
+      expect(page).to have_xpath("//a[@href='#{@retailer_link.url}'][starts-with(@onclick, 'gtag')]")
     end
 
     describe "preferred retailer" do
@@ -80,7 +81,7 @@ feature "Buy It Now" do
     end
 
     it "should have buy it now links with RETAILER google tracker" do
-      expect(page).to have_xpath("//a[@href='#{@retailer_link.url}'][starts-with(@onclick, '_gaq.push')]")
+      expect(page).to have_xpath("//a[@href='#{@retailer_link.url}'][starts-with(@onclick, 'gtag')]")
     end
 
   	it "preferred should appear first" do

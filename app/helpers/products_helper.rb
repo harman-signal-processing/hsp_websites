@@ -303,7 +303,8 @@ module ProductsHelper
   def buy_it_now_usa(product, button, options)
     button_class = button_class(button, options)
     if product.active_retailer_links.size > 0
-      # tracker = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
+      # tracker (old) = (Rails.env.production?) ? "_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}']);" : ""
+      # tracker (new) = (Rails.env.production?) ? "gtag('event', 'click', { 'event_category': 'BuyItNow', 'event_action': 'USA', 'event_label': '#{product.name}' });" : ""
       # link_to_function button, "#{tracker}popup('dealer_popup');"
       button_class += " buy_it_now_popup"
 
@@ -313,12 +314,12 @@ module ProductsHelper
         buy_it_now_product_path(product),
         class: button_class,
         data: html5_data,
-        onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'USA', '#{product.name}'])"))
+        onclick: raw("gtag('event', 'click', { 'event_category': 'BuyItNow', 'event_action': 'USA', 'event_label': '#{product.name}' })"))
     else
       link_to(button,
         where_to_find_path,
         class: button_class,
-        onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'Without online retailer links', '#{product.name}'])"))
+        onclick: raw("gtag('event', 'click', { 'event_category': 'BuyItNow', 'event_action': 'Without online retailer links', 'event_label': '#{product.name}' })"))
     end
   end
 
@@ -327,7 +328,7 @@ module ProductsHelper
       @online_retailer_link.url,
       class: button_class(button, options),
       target: "_blank",
-      onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Dealer', '#{@online_retailer_link.online_retailer.name}', '#{product.name}'])"))
+      onclick: raw("gtag('event', 'click', { 'event_category': 'BuyItNow-Dealer', 'event_action': '#{@online_retailer_link.online_retailer.name}', 'event_label': '#{product.name}' })"))
   end
 
   def buy_it_now_exclusive(product, button, options={})
@@ -335,7 +336,7 @@ module ProductsHelper
       product.exclusive_retailer_link.url,
       class: button_class(button, options) + " buy_it_now_popup",
       data: (options[:reveal_id]) ? {:'reveal-id' => options[:reveal_id]} : {windowname: 'dealer_popup'},
-      onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow-Exclusive', '#{product.exclusive_retailer_link.online_retailer.name}', '#{product.name}'])"))
+      onclick: raw("gtag('event', 'click', { 'event_category': 'BuyItNow-Exclusive', 'event_action': '#{product.exclusive_retailer_link.online_retailer.name}', 'event_label': '#{product.name}' })"))
   end
 
   def buy_it_now_direct_from_factory(product, button, options={})
@@ -343,14 +344,14 @@ module ProductsHelper
       product.direct_buy_link,
       class: button_class(button, options),
       target: "_blank",
-      onclick: raw("_gaq.push(['_trackEvent', 'AddToCart', 'USA (#{session['geo_country']})', '#{product.name}'])"))
+      onclick: raw("gtag('event', 'click', { 'event_category': 'AddToCart', 'event_action': 'USA (#{session['geo_country']})', 'event_label': '#{product.name}' })"))
   end
 
   def buy_it_now_international(product, button, options={})
     link_to(button,
       international_distributors_path,
       class: button_class(button, options),
-      onclick: raw("_gaq.push(['_trackEvent', 'BuyItNow', 'non-USA (#{session['geo_country']})', '#{product.name}'])"))
+      onclick: raw("gtag('event', 'click', { 'event_category': 'BuyItNow', 'event_action': 'non-USA (#{session['geo_country']})', 'event_label': '#{product.name}' })"))
   end
 
   # Used by the different buy it now methods to determine what kind of CSS class (if any)
