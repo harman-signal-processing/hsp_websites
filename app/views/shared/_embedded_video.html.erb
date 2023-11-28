@@ -11,6 +11,9 @@
             allowfullscreen></iframe>
   </div>
 
+  <% if video.has_metadata? %>
+    <%= render 'schemas/videos_show', video: video %>
+  <% end %>
   <p>&nbsp;</p>
 <% rescue %>
   <!-- problem loading <%= video.youtube_id %> -->

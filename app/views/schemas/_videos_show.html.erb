@@ -1,0 +1,18 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "<%= video.title %>",
+  "description": "<%= video.description %>",
+  "thumbnailUrl": "https://i.ytimg.com/vi/<%= video.youtube_id %>/hqdefault.jpg",
+  <% if video.published_on.present? %>
+  "uploadDate": "<%= video.published_on.to_time %>",
+  <% else %>
+  "uploadDate": "<%= video.created_at %>",
+  <% end %>
+  <% if video.duration_seconds.present? %>
+  "duration": "<%= ActiveSupport::Duration.build(video.duration_seconds).iso8601 %>",
+  <% end %>
+  "embedUrl": "https://www.youtube.com/watch?<%= video.youtube_id %>"
+}
+</script>

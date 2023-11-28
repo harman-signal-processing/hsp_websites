@@ -8,15 +8,9 @@ class ProductFamilyVideo < ApplicationRecord
 
   acts_as_list scope: :product_family
 
-  before_validation :sanitize_youtube_id
+  before_validation :sanitize_youtube_id,
+    :populate_metadata
 
-  protected
+  after_save :update_same_videos
 
-  def sanitize_youtube_id
-    if youtube_id.to_s.match?(/^http/)
-      if youtube_id.match(/v\=(.*)$/)
-        self.youtube_id = $1
-      end
-    end
-  end
 end

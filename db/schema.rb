@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_19_202409) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_27_173539) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -1297,6 +1297,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_202409) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "description"
+    t.integer "duration_seconds"
+    t.date "published_on"
     t.index ["product_family_id"], name: "index_product_family_videos_on_product_family_id"
   end
 
@@ -1490,6 +1494,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_202409) do
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "title"
+    t.string "description"
+    t.integer "duration_seconds"
+    t.date "published_on"
     t.index ["product_id"], name: "index_product_videos_on_product_id"
   end
 
