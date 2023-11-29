@@ -202,6 +202,9 @@ set_meta_tags title: @product.name,
         <%= hpro_contact_buttons %>
       </div>
     <% end %>
+    <div class="show-for-medium-down">
+      <%= render_partial 'shared/other_languages_button', item: @product %>
+    </div>
 
     <% if @product.legal_disclaimer.present? %>
       <div class="legal_disclaimer">

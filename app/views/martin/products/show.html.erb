@@ -121,7 +121,7 @@ set_meta_tags title: @product.name,
 <% end %>
 
 <div class="row" id="product-content-container" >
-	<div class="large-8 small-12 columns">
+	<div class="medium-8 small-12 columns">
 
     <% if @product.layout_class.to_s.match(/vertical/i) %>
       <% if @product.photo %>
@@ -183,10 +183,13 @@ set_meta_tags title: @product.name,
     <%= draw_main_product_content @product, active_tab: @active_tab %>
 
     <% unless hide_contact_buttons?(@product) %>
-      <div class="show-for-medium-down">
+      <div class="show-for-small-down">
         <%= hpro_contact_buttons %>
       </div>
     <% end %>
+    <div class="show-for-small-down">
+      <%= render_partial 'shared/other_languages_button', item: @product %>
+    </div>
 
     <% if @product.legal_disclaimer.present? %>
       <div class="legal_disclaimer">
@@ -196,8 +199,8 @@ set_meta_tags title: @product.name,
 
 	</div>
 
-  <div class="large-4 small-12 columns">
-    <div class="product-title-block show-for-large-up">
+  <div class="medium-4 small-12 columns">
+    <div class="product-title-block show-for-medium-up">
       <% if can?(:manage, @product) %>
         <%= link_to edit_admin_product_path(@product), class: "edit-link", data: { opener: "edit-title-block" } do %>
           <%= fa_icon "edit" %> edit
