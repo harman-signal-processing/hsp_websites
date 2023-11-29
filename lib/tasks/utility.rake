@@ -99,7 +99,6 @@ namespace :utility do
       pv = ProductVideo
         .where(title: nil, duration_seconds: nil)
         .where.not("youtube_id LIKE 'PL%'")
-        .where.not(youtube_id: ["zI1mZury1v0"])
         .order("created_at DESC")
         .first
       puts "Updating video: #{pv.youtube_id} (ID: #{pv.id})"

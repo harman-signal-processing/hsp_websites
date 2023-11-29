@@ -74,8 +74,9 @@ module YoutubeVideo
       part1 = page.content.split("ytInitialPlayerResponse = ").last
       # Get rid of everything after the next /script tag
       part2 = part1.split("</script>").first
-      # Strip off any trailing semicolon
+      # Strip off any trailing code and semicolon
       raw_json = part2.gsub(/\;$/, "")
+      raw_json = raw_json.gsub(/\;var.*$/, "")
       # Parse what's left as JSON
       json = JSON.parse(raw_json)
 
