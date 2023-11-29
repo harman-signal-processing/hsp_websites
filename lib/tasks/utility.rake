@@ -93,27 +93,36 @@ namespace :utility do
   # Example: rake utility:populate_product_video_metadata[10,120]
   desc "Find and update product videos which are missing meta data"
   task :populate_product_video_metadata, [:limit, :sleep] => :environment do |task, args|
-    limit = args[:limit] || 10
+    limit = args[:limit].to_i || 10
     sleep_time = args[:sleep] || 100
-    ProductVideo.where(title: nil, duration_seconds: nil).limit(limit).order("created_at DESC").each do |pv|
+    limit.times do |i| # select a new one each time to avoid updating the same yt id over and over
+      pv = ProductVideo
+        .where(title: nil, duration_seconds: nil)
+        .where.not("youtube_id LIKE 'PL%'")
+        .where.not(youtube_id: ["zI1mZury1v0"])
+        .order("created_at DESC")
+        .first
       puts "Updating video: #{pv.youtube_id} (ID: #{pv.id})"
-      pv.send(:populate_metadata)
-      pv.save if pv.title_changed?
+      pv.send(:populate_metadata_without_delay)
       puts " ... #{pv.title}" if pv.title.present?
-      sleep(sleep_time.to_i)
+      sleep(sleep_time.to_i) unless i == (limit - 1)
     end
   end
 
   desc "Find and update product family videos which are missing meta data"
   task :populate_product_family_video_metadata, [:limit, :sleep] => :environment do |task, args|
-    limit = args[:limit] || 10
+    limit = args[:limit].to_i || 10
     sleep_time = args[:sleep] || 100
-    ProductFamilyVideo.where(title: nil, duration_seconds: nil).limit(limit).order("created_at DESC").each do |pv|
+    limit.times do |i| # select a new one each time to avoid updating the same yt id over and over
+      pv = ProductFamilyVideo
+        .where(title: nil, duration_seconds: nil)
+        .where.not("youtube_id LIKE 'PL%'")
+        .order("created_at DESC")
+        .first
       puts "Updating video: #{pv.youtube_id} (ID: #{pv.id})"
-      pv.send(:populate_metadata)
-      pv.save if pv.title_changed?
+      pv.send(:populate_metadata_without_delay)
       puts " ... #{pv.title}" if pv.title.present?
-      sleep(sleep_time.to_i)
+      sleep(sleep_time.to_i) unless i == (limit - 1)
     end
   end
 end

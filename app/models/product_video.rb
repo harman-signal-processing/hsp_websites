@@ -10,8 +10,9 @@ class ProductVideo < ApplicationRecord
   acts_as_list scope: :product
 
   before_validation :sanitize_youtube_id,
-    :populate_metadata,
     :set_default_group
+
+  after_create :populate_metadata
 
   after_save :update_same_videos
 
