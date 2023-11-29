@@ -13,7 +13,7 @@ class Admin::BannerLocalesController < AdminController
         format.html { redirect_to([:admin, @banner, @banner_locale], notice: 'Banner Locale was successfully created.') }
         website.add_log(user: current_user, action: "Created banner locale: #{@banner.name} #{@banner_locale.locale}")
       else
-        format.html { render action: "new" }
+        format.html { redirect_to([:admin, @banner], alert: 'Be sure to choose a valid locale.') }
         format.xml  { render xml: @banner_locale.errors, status: :unprocessable_entity }
       end
     end

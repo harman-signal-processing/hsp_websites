@@ -68,7 +68,7 @@
         <%= f.input :locale,
           label: false,
           as: :select,
-          collection: website.list_of_available_locales - @banner.banner_locales.map{|bl| bl.locale} %>
+          collection: website.list_of_all_locales - @banner.banner_locales.map{|bl| bl.locale} %>
       </div>
       <div class="small-4 columns">
         <%= f.button :submit %>
