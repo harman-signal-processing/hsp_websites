@@ -18,6 +18,7 @@
           <th style="width:50%;">Product</th>
           <th class="text-center">Latest Version</th>
           <th class="text-center">Update via DMX</th>
+          <th class="text-center">Update via Network</th>
           <th class="text-center">Update via USB</th>
           <th class="text-center">Update via P3</th>
         </tr>
@@ -30,6 +31,13 @@
             <td class="text-center"><%=product_version_item_to_use[:version]%></td>
             <td class="text-center">
               <% if product_version_item_to_use[:update_via_dmx].to_s == "true" %>
+                <%= fa_icon 'check-square-o' %>
+              <% else %>
+                <%= fa_icon 'square-o' %>
+              <% end %>
+            </td>
+            <td class="text-center">
+              <% if product_version_item_to_use[:update_via_network].to_s == "true" %>
                 <%= fa_icon 'check-square-o' %>
               <% else %>
                 <%= fa_icon 'square-o' %>

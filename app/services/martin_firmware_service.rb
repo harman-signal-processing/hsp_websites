@@ -37,8 +37,9 @@ module MartinFirmwareService
         firmware_items[category.to_sym][:items] << {
           product: value_split_on_forward_slash[2],
           version: value_split_on_forward_slash[3],
-          update_via_usb: value_split_on_pipe[5].to_i > 0,
           update_via_dmx: (value_split_on_pipe[6].present?) ? value_split_on_pipe[6].to_i > 0 : true,
+          update_via_network: value_split_on_pipe[3].to_s == "Martin RDM" ? true : false,
+          update_via_usb: value_split_on_pipe[5].to_i > 0,
           update_via_p3:  value_split_on_pipe[7].to_i > 0
         }
       end
@@ -80,8 +81,9 @@ module MartinFirmwareService
       {
         product: highest_version_item[0][:product],
         version: highest_version_item[0][:version],
-        update_via_usb: highest_version_item[0][:update_via_usb],
         update_via_dmx: highest_version_item[0][:update_via_dmx],
+        update_via_network: highest_version_item[0][:update_via_network],
+        update_via_usb: highest_version_item[0][:update_via_usb],
         update_via_p3: highest_version_item[0][:update_via_p3]
       }
     end  #  def latest_product_version_item(item)
