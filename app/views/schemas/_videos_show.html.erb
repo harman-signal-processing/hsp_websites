@@ -3,7 +3,11 @@
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "<%= video.title %>",
+  <% if video.description.present? %>
   "description": "<%= video.description %>",
+  <% else %>
+  "description": "More information about <%= video.title %>",
+  <% end %>
   "thumbnailUrl": "https://i.ytimg.com/vi/<%= video.youtube_id %>/hqdefault.jpg",
   <% if video.published_on.present? %>
   "uploadDate": "<%= video.published_on.to_time %>",
