@@ -154,12 +154,12 @@
 				<%= link_to t('where_to_buy'), where_to_find_path %> &bull;
 				<% end %>
 				<%= link_to t('product_support'), support_path %> &bull;
-				<%= link_to t('privacy_policy').titleize, "https://www.harman.com/privacy-policy", target: "_blank" %> &bull;
-				<%= link_to t('terms_of_use').titleize, "https://www.harman.com/terms-use", target: "_blank" %>
+				<%= link_to t('privacy_policy').downcase, "https://www.harman.com/privacy-policy", target: "_blank" %> &bull;
+				<%= link_to t('terms_of_use').downcase, "https://www.harman.com/terms-use", target: "_blank" %>
 			</div>
 			<div id="footer_left">
 				&copy; <%= Date.today.year %>
-				<%= link_to(image_tag('harman.jpg', alt: t('harman')), "//www.harman.com/", target: "_blank") %>
+				<%= link_to(image_tag('harman.jpg', alt: t('harman'), lazy: false), "//www.harman.com/", target: "_blank") %>
 				<%= t('all_rights_reserved') %>
 			</div>
 		</footer>

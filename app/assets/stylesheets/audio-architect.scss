@@ -384,7 +384,7 @@ header div#search_form {
 		background: #FFF;
 		color: #666;
 		padding: 5px 6px;
-		box-shadow: inset 1px 1px 3px #8E8E8E;	
+		box-shadow: inset 1px 1px 3px #8E8E8E;
 		border-radius: 10px;
 		font-size: 12px;
 	}
@@ -520,7 +520,7 @@ div#big_bottom_box_content {
 }
 
 .divider_above {
-	border-top: 1px dotted #7283AF; 
+	border-top: 1px dotted #7283AF;
 	margin-top: 20px;
 }
 
@@ -567,22 +567,22 @@ footer {
 	}
 }
 .video_duration {
-	position:absolute; 
-	top: 85px; 
-	left: 92px; 
-	z-index: 2; 
-	color: white; 
-	font-size: 80%; 
-	background: #000; 
+	position:absolute;
+	top: 85px;
+	left: 92px;
+	z-index: 2;
+	color: white;
+	font-size: 80%;
+	background: #000;
 	padding: 1px 6px;
 	opacity: 0.9;
 	-moz-opacity: 0.9;
 	filter:alpha(opacity=90);
 }
 .video_thumbnail .play_button {
-	position:absolute; 
-	top: 55px; 
-	left: 95px; 
+	position:absolute;
+	top: 55px;
+	left: 95px;
 	z-index: 2;
 }
 .medium_centered_box {
@@ -707,7 +707,7 @@ div.product_family_feature {
 	color: #FFF;
 	font-family: 'AsapRegular', Arial, sans-serif;
 	h2 {
-		letter-spacing: 0.12em;	
+		letter-spacing: 0.12em;
 		line-height: 16px;
 		margin-bottom: 1px;
 		a:link, a:visited {
@@ -739,11 +739,11 @@ div.placeholder {
 	background: #EEE;
 	color: #666;
 	margin-bottom: 5px;
-	margin-left: auto; 
+	margin-left: auto;
 	margin-right: auto;
 }
 div.family_photo {
-	height: 125px; width: 150px; 
+	height: 125px; width: 150px;
 }
 div#signup {
 	margin-bottom: 12px;
@@ -819,7 +819,7 @@ div#signup {
 			color: #6E6E6E;
 			border: 1px solid #E3DFD8;
 			padding: 10px;
-			text-align: center;	
+			text-align: center;
 			width: 198px;
 			height: 140px;
 			margin: 10px;
@@ -1453,12 +1453,12 @@ div#featured_artist_box {
     margin: -55px -10px 20px;
 	text-align: center;
 	width: 960px;
-	height: 408px; 
+	height: 408px;
 /*	outline: 1px solid #384343;*/
 	position: relative;
 	padding: 0px;
 	.slideshow_frame {
-		position: relative;	
+		position: relative;
 		top: 0px;
 		width: 960px;
 		height: 408px;
@@ -1507,8 +1507,8 @@ div#big_bottom_box_content div.column div.artist_listing h2 a:visited {
 div#big_artist_photo {
 	text-align: center;
 	margin: -55px -10px 10px;
-	width: 960px; 
-	height: 408px; 
+	width: 960px;
+	height: 408px;
 /*	outline: 1px solid #384343;*/
 }
 div#artist_product_photo_medium {
@@ -1560,10 +1560,10 @@ div.artist_description {
 			background: #E9E9E9;
 		}
 		h1 {
-			font-size: 18px; 
-			line-height: 20px; 
-			color: black; 
-			font-weight: bold; 
+			font-size: 18px;
+			line-height: 20px;
+			color: black;
+			font-weight: bold;
 			text-transform: uppercase;
 			margin-top: 20px;
 		}
@@ -1678,7 +1678,7 @@ form.contact {
 form.contact div {
   margin-bottom: 8px;
 }
-form.contact input, 
+form.contact input,
 form.contact select {
 	font-size: 120%;
 	padding: 2px;
@@ -1686,7 +1686,7 @@ form.contact select {
 form.contact textarea {
 	width: 100%;
 	font-family: Arial, Verdana, Sans-serif;
-} 
+}
 div.captcha {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -1794,22 +1794,22 @@ table.download-collection {
 }
 /****** Software Downloads *******/
 div#software-page-content {
-	margin-top: 20px; 
+	margin-top: 20px;
 	margin-bottom: 40px;
 	.aside {
 		float: right;
-		margin: 10px 50px; 
-		width: 300px; 
+		margin: 10px 50px;
+		width: 300px;
 		.download_box {
 			margin-bottom: 10px;
-			text-align: center; 
-			background: #EEE; 
+			text-align: center;
+			background: #EEE;
 			padding: 20px 20px 10px 20px;
 			-moz-border-radius: 8px;
 			border-radius: 8px;
 		}
 		div#signup {
-			text-align: center; 
+			text-align: center;
 		}
 	}
 }
@@ -1877,9 +1877,9 @@ table.tube td {
 }
 /************** ***********/
 .disclaimer {
-	font-size: 80%; 
+	font-size: 80%;
 	margin-bottom: 10px;
-	font-style:oblique; 
+	font-style:oblique;
 	color: #333
 }
 div#harmanpro_bar {
@@ -1888,6 +1888,17 @@ div#harmanpro_bar {
 	padding: 0px;
 	text-align: center;
 	margin: 0px auto 4px auto;
+	.columns {
+		float: none !important;
+	}
+	div.large-3 {
+		border-bottom: 1px solid white;
+		margin-bottom: 20px;
+		padding: 20px;
+	}
+	img.hlogo {
+		width: 200px;
+	}
 }
 /*** admin functions **/
 .admin_function {
@@ -2025,7 +2036,7 @@ body.artists div.form_field {
 }
 #artist_login_container input#artist_email,
 #artist_login_container input#artist_password {
-	width: 180px;	
+	width: 180px;
 }
 .artist_field {
 	font-size: 18px;
@@ -2076,10 +2087,10 @@ div#content_container_content .alphanav a:visited.current {
 .small_button {}
 .small_button a:link,
 .small_button a:visited {
-	font-size: 11px; 
-	font-weight: normal; 
-	border-radius: 3px; 
-	border: 1px solid #CCC; 
+	font-size: 11px;
+	font-weight: normal;
+	border-radius: 3px;
+	border: 1px solid #CCC;
 	padding: 1px 5px;
 	background: #eeeeee; /* Old browsers */
 	background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
@@ -2310,7 +2321,7 @@ ul#search_results .related_products_links li {
 #search_page_container > form > div > div.large-4.small-5.columns > input
 {
     margin-bottom: 20px;
-    margin-top: 6px;    	
+    margin-top: 6px;
 }
 
 .panel {
