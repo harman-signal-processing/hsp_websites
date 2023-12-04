@@ -1,0 +1,110 @@
+<%
+set_meta_tags title: "#{ website.brand.name } Sitemap",
+	reverse: true
+%>
+<h1><%= website.brand.name %> Sitemap</h1>
+<%= cache ["html-sitemap", website.brand, I18n.locale] do %>
+
+<% link_count = 0 %>
+<% linked_product_ids = [] %>
+<ul>
+  <%# Product stuff %>
+  <% if website.brand.has_product_selector? %>
+    <li><%= link_to t(:product_selector), product_selector_url %></li>
+    <% link_count += 1 %>
+  <% end %>
+
+  <%# Top-level families %>
+  <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+    <% if product_family.hreflangs(website).include?(I18n.locale.to_s) %>
+      <li> <%= link_to "#{translate_content(product_family, :name)} #{t(:products)}", product_family %>
+        <% link_count += 1 %>
+        <%# All products under the current top-level family %>
+        <ul>
+          <% product_family.current_products_plus_child_products(website).each do |product| %>
+            <% if product.hreflangs(website).include?(I18n.locale.to_s) %>
+              <li><%= link_to translate_content(product, :name), product %> <%= translate_content(product, :short_description) %></li>
+              <% link_count += 1 %>
+            <% end %>
+            <% linked_product_ids << product.id %>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  <% end %>
+
+  <%# Are there any current products we didn't link to yet? (Accessories mostly) %>
+  <% unlinked_ids = website.brand.current_product_ids - linked_product_ids %>
+  <% if unlinked_ids.size > 0 %>
+    <li>Other products
+      <ul>
+        <% Product.where(id: unlinked_ids, brand_id: website.brand_id).each do |product| %>
+          <% if product.hreflangs(website).include?(I18n.locale.to_s) %>
+            <li><%= link_to translate_content(product, :name), product %> <%= translate_content(product, :short_description) %></li>
+            <% link_count += 1 %>
+          <% end %>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+
+  <li> <%= link_to t("titles.product_support").titleize, support_url %></li>
+  <% link_count += 1 %>
+
+  <% if website.has_where_to_buy? %>
+    <li> <%= link_to t(:where_to_buy).titleize, where_to_find_url %></li>
+    <% link_count += 1 %>
+  <% end %>
+
+  <%# News %>
+  <%
+    all_news = News.all_for_website(website)
+    if all_news.size > 0
+  %>
+    <li><%= link_to "#{website.brand.name } #{t(:news)}".titleize, news_index_url %>
+      <% link_count += 1 %>
+      <ul>
+      <%
+        all_news.limit(35).each do |news|
+          if news.hreflangs(website).include?(I18n.locale.to_s)
+            %>
+            <li><%= link_to translate_content(news, :title), news %></li>
+            <% link_count += 1 %>
+            <%
+          end
+        end
+        %>
+      </ul>
+    </li>
+  <% end %>
+
+  <%# Case Studies %>
+  <%
+  begin
+    case_studies = CaseStudy.find_by_website_or_brand(website)
+    if case_studies.size > 0
+      %>
+      <li><%= link_to "#{ website.brand.name} #{t('nav.case_studies')}".titleize, case_studies_url %>
+        <% link_count += 1 %>
+      <ul>
+        <% case_studies.each_with_index do |case_study, i| %>
+          <% last if i >= 35 %>
+          <li><%= link_to case_study[:headline], case_study_url(case_study[:slug]) %></li>
+          <% link_count += 1 %>
+        <% end %>
+      </ul>
+      </li>
+    <% end %>
+  <%
+  rescue
+    # if there was a problem loading case studies, move on
+  end
+  %>
+</ul>
+<!-- <%= link_count %> links in this sitemap -->
+
+<% end # cache %>
+
+<hr/>
+<p>Additionally, our sitemap is available in XML format here:<br/>
+<a href="/<%= I18n.locale %>/sitemap.xml"><%= request.protocol %><%= request.host_with_port %>/<%= I18n.locale %>/sitemap.xml</a></p>

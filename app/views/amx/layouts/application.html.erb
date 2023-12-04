@@ -139,7 +139,8 @@
             <%= link_to t('titles.about_us'.titleize, brand: website.brand.name), "/#{I18n.locale}/about-amx" %> &bull;
             <%= link_to 'careers'.titleize, "https://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to t('privacy_policy').titleize, "https://www.harman.com/privacy-policy", target: "_blank" %> &bull;
-						<%= link_to t('terms_of_use').titleize, "https://www.harman.com/terms-use", target: "_blank" %>
+						<%= link_to t('terms_of_use').titleize, "https://www.harman.com/terms-use", target: "_blank" %> &bull;
+						<%= link_to "Sitemap", locale_sitemap_path(format: 'html') %>
 					</span>
 				</div>
 			</div>

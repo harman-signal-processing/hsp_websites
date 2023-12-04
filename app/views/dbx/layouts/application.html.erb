@@ -141,7 +141,8 @@
 	            <%= link_to t("forum").titleize, website.forum_link %> &bull;
 	          <% end %>
 						<%= link_to t('privacy_policy').titleize, "https://www.harman.com/privacy-policy", target: "_blank" %> &bull;
-						<%= link_to t('terms_of_use').titleize, "https://www.harman.com/terms-use", target: "_blank" %>
+						<%= link_to t('terms_of_use').titleize, "https://www.harman.com/terms-use", target: "_blank" %> &bull;
+						<%= link_to "Sitemap", locale_sitemap_path(format: 'html') %>
 					</span>
 				</div>
 			</div>

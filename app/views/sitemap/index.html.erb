@@ -1,0 +1,10 @@
+<p>Our sitemaps are available by locale:</p>
+<ul>
+  <% @pages.each do |p| %>
+  <li><%= link_to p[:name], p[:url]+".html" %></li>
+  <% end %>
+</ul>
+
+<p>Additionally, our sitemap is available in XML format here:<br/>
+<a href="/sitemap.xml"><%= request.protocol %><%= request.host_with_port %>/sitemap.xml</a></p>
+

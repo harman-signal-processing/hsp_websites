@@ -170,6 +170,7 @@
                   <% if website.legal_footer_link %>
                     | <%= link_to "Legal", website.legal_footer_link %>
                   <% end %>
+      						| <%= link_to "Sitemap", locale_sitemap_path(format: 'html') %>
                 </div>
               </div>
             </div>
