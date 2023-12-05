@@ -39,11 +39,10 @@
     <li class="hide-for-medium"><%= link_to t('where_to_buy').titleize, where_to_find_path %></li>
 	<% end %>
 
-  <li class="has-dropdown"><%= link_to t("nav.case_studies"), case_studies_path %>
+  <li class="has-dropdown"><%= link_to t('news').titleize, '#' %>
     <ul class="dropdown">
-      <% if website.has_news? %>
-        <li><%= link_to t('news').titleize, news_index_path %></li>
-      <% end %>
+      <li><%= link_to t("nav.case_studies").titleize, case_studies_path %></li>
+      <li><%= link_to t('nav.press').titleize, news_index_path %></li>
     </ul>
   </li>
 
