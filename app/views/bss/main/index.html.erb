@@ -9,7 +9,16 @@
   } %>
 
 <%= content_for :feature do %>
-  <%= render_partial 'shared/video_banner' %>
+	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+    <% if website.homepage_feature_override.present? %>
+      <%= raw website.homepage_feature_override %>
+    <% else %>
+      <% slides = website.homepage_banners %>
+      <% if slides.size > 0 %>
+        <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
+      <% end %>
+    <% end %>
+	<% end %>
 <% end %>
 
 <%= content_for :big_bottom_box do %>
@@ -21,8 +30,8 @@
   <%= render_partial "shared/features_carousel_strip" %>
   <%= render_partial "shared/featured_products_strip" %>
   <%#= render_partial "shared/training_strip" %>
-  <%= render_partial "shared/contrio_strip" %>
-  <%= render_partial "shared/software_strip" %>
+  <%#= render_partial "shared/contrio_strip" %>
+  <%#= render_partial "shared/software_strip" %>
   <%#= render_partial "shared/compatibility_strip" %>
   <%= render_partial "shared/promotions_strip" %>
   <%= render_partial "shared/teaser_strip" %>
