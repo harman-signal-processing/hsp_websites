@@ -283,6 +283,12 @@ div#supernav {
 	}
 }
 
+#supernav > img {
+	max-height: 146px;
+  width: 100%;
+  margin-top: -24px;
+}
+
 div#topnav {
 	position: absolute;
 	top: 85px;
@@ -1889,17 +1895,27 @@ div#harmanpro_bar {
 	text-align: center;
 	margin: 0px auto 4px auto;
 	.columns {
-		float: none !important;
+		// float: none !important;
 	}
 	div.large-3 {
 		border-bottom: 1px solid white;
 		margin-bottom: 20px;
-		padding: 20px;
+		// padding: 20px;
 	}
 	img.hlogo {
 		width: 200px;
+		margin-bottom: -28px;
 	}
-}
+	[class*="block-grid-"] {
+    display: block;
+    padding: 0;
+    margin: 0 -0.625rem 0 0.5rem;	
+	}
+	[class*="block-grid-"] > li {
+		padding: 0;
+	}
+} // div#harmanpro_bar
+
 /*** admin functions **/
 .admin_function {
 	position: absolute;
@@ -3990,4 +4006,33 @@ ul#search_results .related_products_links li {
     .large-block-grid-12>li:nth-of-type(12n+1) {
         clear: both
     }
+}
+
+/******** Footer Logos ********/
+.footer_brand_logos {
+  padding: 12px 0 0 0;
+}
+#footer_logo_akg, #footer_logo_bss, #footer_logo_dbx {
+  width: 50px;
+}
+#footer_logo_amx {
+  width: 57px;
+}
+#footer_logo_crown {
+  width: 77px;
+  padding: 8px 0 0 0;
+}
+#footer_logo_jbl {
+  width: 76px;
+  padding: 6px 0 0 0;
+}
+#footer_logo_lexicon {
+  width: 57px;
+  margin: 3px 0 0 0;
+}
+#footer_logo_martin {
+  width: 64px;
+}
+#footer_logo_soundcraft {
+  width: 79px;
 }
