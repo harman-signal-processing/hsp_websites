@@ -16,13 +16,13 @@ set_meta_tags title: "#{ website.brand.name } Sitemap",
 
   <%# Top-level families %>
   <% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
-    <% if product_family.hreflangs(website).include?(I18n.locale.to_s) %>
+    <% if product_family.locales(website).include?(I18n.locale.to_s) %>
       <li> <%= link_to "#{translate_content(product_family, :name)} #{t(:products)}", product_family %>
         <% link_count += 1 %>
         <%# All products under the current top-level family %>
         <ul>
           <% product_family.current_products_plus_child_products(website).each do |product| %>
-            <% if product.hreflangs(website).include?(I18n.locale.to_s) %>
+            <% if product.locales(website).include?(I18n.locale.to_s) %>
               <li><%= link_to translate_content(product, :name), product %> <%= translate_content(product, :short_description) %></li>
               <% link_count += 1 %>
             <% end %>
@@ -39,7 +39,7 @@ set_meta_tags title: "#{ website.brand.name } Sitemap",
     <li>Other products
       <ul>
         <% Product.where(id: unlinked_ids, brand_id: website.brand_id).each do |product| %>
-          <% if product.hreflangs(website).include?(I18n.locale.to_s) %>
+          <% if product.locales(website).include?(I18n.locale.to_s) %>
             <li><%= link_to translate_content(product, :name), product %> <%= translate_content(product, :short_description) %></li>
             <% link_count += 1 %>
           <% end %>
