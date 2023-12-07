@@ -34,21 +34,21 @@ feature "Bots not Geofenced" do
     end
 
     it "tries to visit en-asia should NOT redirect to en-US" do
-      visit root_path(locale: "en-asia")
+      visit "/en-asia"
 
       expect(page.current_path).to eq("/en-asia")
     end
 
     it "tries to visit en should NOT redirect to en-US" do
-      visit root_path(locale: "en")
+      visit "/en"
 
       expect(page.current_path).to eq("/en")
     end
 
     it "visits homepage with no locale in URL" do
-      visit ("/")
+      visit "/"
 
-      expect(page.current_path).to eq("/en-US")
+      expect(page.current_path).to eq("/")
     end
   end
 

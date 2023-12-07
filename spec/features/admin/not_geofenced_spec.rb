@@ -18,7 +18,7 @@ feature "Not Geofenced", :devise do
 
   describe "admin visits en-asia" do
     it "should not redirect" do
-      visit root_path(locale: "en-asia")
+      visit "/en-asia"
 
       expect(page.current_path).to eq("/en-asia")
     end

@@ -34,7 +34,7 @@ class MainController < ApplicationController
         if website.teaser.to_i >= 1 && !(cookies[campaign])
           teaser
         else
-          render_template
+          render_template action: :index
         end
       }
       format.xml {
@@ -57,7 +57,14 @@ class MainController < ApplicationController
   # automatically.
   #
   def default_locale
-    redirect_to locale_root_path, status: :moved_permanently and return false
+    # Show search engines a global homepage without locale in the path
+    # This is needed for homepage structured data to show up in search results
+    if is_search_engine? || can?(:manage, Product)
+      I18n.locale ||= I18n.default_locale
+      index
+    else
+      redirect_to locale_root_path, status: :moved_permanently and return false
+    end
   end
 
   # Generates an RSS feed of the latest News
