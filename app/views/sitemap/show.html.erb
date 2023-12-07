@@ -22,6 +22,7 @@ set_meta_tags title: "#{ website.brand.name } Sitemap",
         <%# All products under the current top-level family %>
         <ul>
           <% product_family.current_products_plus_child_products(website).each do |product| %>
+            <% next if linked_product_ids.include?(product.id) %>
             <% if product.locales(website).include?(I18n.locale.to_s) %>
               <li><%= link_to translate_content(product, :name), product %> <%= translate_content(product, :short_description) %></li>
               <% link_count += 1 %>
