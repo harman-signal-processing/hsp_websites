@@ -23,8 +23,14 @@ set_meta_tags title: "#{ website.brand.name } Sitemap",
         <ul>
           <% product_family.current_products_plus_child_products(website).each do |product| %>
             <% next if linked_product_ids.include?(product.id) %>
+            <% next if product.brand_id != website.brand_id %>
             <% if product.locales(website).include?(I18n.locale.to_s) %>
-              <li><%= link_to translate_content(product, :name), product %> <%= translate_content(product, :short_description) %></li>
+              <li>
+                <%= link_to product do %>
+                  <%= translate_content(product, :name) %>
+                  <%= translate_content(product, :short_description) %>
+                <% end %>
+              </li>
               <% link_count += 1 %>
             <% end %>
             <% linked_product_ids << product.id %>
@@ -40,8 +46,15 @@ set_meta_tags title: "#{ website.brand.name } Sitemap",
     <li>Other products
       <ul>
         <% Product.where(id: unlinked_ids, brand_id: website.brand_id).each do |product| %>
+          <% next if product.brand_id != website.brand_id %>
+          <% next if product.product_page_url.present? && !(product.product_page_url.match?(/#{request.original_url}/i)) %>
           <% if product.locales(website).include?(I18n.locale.to_s) %>
-            <li><%= link_to translate_content(product, :name), product %> <%= translate_content(product, :short_description) %></li>
+            <li>
+              <%= link_to product do %>
+                <%= translate_content(product, :name) %>
+                <%= translate_content(product, :short_description) %>
+              <% end %>
+            </li>
             <% link_count += 1 %>
           <% end %>
         <% end %>
