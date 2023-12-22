@@ -75,7 +75,7 @@ set_meta_tags title: "#{ website.brand.name } Sitemap",
     all_news = News.all_for_website(website)
     if all_news.size > 0
   %>
-    <li><%= link_to "#{website.brand.name } #{t(:news)}".titleize, news_index_url %>
+    <li><%= link_to "#{website.brand.name } #{t(:news).titleize}", news_index_url %>
       <% link_count += 1 %>
       <ul>
       <%
@@ -98,7 +98,7 @@ set_meta_tags title: "#{ website.brand.name } Sitemap",
     case_studies = CaseStudy.find_by_website_or_brand(website)
     if case_studies.size > 0
       %>
-      <li><%= link_to "#{ website.brand.name} #{t('nav.case_studies')}".titleize, case_studies_url %>
+      <li><%= link_to "#{ website.brand.name} #{t('nav.case_studies').titleize}", case_studies_url %>
         <% link_count += 1 %>
       <ul>
         <% case_studies.each_with_index do |case_study, i| %>
