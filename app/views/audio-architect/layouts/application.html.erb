@@ -37,6 +37,7 @@
 		<% end %>
 
 		<%#= javascript_include_tag 'application' %>
+		<%= javascript_include_tag website.folder %>
 		<%= stylesheet_link_tag website.folder %>
 		<%= yield :extra_header_code %>
     <%= cache [website, "other_header_scripts", Date.today, I18n.locale] do %>

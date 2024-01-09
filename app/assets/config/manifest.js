@@ -4,6 +4,7 @@
 //= link admin.js
 //= link akg.js
 //= link amx.js
+//= link audio-architect.js
 //= link bss.js
 //= link crown.js
 //= link dbx.js
