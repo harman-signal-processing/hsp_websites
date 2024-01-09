@@ -109,8 +109,8 @@
 			</div>
 		<% end %>
 
-		<div id="content_container" <% unless controller_name == "main" && action_name == "index" -%>class="internal_page"<% end -%>>
-			<div id="content_container_content" style="position: relative;<% if controller_name == "main" && action_name == "index" -%>padding: 0;<% end -%>">
+		<div id="content_container" <% unless controller_name == "main" && (action_name == "index" || action_name == "default_locale") -%>class="internal_page"<% end -%>>
+			<div id="content_container_content" style="position: relative;<% if controller_name == "main" && (action_name == "index" || action_name == "default_locale") -%>padding: 0;<% end -%>">
 				<% flash.each do |name, msg| %>
 				  <%= content_tag :div, msg, id: "flash_#{name}" %>
 				<% end %>
