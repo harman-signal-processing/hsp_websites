@@ -10,7 +10,13 @@ class ScheduledTask < ApplicationRecord
   accepts_nested_attributes_for :scheduled_task_actions
 
   def self.schedulable_options
-    [["Product Family", "ProductFamily"], ["Product", "Product"]]
+    [
+      ["Product Family", "ProductFamily"],
+      ["Product", "Product"],
+      ["News", "News"],
+      ["Banner", "Banner"],
+      ["Setting", "Setting"]
+    ]
   end
 
   #writer

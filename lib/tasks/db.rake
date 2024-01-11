@@ -68,4 +68,25 @@ namespace :db do
     end
   end
 
+  desc "Export products which have the photometric_id provided"
+  task export_photometrics: :environment do
+    CSV.open(File.join(Rails.root, "db", "photometric_export.csv"), "w") do |csv|
+      Product.where.not(photometric_id: nil).each do |product|
+        next if product.photometric_id.blank?
+        csv << [product.name, product.product_status.name, "https://martin.com/en/products/#{product.to_param}", product.photometric_id]
+      end
+    end
+  end
+
+  desc "Export all discontinued products for a given brand"
+  task export_discontinued: :environment do
+    brand_name = ENV['BRAND']
+    brand = Brand.find(brand_name)
+    website = brand.default_website
+    CSV.open(File.join(Rails.root, "db", "#{brand_name}_discontinued.csv"), "w") do |csv|
+      website.discontinued_and_vintage_products.order("UPPER(products.name)").each do |product|
+        csv << [product.name, product.product_status.name, "https://#{website.url}/#{I18n.default_locale}/products/#{product.to_param}"]
+      end
+    end
+  end
 end
