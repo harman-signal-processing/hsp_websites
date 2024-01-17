@@ -111,7 +111,7 @@ module BannersHelper
   end
 
   def banner_css(banner)
-    banner.content_for_current_locale.css
+    banner.content_for_current_locale.css.to_s
   end
 
   def slide_content_from_setting(setting, position)

@@ -10,8 +10,14 @@ class Banner < ApplicationRecord
     preferred_content = banner_locales.find_by(locale: I18n.locale)
     if preferred_content.has_content?
       preferred_content
+    elsif default_content.present?
+      default_content
     else
-      default_content #|| BannerLocale.new()
+      BannerLocale.new()
     end
+  end
+
+  def banner_locales_without_content
+    banner_locales.select{|bl| bl if !bl.has_content?}
   end
 end

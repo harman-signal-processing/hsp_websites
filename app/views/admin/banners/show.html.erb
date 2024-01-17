@@ -80,7 +80,20 @@
     <% @banner.banner_locales.each do |bl| %>
       <li>
         <%= link_to bl.locale, [:admin, @banner, bl] %>
-        <% if bl.default? %>(default content)<% end %>
+        <% if bl.default? %>
+          ( default content
+          <% if !bl.has_content? %>
+            <span class="warning"><strong>empty--please provide content</strong></span>
+          <% end %>
+          )
+        <% elsif !bl.has_content? %>
+          <% if @banner.default_content.present? && @banner.default_content.has_content? %>
+            ( will use default content )
+          <% else %>
+            ( <span class="warning"><strong>empty--please provide content or provide default content</strong></span> )
+          <% end %>
+        <% end %>
+
       </li>
     <% end %>
   </ul>
