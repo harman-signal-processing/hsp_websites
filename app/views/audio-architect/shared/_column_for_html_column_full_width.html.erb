@@ -1,0 +1,3 @@
+<% content = website.brand.settings.where(name: 'homepage_column_1').first_or_initialize %>
+
+<%= raw content.text_value %>
