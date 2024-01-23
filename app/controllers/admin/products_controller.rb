@@ -280,6 +280,7 @@ class Admin::ProductsController < AdminController
       :features,
       :collapse_content,
       :geo_parent_id,
+      :highlight_format,
       product_prices_attributes: {},
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},

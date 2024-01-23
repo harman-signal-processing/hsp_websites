@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_27_173539) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_23_191754) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -1563,6 +1563,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_173539) do
     t.string "firmware_name"
     t.boolean "collapse_content", default: false
     t.integer "geo_parent_id"
+    t.string "highlight_format"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true

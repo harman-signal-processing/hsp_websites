@@ -13,11 +13,17 @@
       # Attempt to calculate a uniform text-box height for all highlights
       text_box_height = calculate_common_text_height_for_features(@product.highlights)
     %>
-    <ul data-orbit data-options="timer: false; bullets: false; slide_number: false; animation: fade;" class="show-for-medium-up">
+    <% if @product.highlight_format.present? && @product.highlight_format == "stacked" %>
       <% @product.highlights.each do |highlight| %>
-        <li><%= render_feature highlight, text_height: text_box_height %></li>
+        <%= render_feature highlight, text_height: text_box_height %>
       <% end %>
-    </ul>
+    <% else # carousel %>
+      <ul data-orbit data-options="timer: false; bullets: false; slide_number: false; animation: fade;" class="show-for-medium-up">
+        <% @product.highlights.each do |highlight| %>
+          <li><%= render_feature highlight, text_height: text_box_height %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <div class="show-for-small-down">
       <% @product.highlights.each do |highlight| %>
