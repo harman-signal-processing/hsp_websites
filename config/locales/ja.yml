@@ -4,6 +4,11 @@ ja:
   product_page:
       compare_selected_products: 選択した製品を比較する
       select_products_to_compare: 製品を2〜4台選択して比較できます
+      details: より詳しい情報はこちら
+      extended_description: より詳しい情報はこちら
+      features: 特長
+      labels:
+          features: 特長
   activerecord:
     models:
       product: 製品

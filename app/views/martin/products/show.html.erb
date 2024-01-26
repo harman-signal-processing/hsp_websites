@@ -105,7 +105,7 @@ set_meta_tags title: @product.name,
 
 <%# vertical pages have the image in the next row...#%>
 <% unless @product.layout_class.to_s.match(/vertical/i) %>
-  <% if @product.photo %>
+  <% if @product.photo && !@product.hide_product_photo? %>
     <div id="viewer_container" class="text-center">
       <div id="viewer">
         <% if @product.discontinued? %>
@@ -124,7 +124,7 @@ set_meta_tags title: @product.name,
 	<div class="medium-8 small-12 columns">
 
     <% if @product.layout_class.to_s.match(/vertical/i) %>
-      <% if @product.photo %>
+      <% if @product.photo && !@product.hide_product_photo? %>
       <div class="text-center" style="margin: 20px 0px;">
         <% if @product.discontinued? %>
           <%= image_tag(@product.photo.product_attachment.url(:large), alt: @product.name) %>

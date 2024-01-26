@@ -4,6 +4,8 @@ ko:
   product_page:
       compare_selected_products: 선택한 제품 비교하기
       select_products_to_compare: 2~4개의 제품 비교하기
+      details: 더 알아보기
+      extended_description: 더 알아보기
   activerecord:
     models:
       product: 제품소개

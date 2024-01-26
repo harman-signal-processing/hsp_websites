@@ -8,3 +8,10 @@ es:
   search: buscar
   search_again: buscar otra vez
   view_this_page_in_another_language: Consulta esta página en otro idioma
+
+  product_page:
+      details: Más detalles
+      extended_description: Más detalles
+      features: Características
+      labels:
+          features: Características

@@ -21,4 +21,7 @@ de:
     view_this_page_in_another_language: Sehen Sie sich diese Seite in einer anderen Sprache an
     # warranty: Garantie
     where_to_buy: Wo zu kaufen
-    
+
+  product_page:
+      details: Mehr Details
+      extended_description: Mehr Details

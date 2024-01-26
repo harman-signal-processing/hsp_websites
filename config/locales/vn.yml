@@ -4,6 +4,12 @@ vn:
   product_page:
       compare_selected_products: So sánh sản phẩm đã chọn
       select_products_to_compare: Chọn 2-4 sản phẩm để so sánh
+      details: Thêm Chi tiết
+      extended_description: Thêm Chi tiết
+      features: Tính năng
+      labels:
+          features: Tính năng
+
   activerecord:
     models:
       product: Sản phẩm

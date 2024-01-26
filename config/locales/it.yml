@@ -1,3 +1,9 @@
 it:
   view_this_page_in_another_language: Visualizza questa pagina in italiano
 
+  product_page:
+      details: Ulteriori dettagli
+      extended_description: Ulteriori dettagli
+      features: Caratteristiche
+      labels:
+          features: Caratteristiche

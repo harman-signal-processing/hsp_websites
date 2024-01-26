@@ -4,6 +4,12 @@ id:
   product_page:
       compare_selected_products: Bandingkan Produk yang Dipilih
       select_products_to_compare: Pilih 2 hingga 4 Produk untuk Dibandingkan
+      details: Keterangan Lebih Lanjut
+      extended_description: Keterangan Lebih Lanjut
+      features: Fitur
+      labels:
+          features: Fitur
+
   activerecord:
     models:
       product: Produk
