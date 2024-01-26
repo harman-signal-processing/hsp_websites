@@ -103,7 +103,7 @@ set_meta_tags title: @product.name,
 
 <a name="description" data-magellan-destination="description"></a>
 
-<% if @product.photo %>
+<% if @product.photo && !@product.hide_product_photo? %>
   <% use_lazy_load = lazy_load_image?(@product) %>
   <div id="viewer_container" class="text-center">
     <div id="viewer">
