@@ -25,13 +25,11 @@
     <%= render_partial "shared/solutions_nav" %>
   <% end %>
 
-  <li class="has-dropdown hide-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/network-audio" %>
+  <li class="has-dropdown hide-for-medium"><%= link_to t('nav.network_audio').titleize, "/#{I18n.locale}/about-our-solutions" %>
     <ul class="dropdown hide-for-medium">
-      <li><%= link_to t('nav.about_our_solutions'), "/#{I18n.locale}/network-audio" %></li>
-      <li><%= link_to t('nav.blu_link'), "/#{I18n.locale}/network-audio#blu-link" %></li>
-      <li><%= link_to t('nav.dante'), "/#{I18n.locale}/network-audio#dante" %></li>
-      <li><%= link_to t('nav.cobranet'), "/#{I18n.locale}/network-audio#cobranet" %></li>
-      <li><%= link_to t('nav.avb'), "/#{I18n.locale}/network-audio#avb" %></li>
+      <li><%= link_to t('nav.about_our_solutions'), "/#{I18n.locale}/about-our-solutions" %></li>
+      <li><%= link_to t('nav.blu_link'), "/#{I18n.locale}/blu-link" %></li>
+      <li><%= link_to t('nav.dante'), "/#{I18n.locale}/dante" %></li>
     </ul>
   </li>
 
@@ -70,4 +68,6 @@
       <% end %>
     </ul>
   </li>
+
+  <li><%= link_to 'our history'.titleize, "/#{I18n.locale}/our-history" %></li>
 <% end %>

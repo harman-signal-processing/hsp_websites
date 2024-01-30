@@ -37,46 +37,13 @@
 
 <%= content_for :big_bottom_box do %>
 	<%= cache ["homepage_bottom", website.brand, I18n.locale] do %>
-		<div class="column">
-			<% if website.homepage_column_one %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_one}" %>
-			<% elsif website.homepage_column_1 %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_1}" %>
+		<div class="column_full_width">
+			<% if website.homepage_column_full_width %>
+				<%= render_partial "shared/column_for_html_column_full_width" %>
 			<% else %>
 				<%= render_partial 'shared/column_for_where_to_buy' %>
 			<% end %>
 		</div>
-		<div class="column">
-			<% if website.homepage_column_two %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_two}" %>
-			<% elsif website.homepage_column_2 %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_2}" %>
-			<% end %>
-		</div>
-		<div class="column">
-			<% if website.homepage_column_three %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_three}" %>
-			<% elsif website.homepage_column_3 %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_3}" %>
-			<% elsif @youtube && !@youtube.blank? %>
-				<%= render_partial 'shared/column_for_youtube' %>
-			<% elsif !website.facebook.blank? %>
-				<%= render_partial 'shared/column_for_facebook' %>
-			<% end %>
-		</div>
-		<div class="column">
-			<% if website.email_signup_url %>
-				<%= render_partial 'shared/newsletter_signup' %>
-			<% end %>
-			<% if website.homepage_column_four %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_four}" %>
-			<% elsif website.homepage_column_4 %>
-				<%= render_partial "shared/column_for_#{website.homepage_column_4}" %>
-			<% else %>
-				<%= render_partial "shared/column_for_artists" %>
-			<% end %>
-		</div>
-
 		<div class="clear"></div>
 	<% end %>
 <% end %>
