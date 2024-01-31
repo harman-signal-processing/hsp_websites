@@ -402,7 +402,9 @@ module ProductsHelper
     if item.is_a?(Product)
       if primary_family = item.primary_family(website)
         crumbs += product_family_crumbs(primary_family)
-        crumbs << link_to(translate_content(primary_family, :name), primary_family) unless primary_family.requires_login?
+        if primary_family.current_products_plus_child_products(website).length > 1
+          crumbs << link_to(translate_content(primary_family, :name), primary_family) unless primary_family.requires_login?
+        end
       end
 
     elsif item.is_a?(ProductFamily)
@@ -415,7 +417,9 @@ module ProductsHelper
 
   def product_family_crumbs(product_family)
     product_family.ancestors.reverse.map do |pf|
-      link_to(translate_content(pf, :name), pf) unless pf.requires_login?
+      if pf.current_products_plus_child_products(website).length > 1
+        link_to(translate_content(pf, :name), pf) unless pf.requires_login?
+      end
     end
   end
 

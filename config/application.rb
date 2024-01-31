@@ -21,7 +21,7 @@ Bundler.require(*Rails.groups)
 module HarmanSignalProcessingWebsite
   class Application < Rails::Application
     config.load_defaults 7.0
-    config.active_support.cache_format_version = 6.1 # Remove AFTER successful deployment with rails 7
+    #config.active_support.cache_format_version = 6.1 # Remove AFTER successful deployment with rails 7
 
     # Below needs to be true for s3_direct_upload to work:
     config.action_view.default_enforce_utf8 = true
