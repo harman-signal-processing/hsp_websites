@@ -6,7 +6,9 @@ development:
   morphology: stem_en, soundex, metaphone
   dict: keywords
   min_infix_len: 2
-  charset_table: "+,-,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
+  charset_table: "+,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
+  enable_star: true
+  ignore_chars: "/,-"
   field_weights:
     product_family_name: 100
     product_name: 5
@@ -25,7 +27,9 @@ production:
   morphology: stem_en, soundex, metaphone
   dict: keywords
   min_infix_len: 2
-  charset_table: "+,-,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
+  charset_table: "+,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
+  enable_star: true
+  ignore_chars: "/,-"
   field_weights:
     product_family_name: 100
     product_name: 5
@@ -35,7 +39,7 @@ production:
   attribute_weights:
     id: 100
   ngram_len: 1
-  ngram_chars: U+3000..U+2FA1F
+  ngram_chars: U+3000..U+2FA1F:website
   mysql41: 9433
 test:
   mysql41: 9307
