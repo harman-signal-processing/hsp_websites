@@ -22,7 +22,7 @@ class SoftwaresController < ApplicationController
         format.html {
           if @software.has_additional_info?
             @hreflangs = @software.hreflangs(website)
-            if !@software.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "softwares", "#{@software.layout_class}.html.erb"))
+            if !@software.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "softwares", "#{@software.layout_class}.html.erb"))
               render template: "#{website.folder}/softwares/#{@software.layout_class}", layout: set_layout
             else
               render_template

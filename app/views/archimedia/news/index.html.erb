@@ -10,7 +10,7 @@
 	} %>
 				
 <h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/news_head.jpg")) %>
+<% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/news_head.jpg")) %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/news_head.jpg", alt: t('titles.news', brand: website.brand_name)) %>
 <% else %>
 	<%= t('titles.news', brand: website.brand_name) %>

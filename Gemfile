@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
 # Passenger is picky that these versions match those in the server's root gems:
-gem "strscan", "3.0.4"
-gem "digest", "3.1.0"
+gem "strscan", "3.1.0"
+gem "digest", "3.1.1"
 
-gem 'rails', '~> 7.0', '>= 7.0.4', '< 7.1'
+gem 'rails', '~> 7.1'
 gem 'rails-i18n', '~> 7.0'
 # Github has rails 6.1 support
 gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-action_caching'

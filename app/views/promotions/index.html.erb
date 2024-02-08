@@ -4,7 +4,7 @@
   <div class="category-banner">
     <%= image_tag website.promotions_banner, alt: t('titles.promotions') %>
   </div>
-<% elsif File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
+<% elsif File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/promotions_head.jpg")) %>
   <div class="category-banner">
     <%= image_tag("#{website.folder}/#{I18n.locale}/promotions_head.jpg", alt: t('titles.promotions')) %>
   </div>

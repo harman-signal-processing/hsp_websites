@@ -103,9 +103,9 @@ class ProductsController < ApplicationController
         # If a particular product needs a custom page, create its html.erb template in
         # app/views/{website-brand-folder}/products/{product-friendly-id}.html.erb
         if !@product.layout_class.blank?
-          if File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}.html.erb"))
+          if File.exist?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}.html.erb"))
             render template: "#{website.folder}/products/#{@product.layout_class}", layout: set_layout
-          elsif File.exists?(Rails.root.join("app", "views", "products", "#{@product.layout_class}.html.erb"))
+          elsif File.exist?(Rails.root.join("app", "views", "products", "#{@product.layout_class}.html.erb"))
             render template: "products/#{@product.layout_class}", layout: set_layout
           else
             render_template
@@ -129,7 +129,7 @@ class ProductsController < ApplicationController
       format.html {
         if !@product.in_production?
           redirect_to where_to_find_path and return
-        elsif !@product.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}_buy_it_now.html.erb"))
+        elsif !@product.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "products", "#{@product.layout_class}_buy_it_now.html.erb"))
           render template: "#{website.folder}/products/#{@product.layout_class}_buy_it_now", layout: set_layout
         elsif !@product.direct_buy_link.blank?
           redirect_to @product.direct_buy_link, allow_other_host: true and return

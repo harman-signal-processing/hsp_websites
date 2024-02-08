@@ -12,7 +12,7 @@
   <div class="category-banner">
     <%= image_tag website.wheretobuy_banner, alt: @page_title %>
   </div>
-<% elsif File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
+<% elsif File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
   <div class="category-banner">
     <%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title) %>
   </div>

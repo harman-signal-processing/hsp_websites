@@ -97,7 +97,7 @@ class MainController < ApplicationController
     if website
       custom = Rails.root.join("public", "#{website.folder}.ico")
     end
-    if website && File.exists?(custom)
+    if website && File.exist?(custom)
       send_file custom, filename: 'favicon.ico', disposition: 'inline', type: "image/x-icon"
     else
       send_file Rails.root.join("public", "harman.ico"), filename: 'favicon.ico', disposition: 'inline', type: "image/x-icon"

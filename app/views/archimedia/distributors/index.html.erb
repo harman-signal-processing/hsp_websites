@@ -3,7 +3,7 @@
                  description: "International distributors" %>
 
 <h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg")) %>
+<% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg")) %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg", alt: t('titles.international_distributors')) %>
 <% else %>
 	<%= t('titles.international_distributors') %>

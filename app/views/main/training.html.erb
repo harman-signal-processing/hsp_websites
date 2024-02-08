@@ -2,7 +2,7 @@
 				 reverse: true %>
 
 <h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/training_head.jpg")) %>
+<% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/training_head.jpg")) %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/training_head.jpg", alt: @page_title) %>
 <% else %>
 	<%= @page_title %>

@@ -96,12 +96,12 @@ class RegisteredDownload < ApplicationRecord
     html_absolute_filepath = Rails.root.join("app", "views", self.html_layout_filename)
     email_absolute_filepath = Rails.root.join("app", "views", self.email_layout_filename)
 
-    if html_template_changed? || !File.exists?(html_absolute_filepath)
+    if html_template_changed? || !File.exist?(html_absolute_filepath)
       FileUtils.mkdir_p(File.dirname(html_absolute_filepath))
       File.open(html_absolute_filepath, 'w+') {|f| f.write(self.html_layout)}
     end
 
-    if email_template_changed? || !File.exists?(email_absolute_filepath)
+    if email_template_changed? || !File.exist?(email_absolute_filepath)
       FileUtils.mkdir_p(File.dirname(email_absolute_filepath))
       File.open(email_absolute_filepath, 'w+') {|f| f.write(self.email_layout)}
     end
