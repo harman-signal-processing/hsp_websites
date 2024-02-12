@@ -70,7 +70,7 @@ gem 'countries'
 gem 'country_select'
 gem 'chosen-rails', git: 'https://github.com/adamtao/chosen-rails'
 gem 'language_list'
-gem 'ransack', "< 4.0.0" # 4.0.0 requires whitelisting params to search by
+gem 'ransack' #, "< 4.0.0" # 4.0.0 requires whitelisting params to search by
 gem "dalli"
 gem "rabl"
 gem "money"
