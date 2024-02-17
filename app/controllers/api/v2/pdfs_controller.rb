@@ -22,7 +22,7 @@ module Api
               when "ProductDocument"
                 {name:item.name,url:item.url}
               when "SiteElement"
-                {name:item.long_name,url:item.url}
+                {name:item.long_name,url:item.url} if item.access_level_id.nil?
               else
             end
           end
