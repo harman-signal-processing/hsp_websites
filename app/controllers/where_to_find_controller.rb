@@ -287,7 +287,8 @@ class WhereToFindController < ApplicationController
       @filter_service = !!params[:service]
 
 
-      return false if @filter_resale && dealer.resale?
+      # return false if @filter_resale && dealer.resale?
+      return false if dealer.resale?
       return false if @filter_rental_vtx && dealer.rental? && dealer.has_rental_products_for(brand,'vt')
       return false if @filter_rental_prx_one && dealer.rental? && dealer.has_rental_products_for(brand,'prx-one')
       return false if @filter_rental_eon_one_mk2 && dealer.rental? && dealer.has_rental_products_for(brand,'jbl-eon-one-mk2')
