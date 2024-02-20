@@ -107,6 +107,12 @@ module BannersHelper
         link_to(slide_innards, slide_link, link_options)
     end
 
+    if p = website.value_for('countdown_overlay_position')
+      if p == position && cd = website.value_for('countdown_container')
+        slide_content += content_tag(:div, '', id: cd)
+      end
+    end
+
     content_tag(:li, slide_content)
   end
 
@@ -141,6 +147,12 @@ module BannersHelper
       slide_content = (setting.string_value.blank?) ?
         slide_innards :
         link_to(slide_innards, slide_link, link_options)
+    end
+
+    if p = website.value_for('countdown_overlay_position')
+      if p == position && cd = website.value_for('countdown_container')
+        slide_content += content_tag(:div, '', id: cd)
+      end
     end
 
     content_tag(:li, slide_content)
