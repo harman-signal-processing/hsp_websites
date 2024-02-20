@@ -12,7 +12,7 @@ require "action_cable/engine"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
-ActiveSupport::Deprecation.debug = true if Rails.env.development?
+#Rails.application.deprecators.debug = true if Rails.env.development?
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
