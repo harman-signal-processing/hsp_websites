@@ -73,7 +73,7 @@
           </div>
         <% end %>
 
-        <% unless controller_name == "main" && action_name == "index" %>
+        <% unless controller_name == "main" && (action_name == "index" || action_name == "default_locale") %>
           <div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>
             <div class="row">
               <div class="large-12 small-12 columns content-container">

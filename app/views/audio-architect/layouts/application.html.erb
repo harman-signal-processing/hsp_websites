@@ -108,6 +108,7 @@
 			<div id="feature_container">
 				<%= yield :feature %>
 			</div>
+		  <div id="homepage-counter" data-counter="<%= @counter %>" data-nextevent="<%= @next_event %>" data-countdowncontainer="<%= @countdown_container %>"></div>
 		<% end %>
 
 		<div id="content_container" <% unless controller_name == "main" && (action_name == "index" || action_name == "default_locale") -%>class="internal_page"<% end -%>>

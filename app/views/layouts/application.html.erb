@@ -71,6 +71,7 @@
 
 		<% if content_for?(:feature) %>
 			<%= yield :feature %>
+			<div id="homepage-counter" data-counter="<%= @counter %>" data-nextevent="<%= @next_event %>" data-countdowncontainer="<%= @countdown_container %>"></div>
 		<% end %>
 
 		<div class="container" <% unless content_for?(:feature) %>id="main_container"<% end %>>

@@ -2525,3 +2525,14 @@ form.new_custom_shop_line_item, form.edit_custom_shop_line_item {
   text-align: center;
   margin-bottom: rem-calc(20px);
 }
+
+#homepage-counter {
+  display: none;
+}
+div#countdown {
+	margin-top: -250px;
+	text-align: center;
+	z-index: 99999;
+	font-size: 80px;
+	color: yellow;
+}
