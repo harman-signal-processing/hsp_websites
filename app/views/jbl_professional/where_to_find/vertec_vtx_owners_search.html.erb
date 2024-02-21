@@ -40,17 +40,6 @@ $(document).ready(function() {
     <% if website.brand.dealers_include_rental_and_service? %>
       <input type="hidden" name="apply_filters" value="1"/>
       <input type="hidden" name="rental_vtx" id="rental_vtx" value="1">
-
-      <% if website.brand.dealers.where(rental: true).count > 0 %>
-          Excel Downloads
-          <% if @results.count > 0%>
-            <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%=link_to "Search Results", download_partner_search_results_path(request.query_parameters) %>
-          <% end %>      
-          <% if website.brand.name == "JBL Professional" %>
-            <br /><%= fa_icon "arrow-circle-down", :"aria-hidden" => true %> <%= link_to 'All VTX / VT Rental Companies', vertec_vtx_owners_path %>
-          <% end %>
-      <% end %>
-
     <% end %>
     </form>
   </div>
