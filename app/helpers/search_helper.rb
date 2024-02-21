@@ -114,7 +114,7 @@ module SearchHelper
 	end
 	
 	def find_pdf_item_in_db(result)
-		filename = URI.decode(File.basename(result[:Url]).split('#')[0].gsub("_original.pdf",".pdf"))
+		filename = URI.decode_uri_component(File.basename(result[:Url]).split('#')[0].gsub("_original.pdf",".pdf"))
 		site_element = SiteElement.find_by(cached_slug:"#{filename}")
 		product_document = ProductDocument.find_by(cached_slug:"#{filename}")
 		
