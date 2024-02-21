@@ -86,7 +86,7 @@ class Product < ApplicationRecord
   before_save :set_employee_price
   after_save :touch_families
 
-  serialize :previewers, Array
+  serialize :previewers, coder: YAML, type: Array
   has_attached_file :background_image
   validates_attachment :background_image, content_type: { content_type: /\Aimage/i }
   validates :name, presence: true

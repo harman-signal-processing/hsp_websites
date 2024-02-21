@@ -16,7 +16,7 @@ class PagesController < ApplicationController
       format.html {
         @hreflangs = @page.hreflangs(website)
 
-        if !@page.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "pages", "#{@page.layout_class}.html.erb"))
+        if !@page.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "pages", "#{@page.layout_class}.html.erb"))
           render template: "#{website.folder}/pages/#{@page.layout_class}", layout: set_layout
         else
           render_template(action: 'show')

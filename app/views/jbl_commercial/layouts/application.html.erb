@@ -12,7 +12,7 @@
 		<%= csrf_meta_tag %>
 		<%= cache ["meta_tags", request.url] do %>
 			<%= cached_meta_tags %>
-			<% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "logo.svg")) %>
+			<% if File.exist?(Rails.root.join("app", "assets", "images", website.folder, "logo.svg")) %>
 			<link rel="image_src" href="<%= image_url("#{website.folder}/logo.svg") %>" />
 			<% end %>
       <!--[if lt IE 9]>

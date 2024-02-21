@@ -1,7 +1,7 @@
 <%= cache ["product_selector_strip", website.brand, I18n.locale] do %>
   <div class="homepage_block ">
     <%= link_to product_selector_path do %>
-      <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "ProductSelector_Banner_#{I18n.locale.to_s}.jpg")) %>
+      <% if File.exist?(Rails.root.join("app", "assets", "images", website.folder, "ProductSelector_Banner_#{I18n.locale.to_s}.jpg")) %>
         <%= image_tag("#{website.folder}/ProductSelector_Banner_#{I18n.locale.to_s}.jpg", alt: "Product Selector Banner") %>
       <% else %>
         <%= image_tag("#{website.folder}/ProductSelector_Banner_en.jpg", alt: "Product Selector Banner") %>

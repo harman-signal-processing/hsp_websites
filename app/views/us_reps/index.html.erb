@@ -1,7 +1,7 @@
 <% set_meta_tags reverse: true, title: "US Sales Reps" %>
 
 <h1 class="page_title">
-  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/us_sales_reps_head.jpg")) %>
+  <% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/us_sales_reps_head.jpg")) %>
     <%= image_tag("#{website.folder}/#{I18n.locale}/us_sales_reps_head.jpg", alt: "US Sales Reps") %>
   <% else %>
     US Sales Reps

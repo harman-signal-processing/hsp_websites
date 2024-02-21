@@ -14,7 +14,7 @@ class InstallationsController < ApplicationController
   def show
     respond_to do |format|
       format.html {
-        if !@installation.layout_class.blank? && File.exists?(Rails.root.join("app", "views", website.folder, "installations", "#{@installation.layout_class}.html.erb"))
+        if !@installation.layout_class.blank? && File.exist?(Rails.root.join("app", "views", website.folder, "installations", "#{@installation.layout_class}.html.erb"))
           render template: "#{website.folder}/installations/#{@installation.layout_class}", layout: set_layout
         else
           render_template

@@ -54,7 +54,7 @@ class ProductFamiliesController < ApplicationController
 
         # If the family has a "layout_class" defined and we can find a template with that name
         elsif !@product_family.layout_class.blank? &&
-          File.exists?(Rails.root.join("app", "views", website.folder, "product_families", "#{@product_family.layout_class}.html.erb"))
+          File.exist?(Rails.root.join("app", "views", website.folder, "product_families", "#{@product_family.layout_class}.html.erb"))
             render template: "#{website.folder}/product_families/#{@product_family.layout_class}", layout: set_layout
 
         # If the family has products, but they're all discontinued

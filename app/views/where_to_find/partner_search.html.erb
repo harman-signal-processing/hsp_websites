@@ -4,7 +4,7 @@
   keywords: t('meta.keywords.where_to_buy') %>
 
 <h1 class="page_title">
-  <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
+  <% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg")) %>
     <%= image_tag("#{website.folder}/#{I18n.locale}/wheretobuy_head.jpg", alt: @page_title, class: 'text-center') %>
   <% else %>
     <%= @page_title %>

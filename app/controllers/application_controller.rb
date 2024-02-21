@@ -25,22 +25,22 @@ class ApplicationController < ActionController::Base
 
     if devise_controller? && resource_name == :artist
       artist_brand_specific = "#{website.folder}/layouts/artists"
-      if File.exists?(Rails.root.join("app", "views", "#{artist_brand_specific}.html.erb"))
+      if File.exist?(Rails.root.join("app", "views", "#{artist_brand_specific}.html.erb"))
         template = artist_brand_specific
-      elsif File.exists?(Rails.root.join("app", "views", "layouts", "artists.html.erb"))
+      elsif File.exist?(Rails.root.join("app", "views", "layouts", "artists.html.erb"))
         template = "artists"
-      elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
+      elsif File.exist?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
         template = brand_specific
       end
     #elsif devise_controller? && resource_name == :user
     #  template = "admin"
-    elsif controller_path == 'main' && action_name == 'index' && File.exists?(Rails.root.join("app", "views", "#{homepage}.html.erb"))
+    elsif controller_path == 'main' && action_name == 'index' && File.exist?(Rails.root.join("app", "views", "#{homepage}.html.erb"))
       template = homepage
-    elsif File.exists?(Rails.root.join("app", "views", "#{controller_brand_specific}.html.erb"))
+    elsif File.exist?(Rails.root.join("app", "views", "#{controller_brand_specific}.html.erb"))
       template = controller_brand_specific
-    elsif File.exists?(Rails.root.join("app", "views", "#{controller_specific}.html.erb"))
+    elsif File.exist?(Rails.root.join("app", "views", "#{controller_specific}.html.erb"))
       template = controller_specific
-    elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
+    elsif File.exist?(Rails.root.join("app", "views", "#{brand_specific}.html.erb"))
       template = brand_specific
     end
 
@@ -66,11 +66,11 @@ class ApplicationController < ActionController::Base
     locale_specific = "#{options[:controller]}/#{options[:locale]}/#{options[:action]}"
     template = "#{options[:controller]}/#{options[:action]}" # the default
     response_format = request.format.symbol.to_s
-    if File.exists?(Rails.root.join("app", "views", "#{brand_and_locale_specific}.#{response_format}.erb"))
+    if File.exist?(Rails.root.join("app", "views", "#{brand_and_locale_specific}.#{response_format}.erb"))
       template = brand_and_locale_specific
-    elsif File.exists?(Rails.root.join("app", "views", "#{brand_specific}.#{response_format}.erb"))
+    elsif File.exist?(Rails.root.join("app", "views", "#{brand_specific}.#{response_format}.erb"))
       template = brand_specific
-    elsif File.exists?(Rails.root.join("app", "views", "#{locale_specific}.#{response_format}.erb"))
+    elsif File.exist?(Rails.root.join("app", "views", "#{locale_specific}.#{response_format}.erb"))
       template = locale_specific
     end
 

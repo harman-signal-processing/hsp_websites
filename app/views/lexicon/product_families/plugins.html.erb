@@ -97,7 +97,7 @@
               <% end %>
             </tr>
 
-            <% EffectType.find(main_products.map{|p| p.effects.map{|e| e.effect_type_id}}).each_with_index do |effect_group, effect_group_i| %>
+            <% EffectType.find(main_products.map{|p| p.effects.map{|e| e.effect_type_id}}.flatten.uniq).each_with_index do |effect_group, effect_group_i| %>
 
               <% effects = main_products.map{|p| p.effects.where(effect_type: effect_group)}.flatten.uniq %>
               <% effects.each_with_index do |effect, i| %>

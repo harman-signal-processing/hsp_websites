@@ -89,7 +89,7 @@
             prompt: "Select A Product" %>
       <% end %>
 
-      <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "serial.jpg")) %>
+      <% if File.exist?(Rails.root.join("app", "assets", "images", website.folder, "serial.jpg")) %>
         <%= f.input :product_serial_number,
           label: "Serial Number",
           hint: link_to("where to find the serial number", image_path("#{website.folder}/serial.jpg")),
@@ -100,7 +100,7 @@
           required: true %>
       <% end %>
 
-      <% if File.exists?(Rails.root.join("app", "assets", "images", website.folder, "sku.jpg")) %>
+      <% if File.exist?(Rails.root.join("app", "assets", "images", website.folder, "sku.jpg")) %>
         <%= f.input :product_sku,
           hint: link_to("where to find the SKU", image_path("#{website.folder}/sku.jpg")) %>
       <% else %>

@@ -59,12 +59,12 @@ module ApplicationHelper
 
     sizes.each do |size|
       # retina versions:
-      if File.exists?(Rails.root.join("app", "assets", "images", options[:folder], "AppIcon#{size}x#{size}@2x.png"))
+      if File.exist?(Rails.root.join("app", "assets", "images", options[:folder], "AppIcon#{size}x#{size}@2x.png"))
         ret += tag(:link, rel: "apple-touch-icon", sizes: "#{size*2}x#{size*2}", href: image_path("#{options[:folder]}/AppIcon#{size}x#{size}@2x.png") )
       end
     end
     sizes.each do |size|
-      if File.exists?(Rails.root.join("app", "assets", "images", options[:folder], "AppIcon#{size}x#{size}.png"))
+      if File.exist?(Rails.root.join("app", "assets", "images", options[:folder], "AppIcon#{size}x#{size}.png"))
         ret += tag(:link, rel: "apple-touch-icon", sizes: "#{size}x#{size}", href: image_path("#{options[:folder]}/AppIcon#{size}x#{size}.png") )
       end
     end
@@ -325,7 +325,7 @@ module ApplicationHelper
   # site's brand and checks for a custom partial.
   def render_partial(name, options={})
     name = name.to_s
-    if File.exists?(Rails.root.join("app", "views", "#{website.folder}/#{name.gsub(/\/(?!.*\/)/, "/_")}.html.erb"))
+    if File.exist?(Rails.root.join("app", "views", "#{website.folder}/#{name.gsub(/\/(?!.*\/)/, "/_")}.html.erb"))
       name = "#{website.folder}/#{name}"
     end
     eval("render '#{name}', options")

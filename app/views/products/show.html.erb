@@ -272,7 +272,7 @@ set_meta_tags title: @product.name,
       <%= draw_info_accordion @product %>
 
       <% unless @product.demo_link.blank? %>
-        <% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
+        <% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/demo_download_button.png")) %>
           <%= link_to(image_tag("#{website.folder}/#{I18n.locale}/demo_download_button.png",
               alt: "Demo Download",
               mouseover: "#{website.folder}/#{I18n.locale}/demo_download_button_hover.png") ,

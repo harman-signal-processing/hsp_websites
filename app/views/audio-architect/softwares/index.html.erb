@@ -3,7 +3,7 @@
                  keywords: website.brand.current_softwares.collect{|s| s.name} %>
 
 <h1 class="page_title">
-<% if File.exists?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
+<% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
 	<%= image_tag("#{website.folder}/#{I18n.locale}/software_downloads_head.jpg", alt: t('software_downloads')) %>
 <% else %>
 	<%= t('software_downloads') %>

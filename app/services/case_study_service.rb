@@ -2,7 +2,7 @@ module CaseStudyService
 
   def self.get_case_study_data(brand_name)
       url = "#{ENV['PRO_SITE_URL']}/api/v1/case_studies/#{brand_name}"
-      encoded_url = URI.encode(url)
+      encoded_url = URI::Parser.new.escape(url)
       response = HTTParty.get(encoded_url, ssl_version: :TLSv1_2)
       if response.success?
         # result = JSON.parse(response).deep_symbolize_keys
