@@ -13,7 +13,7 @@
       <h3>Transmitter:</h3>
       <select id="select_tx" onchange="location = this.options[this.selectedIndex].value;">
         <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: 'none'}))%>">---Select Transmitter---</option>
-        <%AmxDxlinkDeviceInfo.where("type_short_name = 'tx'").pluck(:id,:model).each do |item|%>
+        <%AmxDxlinkDeviceInfo.where("type_short_name = 'tx'").pluck(:id,:model).sort_by{|item| item[1]}.each do |item|%>
           <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({tx: item[1]}))%>" <%="#{'selected' if @tx.present? and @tx.model == item[1] }"%>><%=item[1]%></option>
         <% end %>
       </select>
@@ -22,7 +22,7 @@
       <h3>Receiver:</h3>
       <select id="select_rx" onchange="location = this.options[this.selectedIndex].value;">
         <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: 'none'}))%>">---Select Receiver---</option>
-        <%AmxDxlinkDeviceInfo.where("type_short_name = 'rx'").pluck(:id,:model).each do |item|%>
+        <%AmxDxlinkDeviceInfo.where("type_short_name = 'rx'").pluck(:id,:model).sort_by{|item| item[1]}.each do |item|%>
           <option value="<%=amx_dxlink_tool_path(request.query_parameters.merge({rx: item[1]}))%>" <%="#{'selected' if @rx.present? and @rx.model == item[1] }"%>><%=item[1]%></option>
         <% end %>
       </select>
