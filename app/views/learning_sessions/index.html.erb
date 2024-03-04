@@ -23,7 +23,9 @@
               <div class="session-container">
                 <h3 class="session-title"><%=session[:title]%></h3>
                 <div class="session-date-time"><%=session[:session_date].to_date.strftime "%A, %B %d, %Y"%> — <%=session[:session_times]%></div>
-                <a class="button large" href="<%=session[:register_link]%>">Register Now</a>
+                <% if !session[:register_link].empty? %>
+                  <a class="button large" href="<%=session[:register_link]%>">Register Now</a>
+                <% end %>
               </div>
             <% end %> <%# event.learning_session_event_sessions.each do |session| %>
 
