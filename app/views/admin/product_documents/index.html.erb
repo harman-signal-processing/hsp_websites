@@ -3,7 +3,14 @@
 <%= link_to 'New product document', new_admin_product_document_path, class: "small success button" %>
 
 <ul class="list">
-<% @product_documents.each do |product_document| %>
-  <li><%= link_to product_document.name, [:admin, product_document] %></li>
+<% @product_documents.sort_by{|item| [item.bad_link? ? 0 : 1, item.name] }.each do |product_document| %>
+  <li><%= link_to product_document.name, [:admin, product_document] %>
+    <% if product_document.bad_link? %>
+      <span class="alert label">The document was last checked <%=l product_document.link_checked_at %> and found to have a status of
+      <%= product_document.link_status %> which means the file could not be found. Please either locate a backup
+      of the file and re-upload it or delete this record.
+      </span>
+    <% end %>
+  </li>
 <% end %>
 </ul>
