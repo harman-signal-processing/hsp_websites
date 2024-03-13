@@ -26,7 +26,7 @@ class CountDownTimer
 	constructor: (future_date, selector) ->
 		@element = $("##{selector}")
 		@future_date = new Date(future_date)
-		@future_date.setTime( @future_date.getTime() + @future_date.getTimezoneOffset()*60*1000 )
+		#@future_date.setTime( @future_date.getTime() + @future_date.getTimezoneOffset()*60*1000 )
 		@_second = 1000
 		@_minute = @_second * 60
 		@_hour = @_minute * 60
@@ -42,7 +42,7 @@ class CountDownTimer
 			@element.html('')
 		else
 			days = Math.floor(distance / @_day)
-			hours = Math.floor((distance % @_day) / @_hour)
+			hours = Math.floor((distance % @_day) / @_hour) + 8
 			minutes = Math.floor((distance % @_hour) / @_minute)
 			seconds = Math.floor((distance % @_minute) / @_second)
 			@element.html("#{days} days, #{('00'+hours).substr(-2)}:#{('00'+minutes).substr(-2)}:#{('00'+seconds).substr(-2)}")
