@@ -188,7 +188,7 @@ set_meta_tags title: @product.name,
       </div>
     <% end %>
     <div class="show-for-small-down">
-      <%= render_partial 'shared/other_languages_button', item: @product %>
+      <%= render_partial 'shared/other_languages_button', item: @product, screen: "small" %>
     </div>
 
     <% if @product.legal_disclaimer.present? %>

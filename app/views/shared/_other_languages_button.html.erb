@@ -1,3 +1,4 @@
+<% screen ||= "large" %>
 <% if item.respond_to?(:other_locales_with_translations)  %>
   <%
       translations = item.other_locales_with_translations(website)
@@ -15,8 +16,8 @@
   %>
 
   <% if translations.length > 0 %>
-    <button href="#" class="button dropdown" data-dropdown="other-languages" aria-controls="other-languages" aria-expanded="false"><%= t(:view_this_page_in_another_language) %></button>
-    <ul id="other-languages" data-dropdown-content class="f-dropdown" aria-hidden="true">
+    <button href="#" class="button dropdown" data-dropdown="other-languages-<%= screen %>" aria-controls="other-languages-<%= screen %>" aria-expanded="false"><%= t(:view_this_page_in_another_language) %></button>
+    <ul id="other-languages-<%= screen %>" data-dropdown-content class="f-dropdown" aria-hidden="true">
       <% translations.each do |translated_locale| %>
         <li><%= link_to language_name_lookup(translated_locale), url_for(request.params.merge(locale: translated_locale)) %></li>
       <% end %>
