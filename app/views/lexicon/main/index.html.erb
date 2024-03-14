@@ -16,7 +16,7 @@
     <% if slides.pluck(:slide_content_type).any? {|c| c.match?(/video/i) } %>
       <%= render_partial 'shared/video_banner' %>
     <% else %>
-      <%= cache ["slideshow", website.brand, I18n.locale] do %>
+      <%= cache ["slideshow", website, website.brand, I18n.locale] do %>
         <% if slides.size > 0 %>
           <%= orbit_slideshow(slides: slides, duration: 6000, navigation_arrows: false, transition: "fade") %>
         <% end %>

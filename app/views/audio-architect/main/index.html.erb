@@ -10,7 +10,7 @@
 
 
 <%= content_for :feature do %>
-	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+	<%= cache ["slideshow", website, website.brand, I18n.locale] do %>
 		<% slides = Setting.slides(website, limit: 5) %>
 		<% if slides.size > 0 %>
 			<%= slideshow(slides: slides, duration: 8700, transition: "fade") %>

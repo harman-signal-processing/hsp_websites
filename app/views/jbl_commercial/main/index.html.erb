@@ -6,7 +6,7 @@
 	} %>
 
 <%= content_for :feature do %>
-	<%= cache ["slideshow", website.brand, I18n.locale] do %>
+	<%= cache ["slideshow", website, website.brand, I18n.locale] do %>
     <% if website.homepage_feature_override.present? %>
       <%= raw website.homepage_feature_override %>
     <% else %>
