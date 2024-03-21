@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   friendly_id :slug_candidates
 
   attr_accessor :old_id
+  attribute :skip_touches, :boolean
   has_many :product_family_products, dependent: :destroy
   has_many :product_families, through: :product_family_products
   has_many :market_segment_product_families, through: :product_families
@@ -84,7 +85,7 @@ class Product < ApplicationRecord
   monetize :artist_price_cents, :allow_nil => true
 
   before_save :set_employee_price
-  after_save :touch_families
+  after_save :touch_families, unless: :skip_touches?
 
   serialize :previewers, coder: YAML, type: Array
   has_attached_file :background_image

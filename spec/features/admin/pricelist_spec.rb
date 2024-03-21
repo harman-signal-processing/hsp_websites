@@ -61,8 +61,8 @@ feature "Admin Pricing", :devise do
     end
 
     it "should add/update the price for the given product" do
-      fill_in "product_attr[#{@product.to_param}][product_prices_attributes[0]][price]", with: "19.99"
-      fill_in "product_attr[#{@product.to_param}][product_prices_attributes[1]][price]", with: "19.99"
+      fill_in "product_attr[#{@product.to_param}][product_prices_attributes][0][price]", with: "19.99"
+      fill_in "product_attr[#{@product.to_param}][product_prices_attributes][1][price]", with: "19.99"
       click_on "save changes"
 
       expect(@product.price_for(@dealer_pricing_type).to_f).to eq(19.99)
@@ -80,7 +80,7 @@ feature "Admin Pricing", :devise do
     end
 
     it "should have fields to update the pricing type values" do
-      expect(page).to have_field "product_attr[#{@website.products.first.to_param}][product_prices_attributes[0]][price]"
+      expect(page).to have_field "product_attr[#{@website.products.first.to_param}][product_prices_attributes][0][price]"
     end
 
     it "should update the price" do
@@ -88,8 +88,8 @@ feature "Admin Pricing", :devise do
 
       fill_in "product_attr[#{@product.to_param}][msrp]", with: "199.99"
       fill_in "product_attr[#{@product.to_param}][street_price]", with: "99.99"
-      fill_in "product_attr[#{@product.to_param}][product_prices_attributes[0]][price]", with: "19.99"
-      fill_in "product_attr[#{@product.to_param}][product_prices_attributes[1]][price]", with: "19.99"
+      fill_in "product_attr[#{@product.to_param}][product_prices_attributes][0][price]", with: "19.99"
+      fill_in "product_attr[#{@product.to_param}][product_prices_attributes][1][price]", with: "19.99"
       click_on "save changes"
 
       @product.reload

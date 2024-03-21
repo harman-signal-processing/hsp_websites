@@ -64,6 +64,7 @@ class Admin::ProductPricesController < AdminController
     authorize! :manage, ProductPrice
     Array(params[:product_attr].to_unsafe_h).each do |key, attr|
       product = Product.find(key)
+      attr[:skip_touches] = true
       product.update(attr)
     end
     redirect_to(admin_product_prices_path, notice: "Pricing updated successfully.")

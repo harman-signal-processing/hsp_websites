@@ -15,22 +15,22 @@
 	<% if !(product.discontinued?) && product.show_on_website?(website) && product.can_be_registered? %>
 		<tr>
 			<td><%= link_to product.name, product, target: "_blank" %></td>
-			<td><%= text_field_tag "product_attr[#{product.to_param}][sap_sku]", 
-						product.sap_sku, 
+			<td><%= text_field_tag "product_attr[#{product.to_param}][sap_sku]",
+						product.sap_sku,
 						size: 10 %></td>
-			<td><%= text_field_tag "product_attr[#{product.to_param}][msrp]", 
-						(product.msrp.to_f > 0.0) ? product.msrp.to_f : nil, 
+			<td><%= text_field_tag "product_attr[#{product.to_param}][msrp]",
+						(product.msrp.to_f > 0.0) ? product.msrp.to_f : nil,
 						size: 10, placeholder: "0.00" %></td>
-			<td><%= text_field_tag "product_attr[#{product.to_param}][street_price]", 
-						(product.street_price.to_f > 0.0) ? product.street_price.to_f : nil, 
+			<td><%= text_field_tag "product_attr[#{product.to_param}][street_price]",
+						(product.street_price.to_f > 0.0) ? product.street_price.to_f : nil,
 						size: 10, placeholder: "0.00" %></td>
 			<% @pricing_types.each_with_index do |pricing_type,i| %>
-			<td><%= text_field_tag "product_attr[#{product.to_param}][product_prices_attributes[#{i}]][price]",
+			<td><%= text_field_tag "product_attr[#{product.to_param}][product_prices_attributes][#{i}][price]",
 					(product.price_for(pricing_type).to_f > 0.0) ? product.price_for(pricing_type).to_f : nil,
 						size: 10, placeholder: "0.00" %>
-				<%= hidden_field_tag "product_attr[#{product.to_param}][product_prices_attributes[#{i}]][pricing_type_id]", pricing_type.to_param %>
+				<%= hidden_field_tag "product_attr[#{product.to_param}][product_prices_attributes][#{i}][pricing_type_id]", pricing_type.to_param %>
 				<% if product_price = product.product_prices.where(pricing_type_id: pricing_type.id).first %>
-					<%= hidden_field_tag "product_attr[#{product.to_param}][product_prices_attributes[#{i}]][id]", product_price.id %>
+					<%= hidden_field_tag "product_attr[#{product.to_param}][product_prices_attributes][#{i}][id]", product_price.id %>
 				<% end %>
 			</td>
 			<% end %>
