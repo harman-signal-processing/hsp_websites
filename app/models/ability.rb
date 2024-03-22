@@ -255,6 +255,7 @@ class Ability
         can :manage, Vip::Training
         can :manage, Vip::Website
         can :manage, AmxItgNewModuleRequest
+        can :manage, AmxPartnerInterestForm
         can :manage, Page, custom_route: ["amx-partners-program","amx-partners-program-updates"]
         can :manage, AmxDxlinkDeviceInfo
         can :manage, AmxDxlinkCombo
