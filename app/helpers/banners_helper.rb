@@ -83,7 +83,8 @@ module BannersHelper
 
     else
       link_options = {}
-      slide_link = (banner_content.link =~ /^\// || banner_content.link =~ /^http/i) ? banner_content.link : "/#{params[:locale]}/#{banner_content.link}"
+      this_locale = params[:locale] || I18n.locale.to_s || I18n.default_locale.to_s
+      slide_link = (banner_content.link =~ /^\// || banner_content.link =~ /^http/i) ? banner_content.link : "/#{this_locale}/#{banner_content.link}"
 
       if slide_link.match(/^http/i) && !slide_link.match(/#{website.url}/i)
         link_options[:target] = "_blank"
