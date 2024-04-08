@@ -1,9 +1,20 @@
 <% unless pa.new_record? %>
   <% called_from ||= "product" %>
   <li id="product_accessory_<%= pa.id %>">
-    <%= (called_from == "product") ?
-      link_to(pa.accessory_product.name, [:admin, pa.accessory_product]) :
-      link_to(pa.product.name, [:admin, pa.product]) %>
+    <% if (called_from == "product") %>
+      <% if pa.accessory_product.nil? %>
+        Missing accessory
+      <% else %>
+        <%= link_to(pa.accessory_product.name, [:admin, pa.accessory_product]) %>
+      <% end %>
+      -->
+      <% if pa.product.nil? %>
+        Missing product
+      <% else %>
+        <%=link_to(pa.product.name, [:admin, pa.product])%>
+      <% end%>
+    <% end %>
+
     <%= link_to(image_tag('icons/trash.gif', lazy: false),
         admin_product_accessory_path(pa),
         remote: true,
