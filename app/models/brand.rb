@@ -391,10 +391,10 @@ class Brand < ApplicationRecord
 
   def update_current_product_counts
     product_families.where(parent_id: nil).each do |parent_family|
-      parent_family.locales(self).each do |this_locale|
+      parent_family.locales(self.default_website).each do |this_locale|
         I18n.locale = this_locale
-        parent_family.descendants.each{|d| d.update_current_product_counts}
-        parent_family.update_current_product_counts
+        parent_family.descendants.each{|d| d.update_current_product_counts_for_locale(this_locale)}
+        parent_family.update_current_product_counts_for_locale(this_locale)
       end
     end
   end
