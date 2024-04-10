@@ -47,19 +47,28 @@
   <fieldset>
     <legend>Design</legend>
     <div class="row">
-      <div class="medium-4 columns">
+      <div class="medium-3 small-12 columns">
         <%= f.input :layout_style, as: :radio_buttons, collection: Feature.layout_options %>
       </div>
-      <div class="medium-4 columns">
+      <div class="medium-3 small-12 columns">
         <%= f.input :content_position, as: :radio_buttons, label: "Text content position", collection: ["left", "right"] %>
       </div>
-      <div class="medium-4 columns">
+      <div class="medium-3 small-12 columns">
         <%= f.input :image, label: "Background or side image" %>
         <% if f.object.image.present? %>
           <small>Currently:<br/></small>
           <%= link_to(image_tag(f.object.image.url(:tiny), lazy: false),
                       f.object.image.url, target: "_blank") %>
           <%= f.input :delete_image, as: :boolean %>
+        <% end %>
+      </div>
+      <div class="medium-3 small-12 columns">
+        <%= f.input :video, label: "Video (if present, image will not be used)" %>
+        <% if f.object.video.present? %>
+          <small>Currently:<br/></small>
+          <%= link_to(f.object.video.url,
+                      f.object.image.url, target: "_blank") %>
+          <%= f.input :delete_video, as: :boolean %>
         <% end %>
       </div>
     </div>

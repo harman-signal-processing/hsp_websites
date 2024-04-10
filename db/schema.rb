@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_26_001727) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_09_204203) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -732,6 +732,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_001727) do
     t.boolean "use_as_banner_slide", default: false
     t.boolean "show_below_products", default: false
     t.boolean "show_below_videos", default: false
+    t.string "video_file_name"
+    t.string "video_content_type"
+    t.datetime "video_updated_at"
+    t.integer "video_file_size"
     t.index ["featurable_type", "featurable_id"], name: "index_features_on_featurable_type_and_featurable_id"
   end
 
