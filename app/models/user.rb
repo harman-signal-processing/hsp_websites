@@ -97,6 +97,11 @@ class User < ApplicationRecord
     u
   end
 
+  # System itself (used for logging system automated changes)
+  def self.system
+    User.find(2)
+  end
+
   def self.ids_of_users_with_any_role
     ROLES.map do |role|
       User.select(:id).where("#{role}": true)
