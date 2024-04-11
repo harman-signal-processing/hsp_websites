@@ -306,9 +306,7 @@ class ProductFamily < ApplicationRecord
   end
 
   def update_current_product_counts
-    locales(self.brand.default_website).each do |this_locale|
-      update_current_product_counts_for_locale(this_locale)
-    end
+    current_product_counts.each{|cpc| cpc.save}
   end
   handle_asynchronously :update_current_product_counts
 
