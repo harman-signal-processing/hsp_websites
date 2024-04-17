@@ -119,7 +119,7 @@ class Artist < ApplicationRecord
     unless self.skip_unapproval == true
       if self.artist_photo_file_size_changed? || self.artist_product_photo_file_size_changed? ||
         self.bio_changed? || self.website_changed? || self.name_changed? && !self.approver_id_was.blank?
-          logger.info " ============--------> Unapproving artist: #{self.name}"
+          #logger.info " ============--------> Unapproving artist: #{self.name}"
           self.approver_id = nil
           artist_relations = User.artist_relations
           if artist_relations.size > 0

@@ -101,7 +101,7 @@ class Admin::ProductFamilyCustomizableAttributesController < AdminController
       product_family_customizable_attribute_params[:product_family_id].reject(&:blank?).each do |pf_id|
         @product_family_customizable_attributes << ProductFamilyCustomizableAttribute.new(product_family_id: pf_id, customizable_attribute_id: customizable_attribute_id)
       end
-      logger.debug ">>>>>>>>>>>>> #{ @product_family_customizable_attributes.inspect }"
+      #logger.debug ">>>>>>>>>>>>> #{ @product_family_customizable_attributes.inspect }"
     else
       @product_family_customizable_attribute = ProductFamilyCustomizableAttribute.new(product_family_customizable_attribute_params)
     end
