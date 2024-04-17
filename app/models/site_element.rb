@@ -37,7 +37,7 @@ class SiteElement < ApplicationRecord
 
   after_initialize :copy_attributes_from_previous_version
   before_save :set_upload_attributes
-  after_save :queue_processing, :touch_products
+  after_save :queue_processing, :replace_old_version, :touch_products
   before_update :reset_link_check
 
   scope :to_be_checked, -> (options={}) {
@@ -81,7 +81,7 @@ class SiteElement < ApplicationRecord
   end
 
   def all_versions
-    @all_versions ||= self.class.where(name: self.name, language: self.language, brand_id: self.brand_id).order(:version)
+    @all_versions ||= self.class.where(current_version_id: self.current_version_id).order(:version, :created_at)
   end
 
   def latest_version
@@ -113,20 +113,25 @@ class SiteElement < ApplicationRecord
     end
   end
 
+  # Need to ensure all records have the "current_version_id" present--even if
+  # itself is the only version of this site element.
+  # But, we can't really make it a required field because it gets filled in
+  # later and always by the application--not the user.
+  def replace_old_version
+    if self.replaces_element.present? && self.replaces_element.to_i > 0
+      self.class.where(current_version_id: self.replaces_element).update_all(current_version_id: self.id)
+      self.class.where(id: self.replaces_element).update_all(current_version_id: self.id)
+    else
+      self.update_columns(current_version_id: self.id)
+    end
+  end
+
   def touch_products
     products.each{|p| p.touch}
   end
 
   def current_products
     products.where(product_status_id: ProductStatus.current_ids)
-  end
-
-  # If a resource's name or language change, then we have to update the previous
-  # versions as well. Otherwise the versioning relationship gets broken.
-  def catchup_with_latest_version(latest_version)
-    if name != latest_version.name || language != latest_version.language
-      update_columns(name: latest_version.name, language: latest_version.language)
-    end
   end
 
   def is_image?

@@ -101,10 +101,8 @@ class Admin::SiteElementsController < AdminController
   # PUT /site_elements/1
   # PUT /site_elements/1.xml
   def update
-    other_versions = @site_element.other_versions
     respond_to do |format|
       if @site_element.update(site_element_params)
-        other_versions.each{|element| element.catchup_with_latest_version(@site_element)}
         format.html {
           if params[:return_to]
             return_to = URI.parse(params[:return_to]).path
