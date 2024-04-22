@@ -37,7 +37,7 @@ class Admin::ProductFamilyProductsController < AdminController
   # POST /admin/product_family_products
   # POST /admin/product_family_products.xml
   def create
-    logger.debug ">>>>>>>>>>>>>>>>>> #{ request.content_type }, #{ request.format }, #{ request.method }"
+    #logger.debug ">>>>>>>>>>>>>>>>>> #{ request.content_type }, #{ request.format }, #{ request.method }"
     @called_from = params[:called_from] || 'product'
     respond_to do |format|
 

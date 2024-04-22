@@ -35,7 +35,7 @@ class Dealer < ApplicationRecord
       rescue => e
         error_message = "Error in Dealer.rental_products_and_product_families. BrandDealer #{brand_dealer.id} #{e.message}"
         puts error_message
-        logger.debug error_message
+        #logger.debug error_message
       end  #  begin
     end  #  if brand_dealer.present?
     results
@@ -51,7 +51,7 @@ class Dealer < ApplicationRecord
       rescue => e
         error_message = "Error in Dealer.rental_products. BrandDealer #{brand_dealer.id} #{e.message}"
         puts error_message
-        logger.debug error_message
+        #logger.debug error_message
         []
       end  #  begin
     end  #  if brand_dealer.present?

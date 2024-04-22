@@ -306,10 +306,13 @@ class ProductFamily < ApplicationRecord
   end
 
   def update_current_product_counts
-    current_product_counts.each{ |cpc| cpc.save }
+    current_product_counts.each{|cpc| cpc.save}
   end
   handle_asynchronously :update_current_product_counts
 
+  def update_current_product_counts_for_locale(this_locale)
+    current_product_counts.where(locale: this_locale).first_or_initialize.save
+  end
 
   # w = a Brand or a Website
   def discontinued_products_plus_child_products(w, opts={})

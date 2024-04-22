@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.1].define(version: 2024_04_09_204203) do
+=======
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_162943) do
+>>>>>>> master
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -1801,9 +1805,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_204203) do
     t.string "source"
     t.datetime "link_checked_at", precision: nil
     t.string "link_status"
+    t.integer "current_version_id"
     t.index ["access_level_id"], name: "index_site_elements_on_access_level_id"
     t.index ["brand_id"], name: "index_site_elements_on_brand_id"
     t.index ["cached_slug"], name: "index_site_elements_on_cached_slug"
+    t.index ["current_version_id"], name: "index_site_elements_on_current_version_id"
   end
 
   create_table "software_activations", id: :integer, charset: "utf8", force: :cascade do |t|

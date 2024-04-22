@@ -27,7 +27,7 @@ class ProductFamiliesController < ApplicationController
       else
         # log these redirects to help determine alternatives that need to be created
         pf_locale = @product_family.locales(website).first
-        logger.geo.debug("#{request.url}, #{request.remote_ip}, GeoCountry: #{session[:geo_country]}, Redirecting to: #{ pf_locale }")
+        #logger.geo.debug("#{request.url}, #{request.remote_ip}, GeoCountry: #{session[:geo_country]}, Redirecting to: #{ pf_locale }")
         redirect_to product_family_path(@product_family, locale: pf_locale), status: :moved_permanently and return
         #raise ActionController::RoutingError.new('Not Found')
       end
