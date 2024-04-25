@@ -59,7 +59,7 @@ class MainController < ApplicationController
   def default_locale
     # Show search engines a global homepage without locale in the path
     # This is needed for homepage structured data to show up in search results
-    if is_search_engine? || can?(:manage, Product)
+    if can?(:manage, Product)
       I18n.locale ||= I18n.default_locale
       index
     else
