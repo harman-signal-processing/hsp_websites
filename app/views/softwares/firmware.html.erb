@@ -12,6 +12,11 @@
 			<%= t('firmware_downloads') %>
 		<% end %>
 		</h1>
+    <% if website.firmware_intro %>
+      <div>
+        <%=raw website.firmware_intro %>
+      </div>
+    <% end %>
 	</div>
 
 </div>

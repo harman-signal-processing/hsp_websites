@@ -59,20 +59,7 @@
         </div>
 			</div>
 
-      <div class="row">
-        <div class="large-6 columns">
-          <%= f.input :purchased_from %>
-        </div>
-        <div class="large-6 columns">
-          <%= f.input :purchase_price, placeholder: "$" %>
-        </div>
-      </div>
 		</fieldset>
-
-    <%= f.input :comments,
-      hint: raw(t('blurbs.warranty_comments',
-      support_form_link: raw(link_to(t('support_contact_form'), support_path, target: "_blank")))),
-      input_html: { style: "height: 80px" } %>
 
     <div class="captcha">
        <%= recaptcha_tags site_key: website.recaptcha_public_key %>

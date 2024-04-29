@@ -69,6 +69,12 @@
     </div>
   <% end %>
 
+  <% if website.news_intro %>
+    <div>
+      <%=raw website.news_intro %>
+    </div>
+  <% end %>
+
   <% if @news.length > 0 %>
     <ul class="medium-block-grid-2 large-block-grid-3 small-block-grid-1">
       <% @news.each do |item| %>

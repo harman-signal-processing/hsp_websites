@@ -12,6 +12,11 @@
 			<%= t('software_downloads') %>
 		<% end %>
 		</h1>
+    <% if website.software_intro %>
+      <div>
+        <%=raw website.software_intro %>
+      </div>
+    <% end %>
 	</div>
   <div class="large-6 columns text-right">
     <br/>

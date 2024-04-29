@@ -8,6 +8,12 @@
   </div>
 <% end %>
 
+<% if website.software_intro %>
+  <div>
+    <%=raw website.software_intro %>
+  </div>
+<% end %>
+
 <% if can? :manage, Software %>
   <div class="text-right">
     <%= link_to new_software_path do %>
