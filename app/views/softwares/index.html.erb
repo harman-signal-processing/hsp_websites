@@ -3,7 +3,7 @@
                  keywords: website.brand.current_softwares.collect{|s| s.name} %>
 
 <div class="row">
-	<div class="large-6 columns">
+	<div class="small-12 large-6 columns">
 		<h1>
 		<% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
 			<%= image_tag("#{website.folder}/#{I18n.locale}/software_downloads_head.jpg", alt: t('software_downloads')) %>
@@ -12,13 +12,8 @@
 			<%= t('software_downloads') %>
 		<% end %>
 		</h1>
-    <% if website.software_intro %>
-      <div>
-        <%=raw website.software_intro %>
-      </div>
-    <% end %>
 	</div>
-  <div class="large-6 columns text-right">
+  <div class="small-12 large-6 columns text-right">
     <br/>
     <% if can? :manage, Software %>
       <%= link_to new_software_path do %>
@@ -29,7 +24,12 @@
     <% if website.brand.name.to_s.match(/dbx/i) %>
       <%= link_to "3rd Party Controllers", "/en/3rd-party-controllers" %>
     <% end %>
+  </div>
+  <% if website.software_intro %>
+    <div class="small-12 columns">
+      <%=raw website.software_intro %>
     </div>
+  <% end %>
 </div>
 
 <%= cache ["softwares_index", website.brand, I18n.locale] do %>
