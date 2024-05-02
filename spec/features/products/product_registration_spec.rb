@@ -57,8 +57,9 @@ feature "Product Registration" do
     fill_in 'warranty_registration_serial_number',  with: "123" + rand().to_s
     # Not needed, js calendar fills in default date
     # fill_in 'warranty_registration_purchased_on',   with: 2.weeks.ago.to_s
-    fill_in 'warranty_registration_purchased_from', with: "Musician's Friend"
-    fill_in 'warranty_registration_purchase_price', with: "$100.00"
+    # Purchase details fields removed 4/2024
+    # fill_in 'warranty_registration_purchased_from', with: "Musician's Friend"
+    # fill_in 'warranty_registration_purchase_price', with: "$100.00"
     select 'United States',                   from: 'warranty_registration_country'
     select @website.brand.products.last.name, from: 'warranty_registration_product_id'
   end

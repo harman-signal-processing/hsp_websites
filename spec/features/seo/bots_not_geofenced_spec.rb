@@ -45,10 +45,10 @@ feature "Bots not Geofenced" do
       expect(page.current_path).to eq("/en")
     end
 
-    it "visits homepage with no locale in URL" do
+    it "visits homepage with no locale in URL redirect to geo-based locale" do
       visit "/"
 
-      expect(page.current_path).to eq("/")
+      expect(page.current_path).to eq("/en-US")
     end
   end
 
