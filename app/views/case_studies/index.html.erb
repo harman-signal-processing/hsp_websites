@@ -1,6 +1,9 @@
 <%= render_partial 'banner' %>
 
 <div class="row">
+  <% if website.case_study_intro%>
+    <div style="margin-left: auto;margin-right: auto;width: 97%;margin-bottom: 1rem;"><%=raw website.case_study_intro%></div>
+  <% end %>
   <div class="medium-9 columns">
     <div class="case-studies">
       <% if @case_studies.empty? %>

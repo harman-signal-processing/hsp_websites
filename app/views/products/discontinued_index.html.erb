@@ -1,6 +1,9 @@
 <% set_meta_tags title: "Discontinued Products",
 				 reverse: true %>
 <h1 class="page_title"><%= t('discontinued_products').titleize %></h1>
+  <% if website.discontinued_products_intro%>
+    <div><%=raw website.discontinued_products_intro%></div>
+  <% end %>
 <p>&nbsp;</p>
 
 <% displayed_products = [] %>
