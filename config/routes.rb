@@ -87,7 +87,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   scope "(:locale)", locale: /#{Locale.all_unique_locales.join('|')}/ do
     constraints(AmxDomain) do
       # get 'contacts' => 'main#where_to_buy', as: :amx_contacts
-      get '/contacts' => 'support#index'
+      get '/contacts' => 'support#index', as: :amx_support_to_contacts
       # get '/partners' => 'manufacturer_partners#index', as: :amx_partners
       get '/partners' => 'manufacturer_partners#partners_home', as: :amx_partners_home
       get '/partners/inconcert' => 'manufacturer_partners#partners_inconcert', as: :amx_partners_inconcert
