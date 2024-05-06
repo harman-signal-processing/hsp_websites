@@ -85,10 +85,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   # Main routing
   root to: 'main#default_locale'
   scope "(:locale)", locale: /#{Locale.all_unique_locales.join('|')}/ do
+    get '/contacts' => redirect("#{I18n.locale}/support")
     constraints(AmxDomain) do
-      # get 'contacts' => 'main#where_to_buy', as: :amx_contacts
-      get '/contacts' => 'support#index', as: :amx_support_to_contacts
-      # get '/partners' => 'manufacturer_partners#index', as: :amx_partners
       get '/partners' => 'manufacturer_partners#partners_home', as: :amx_partners_home
       get '/partners/inconcert' => 'manufacturer_partners#partners_inconcert', as: :amx_partners_inconcert
       get '/partners/featured' => 'manufacturer_partners#featured_partner', as: :amx_featured_partner
