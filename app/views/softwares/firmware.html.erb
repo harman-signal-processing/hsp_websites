@@ -3,7 +3,7 @@
                  keywords: website.brand.current_firmwares.collect{|s| s.name} %>
 
 <div class="row">
-	<div class="large-6 columns">
+	<div class="small-12 columns">
 		<h1 class="page_title">
 		<% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/software_downloads_head.jpg")) %>
 			<%= image_tag("#{website.folder}/#{I18n.locale}/software_downloads_head.jpg", alt: t('firmware_downloads')) %>
@@ -13,7 +13,11 @@
 		<% end %>
 		</h1>
 	</div>
-
+  <% if website.firmware_intro %>
+    <div class="small-12 columns">
+      <%=raw website.firmware_intro %>
+    </div>
+  <% end %>
 </div>
 
 <%= cache ["firmwares_index", website.brand, I18n.locale] do %>

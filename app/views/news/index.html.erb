@@ -30,6 +30,11 @@
   <% end %>
     <% if @news.length > 0 %>
       <h1><%= t "titles.news", brand: website.brand.name %></h1>
+      <% if website.news_intro %>
+        <div>
+          <%=raw website.news_intro %>
+        </div>
+      <% end %>
       <ul class="medium-block-grid-4 small-block-grid-2">
         <% @news.each do |item| %>
           <%= render item %>

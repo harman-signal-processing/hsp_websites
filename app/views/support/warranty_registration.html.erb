@@ -4,6 +4,12 @@
 
 <h1><%= t('titles.warranty_registration') %></h1>
 
+<% if website.product_registration_intro %>
+  <div>
+    <%=raw website.product_registration_intro %>
+  </div>
+<% end %>
+
 <div class="row">
 	<div class="large-10 columns">
     <%= render_partial "support/warranty_registration_form" %>
