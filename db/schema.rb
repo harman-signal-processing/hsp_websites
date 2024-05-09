@@ -732,6 +732,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_162943) do
     t.boolean "use_as_banner_slide", default: false
     t.boolean "show_below_products", default: false
     t.boolean "show_below_videos", default: false
+    t.string "video_file_name"
+    t.string "video_content_type"
+    t.datetime "video_updated_at"
+    t.integer "video_file_size"
     t.index ["featurable_type", "featurable_id"], name: "index_features_on_featurable_type_and_featurable_id"
   end
 

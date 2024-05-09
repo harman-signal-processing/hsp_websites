@@ -68,7 +68,21 @@ class Admin::FeaturesController < AdminController
     params[:feature][:use_as_banner_slide] = 1 if params[:feature][:display_option] == "slide"
     params[:feature][:show_below_products] = 1 if params[:feature][:display_option] == "under_products"
     params[:feature][:show_below_videos] = 1 if params[:feature][:display_option] == "under_videos"
-    params.require(:feature).permit(:featurable_type, :featurable_id, :position, :layout_style, :content_position, :pre_content, :content, :image, :use_as_banner_slide, :show_below_products, :show_below_videos, :display_option)
+    params.require(:feature).permit(:featurable_type,
+      :featurable_id,
+      :position,
+      :layout_style,
+      :content_position,
+      :pre_content,
+      :content,
+      :image,
+      :delete_image,
+      :video,
+      :delete_video,
+      :use_as_banner_slide,
+      :show_below_products,
+      :show_below_videos,
+      :display_option)
   end
 
   def turn_display_option_flags_off(display_option_flags)

@@ -22,12 +22,24 @@ class Feature < ApplicationRecord
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"
   attr_accessor :delete_image
 
-  before_update :delete_image_if_needed
+  has_attached_file :video
+  validates_attachment :video, content_type: { content_type: /\Avideo/i }
+  attr_accessor :delete_video
+
+  before_update :delete_image_if_needed, :delete_video_if_needed
 
   def delete_image_if_needed
     unless self.image.dirty?
       if self.delete_image.present? && self.delete_image.to_s == "1"
         self.image = nil
+      end
+    end
+  end
+
+  def delete_video_if_needed
+    unless self.video.dirty?
+      if self.delete_video.present? && self.delete_video.to_s == "1"
+        self.video = nil
       end
     end
   end

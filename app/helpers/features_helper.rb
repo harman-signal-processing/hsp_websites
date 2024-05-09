@@ -32,32 +32,58 @@ module FeaturesHelper
 
   # Renders wide feature with text overlay
   def render_wide_feature(feature, opt={})
-    if feature.image.present? || feature.content.present?
+    if feature.image.present? || feature.content.present? || feature.video.present?
       position_class = "medium-6 small-12 columns end"
       position_class += " medium-offset-6 " if feature.content_position.to_s == "right"
 
       content_class = { class: "wide-feature container" }
-      img = ""
-      if feature.image.present?
+      media = ""
+      if feature.video.present?
+        if opt[:format].present? && opt[:format] == "mobile"
+          media = content_tag(:div, class: "flex-video") do
+            video_tag(feature.video.url,
+              autoplay: true,
+              muted: true,
+              loop: true,
+              poster: feature.image.present? ? translate_image_url(feature, :image, size: :medium) : '')
+            end
+        else
+          media = video_tag(feature.video.url,
+            autoplay: true,
+            muted: true,
+            loop: true,
+            poster: feature.image.present? ? translate_image_url(feature, :image, size: :extra_large) : '')
+          content_class[:class] += " feature-with-video"
+        end
+      elsif feature.image.present?
         if opt[:format].present? && opt[:format] == "mobile"
           img = translate_image_url(feature, :image, size: :medium)
         else
           img = translate_image_url(feature, :image, size: :extra_large)
+          content_class[:style] = "background-image: url(#{img});"
         end
-        content_class[:style] = "background-image: url(#{img});"
+        media = image_tag(img, alt: "featured content")
       end
 
       if opt[:format].present? && opt[:format] == "mobile"
         content_tag :div, class: "wide-feature"  do
-          image_tag(img, alt: "featured content") + render_feature_text(feature, opt)
+          media + render_feature_text(feature, opt)
         end
-      else
+      elsif feature.video.present?
         content_tag :div, content_class  do
-          content_tag :div, class: "row" do
+          media + (content_tag :div, class: "row" do
             content_tag :div, class: position_class do
               render_feature_text(feature, opt)
             end
-          end
+          end)
+        end
+      else
+        content_tag :div, content_class  do
+          (content_tag :div, class: "row" do
+            content_tag :div, class: position_class do
+              render_feature_text(feature, opt)
+            end
+          end)
         end
       end
     end
@@ -65,18 +91,28 @@ module FeaturesHelper
 
   # Renders wide feature with text underneath
   def render_wide2_feature(feature, opt={})
-    if feature.image.present? || feature.content.present?
-      img = ""
-      if feature.image.present?
+    if feature.image.present? || feature.content.present? || feature.video.present?
+      content_class = { class: "wide2-feature" }
+      media = ""
+      if feature.video.present?
+        media = content_tag(:div, class: "flex-video") do
+          video_tag(feature.video.url,
+            autoplay: true,
+            muted: true,
+            loop: true,
+            poster: feature.image.present? ? translate_image_url(feature, :image, size: :medium) : '')
+          end
+      elsif feature.image.present?
         if opt[:format].present? && opt[:format] == "mobile"
           img = translate_image_url(feature, :image, size: :medium)
         else
           img = translate_image_url(feature, :image, size: :original)
         end
+        media = image_tag(img, alt: "featured content") + content_tag(:br)
       end
 
-      content_tag :div, class: "wide2-feature"  do
-        image_tag(img, alt: "featured content") + content_tag(:br) +
+      content_tag :div, content_class  do
+        media +
         raw(update_youtube_links(translate_content(feature, :content))) +
         content_tag(:br)
       end
@@ -85,17 +121,42 @@ module FeaturesHelper
 
   # Renders split-panel features with text on one side
   def render_split_feature(feature, opt={})
+    media = " "
+    content_class = { class: "medium-7 hide-for-small columns image-container" }
+    if feature.video.present?
+      if opt[:format].present? && opt[:format] == "mobile"
+        small_media = content_tag(:div, class: "flex-video") do
+          video_tag(feature.video.url,
+            autoplay: true,
+            muted: true,
+            loop: true,
+            poster: feature.image.present? ? translate_image_url(feature, :image, size: :medium) : '')
+          end
+      else
+        media = video_tag(feature.video.url,
+          autoplay: true,
+          muted: true,
+          loop: true,
+          poster: feature.image.present? ? translate_image_url(feature, :image, size: :extra_large) : '')
+        content_class[:class] += " feature-with-video"
+      end
+    elsif feature.image.present?
+      small_media = translate_image_tag(feature, :image, size: :large)
+      content_class[:style] = "background-image: url(#{feature.image.url});"
+    end
+
     small_image_panel = content_tag :div,
       class: "hide-for-medium-up show-for-small small-12 columns" do
-      translate_image_tag(feature, :image, size: :large)
+      small_media
     end
-    image_panel = content_tag :div, raw('&nbsp;'),
-      class: "medium-7 hide-for-small columns image-container",
-      style: "background-image: url(#{feature.image.url});",
+
+    image_panel = content_tag :div, media, content_class,
       data: { 'equalizer-watch': "feature_#{feature.to_param}" }
+
     text_panel = content_tag :div, render_feature_text(feature, opt),
       class: "medium-5 small-12 columns",
       data: { 'equalizer-watch': "feature_#{feature.to_param}" }
+
     content_tag :div, class: "row collapse split-feature", data: { equalizer: "feature_#{feature.to_param}" } do
       if feature.content_position.to_s == "right"
         small_image_panel + image_panel + text_panel
