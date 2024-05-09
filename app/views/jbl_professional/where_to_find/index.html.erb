@@ -14,7 +14,9 @@
 <% else %>
   <h1><%= @page_title %></h1>
 <% end %>
-
+  <% if website.where_to_buy_intro%>
+    <div style="margin-left: auto;margin-right: auto;margin-bottom: 1rem;"><%=raw website.where_to_buy_intro%></div>
+  <% end %>
 <div class="row">
   <div class="large-8 columns">
     <% if website.show_lead_form_on_buy_page? %>

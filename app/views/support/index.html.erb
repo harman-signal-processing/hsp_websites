@@ -8,6 +8,9 @@
   </div>
 <% end %>
 
+  <% if website.support_intro%>
+    <div style="margin-left: auto;margin-right: auto;margin-bottom: 1rem;"><%=raw website.support_intro%></div>
+  <% end %>
 <div class="row">
   <%=render_partial "support/support_left_side_bar"%>
   <%=render_partial "support/support_index_new"%>
