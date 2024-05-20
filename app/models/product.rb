@@ -584,6 +584,10 @@ class Product < ApplicationRecord
     css
   end
 
+  def has_custom_css?
+    self.custom_css.present?
+  end
+
   # Artists on tour with this product
   def artists_on_tour
     begin

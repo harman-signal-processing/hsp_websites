@@ -49,7 +49,16 @@ set_meta_tags title: @product.name,
 	<% end %>
 <% end %>
 
-<% if @product.has_custom_background? %>
+<% if @product.has_custom_css? %>
+	<%= content_for :custom_css do %>
+	<style type="text/css" media="screen">
+    <% if @product.has_custom_background? %>
+  		body { <%= @product.custom_background %> }
+		<% end %>
+	  <%=raw @product.custom_css %>
+	</style>
+	<% end %>
+<% elsif @product.has_custom_background? %>
 	<%= content_for :custom_css do %>
 	<style type="text/css" media="screen">
 		body { <%= @product.custom_background %> }

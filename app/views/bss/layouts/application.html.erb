@@ -51,6 +51,12 @@
         <%= raw website.value_for('other_header_scripts') %>
       <% end %>
     <% end %>
+
+    <link rel="stylesheet" href=https://use.typekit.net/wik4zei.css>
+		<link rel="preconnect" href=https://fonts.googleapis.com>
+		<link rel="preconnect" href=https://fonts.gstatic.com crossorigin>
+		<link href=https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap rel="stylesheet">
+
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>

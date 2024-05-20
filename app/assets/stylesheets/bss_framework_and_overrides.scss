@@ -594,3 +594,40 @@ a.option-remover {
 #footer_logo_soundcraft {
   width: 79px;
 }
+
+//AVX styles
+.avx-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.avx-btn {
+  font-family: "obviously-wide";
+  padding: 15px;
+  border: none;
+  outline: none;
+  position: relative;
+  z-index: 1;
+  border-radius: 5px;
+  background: linear-gradient(to bottom,#C506F6, #330AFC, #00F683 );
+  cursor: pointer;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+.avx-btn::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  border-radius: 5px;
+  background-color: black;
+  z-index: -1;
+  transition: 200ms
+}
+.avx-btn:hover::before {
+  opacity: 80%;
+}
