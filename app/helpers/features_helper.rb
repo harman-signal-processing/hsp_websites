@@ -19,7 +19,7 @@ module FeaturesHelper
 
   # Selects which type of feature to render
   def render_feature(feature, opt={})
-    render_pre_content(feature) + render_styled_feature(feature, opt)
+    render_feature_css(feature) + render_pre_content(feature) + render_styled_feature(feature, opt)
   end
 
   def render_styled_feature(feature, opt)
@@ -78,7 +78,7 @@ module FeaturesHelper
           end)
         end
       else
-        content_tag :div, content_class  do
+        content_tag :div, content_class, id: "feature_#{feature.to_param}"  do
           (content_tag :div, class: "row" do
             content_tag :div, class: position_class do
               render_feature_text(feature, opt)
@@ -111,7 +111,7 @@ module FeaturesHelper
         media = image_tag(img, alt: "featured content") + content_tag(:br)
       end
 
-      content_tag :div, content_class  do
+      content_tag :div, content_class, id: "feature_#{feature.to_param}"  do
         media +
         raw(update_youtube_links(translate_content(feature, :content))) +
         content_tag(:br)
@@ -157,7 +157,7 @@ module FeaturesHelper
       class: "medium-5 small-12 columns",
       data: { 'equalizer-watch': "feature_#{feature.to_param}" }
 
-    content_tag :div, class: "row collapse split-feature", data: { equalizer: "feature_#{feature.to_param}" } do
+    content_tag :div, class: "row collapse split-feature", id: "feature_#{feature.to_param}", data: { equalizer: "feature_#{feature.to_param}" } do
       if feature.content_position.to_s == "right"
         small_image_panel + image_panel + text_panel
       else
@@ -174,6 +174,53 @@ module FeaturesHelper
     elsif feature.featurable_type == "Product"
       @product ||= feature.featurable
       render_partial "products/reviews"
+    end
+  end
+
+  # Renders 50/50 split-panel features with text on one side
+  def render_5050_split_feature(feature, opt={})
+    media = " "
+    content_class = { class: "medium-6 hide-for-small columns image-container" }
+    if feature.video.present?
+      if opt[:format].present? && opt[:format] == "mobile"
+        small_media = content_tag(:div, class: "flex-video") do
+          video_tag(feature.video.url,
+            autoplay: true,
+            muted: true,
+            loop: true,
+            poster: feature.image.present? ? translate_image_url(feature, :image, size: :medium) : '')
+          end
+      else
+        media = video_tag(feature.video.url,
+          autoplay: true,
+          muted: true,
+          loop: true,
+          poster: feature.image.present? ? translate_image_url(feature, :image, size: :extra_large) : '')
+        content_class[:class] += " feature-with-video"
+      end
+    elsif feature.image.present?
+      small_media = translate_image_tag(feature, :image, size: :large)
+      content_class[:style] = "background-image: url(#{feature.image.url});"
+    end
+
+    small_image_panel = content_tag :div,
+      class: "hide-for-medium-up show-for-small small-12 columns" do
+      small_media
+    end
+
+    image_panel = content_tag :div, media, content_class,
+      data: { 'equalizer-watch': "feature_#{feature.to_param}" }
+
+    text_panel = content_tag :div, render_feature_text(feature, opt),
+      class: "medium-6 small-12 columns",
+      data: { 'equalizer-watch': "feature_#{feature.to_param}" }
+
+    content_tag :div, class: "row collapse split-feature", id: "feature_#{feature.to_param}", data: { equalizer: "feature_#{feature.to_param}" } do
+      if feature.content_position.to_s == "right"
+        small_image_panel + image_panel + text_panel
+      else
+        small_image_panel + text_panel + image_panel
+      end
     end
   end
 
@@ -221,4 +268,7 @@ module FeaturesHelper
     "#{pixel_height.to_i}px"
   end
 
+  def render_feature_css(feature)
+    raw("<style>#{ feature.custom_css }</style>")
+  end
 end

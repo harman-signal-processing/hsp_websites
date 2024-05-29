@@ -75,6 +75,7 @@ class Admin::FeaturesController < AdminController
       :content_position,
       :pre_content,
       :content,
+      :custom_css,
       :image,
       :delete_image,
       :video,

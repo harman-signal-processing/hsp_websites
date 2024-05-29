@@ -113,7 +113,7 @@
     <% end %>
 
     <% if @product_family.current_products.length > 0 %>
-      <div class="row">
+      <div class="row" id="product_thumbs_container">
         <div class="large-12 columns" data-equalizer="product_thumbs">
           <h1><%= translate_content(@product_family, :name) %> Products</h1>
           <% if @product_family.show_comparisons? %>

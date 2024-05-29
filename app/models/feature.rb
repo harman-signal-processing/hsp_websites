@@ -49,6 +49,7 @@ class Feature < ApplicationRecord
       ["Wide slide with text overlay", "wide"],
       ["Wide slide with text underneath", "wide2"],
       ["60/40 split", "split"],
+      ["50/50 split", "5050_split"],
       ["Review Quotes", "review_quotes"]
     ]
   end

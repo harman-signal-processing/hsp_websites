@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_15_212036) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_28_202105) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -736,6 +736,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_212036) do
     t.string "video_content_type"
     t.datetime "video_updated_at"
     t.integer "video_file_size"
+    t.text "custom_css"
     t.index ["featurable_type", "featurable_id"], name: "index_features_on_featurable_type_and_featurable_id"
   end
 

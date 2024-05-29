@@ -84,8 +84,14 @@
 
   <%= f.input :pre_content, label: "Content appearing before the feature", input_html: { class: "mceEditor" } %>
   <br/>
-  <%= f.input :content, lable: "Text content", input_html: { class: "mceEditor" } %>
+  <%= f.input :content, label: "Text content", input_html: { class: "mceEditor" } %>
   <br/>
+  <% if !f.object.new_record? %>
+    <%= f.input :custom_css, input_html: { rows: 10 } %>
+    <p>Use this CSS selector to restrict your styles to this feature: <code>div#feature_<%= f.object.to_param %></code>.</p>
+  <% else %>
+    <p><em>Custom CSS can be added to this feature <strong>after</strong> it is saved. Come back and edit it here.</em></p>
+  <% end %>
 
   <%= f.submit class: "button" %>
 <% end %>
