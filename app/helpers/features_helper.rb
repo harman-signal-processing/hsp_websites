@@ -19,7 +19,10 @@ module FeaturesHelper
 
   # Selects which type of feature to render
   def render_feature(feature, opt={})
-    render_feature_css(feature) + render_pre_content(feature) + render_styled_feature(feature, opt)
+    render_feature_css(feature) +
+    content_tag(:div, id: "feature_#{feature.id}") do
+      render_pre_content(feature) + render_styled_feature(feature, opt)
+    end
   end
 
   def render_styled_feature(feature, opt)
@@ -78,7 +81,7 @@ module FeaturesHelper
           end)
         end
       else
-        content_tag :div, content_class, id: "feature_#{feature.to_param}"  do
+        content_tag :div, content_class  do
           (content_tag :div, class: "row" do
             content_tag :div, class: position_class do
               render_feature_text(feature, opt)
@@ -111,7 +114,7 @@ module FeaturesHelper
         media = image_tag(img, alt: "featured content") + content_tag(:br)
       end
 
-      content_tag :div, content_class, id: "feature_#{feature.to_param}"  do
+      content_tag :div, content_class do
         media +
         raw(update_youtube_links(translate_content(feature, :content))) +
         content_tag(:br)
@@ -157,7 +160,7 @@ module FeaturesHelper
       class: "medium-5 small-12 columns",
       data: { 'equalizer-watch': "feature_#{feature.to_param}" }
 
-    content_tag :div, class: "row collapse split-feature", id: "feature_#{feature.to_param}", data: { equalizer: "feature_#{feature.to_param}" } do
+    content_tag :div, class: "row collapse split-feature", data: { equalizer: "feature_#{feature.to_param}" } do
       if feature.content_position.to_s == "right"
         small_image_panel + image_panel + text_panel
       else
@@ -215,7 +218,7 @@ module FeaturesHelper
       class: "medium-6 small-12 columns",
       data: { 'equalizer-watch': "feature_#{feature.to_param}" }
 
-    content_tag :div, class: "row collapse split-feature", id: "feature_#{feature.to_param}", data: { equalizer: "feature_#{feature.to_param}" } do
+    content_tag :div, class: "row collapse split-feature", data: { equalizer: "feature_#{feature.to_param}" } do
       if feature.content_position.to_s == "right"
         small_image_panel + image_panel + text_panel
       else
