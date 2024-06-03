@@ -26,11 +26,13 @@
 							mouseover: "#{website.folder}/#{I18n.locale}/download_button_hover.png"),
 					download_software_path(@software, locale: I18n.locale) %>
 			<% else %>
-			<h2><%= link_to t("download"), download_software_path(@software, locale: I18n.locale) %></h2>
+			<h2><%= link_to_download_software(@software) do %>
+            <%= t("download") %>
+          <% end %></h2>
 			<% end %>
 			<p>
 				<%= platform_icon(@software, 17) %>
-				<%= link_to(@software.formatted_name, download_software_path(@software, locale: I18n.locale)) %>
+				<%= link_to_download_software(@software) %>
 				<% if @software.ware_file_size.present? %>
 				[<%= number_to_human_size(@software.ware_file_size)%>]
 				<% end %>
