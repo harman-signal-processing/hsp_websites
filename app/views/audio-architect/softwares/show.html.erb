@@ -26,9 +26,7 @@
 							mouseover: "#{website.folder}/#{I18n.locale}/download_button_hover.png"),
 					download_software_path(@software, locale: I18n.locale) %>
 			<% else %>
-			<h2><%= link_to_download_software(@software) do %>
-            <%= t("download") %>
-          <% end %></h2>
+				<h2><%= link_to_download_software(@software, label_method: :link_text_download) %></h2>
 			<% end %>
 			<p>
 				<%= platform_icon(@software, 17) %>

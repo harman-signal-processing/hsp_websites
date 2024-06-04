@@ -109,6 +109,10 @@ class Software < ApplicationRecord
     f
   end
 
+  def link_text_download
+    "DOWNLOAD"
+  end
+
   # Alias for search results link_name
   def link_name
     self.formatted_name
