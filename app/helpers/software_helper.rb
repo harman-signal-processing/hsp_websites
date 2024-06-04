@@ -14,14 +14,14 @@ module SoftwareHelper
     if software.link.present? && software.new_record?
       link_to(link_text, software.link, opts)
 
-    # link to software details page if there is more info
-    elsif software.has_additional_info?
-      link_to(link_text, software, opts)
-
     # link to software hosted by 3rd party, first show a popup
     elsif software.links_to_3rd_party_site?
       software_disclaimer_popup_for(software) +
       link_to(link_text, '#', data: { "reveal-id": "software_#{software.id}_popup"})
+
+    # link to software details page if there is more info
+    elsif software.has_additional_info?
+      link_to(link_text, software, opts)
 
     # link directly to S3 file to avoid redirect (for SEO)
     elsif software.ware.present? && !software.ware_file_name.to_s.match?(/\.mu3$/i)

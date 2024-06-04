@@ -20,3 +20,8 @@
 //= require jquery.lazyload
 //= require global_functions
 //= require slideshow
+//= require foundation
+
+$(function(){
+  $(document).foundation();
+})
