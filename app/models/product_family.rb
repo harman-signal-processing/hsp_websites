@@ -21,6 +21,7 @@ class ProductFamily < ApplicationRecord
   has_many :customizable_attributes, through: :product_family_customizable_attributes
   has_many :product_family_videos, -> { order('position') }, dependent: :destroy
   has_many :current_product_counts
+  has_many :banners, as: :bannerable, dependent: :destroy
   belongs_to :featured_product, class_name: "Product", optional: true
 
   after_touch :update_current_product_counts

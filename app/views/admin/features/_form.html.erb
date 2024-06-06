@@ -82,6 +82,24 @@
     </div>
   </fieldset>
 
+  <% if website.brand.name.match?(/jbl pro/i) %>
+    <div class="panel">
+      <p><strong>Tip:</strong> If you're making a product family banner for JBL, use this markup to get the orange/white text overlay:</p>
+<pre>
+  &lt;div class="product_family_banner"&gt;
+    &lt;img src="//path/to/background/img.jpg"&gt;
+    &lt;div class="headline_container"&gt;
+      &lt;h1&gt;ORANGE WORD(S)&lt;br/&gt;
+        &lt;span class="part2"&gt;WHITE WORD(S)&lt;/span&gt;
+      &lt;/h1&gt;
+      &lt;h3&gt;Gray subheader text&lt;/h3&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</pre>
+      <p>The classes above are defined in the JBL CSS and <em>should</em> make positioning
+      and colors just work. (at least until we change our minds about how those banners look.)</p>
+    </div>
+  <% end %>
   <%= f.input :pre_content, label: "Content appearing before the feature", input_html: { class: "mceEditor" } %>
   <br/>
   <%= f.input :content, label: "Text content", input_html: { class: "mceEditor" } %>

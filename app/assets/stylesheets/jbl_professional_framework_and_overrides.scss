@@ -244,6 +244,36 @@ div.product-title-block, div.small-title-block {
     color: #e8e8e8;
   }
 }
+.product_family_banner {
+  position: relative;
+  img {
+    width: 100%;
+  }
+  div.headline_container {
+    position: absolute;
+    top: 12%;
+    left: 7%;
+    text-align: left;
+    h1 {
+      color: #ef4923;
+      font-size: clamp(16px, 5.5vw, 4.5rem);
+      font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, 'sans-serif';
+      font-weight: 600;
+      line-height: .92;
+      margin-top: .1rem;
+      .part2 {
+        color: white;
+      }
+    }
+    h3 {
+      color: #b8b8b8;
+      font-size: clamp(12px, 3.75vw, 2.25rem);
+      font-family: Gotham, 'Helvetica Neue', Helvetica, Arial, 'sans-serif';
+      font-weight: 600;
+      margin-top: .2rem;
+    }
+  }
+}
 .button {
   letter-spacing: 0.05em;
 }
