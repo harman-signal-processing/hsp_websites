@@ -39,6 +39,8 @@ class SiteElementsController < ApplicationController
 
   def send_executable_file(site_element)
     data = URI.open(site_element.executable.url)
+    expires_in 1.day, public: true
+    response.headers["Expires"] = 1.day.from_now.httpdate
     send_data data.read,
       disposition: :attachment,
       stream: true,
@@ -49,6 +51,8 @@ class SiteElementsController < ApplicationController
 
   def send_resource_file(site_element)
     data = URI.open(site_element.resource.url)
+    expires_in 1.hour, public: true
+    response.headers["Expires"] = 1.hour.from_now.httpdate
     send_data data.read,
       disposition: 'inline',
       stream: true,
