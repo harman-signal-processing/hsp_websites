@@ -50,7 +50,7 @@ class SearchController < ApplicationController
   end
 
   def fetch_thinking_sphinx_results
-    query = @query.to_s.gsub(/[\-\/\\]/, "")
+    query = @query.to_s.gsub(/[\-\/\\]/, "").gsub("psb 2", "psb-2")
 
     if query.empty?
       @results = []
