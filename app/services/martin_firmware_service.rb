@@ -8,7 +8,7 @@ module MartinFirmwareService
       url = "#{ENV['MARTIN_FIRMWARE_URL']}"
       response = HTTParty.get(url)
       if response.success?
-        JSON.parse(response).deep_symbolize_keys
+        JSON.parse(response.to_s).deep_symbolize_keys
       else
         raise response.message
       end
