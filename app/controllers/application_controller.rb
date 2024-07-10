@@ -129,48 +129,81 @@ private
   def catch_criminals
     # 2022-08 Getting lots of geniuses trying to POST JSON. Let's just give them an error without much info:
     # This globally blocks POSTing JSON. Bypass this filter in your controller if POSTing JSON is required.
-    if request.content_type.to_s.match?(/json/i) && request.post?
-      BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{request.env["RAW_POST_DATA"]}")
-      log_bad_actors(request.remote_ip, "POSTing JSON")
-      raise ActionController::UnpermittedParameters.new ["not allowed"]
-    end
+    handle_posting_json
 
-    # SQL injection attacks where a paginated resource has the page number loaded with SQL.
-    # It wouldn't give hackers anything, but this should avoid the dumb error reports.
-    if params[:page].present? && params[:page].to_s.match?(/[^\w\-]/)
-      # We could raise an exception anytime there's something non-numeric in the page parameter
-      #raise ActionController::UnpermittedParameters.new ["not allowed"]
-      BadActorLog.create(ip_address: request.remote_ip, reason: "Page param overload", details: "#{request.inspect}\n\n#{params.inspect}")
-      log_bad_actors(request.remote_ip, "Page param overload")
+    handle_posting_empty_body
 
-      # But I think it's more fun to just strip out non-numeric characters and pretend
-      # nothing happened so the hackers don't get any kind of indication of what's going on.
-      params[:page].gsub!(/\D/, '')
-      params[:page] = params[:page][0,6] # then use only the first 6 digits.
-      params[:page] = 1 if params[:page].to_i < 1
+    handle_posting_empty_content_type
+
+    if website.present?
+      post_param_not_allowed_value = website.value_for('post_param_not_allowed')
+      handle_bad_posts(post_param_not_allowed_value)
+
+      path_not_allowed_value = website.value_for('path_not_allowed')
+      handle_bad_path(path_not_allowed_value)
     end
 
     # Alright, we're just going to look at all params for SQLi. This is probably going
     # to slow us down a bit. Thanks a lot hacker fools.
     if params.present?
+      handle_sql_injection_requests
+    end
+
+  end  #  def catch_criminals
+
+  def handle_posting_json
+    if request.content_type.to_s.match?(/json/i) && request.post?
+      BadActorLog.create(ip_address: request.remote_ip, reason: "POSTing JSON", details: "#{request.inspect}\n\n#{request.env["RAW_POST_DATA"]}")
+      log_bad_actors(request.remote_ip, "POSTing JSON")
+      raise ActionController::UnpermittedParameters.new ["not allowed"]
+    end
+  end
+  def handle_posting_empty_body
+    if request.post? && request.raw_post.gsub("-","").empty?
+      BadActorLog.create(ip_address: request.remote_ip, reason: "Empty POST", details: "#{request.inspect}\n\n#{request.raw_post}")
+      log_bad_actors(request.remote_ip, "Empty POST")
+      render plain: '-', status: 400
+    end
+  end
+  def handle_posting_empty_content_type
+    content_type = request.content_type.nil? ? "" : request.content_type.gsub("-","")
+    if request.post? && content_type.empty?
+      BadActorLog.create(ip_address: request.remote_ip, reason: "Empty Content Type", details: "#{request.inspect}\n\n#{request.raw_post}")
+      log_bad_actors(request.remote_ip, "Empty Content Type")
+      render plain: '-', status: 400
+    end
+  end
+  def handle_bad_posts(post_param_not_allowed_value)
+    if post_param_not_allowed_value.present?
+      bad_post_word_array = post_param_not_allowed_value.downcase.gsub(/\s/,"").split(",")
+      bad_post_param_pattern = /\b(?:#{bad_post_word_array.join('|')})\b/i
+      bad_post_found = request.raw_post.match?(bad_post_param_pattern)
+      if bad_post_found
+        BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Post", details: "#{request.inspect}\n\n#{request.raw_post}")
+        log_bad_actors(request.remote_ip, "Bad Post")
+        render plain: '-', status: 400
+      end
+    end
+  end
+  def handle_bad_path(path_not_allowed_value)
+    if path_not_allowed_value.present?
+      bad_path_word_array = path_not_allowed_value.downcase.gsub(/\s/,"").split(",")
+      bad_path_pattern = /(?:#{bad_path_word_array.map { |word| Regexp.escape(word) }.join('|')})/i
+      bad_path_found = request.fullpath.match?(bad_path_pattern)
+      if bad_path_found
+        BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Path", details: "#{request.inspect}\n\n#{request.raw_post}")
+        log_bad_actors(request.remote_ip, "Bad Path")
+        render plain: '-', status: 400
+      end
+    end
+  end
+  def handle_sql_injection_requests
       # checking all params as a string to avoid extra looping
       if has_sqli?(params.to_unsafe_h.flatten.to_s)
         BadActorLog.create(ip_address: request.remote_ip, reason: "SQLi attempt", details: "#{request.inspect}\n\n#{params.inspect}")
         log_bad_actors(request.remote_ip, "SQLi attempt")
         raise ActionController::UnpermittedParameters.new(["pESop jup"])
       end
-
-      # Check if the user is trying to pass something sinister in with the locale param
-      if params[:locale].present?
-        params[:locale].gsub!(/(\\|\/|\")$/, "") # removing trailing slash and double quote some have bookmarked
-        if params[:locale].to_s.match?(/[^a-zA-Z\-]/)
-          BadActorLog.create(ip_address: request.remote_ip, reason: "Overloading locale param", details: "#{request.inspect}\n\n#{params.inspect}")
-          log_bad_actors(request.remote_ip, "Overloading locale param")
-          raise ActionController::UnpermittedParameters.new(["Dema chigicha pai"])
-        end
-      end
-    end
-
   end
 
   def log_bad_actors(ip_address, reason)
