@@ -576,20 +576,11 @@ private
   end
 
   def has_sqli?(input)
-    sqli = Regexp.union(
-      /THEN.*ELSE.*END/i,
-      /CONCAT.*SELECT/i,
-      /UNION.*SELECT/i,
-      /CHAR\(/i,
-      /RESULT\:/i,
-      /\=.*SLEEP/i,
-      /SLEEP.*\=/i,
-      /\+{7,}/,
-    )
+      sqli_pattern = /\b(?:SELECT|INSERT INTO|UPDATE|DELETE FROM|UNION)\b.*?\b(?:CONCAT|FROM|INTO|SELECT|SLEEP|WHERE|VALUES)\b/i
     if input.respond_to?(:any?)
-      input.any?(sqli)
+      input.any?(sqli_pattern)
     else
-      input.to_s.match?(sqli)
+      input.to_s.match?(sqli_pattern)
     end
   end
 
