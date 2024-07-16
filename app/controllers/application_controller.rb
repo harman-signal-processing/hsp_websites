@@ -170,7 +170,8 @@ private
   def handle_posting_empty_content_type
     content_type = request.content_type.nil? ? "" : request.content_type.gsub("-","")
     if request.post? && content_type.empty?
-      BadActorLog.create(ip_address: request.remote_ip, reason: "Empty Content Type", details: "#{request.inspect}\n\n#{request.raw_post}")
+      raw_post_data = request.raw_post.truncate(250)
+      BadActorLog.create(ip_address: request.remote_ip, reason: "Empty Content Type", details: "#{request.inspect}\n\n#{raw_post_data}")
       log_bad_actors(request.remote_ip, "Empty Content Type")
       head :bad_request
     end
@@ -181,7 +182,8 @@ private
       bad_post_param_pattern = /\b(?:#{bad_post_word_array.join('|')})\b/i
       bad_post_found = request.raw_post.match?(bad_post_param_pattern)
       if bad_post_found
-        BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Post", details: "#{request.inspect}\n\n#{request.raw_post}")
+        raw_post_data = request.raw_post.truncate(250)
+        BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Post", details: "#{request.inspect}\n\n#{raw_post_data}")
         log_bad_actors(request.remote_ip, "Bad Post")
         head :bad_request
       end
@@ -193,7 +195,8 @@ private
       bad_path_pattern = /(?:#{bad_path_word_array.map { |word| Regexp.escape(word) }.join('|')})/i
       bad_path_found = request.fullpath.match?(bad_path_pattern)
       if bad_path_found
-        BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Path", details: "#{request.inspect}\n\n#{request.raw_post}")
+        raw_post_data = request.raw_post.truncate(250)
+        BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Path", details: "#{request.inspect}\n\n#{raw_post_data}")
         log_bad_actors(request.remote_ip, "Bad Path")
         head :bad_request
       end
