@@ -170,7 +170,7 @@ private
   def handle_posting_empty_content_type
     content_type = request.content_type.nil? ? "" : request.content_type.gsub("-","")
     if request.post? && content_type.empty?
-      raw_post_data = request.raw_post.truncate(250)
+      raw_post_data = request.raw_post.truncate(1250)
       BadActorLog.create(ip_address: request.remote_ip, reason: "Empty Content Type", details: "#{request.inspect}\n\n#{raw_post_data}")
       log_bad_actors(request.remote_ip, "Empty Content Type")
       head :bad_request
@@ -182,7 +182,7 @@ private
       bad_post_param_pattern = /\b(?:#{bad_post_word_array.join('|')})\b/i
       bad_post_found = request.raw_post.match?(bad_post_param_pattern)
       if bad_post_found
-        raw_post_data = request.raw_post.truncate(250)
+        raw_post_data = request.raw_post.truncate(1250)
         BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Post", details: "#{request.inspect}\n\n#{raw_post_data}")
         log_bad_actors(request.remote_ip, "Bad Post")
         head :bad_request
@@ -195,7 +195,7 @@ private
       bad_path_pattern = /(?:#{bad_path_word_array.map { |word| Regexp.escape(word) }.join('|')})/i
       bad_path_found = request.fullpath.match?(bad_path_pattern)
       if bad_path_found
-        raw_post_data = request.raw_post.truncate(250)
+        raw_post_data = request.raw_post.truncate(1250)
         BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Path", details: "#{request.inspect}\n\n#{raw_post_data}")
         log_bad_actors(request.remote_ip, "Bad Path")
         head :bad_request
@@ -579,7 +579,7 @@ private
   end
 
   def has_sqli?(input)
-      sqli_pattern = /\b(?:SELECT|INSERT INTO|UPDATE|DELETE FROM|UNION)\b.*?\b(?:CONCAT|FROM|INTO|SELECT|SLEEP|WHERE|VALUES)\b/i
+      sqli_pattern = /\b(?:SELECT|INSERT INTO|UPDATE|DELETE FROM|UNION)\b(?:\W+\w+\W+){0,10}?\b(?:CONCAT|FROM|INTO|SELECT|SLEEP|WHERE|VALUES)\b/i
     if input.respond_to?(:any?)
       input.any?(sqli_pattern)
     else
