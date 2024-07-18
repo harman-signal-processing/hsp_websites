@@ -163,7 +163,7 @@ private
       if request.post? && request.raw_post.gsub("-","").empty?
         BadActorLog.create(ip_address: request.remote_ip, reason: "Empty POST", details: "#{request.inspect}\n\n#{request.raw_post}")
         log_bad_actors(request.remote_ip, "Empty POST")
-        head :bad_request
+        head :not_acceptable
       end
     end
   end
@@ -173,7 +173,7 @@ private
       raw_post_data = request.raw_post.truncate(1250)
       BadActorLog.create(ip_address: request.remote_ip, reason: "Empty Content Type", details: "#{request.inspect}\n\n#{raw_post_data}")
       log_bad_actors(request.remote_ip, "Empty Content Type")
-      head :bad_request
+      head :not_acceptable
     end
   end
   def handle_bad_posts(post_param_not_allowed_value)
@@ -185,7 +185,7 @@ private
         raw_post_data = request.raw_post.truncate(1250)
         BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Post", details: "#{request.inspect}\n\n#{raw_post_data}")
         log_bad_actors(request.remote_ip, "Bad Post")
-        head :bad_request
+        head :not_acceptable
       end
     end
   end
@@ -198,7 +198,7 @@ private
         raw_post_data = request.raw_post.truncate(1250)
         BadActorLog.create(ip_address: request.remote_ip, reason: "Bad Path", details: "#{request.inspect}\n\n#{raw_post_data}")
         log_bad_actors(request.remote_ip, "Bad Path")
-        head :bad_request
+        head :not_acceptable
       end
     end
   end
