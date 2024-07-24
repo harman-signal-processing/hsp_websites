@@ -91,10 +91,5 @@ $(function(){
       }
   });
 
-  var queryParams = new URLSearchParams(window.location.search);
-  if (queryParams.has("show_certs")) {
-    $('a.c3spinner:contains("Certifications")').click().parent("li").addClass("active");
-  }
-
 });  //  $(function(){
 
