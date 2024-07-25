@@ -159,8 +159,8 @@ private
     end
   end
   def handle_posting_empty_body
-    if request.raw_post.present?
-      if request.post? && request.raw_post.gsub("-","").empty?
+    if request.post? && request.raw_post.present?
+      if request.raw_post.gsub("-","").empty?
         BadActorLog.create(ip_address: request.remote_ip, reason: "Empty POST", details: "#{request.inspect}\n\n#{request.raw_post}")
         log_bad_actors(request.remote_ip, "Empty POST")
         head :not_acceptable
