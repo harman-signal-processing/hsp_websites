@@ -67,6 +67,8 @@ module SearchHelper
             description = truncate(strip_html(translate_content(result, result.content_preview_method)), length: 200) 
           end 
 		end
+
+		description = result.short_description if description.empty? && result.respond_to?(:short_description)
 		description
 	end
 	

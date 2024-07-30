@@ -87,6 +87,7 @@ class SearchController < ApplicationController
 
       if r.is_a?(ProductFamily)
         exclude_product_family_because_of_parent_locale = exclude_product_family_because_of_parent_locale(r)
+        exclude_product_family_because_no_current_products = !r.has_current_products?(website)
       end
 
       # exclude if any of these are true
@@ -101,7 +102,8 @@ class SearchController < ApplicationController
           is_landing_page_with_login ||
           is_landing_page_to_exclude ||
           is_product_family_page_with_login ||
-          exclude_product_family_because_of_parent_locale
+          exclude_product_family_because_of_parent_locale ||
+          exclude_product_family_because_no_current_products
         )
 
     end.paginate(page: params[:page], per_page: 10)  #  @results = ferret_results.select do |r|

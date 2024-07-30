@@ -5,7 +5,7 @@ development:
   client_timeout: 200
   morphology: stem_en, soundex, metaphone
   dict: keywords
-  min_infix_len: 2
+  min_infix_len: 1
   charset_table: "+,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
   ignore_chars: "/,-"
   field_weights:
@@ -25,7 +25,7 @@ production:
   client_timeout: 200
   morphology: stem_en, soundex, metaphone
   dict: keywords
-  min_infix_len: 2
+  min_infix_len: 1
   charset_table: "+,0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F"
   ignore_chars: "/,-"
   field_weights:

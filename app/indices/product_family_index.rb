@@ -3,6 +3,8 @@ ThinkingSphinx::Index.define :product_family, name: "product_family_en", with: :
   indexes name, :as => :product_family_name
   indexes intro, :as => :product_family_intro
   indexes keywords, :as => :product_family_keywords
+  indexes features.pre_content, as: :product_family_feature_pre_content, :facet => true
+  indexes features.content, as: :product_family_feature_content, :facet => true
 
   set_property :delta => :delayed
   set_property :delta_column => :updated_at
@@ -14,6 +16,8 @@ ThinkingSphinx::Index.define :product_family, name: "product_family_en_US", with
   indexes name, :as => :product_family_name
   indexes intro, :as => :product_family_intro
   indexes keywords, :as => :product_family_keywords
+  indexes features.pre_content, as: :product_family_feature_pre_content, :facet => true
+  indexes features.content, as: :product_family_feature_content, :facet => true
 
   set_property :delta => :delayed
   set_property :delta_column => :updated_at
