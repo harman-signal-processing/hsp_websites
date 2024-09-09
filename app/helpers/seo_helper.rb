@@ -74,14 +74,16 @@ module SeoHelper
   end
 
   def noindex_for_some_content
-    noindex_this_content = false
-
-    if controller_name.match?(/software/i) && instance_variable_get(:@software)
-      noindex_this_content = @software.is_replaced?
-
-    elsif instance_variable_get(:@warranty_registration)
-      noindex_this_content = @warranty_registration.product.present?
-    end
+    case
+      when controller_name.match?(/software/i) && instance_variable_get(:@software)
+        noindex_this_content = @software.is_replaced?
+      when controller_name.match?(/case_studies/i)
+        noindex_this_content = @asset_type == "pdf"
+      when instance_variable_get(:@warranty_registration)
+        noindex_this_content = @warranty_registration.product.present?
+      else
+        noindex_this_content = false
+    end  # case
 
     noindex_tag if noindex_this_content
   end
