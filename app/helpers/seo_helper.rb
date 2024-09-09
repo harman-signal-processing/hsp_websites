@@ -78,7 +78,9 @@ module SeoHelper
       when controller_name.match?(/software/i) && instance_variable_get(:@software)
         noindex_this_content = @software.is_replaced?
       when controller_name.match?(/case_studies/i)
-        noindex_this_content = @asset_type == "pdf"
+        noindex_this_content = ['pdf', 'video'].include?(@asset_type)
+      when controller_name.match?(/news/i)
+        noindex_this_content = request.path.include?('filter_by_tag')
       when instance_variable_get(:@warranty_registration)
         noindex_this_content = @warranty_registration.product.present?
       else
