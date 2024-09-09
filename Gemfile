@@ -28,6 +28,7 @@ gem 'rack-utf8_sanitizer'
 
 # Bundle the extra gems:
 gem 'mysql2'
+gem 'rexml', '~> 3.3.6'
 gem 'utf8-cleaner'
 gem 'friendly_id', '>= 5.2'
 gem 'aws-sdk-s3'

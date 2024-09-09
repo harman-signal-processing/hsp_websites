@@ -838,6 +838,7 @@ DEPENDENCIES
   rb-inotify
   recaptcha
   responders
+  rexml (~> 3.3.6)
   rspec-rails
   s3_direct_upload
   sass-rails
