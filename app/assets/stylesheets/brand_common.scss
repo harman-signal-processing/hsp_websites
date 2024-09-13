@@ -719,6 +719,7 @@ div.featured_product_container {
 @media only screen and (min-width: 720px) {
   div.homepage_block {
     min-height: 360px;
+    overflow:hidden;
     h1 {
       font-size: 4em;
       line-height: 1em;
