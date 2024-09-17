@@ -7,6 +7,7 @@
         @filter_rental_eon_one_mk2 = true
         @filter_rental_eon700_series = true
         @filter_rental_prx900_series = true
+        @filter_rental_srx900_series = true
         @filter_service = true
       end
     %>
@@ -50,6 +51,11 @@
               <li>
                 <label for="rental_prx900_series">
                   <input type="checkbox" value="1" name="rental_prx900_series" id="rental_prx900_series" <% if @filter_rental_prx900_series %>checked="checked"<% end %>> PRX900 Series
+                </label>
+              </li>
+              <li>
+                <label for="rental_srx900_series">
+                  <input type="checkbox" value="1" name="rental_srx900_series" id="rental_srx900_series" <% if @filter_rental_srx900_series %>checked="checked"<% end %>> SRX900 Series
                 </label>
               </li>
             <% end %>
