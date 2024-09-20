@@ -1,6 +1,7 @@
+<% vintage_product_status = ProductStatus.where(name: "Vintage").first_or_initialize %>
 <% set_meta_tags title: "Discontinued Products",
 				 reverse: true %>
-<h1 class="page_title">Discontinued Product Support</h1>
+<h1 class="page_title">Discontinued Products</h1>
 
 <div class="row">
   <div class="small-12 medium-6 large-4 columns">
@@ -11,7 +12,7 @@
           <%= f.input :id,
             as: :select,
             label: false,
-            collection: @products,
+            collection: @products.where(product_status: vintage_product_status),
             value_method: :to_param
           %>
         </div>
