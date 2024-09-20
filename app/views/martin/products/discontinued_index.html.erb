@@ -12,7 +12,7 @@
           <%= f.input :id,
             as: :select,
             label: false,
-            collection: @products.where(product_status: vintage_product_status),
+            collection: @products.where.not(product_status: vintage_product_status),
             value_method: :to_param
           %>
         </div>
