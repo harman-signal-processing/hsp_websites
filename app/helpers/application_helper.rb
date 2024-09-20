@@ -286,7 +286,7 @@ module ApplicationHelper
   end  #  def file_type_icon(item)
 
   def product_photo_is_png?(product)
-    product.photo.present? ? !(product.photo.product_attachment_file_name.to_s.match?(/\.png$/i)) : false
+    product.photo.present? ? (product.photo.product_attachment_file_name.to_s.match?(/\.png$/i)) : false
   end
 
   def seconds_to_HMS(time)

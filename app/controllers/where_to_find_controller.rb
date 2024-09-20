@@ -284,8 +284,8 @@ class WhereToFindController < ApplicationController
       @filter_rental_eon_one_mk2 = !!params[:rental_eon_one_mk2]
       @filter_rental_eon700_series = !!params[:rental_eon700_series]
       @filter_rental_prx900_series = !!params[:rental_prx900_series]
+      @filter_rental_srx900_series = !!params[:rental_srx900_series]
       @filter_service = !!params[:service]
-
 
       # return false if @filter_resale && dealer.resale?
       return false if dealer.resale?
@@ -294,6 +294,7 @@ class WhereToFindController < ApplicationController
       return false if @filter_rental_eon_one_mk2 && dealer.rental? && dealer.has_rental_products_for(brand,'jbl-eon-one-mk2')
       return false if @filter_rental_eon700_series && dealer.rental? && dealer.has_rental_products_for(brand,'jbl-eon7')
       return false if @filter_rental_prx900_series && dealer.rental? && dealer.has_rental_products_for(brand,'prx9')
+      return false if @filter_rental_srx900_series && dealer.rental? && dealer.has_rental_products_for(brand,'srx9')
       return false if @filter_service && dealer.service?
 
       true

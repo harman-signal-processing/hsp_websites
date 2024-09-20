@@ -32,6 +32,10 @@ class Dealer < ApplicationRecord
           results.delete_if {|item| item.cached_slug.include?("prx9") }
           results << ProductFamily.find_by_cached_slug("prx900-series")
         end
+        if results.pluck(:cached_slug).grep(/srx9/).any?
+          results.delete_if {|item| item.cached_slug.include?("srx9") }
+          results << ProductFamily.find_by_cached_slug("srx900-series")
+        end
       rescue => e
         error_message = "Error in Dealer.rental_products_and_product_families. BrandDealer #{brand_dealer.id} #{e.message}"
         puts error_message
@@ -543,7 +547,11 @@ class Dealer < ApplicationRecord
       if results.pluck(:cached_slug).grep(/prx9/).any?
         results.delete_if {|item| item.cached_slug.include?("prx9") }
         results << ProductFamily.find_by_cached_slug("prx900-series")
-      end  #  if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
+      end
+      if results.pluck(:cached_slug).grep(/srx9/).any?
+        results.delete_if {|item| item.cached_slug.include?("srx9") }
+        results << ProductFamily.find_by_cached_slug("srx900-series")
+      end
       results.pluck(:name).join(', ')
     end  #  Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
   end  #  def rental_product_names(brand)
@@ -561,13 +569,17 @@ class Dealer < ApplicationRecord
         results.delete_if {|item| item.cached_slug.include?("prx9") }
         results << ProductFamily.find_by_cached_slug("prx900-series")
       end
+      if results.pluck(:cached_slug).grep(/srx9/).any?
+        results.delete_if {|item| item.cached_slug.include?("srx9") }
+        results << ProductFamily.find_by_cached_slug("srx900-series")
+      end
       results.pluck(:cached_slug).join(',')
     end  #  Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
   end  #  def rental_product_slugs(brand)
 
   def has_rental_products_for(brand, cached_slug)  #  this currently only applies to jbl pro
     results = false
-    if cached_slug == "jbl-eon7" || cached_slug == "prx9" || cached_slug == "vt"
+    if cached_slug == "jbl-eon7" || cached_slug == "prx9" || cached_slug == "srx9" || cached_slug == "vt"
       results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.select{|item| item.start_with? "#{cached_slug}"}.present?
     else
       results = rental_products(brand).pluck(:cached_slug).map{|item| item.downcase}.include? "#{cached_slug}"

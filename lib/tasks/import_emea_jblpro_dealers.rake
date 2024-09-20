@@ -128,6 +128,7 @@ namespace :import do
             'jbl-eon-one-mk2',
             'prx-one',
             'prx900-series',
+            'srx900-series',
             'vtx-a8',
             'vtx-a12',
             'vtx-a12w',
@@ -278,6 +279,9 @@ namespace :import do
           elsif product_slug == "prx900-series"
             dealer_products = dealer_products + 'prx908,prx912,prx915,prx915xlf,prx918xlf'.split(',')
             dealer_products.delete_if{|item| item == "prx900-series"}
+          elsif product_slug == "srx900-series"
+            dealer_products = dealer_products + 'srx906la,srx910la,srx918s,srx928s'.split(',')
+            dealer_products.delete_if{|item| item == "srx900-series"}
           elsif product_slug == "vtx-f-series"
             dealer_products = dealer_products + 'vtx-f12,vtx-f15,vtx-f35-95,vtx-f18s,vtx-f35-64'.split(',')
             dealer_products.delete_if{|item| item == "vtx-f-series"}

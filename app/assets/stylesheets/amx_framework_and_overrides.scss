@@ -347,6 +347,7 @@ $reveal-max-width: 75%;
 }
 
 div.homepage_block {
+  overflow: hidden;
   h1 {
     font-size: rem-calc(38px);
   }
