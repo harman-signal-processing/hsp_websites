@@ -19,7 +19,6 @@
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
 //= require jquery.cookie
-//= require jquery.lazyload
 //= require slick
 //= require global_functions
 //= require where_to_find
@@ -63,11 +62,6 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-
-  $("img").lazyload({
-    threshold: 200,
-    effect: "fadeIn"
-  });
 
   /*used on /vip_programmers*/
   $("#vipOtherFiltersToggleSwitch").click(function() {

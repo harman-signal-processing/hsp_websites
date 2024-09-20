@@ -18,7 +18,6 @@
 //= require jquery.pin
 //= require jquery.bonsai
 //= require jquery.rwdImageMaps.min
-//= require jquery.lazyload
 //= require slick
 //= require global_functions
 //= require where_to_find
@@ -104,11 +103,6 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-
-  $("img").lazyload({
-    threshold: 200,
-    effect: "fadeIn"
-  });
 
   $( "#market-segment-accordion" ).accordion({ collapsible: true, active: false });
 

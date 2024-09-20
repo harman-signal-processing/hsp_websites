@@ -1,14 +1,6 @@
 //= require jquery2
 //= require jquery_ujs
-//= require jquery.lazyload
 //= require foundation
-
-$(function(){
-  $("img").lazyload({
-    threshold: 200,
-    effect: "fadeIn"
-  });
-});
 
 $(window).bind('scroll',function(e){
     parallaxScroll();

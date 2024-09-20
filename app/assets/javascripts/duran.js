@@ -5,7 +5,6 @@
 //= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
-//= require jquery.lazyload
 //= require slick
 //= require global_functions
 //= require where_to_find
@@ -44,9 +43,5 @@ $(function(){
     autoplaySpeed: 4000
   });
 
-  $("img").lazyload({
-    threshold: 200,
-    effect: "fadeIn"
-  });
 });
 

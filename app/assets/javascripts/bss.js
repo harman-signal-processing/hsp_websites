@@ -17,7 +17,6 @@
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
-//= require jquery.lazyload
 //= require global_functions
 //= require slick
 //= require where_to_find
@@ -61,10 +60,5 @@ $(function(){
   });
 
   $('img[usemap]').rwdImageMaps();
-
-  $("img").lazyload({
-    threshold: 200,
-    effect: "fadeIn"
-  });
 
 });  //  $(function(){

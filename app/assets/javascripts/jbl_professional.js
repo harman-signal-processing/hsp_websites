@@ -18,7 +18,6 @@
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
-//= require jquery.lazyload
 //= require jquery.cookie
 //= require slick
 //= require soundmanager2-nodebug-jsmin
@@ -62,10 +61,6 @@ $(function(){
 
   $('img[usemap]').rwdImageMaps();
 
-  $("img").lazyload({
-    threshold: 200,
-    effect: "fadeIn"
-  });
 });
 
 $(window).on('load', function () {

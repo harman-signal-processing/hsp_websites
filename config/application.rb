@@ -93,5 +93,6 @@ module HarmanSignalProcessingWebsite
     # enable utf-8 sanitizer rack middleware:
     config.middleware.insert 0, Rack::UTF8Sanitizer
 
+    config.action_view.image_loading = "lazy"
   end
 end

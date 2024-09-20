@@ -17,7 +17,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 gem "foundation-rails", '5.5.1' # 5.5.3 has a bug with Magellan https://github.com/zurb/foundation-sites/issues/8416
 gem 'jquery-rails'
-gem 'lazyload-rails'
 gem 'font-awesome-rails'
 # To use debugger
 # gem 'ruby-debug'
