@@ -45,6 +45,7 @@ class SitemapController < ApplicationController
             end
           end
         end
+        pf_count = 0
         ProductFamily.all_with_current_products(website, I18n.locale).each do |product_family|
           unless product_family.preview_password.present?
             if product_family.hreflangs(website).include?(I18n.locale.to_s) &&
@@ -53,6 +54,7 @@ class SitemapController < ApplicationController
                 updated_at: product_family.updated_at,
                 changefreq: 'weekly',
                 priority: 0.9 }
+              pf_count += 1
               if website.brand.has_product_selector? && product_family.product_selector_behavior == "subgroup"
                 @pages << { url: product_selector_subfamily_product_selector_product_family_url(product_family.parent, product_family),
                   updated_at: 4.days.ago,
@@ -62,23 +64,36 @@ class SitemapController < ApplicationController
             end
           end
         end
+        if pf_count > 0
+          @pages << { url: product_families_url,
+            updated_at: 1.day.ago,
+            changefreq: 'weekly',
+            priority: 1 }
+          @pages << { url: discontinued_products_url,
+            updated_at: 1.month.ago,
+            changefreq: 'monthly',
+            priority: 0.2 }
+        end
         Product.all_for_website(website).each do |product|
-          if product.hreflangs(website).include?(I18n.locale.to_s)
-            if product.discontinued?
-              @pages << { url: url_for(product),
-                updated_at: product.updated_at,
-                changefreq: 'monthly',
-                priority: 0.6 }
-            else
-              @pages << { url: url_for(product),
-                updated_at: product.updated_at,
-                changefreq: 'weekly',
-                priority: 0.9 }
+          unless @product.product_page_url.present?
+            if product.hreflangs(website).include?(I18n.locale.to_s)
+              if product.discontinued?
+                @pages << { url: url_for(product),
+                  updated_at: product.updated_at,
+                  changefreq: 'monthly',
+                  priority: 0.6 }
+              else
+                @pages << { url: url_for(product),
+                  updated_at: product.updated_at,
+                  changefreq: 'weekly',
+                  priority: 0.9 }
+              end
+              # 2024-09-25 AA removed from sitemap since these links almost always redirect to where to buy page
+              #@pages << { url: buy_it_now_product_url(product),
+              #  updated_at: product.updated_at,
+              #  changefreq: 'weekly',
+              #  priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.size > 0)
             end
-            @pages << { url: buy_it_now_product_url(product),
-              updated_at: product.updated_at,
-              changefreq: 'weekly',
-              priority: 0.7 } if product.active_retailer_links.length > 0 && !(product.parent_products.size > 0)
           end
         end
         if website.has_software?

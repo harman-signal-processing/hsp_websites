@@ -37,7 +37,7 @@ class NewsController < ApplicationController
   # GET /news/1
   # GET /news/1.xml
   def show
-    if !website.news.include?(@news) || (@news.post_on.to_date > Date.today && !(can?(:manage, @news)))
+    if !News.all_for_website(website).include?(@news) || (@news.post_on.to_date > Date.today && !(can?(:manage, @news)))
       redirect_to news_index_path, status: :moved_permanently and return
     end
     @related_news = @news.find_related_tags.where("post_on <= ?", Date.today).order("post_on DESC").limit(6)
