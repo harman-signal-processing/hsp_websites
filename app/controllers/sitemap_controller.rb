@@ -46,16 +46,19 @@ class SitemapController < ApplicationController
           end
         end
         ProductFamily.all_with_current_products(website, I18n.locale).each do |product_family|
-          if product_family.hreflangs(website).include?(I18n.locale.to_s)
-            @pages << { url: url_for(product_family),
-              updated_at: product_family.updated_at,
-              changefreq: 'weekly',
-              priority: 0.9 }
-            if website.brand.has_product_selector? && product_family.product_selector_behavior == "subgroup"
-              @pages << { url: product_selector_subfamily_product_selector_product_family_url(product_family.parent, product_family),
-                updated_at: 4.days.ago,
+          unless product_family.preview_password.present?
+            if product_family.hreflangs(website).include?(I18n.locale.to_s) &&
+              (product_family.features.length > 0 || product_family.current_products_plus_child_products(website).length > 1)
+              @pages << { url: url_for(product_family),
+                updated_at: product_family.updated_at,
                 changefreq: 'weekly',
-                priority: 0.7 }
+                priority: 0.9 }
+              if website.brand.has_product_selector? && product_family.product_selector_behavior == "subgroup"
+                @pages << { url: product_selector_subfamily_product_selector_product_family_url(product_family.parent, product_family),
+                  updated_at: 4.days.ago,
+                  changefreq: 'weekly',
+                  priority: 0.7 }
+              end
             end
           end
         end
