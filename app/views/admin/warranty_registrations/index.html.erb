@@ -56,7 +56,7 @@
     </tr>
 
   <% removed = 0 %>
-  <% @warranty_registrations.each do |warranty_registration| %>
+  <% @warranty_registrations.sort_by(&:updated_at).reverse.each do |warranty_registration| %>
     <% if warranty_registration.product.present? %>
       <tr style="background: <%= cycle 'white', 'none' %>">
         <td><%= link_to "#{warranty_registration.first_name} #{warranty_registration.last_name}",
