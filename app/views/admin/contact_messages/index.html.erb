@@ -54,7 +54,7 @@ staff, but you can also look at the messages here.</p>
   </thead>
 
   <tbody>
-    <% @contact_messages.each do |contact_message| %>
+    <% @contact_messages.sort_by(&:updated_at).reverse.each do |contact_message| %>
       <tr>
         <td><%= link_to l(contact_message.created_at, format: :long), [:admin, contact_message] %></td>
         <td><%= link_to contact_message.name, [:admin, contact_message] %></td>
