@@ -75,7 +75,7 @@ class SitemapController < ApplicationController
             priority: 0.2 }
         end
         Product.all_for_website(website).each do |product|
-          unless @product.product_page_url.present?
+          unless product.product_page_url.present?
             if product.hreflangs(website).include?(I18n.locale.to_s)
               if product.discontinued?
                 @pages << { url: url_for(product),
