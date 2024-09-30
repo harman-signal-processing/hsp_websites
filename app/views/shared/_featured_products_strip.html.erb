@@ -7,20 +7,20 @@
         <div class="large-7 columns">
           <div class="featured_image_container show-for-large-up left">
             <%= link_to(image_tag(featured_product.photo.product_attachment.url(:original),
-                                  lazy: product_photo_is_png?(featured_product),
+                                  loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name,
                                   class: "featured_image"),
                         featured_product) %>
           </div>
           <div class="hide-for-medium-up">
             <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium),
-                                  lazy: product_photo_is_png?(featured_product),
+                                  loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name),
                         featured_product) %>
           </div>
           <div class="show-for-medium">
             <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large),
-                                  lazy: product_photo_is_png?(featured_product),
+                                  loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name),
                         featured_product) %>
           </div>
@@ -38,13 +38,13 @@
       <div class="row featured_product_container" id="featured_product_<%= i %>">
         <div class="hide-for-medium-up">
           <%= link_to(image_tag(featured_product.photo.product_attachment.url(:medium),
-                                  lazy: product_photo_is_png?(featured_product),
+                                  loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name),
                       featured_product) %>
         </div>
         <div class="show-for-medium">
           <%= link_to(image_tag(featured_product.photo.product_attachment.url(:large),
-                                  lazy: !(featured_product.photo.product_attachment_file_name.to_s.match?(/png$/i)),
+                                  loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name),
                       featured_product) %>
         </div>
@@ -59,7 +59,7 @@
         <div class="large-7 columns show-for-large-up">
           <div class="featured_image_container right">
             <%= link_to(image_tag(featured_product.photo.product_attachment.url(:original),
-                                  lazy: product_photo_is_png?(featured_product),
+                                  loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name,
                                   class: "featured_image"),
                                   featured_product) %>

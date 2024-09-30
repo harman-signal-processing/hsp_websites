@@ -55,7 +55,7 @@ module BannersHelper
     artist_brand = artist.artist_brands.where(brand_id: website.brand_id).first
 
     slide_content = link_to(artist) do
-      image_tag(artist.artist_photo.url(:feature), alt: artist.name, lazy: false) +
+      image_tag(artist.artist_photo.url(:feature), alt: artist.name, loading: :eager) +
       content_tag(:div, class:"orbit-caption") do
         content_tag(:h2, artist.name) +
         content_tag(:p, artist_brand.intro.to_s.html_safe)
@@ -78,7 +78,7 @@ module BannersHelper
       video_id = $5
 
       slide_content = link_to(play_video_url(video_id), target: "_blank", class: "start-video", data: { videoid: video_id } ) do
-        image_tag(banner_content.slide.url, lazy: false)
+        image_tag(banner_content.slide.url, loading: :eager)
       end
 
     else
@@ -100,7 +100,10 @@ module BannersHelper
           content_tag(:div, banner_content.content.html_safe)
         end
       else
-        slide_innards = image_tag(banner_content.slide.url, alt: banner_content.title || banner.name, lazy: false)
+        slide_innards = image_tag(banner_content.slide.url,
+          alt: banner_content.title || banner.name,
+          fetchpriority: position == 0 ? "high" : "auto",
+          loading: :eager)
       end
 
       slide_content = (banner_content.link.blank?) ?
@@ -126,7 +129,7 @@ module BannersHelper
       video_id = $5
 
       slide_content = link_to(play_video_url(video_id), target: "_blank", class: "start-video", data: { videoid: video_id } ) do
-        image_tag(setting.slide.url, lazy: false)
+        image_tag(setting.slide.url, loading: :eager)
       end
 
     else
@@ -137,7 +140,10 @@ module BannersHelper
         link_options[:target] = "_blank"
       end
 
-      slide_innards = image_tag(setting.slide.url, alt: setting.name, lazy: false)
+      slide_innards = image_tag(setting.slide.url,
+        alt: setting.name,
+        fetchpriority: position == 0 ? "high" : "auto",
+        loading: :eager)
 
       if setting.text_value.present?
         slide_innards += content_tag(:div, class: "homepage-orbit-caption orbit-caption") do
@@ -193,8 +199,8 @@ module BannersHelper
 
     target = (slide.text_value.to_s.match(/new.window|blank|new.tab/i)) ? "_blank" : ""
     slide_content = (slide.string_value.blank?) ?
-        image_tag(slide.slide.url, lazy: false) :
-        link_to(image_tag(slide.slide.url, lazy: false), slide_link, target: target)
+        image_tag(slide.slide.url, loading: :eager) :
+        link_to(image_tag(slide.slide.url, loading: :eager), slide_link, target: target)
 
     if p = website.value_for('countdown_overlay_position')
       if p == position && cd = website.value_for('countdown_container')
@@ -269,11 +275,11 @@ module BannersHelper
 
         if anim = slides.find{|f| /gif/i =~ f.slide_content_type && /^#{fname}\./ =~ f.slide_file_name }
           ret += content_tag(:div, class: "bg-gif") do
-            image_tag( anim.slide.url, lazy: false )
+            image_tag( anim.slide.url, loading: :eager)
           end
         elsif poster
           ret += content_tag(:div, class: "bg-gif") do
-            image_tag( poster.slide.url, lazy: false )
+            image_tag( poster.slide.url, loading: :eager)
           end
         end
 

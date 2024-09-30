@@ -48,7 +48,12 @@
         <%= raw website.value_for('other_header_scripts') %>
       <% end %>
     <% end %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500"/>
+    <% if ENV['ASSET_HOST'].present? %>
+	    <link rel="preconnect" href="<%= ENV['ASSET_HOST'] %>">
+    <% end %>
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>

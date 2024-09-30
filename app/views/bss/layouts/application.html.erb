@@ -57,6 +57,9 @@
 		<link rel="preconnect" href=https://fonts.gstatic.com crossorigin>
 		<link href=https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap rel="stylesheet">
 
+    <% if ENV['ASSET_HOST'].present? %>
+	    <link rel="preconnect" href="<%= ENV['ASSET_HOST'] %>">
+    <% end %>
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>

@@ -52,6 +52,9 @@
         <%= raw website.value_for('other_header_scripts') %>
       <% end %>
     <% end %>
+    <% if ENV['ASSET_HOST'].present? %>
+	    <link rel="preconnect" href="<%= ENV['ASSET_HOST'] %>">
+    <% end %>
 		<% if content_for?(:page_css) %>
 			<%= yield :page_css %>
 		<% else %>

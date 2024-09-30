@@ -73,10 +73,10 @@ set_meta_tags title: @product.name,
       <div class="full_width_banner text-center">
         <% if banner.full_width_banner_url.present? %>
           <%= link_to banner.full_width_banner_url, target: "_blank" do %>
-            <%= image_tag banner.product_attachment.url, alt: "#{@product.name} banner image" %>
+            <%= image_tag banner.product_attachment.url, alt: "#{@product.name} banner image", loading: :eager, fetchpriority: :high %>
           <% end %>
         <% else %>
-          <%= image_tag banner.product_attachment.url, alt: "#{@product.name} banner image" %>
+          <%= image_tag banner.product_attachment.url, alt: "#{@product.name} banner image", loading: :eager, fetchpriority: :high %>
         <% end %>
       </div>
     <% end %>
@@ -118,11 +118,11 @@ set_meta_tags title: @product.name,
     <div id="viewer_container" class="text-center">
       <div id="viewer">
         <% if @product.discontinued? %>
-          <%= image_tag(@product.photo.product_attachment.url(:large), alt: @product.name) %>
+          <%= image_tag(@product.photo.product_attachment.url(:large), alt: @product.name, loading: :eager, fetchpriority: :high) %>
         <% elsif @product.photo.updated_at.to_date > "2014-10-01".to_date %>
-          <%= image_tag(@product.photo.product_attachment.url(:full_width), alt: @product.name) %>
+          <%= image_tag(@product.photo.product_attachment.url(:full_width), alt: @product.name, loading: :eager, fetchpriority: :high) %>
         <% else %>
-          <%= image_tag(@product.photo.product_attachment.url(:horiz_medium), alt: @product.name) %>
+          <%= image_tag(@product.photo.product_attachment.url(:horiz_medium), alt: @product.name, loading: :eager, fetchpriority: :high) %>
         <% end %>
       </div>
     </div>
@@ -135,9 +135,9 @@ set_meta_tags title: @product.name,
       <% if @product.photo && !@product.hide_product_photo? %>
       <div class="text-center" style="margin: 20px 0px;">
         <% if @product.discontinued? %>
-          <%= image_tag(@product.photo.product_attachment.url(:large), alt: @product.photo.product_attachment_file_name) %>
+          <%= image_tag(@product.photo.product_attachment.url(:large), alt: @product.photo.product_attachment_file_name, loading: :eager, fetchpriority: :high) %>
         <% else %>
-          <%= image_tag(@product.photo.product_attachment.url(:vert_medium), alt: @product.photo.product_attachment_file_name) %>
+          <%= image_tag(@product.photo.product_attachment.url(:vert_medium), alt: @product.photo.product_attachment_file_name, loading: :eager, fetchpriority: :high) %>
         <% end %>
       </div>
       <% end %>
