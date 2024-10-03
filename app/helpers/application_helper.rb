@@ -49,7 +49,7 @@ module ApplicationHelper
     end
     options = default_options.merge options
 
-    ret =  tag(:meta, name: "apple-mobile-web-app-capable", content: "yes")
+    ret =  tag(:meta, name: "mobile-web-app-capable", content: "yes")
     ret += tag(:meta, name: "apple-mobile-web-app-status-bar-style", content: options[:status_bar_color])
     ret += tag(:meta, name: "apple-mobile-web-app-title", content: options[:title] )
     ret += tag(:meta, name: "format-detection", content: "telephone=no")

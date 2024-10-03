@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require muse/jquery-1.8.3.min
-//= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery.datetimepicker
 //= require jquery.pin
@@ -20,7 +19,6 @@
 //= require global_functions
 //= require slick
 //= require where_to_find
-//= require twitter
 //= require homepage
 //= require foundation
 //= require will_paginate_infinite
@@ -29,13 +27,6 @@
 //= require tinymce-jquery
 //= require tiny
 //= require_self
-//= require chosen-jquery
-//= require enable_chosen_jquery
-//= require country_state_switch
-//= require product_selector
-//= require s3_direct_upload
-//= require admin_upload
-//= require sorting
 
 /* vendor/jquery.js (v2) doesn't work with Muse scrolling so downgraded to muse/jquery-1.8.3.min.js 30/12/2014 */
 

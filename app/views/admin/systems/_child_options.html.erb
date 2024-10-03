@@ -1,7 +1,0 @@
-<ul class="list">
-	<% system_option.children.each do |so| %>
-	<li><%= link_to so.name, [:admin, @system, so] %>
-		<%= render 'child_options', system_option: so %>
-	</li>
-	<% end %>
-</ul>

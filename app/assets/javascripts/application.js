@@ -4,40 +4,19 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require jquery2
-//= require jquery_ujs
 //= require foundation
-//= require jquery-ui.min
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.bxSlider.min
 //= require jquery.pin
 //= require slick
-//= require soundmanager2-nodebug-jsmin
-//= require inline_player
 //= require global_functions
 //= require product_tabs
 //= require buy_it_now
 //= require where_to_find
 //= require slideshow
-//= require twitter
 //= require tools
-//= require math.min
 //= require homepage
-//= require configurator
-
-document.createElement("article");
-document.createElement("footer");
-document.createElement("header");
-document.createElement("hgroup");
-document.createElement("nav");
-document.createElement("section");
-
-soundManager.url = '/swfs/';
-soundManager.flashVersion = 9; // optional: shiny features (default = 8)
-soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
-soundManager.debugMode = false;
-soundManager.preferFlash = false;
 
 //application.js
 $(function(){

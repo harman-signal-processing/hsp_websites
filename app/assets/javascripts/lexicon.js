@@ -10,9 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery2
-//= require jquery_ujs
-//= require jquery-ui.min
 //= require jquery.fancybox.min
 //= require jquery.bxSlider.min
 //= require jquery.datetimepicker
@@ -23,7 +20,6 @@
 //= require inline_player
 //= require global_functions
 //= require where_to_find
-//= require twitter
 //= require homepage
 //= require foundation
 //= require tools
@@ -32,13 +28,6 @@
 //= require will_paginate_infinite
 //= require lexicon_application
 //= require_self
-//= require chosen-jquery
-//= require enable_chosen_jquery
-//= require country_state_switch
-//= require product_selector
-//= require s3_direct_upload
-//= require admin_upload
-//= require sorting
 
 soundManager.url = '/swfs/';
 soundManager.flashVersion = 9; // optional: shiny features (default = 8)

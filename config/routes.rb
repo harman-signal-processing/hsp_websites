@@ -251,22 +251,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         end
       end
 
-      resources :systems do
-        resources :system_options do
-          resources :system_option_values
-        end
-        resources :system_components
-        resources :system_rules do
-          collection do
-            put :enable_all
-            put :disable_all
-          end
-          resources :system_rule_condition_groups do
-            resources :system_rule_conditions
-          end
-          resources :system_rule_actions
-        end
-      end
       resources :support_subjects
       resources :get_started_pages do
         member do
@@ -424,7 +408,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         :product_videos,
         :faq_categories,
         :us_rep_regions,
-        :system_options,
         :bad_actor_logs,
         :product_parts,
         :installations,
@@ -496,15 +479,6 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       member { get :martin_redirect }
     end
     get "news/filter_by_tag/:tag" => 'news#filter_by_tag', as: :tag_filtered_news
-    resources :systems, only: [:index, :show] do
-      resources :system_configurations, only: [:new, :create, :edit, :update] do
-        member do
-          post :new
-          match ':access_hash/contact' => 'system_configurations#contact_form', as: :contact_form, via: [:get, :post]
-          get ':access_hash' => 'system_configurations#show', as: :show
-        end
-      end
-    end
     resources :solutions, only: [:index, :show]
     resources :faq_categories, only: [:index, :show]
     get "faqs" => 'faq_categories#index', as: :faqs

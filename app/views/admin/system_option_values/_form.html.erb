@@ -1,6 +1,0 @@
-<%= simple_form_for [:admin, @system, @system_option, @system_option_value] do |f| %>
-  <%= f.input :name %>
-  <%= f.input :send_mail_to, hint: "Selecting this option in the configurator will trigger an email to this address.", as: :email %>
-
-  <%= f.button :submit %>
-<% end %>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tag %>
     <title><%= website.brand.name %> Admin: <%= controller_name.humanize.titleize %>: <%= controller.action_name.humanize.titleize %></title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"></script>
     <%= javascript_include_tag 'admin' %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= stylesheet_link_tag 'admin' %>
@@ -248,10 +250,6 @@
 
                   <% if can? :manage, ContentTranslation %>
                     <li><%= link_to "Translations", admin_content_translation_languages_path %></li>
-                  <% end %>
-
-                  <% if website.has_system_configurator? && can?(:manage, System) %>
-                    <li><%= link_to('System Configurator', admin_systems_path) %></li>
                   <% end %>
 
                   <% if can?(:manage, Vip::Programmer) && website.brand.name == "AMX" %>

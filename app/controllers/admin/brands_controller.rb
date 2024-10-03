@@ -126,7 +126,6 @@ class Admin::BrandsController < AdminController
       :toolkit,
       :color,
       :has_products,
-      :has_system_configurator,
       :offers_rentals,
       :has_installations,
       :has_product_registrations,

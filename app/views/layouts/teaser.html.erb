@@ -30,6 +30,7 @@
 
 		<% end %>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<%= javascript_include_tag 'teaser_application' %>
 		<%= javascript_include_tag "vendor/modernizr" %>
 		<%= stylesheet_link_tag "#{website.folder}_teaser", cache: false %>
@@ -85,7 +86,7 @@
 				<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
 				<%#= link_to t('where_to_buy'), where_to_find_path %>
 				<% end %>
-				<%= link_to t('product_support'), support_path %> 
+				<%= link_to t('product_support'), support_path %>
 				<%#= link_to t('sitemap'), sitemap_path(format: 'xml') %>
 			</div>
 		</div>

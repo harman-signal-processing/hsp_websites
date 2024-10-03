@@ -15,6 +15,8 @@
 //= link martin.js
 //= link soundcraft.js
 //= link teaser_application.js
+//= link product_selector.js
+//= link common_footer.js
 
 //= link admin.css
 //= link akg.css

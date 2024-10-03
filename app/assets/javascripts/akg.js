@@ -10,25 +10,18 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery2
-//= require jquery_ujs
-//= require jquery-ui.min
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require where_to_find
-//= require twitter
 //= require homepage
 //= require foundation
 //= require tools
 //= require tinymce-jquery
 //= require tiny
 //= require will_paginate_infinite
-//= require s3_direct_upload
-//= require admin_upload
-//= require sorting
 //= require akg_application
 //= require_self
 

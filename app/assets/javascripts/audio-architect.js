@@ -10,13 +10,9 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery2
-//= require jquery_ujs
-//= require jquery-ui.min
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.pin
-//= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require slideshow
 //= require foundation

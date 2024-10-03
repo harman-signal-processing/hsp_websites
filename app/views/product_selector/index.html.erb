@@ -1,3 +1,7 @@
+<% content_for :extra_header_code do %>
+  <%= javascript_include_tag "product_selector" %>
+<% end %>
+
 <% if website.product_selector_banner %>
   <div class="category-banner">
     <%= image_tag website.product_selector_banner, alt: t("product_selector") %>

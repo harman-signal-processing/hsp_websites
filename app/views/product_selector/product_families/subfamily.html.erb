@@ -1,3 +1,7 @@
+<% content_for :extra_header_code do %>
+  <%= javascript_include_tag "product_selector" %>
+<% end %>
+
 <div id="ps-top-nav">
 	<div class="top-level-families">
 		<ul class="small-block-grid-<%= (top_level_families.length / 2).to_i %>  medium-block-grid-<%= top_level_families.length %>">
@@ -50,6 +54,7 @@
 
   initializeSliders();
   initializeRangeSliders();
+  initializeUpwardsSliders();
   rerunFilter();
 
 </script>

@@ -44,6 +44,8 @@
 
 		<% end %>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"></script>
 		<%= javascript_include_tag website.folder %>
 		<%= javascript_include_tag "vendor/modernizr" %>
 		<%= yield :extra_header_code %>
@@ -55,6 +57,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500"/>
+    <% if ENV['ASSET_HOST'].present? %>
+	    <link rel="preconnect" href="<%= ENV['ASSET_HOST'] %>">
+    <% end %>
 		<%= stylesheet_link_tag website.folder, media: :all %>
 
 		<%= yield :custom_css %>

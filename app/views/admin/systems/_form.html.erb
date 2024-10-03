@@ -1,7 +1,0 @@
-<%= simple_form_for([:admin, @system]) do |f| %>
-	<%= f.error_notification %>
-  <%= f.input :name %>
-  <%= f.input :send_mail_to, hint: "Configurator will trigger an email to this address when user requests to be contacted.", as: :email %>
-  <%= f.input :contact_me_intro, label: "Text to appear above the contact form which appears after configuring the system." %>
-  <%= f.button :submit %>
-<% end %>

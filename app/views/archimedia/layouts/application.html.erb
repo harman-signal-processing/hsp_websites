@@ -36,6 +36,9 @@
 			<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<% end %>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.14.0/jquery-ui.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.1.1/math.min.js" integrity="sha512-g9Hl9sW0nMwhkRPakKcrKyxx6NMT/vD/zu7nhggnjI9as96SdYA/KocpFXxJ1TXFZN9ki0Bv1G7NPchjiSE2VQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<%= javascript_include_tag 'application' %>
 		<%= stylesheet_link_tag website.folder %>
 		<%= yield :extra_header_code %>
