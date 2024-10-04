@@ -6,8 +6,8 @@ class News < ApplicationRecord
 
   has_attached_file :news_photo, {
     styles: {
-      banner: "1500>x400",
-      large: "600>x370",
+      banner: ["1500>x400", {lossless: true, format: :webp}],
+      large: ["600>x370", {lossless: true, format: :webp}],
       email: "580",
       medium_square: "480x480#",
       medium: "480x480>",
@@ -23,8 +23,8 @@ class News < ApplicationRecord
 
   has_attached_file :square, {
     styles: {
-      banner: "1500>x400",
-      large: "600>x370",
+      banner: ["1500>x400", {lossless: true, format: :webp}],
+      large: ["600>x370", {lossless: true, format: :webp}],
       email: "580",
       medium_square: "480x480#",
       medium: "480x480>",

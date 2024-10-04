@@ -6,8 +6,8 @@ class BannerLocale < ApplicationRecord
 
   has_attached_file :slide, {
     styles: {
-      large: "1920>x692",
-      large_2x: "3840>x1384",
+      large: ["1920>x692", {lossless: true, format: :webp}],
+      large_2x: ["3840>x1384", {lossless: true, format: :webp}],
       medium: "350x350>",
       thumb: "100x100>",
       tiny: "64x64>",

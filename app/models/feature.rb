@@ -10,8 +10,8 @@ class Feature < ApplicationRecord
 
   has_attached_file :image, {
     styles: {
-      extra_large: "1100>x600",
-      large: "600>x370",
+      extra_large: ["1100>x600", {lossless: true, format: :webp}],
+      large: ["600>x370", {lossless: true, format: :webp}],
       medium: "350x350>",
       thumb: "100x100>",
       tiny: "64x64>",

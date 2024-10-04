@@ -2,8 +2,8 @@ class NewsImage < ApplicationRecord
 
   has_attached_file :image, {
     styles: {
-      banner: "1500>x400",
-      large: "600>x370",
+      banner: ["1500>x400", {lossless: true, format: :webp}],
+      large: ["600>x370", {lossless: true, format: :webp}],
       email: "580",
       medium: "350x350>",
       small: "240",

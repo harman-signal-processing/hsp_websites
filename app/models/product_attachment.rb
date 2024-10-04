@@ -3,8 +3,10 @@ class ProductAttachment < ApplicationRecord
 
   has_attached_file :product_attachment, {
     styles: {
-      full_width: "1024x768",
-      lightbox: "800x600",
+      x_large: ["2048x1536", {lossless: true, format: :webp}],
+      x_large_2x: ["4096x3072", {lossless: true, format: :webp}],
+      full_width: ["1024x768", {lossless: true, format: :webp}],
+      lightbox: ["800x600", {lossless: true, format: :webp}],
       large: "640x480",
       medium: "480x360",
       horiz_medium: "670x275",

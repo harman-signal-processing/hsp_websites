@@ -2,7 +2,10 @@ class Setting < ApplicationRecord
   before_save :fix_locale
   has_attached_file :slide, {
     styles: {
-      large: "600>x370",
+      x_large: ["2048x1536", {lossless: true, format: :webp}],
+      x_large_2x: ["4096x3072", {lossless: true, format: :webp}],
+      large: ["1920>x692", {lossless: true, format: :webp}],
+      large_2x: ["3840>x1384", {lossless: true, format: :webp}],
       medium: "350x350>",
       thumb: "100x100>",
       tiny: "64x64>",
