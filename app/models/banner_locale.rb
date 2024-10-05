@@ -6,13 +6,17 @@ class BannerLocale < ApplicationRecord
 
   has_attached_file :slide, {
     styles: {
-      large: ["1920>x692", {lossless: true, format: :webp}],
-      large_2x: ["3840>x1384", {lossless: true, format: :webp}],
+      large: ["1920>x692", :webp],
+      large_2x: ["3840>x1384", :webp],
       medium: "350x350>",
       thumb: "100x100>",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }.merge(SETTINGS_STORAGE)
+    }, processors: [:thumbnail, :compression],
+    convert_options: {
+      large: "-define webp:lossless=true ",
+      large_2x: "-define webp:lossless=true "
+    }}.merge(SETTINGS_STORAGE)
 
   validates_attachment :slide,
     content_type: { content_type: /\A(image|video)/i },

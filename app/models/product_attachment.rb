@@ -3,10 +3,10 @@ class ProductAttachment < ApplicationRecord
 
   has_attached_file :product_attachment, {
     styles: {
-      x_large: ["2048x1536", {lossless: true, format: :webp}],
-      x_large_2x: ["4096x3072", {lossless: true, format: :webp}],
-      full_width: ["1024x768", {lossless: true, format: :webp}],
-      lightbox: ["800x600", {lossless: true, format: :webp}],
+      x_large: ["2048x1536", :webp],
+      x_large_2x: ["4096x3072", :webp],
+      full_width: ["1024x768", :webp],
+      lightbox: ["800x600", :webp],
       large: "640x480",
       medium: "480x360",
       horiz_medium: "670x275",
@@ -21,6 +21,10 @@ class ProductAttachment < ApplicationRecord
       soundcomm: "160x160"
     }, processors: [:thumbnail, :compression] ,
     convert_options: {
+      x_large: "-define webp:lossless=true ",
+      x_large_2x: "-define webp:lossless=true ",
+      full_width: "-define webp:lossless=true ",
+      lightbox: "-define webp:lossless=true ",
       soundcomm: "-gravity center -extent 160x160"
     }}
   validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }

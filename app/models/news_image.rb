@@ -2,8 +2,8 @@ class NewsImage < ApplicationRecord
 
   has_attached_file :image, {
     styles: {
-      banner: ["1500>x400", {lossless: true, format: :webp}],
-      large: ["600>x370", {lossless: true, format: :webp}],
+      banner: ["1500>x400", :webp],
+      large: ["600>x370", :webp],
       email: "580",
       medium: "350x350>",
       small: "240",
@@ -12,7 +12,12 @@ class NewsImage < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }
+    }, processors: [:thumbnail, :compression],
+    convert_options: {
+      banner: "-define webp:lossless=true ",
+      large: "-define webp:lossless=true "
+    }
+  }
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
   belongs_to :news, touch: true

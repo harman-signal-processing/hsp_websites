@@ -10,13 +10,16 @@ class Feature < ApplicationRecord
 
   has_attached_file :image, {
     styles: {
-      extra_large: ["1100>x600", {lossless: true, format: :webp}],
-      large: ["600>x370", {lossless: true, format: :webp}],
+      extra_large: ["1100>x600", :webp],
+      large: ["600>x370", :webp],
       medium: "350x350>",
       thumb: "100x100>",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] }.merge(SETTINGS_STORAGE)
+    }, processors: [:thumbnail, :compression],
+    convert_options: {
+      extra_large: "-define webp:lossless=true "
+    }}.merge(SETTINGS_STORAGE)
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 
   has_many :content_translations, as: :translatable, foreign_key: "content_id", foreign_type: "content_type"

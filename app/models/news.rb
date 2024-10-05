@@ -6,8 +6,8 @@ class News < ApplicationRecord
 
   has_attached_file :news_photo, {
     styles: {
-      banner: ["1500>x400", {lossless: true, format: :webp}],
-      large: ["600>x370", {lossless: true, format: :webp}],
+      banner: ["1500>x400", :webp],
+      large: ["600>x370", :webp],
       email: "580",
       medium_square: "480x480#",
       medium: "480x480>",
@@ -17,14 +17,18 @@ class News < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] , default_url: "news_photo.jpg"
+    }, processors: [:thumbnail, :compression],
+    convert_options: {
+      banner: "-define webp:lossless=true ",
+      large: "-define webp:lossless=true "
+    }, default_url: "news_photo.jpg"
   }
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :square, {
     styles: {
-      banner: ["1500>x400", {lossless: true, format: :webp}],
-      large: ["600>x370", {lossless: true, format: :webp}],
+      banner: ["1500>x400", :webp],
+      large: ["600>x370", :webp],
       email: "580",
       medium_square: "480x480#",
       medium: "480x480>",
@@ -34,7 +38,11 @@ class News < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression] , default_url: "news_photo.jpg"
+    }, processors: [:thumbnail, :compression],
+    convert_options: {
+      banner: "-define webp:lossless=true ",
+      large: "-define webp:lossless=true "
+    }, default_url: "news_photo.jpg"
   }
   validates_attachment :square, content_type: { content_type: /\Aimage/i }
 
