@@ -6,7 +6,7 @@
       <div class="row featured_product_container" id="featured_product_<%= i %>">
         <div class="large-7 columns">
           <div class="featured_image_container show-for-large-up left">
-            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:original),
+            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:x_large),
                                   loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name,
                                   class: "featured_image"),
@@ -58,7 +58,7 @@
         </div>
         <div class="large-7 columns show-for-large-up">
           <div class="featured_image_container right">
-            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:original),
+            <%= link_to(image_tag(featured_product.photo.product_attachment.url(:x_large),
                                   loading: i < 2 ? :eager : :lazy,
                                   alt: featured_product.name,
                                   class: "featured_image"),
