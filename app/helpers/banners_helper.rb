@@ -78,7 +78,7 @@ module BannersHelper
       video_id = $5
 
       slide_content = link_to(play_video_url(video_id), target: "_blank", class: "start-video", data: { videoid: video_id } ) do
-        image_tag(banner_content.slide.url, loading: :eager)
+        image_tag(banner_content.slide.url(:large), loading: :eager)
       end
 
     else
@@ -93,14 +93,14 @@ module BannersHelper
       if banner_content.content.present? || banner_content.title.present?
         htag = position == 0 ? :h1 : :h2
         bg_style = banner_content.slide.present? ?
-          "background: { url('#{banner_content.slide.url}') }" :
+          "background: { url('#{banner_content.slide.url(:large)}') }" :
           ""
         slide_innards = content_tag(:div, class: "banner banner_#{banner_content.locale}", id: "banner_#{banner.id}", style: bg_style) do
           content_tag(htag, banner_content.title) +
           content_tag(:div, banner_content.content.html_safe)
         end
       else
-        slide_innards = image_tag(banner_content.slide.url,
+        slide_innards = image_tag(banner_content.slide.url(:large),
           alt: banner_content.title || banner.name,
           fetchpriority: position == 0 ? "high" : "auto",
           loading: :eager)
