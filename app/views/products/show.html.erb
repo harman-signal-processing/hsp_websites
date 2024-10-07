@@ -1,6 +1,6 @@
 <%
 if @product.photo
-	og_image = @product.photo.product_attachment.url(:original)
+	og_image = @product.photo.product_attachment.url(:x_large)
 	tw_image = @product.photo.product_attachment.url(:small)
 else
 	og_image = image_url("#{website.folder}/logo.png")
@@ -153,7 +153,7 @@ set_meta_tags title: @product.name,
                 <% if product_attachment.product_media_thumb_file_name.present? %>
                   <li><div><%= link_to_product_attachment(product_attachment) %></div></li>
                 <% else %>
-                  <li><div><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square), alt: product_attachment.product_attachment_file_name), product_attachment.product_attachment.url(:original), alt: product_attachment.product_attachment_file_name) %></div></li>
+                  <li><div><%= link_to(image_tag(product_attachment.product_attachment.url(:tiny_square), alt: product_attachment.product_attachment_file_name), product_attachment.product_attachment.url(:x_large), alt: product_attachment.product_attachment_file_name) %></div></li>
                 <% end %>
               <% end %>
             <% end %>
@@ -167,7 +167,7 @@ set_meta_tags title: @product.name,
                 <% else %>
                   <li>
                     <div>
-                      <%= link_to(product_attachment.product_attachment.url(:original),
+                      <%= link_to(product_attachment.product_attachment.url(:x_large),
                         data: product_attachment.no_lightbox? ? {} : { fancybox: 'product-thumbnails' }) do %>
                         <%= image_tag(product_attachment.product_attachment.url(:tiny_square), alt: product_attachment.product_attachment_file_name) %>
                       <% end %>

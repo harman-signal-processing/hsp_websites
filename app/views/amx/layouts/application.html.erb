@@ -144,7 +144,6 @@
 	          <% if !!(website.forum_link) %>
 	            <%= link_to t("forum").titleize, website.forum_link %> &bull;
 	          <% end %>
-            <%= link_to 'HARMAN Merchandise', "https://harman.axomo.com", target: "_blank" %> &bull;
             <%= link_to t('titles.about_us'.titleize, brand: website.brand.name), "/#{I18n.locale}/about-amx" %> &bull;
             <%= link_to 'careers'.titleize, "https://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to t('privacy_policy').titleize, "https://www.harman.com/privacy-policy", target: "_blank" %> &bull;

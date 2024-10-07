@@ -1,6 +1,6 @@
 <%
 if @product.photo
-	og_image = @product.photo.product_attachment.url(:original)
+	og_image = @product.photo.product_attachment.url(:x_large)
 	tw_image = @product.photo.product_attachment.url(:small)
 else
 	og_image = image_url("#{website.folder}/logo.png")

@@ -148,7 +148,6 @@
 						<% if website.has_dealers? || website.has_online_retailers? || website.has_distributors? %>
 						<%= link_to t('where_to_buy').titleize, where_to_find_path %> &bull;
 						<% end %>
-            <%= link_to 'HARMAN Merchandise', "https://harman.axomo.com", target: "_blank" %> &bull;
             <%= link_to 'careers'.titleize, "https://jobs.harman.com", target: "_blank" %> &bull;
 						<%= link_to t('product_support').titleize, support_path %> &bull;
 	          <% if !!(website.forum_link) %>
