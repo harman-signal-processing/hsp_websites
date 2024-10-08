@@ -168,7 +168,13 @@
           <%= number_to_human_size(item.ware_file_size) %>
         <% end %>
       </td>
-      <td class="hide-for-small"><%=l item.updated_at.to_date, format: :month_year %></td>
+      <td class="hide-for-small">
+        <% if website.brand.name.to_s.match(/amx/i) && item.link.present? %>
+          <% # don't show date for AMX if it is linking to another location rather than a file%>
+        <% else %>
+          <%=l item.updated_at.to_date, format: :month_year %>
+        <% end %>
+        </td>
     <% end %>
 
   </tr>
