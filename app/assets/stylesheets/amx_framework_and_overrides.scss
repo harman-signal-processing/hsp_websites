@@ -624,6 +624,11 @@ $vip-programmer-table-odd-row-color: #eee7e0;
   }
 }
 
+#security_request_type_selector li {
+  margin: 0;
+  padding: 0;
+}
+
 /***** Tables ******/
 table.data {
 	border-collapse: collapse;

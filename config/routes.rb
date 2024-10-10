@@ -575,6 +575,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     match '/firmware' => 'softwares#firmware', as: :firmware_index, via: :all
     match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
+    match '/support/jitc_certified_firmware_request' => 'jitc_requests#index', as: :jitc_certified_firmware_request, message_type: "jitc_certified_firmware_request", via: :all
+    match '/support/security_information_request' => 'jitc_requests#index', as: :security_information_request, message_type: "security_information_request", via: :all
     match '/support/rma' => 'support#rma', as: :rma_request, via: :all
     match '/support/rma_repair' => 'support#rma', as: :rma_repair_request, message_type: "rma_repair_request", via: :all
     match '/support/rma_credit' => 'support#rma', as: :rma_credit_request, message_type: "rma_credit_request", via: :all

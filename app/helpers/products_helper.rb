@@ -397,7 +397,13 @@ module ProductsHelper
   def breadcrumbs(item)
     crumbs = []
     crumbs << link_to(t('home').titleize, root_path)
-    crumbs << link_to(t('products').titleize, product_families_path)
+
+    if website.brand.name.match(/amx/i) && item.cached_slug.start_with?('jitc-')  # this is just for AMX jitc product family pages
+      crumbs << link_to('Support', support_path)
+      crumbs << link_to('Security', '/secureav')
+    else
+      crumbs << link_to(t('products').titleize, product_families_path)
+    end
 
     if item.is_a?(Product)
       if primary_family = item.primary_family(website)

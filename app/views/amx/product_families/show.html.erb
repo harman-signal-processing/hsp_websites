@@ -57,93 +57,143 @@
       </div>
     <% end %>
 
-    <% if @children_with_current_products.length > 0 %>
+    <%
+      has_current_products = @product_family.current_products.length > 0
+      is_jitc_product_family_page = @product_family.cached_slug.start_with?('jitc-')
+    %>
 
-      <% hide_product_family_tiles = website.value_for("hide_product_family_tiles").present? && website.value_for("hide_product_family_tiles").gsub(/\s+/, "") .split(",").include?(@product_family.cached_slug) %>
-      <% unless hide_product_family_tiles %>
-        <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
-        <h1><%= translate_content(@product_family, :name) %> Categories</h1>
-        <% if @children_with_current_products.length > 19 %>
-          <div class="row">
-            <% @children_with_current_products.in_groups(3).each do |group| %>
-              <div class="large-4 medium-4 small-12 columns product-subgroups">
-                <% group.each do |product_family| %>
-                  <% if product_family.is_a?(ProductFamily) && product_family.parent_id == @product_family.id %>
-                    <h3><%= link_to translate_content(product_family, :name), best_product_family_url(product_family) %></h3>
-                    <% if product_family.children_with_current_products(website, locale: I18n.locale).length > 0 %>
-                      <ul>
-                        <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
-                          <li><%= link_to translate_content(pf, :name), best_product_family_url(pf) %></li>
-                        <% end %>
-                      </ul>
-                    <% end %>
-                  <% end %>
+    <% if is_jitc_product_family_page %>
+        <div id="jitc-products"></div>
+        <%# the padding-top and margin-top values below are to allow the anchor tags to arrive at the correct location on the page, without them the location is too far down%>
+        <div class="row" style="padding-top: 130px; margin-top: -100px;">
+        <%# SHOW PRODUCT FAMILY TILES%>
+          <div class="large-4 medium-4 small-12 columns">
+            <ul class="large-block-grid-2 medium-block-grid-2 small-block-grid-1">
+              <% ProductFamily.where("cached_slug LIKE ? and cached_slug <> ?", 'jitc-%', 'jitc-certified-products').order("position").each do |jitc_product_family| %>
+              <%# binding.pry %>
+                <% if @product_family.cached_slug == jitc_product_family.cached_slug %>
+                  <li><%= translate_image_tag(jitc_product_family, :family_photo, alt: :name, lazy: false, style: "border: 3px solid rgb(255 255 255); border-radius: 2px; box-shadow: 0 0 10px rgb(218 210 208), 0 0 10px rgb(11 64 107);") if !jitc_product_family.family_photo_file_name.blank? %></li>
+                <% else %>
+                  <li><%= link_to translate_image_tag(jitc_product_family, :family_photo, alt: :name, lazy: false), product_family_path(jitc_product_family, anchor: 'jitc-products') if !jitc_product_family.family_photo_file_name.blank? %></li>
                 <% end %>
-              </div>
-            <% end %>
+              <% end %>
+            </ul>
+            <%=website.value_for("request_jitc_certified_firmware").html_safe%>
           </div>
-        <% else %>
-            <ul class="small-block-grid-1 medium-block-grid-4">
-          <% @children_with_current_products.where(parent_id: @product_family.id).each do |product_family| %>
-            <li>
-              <div id="<%= product_family.to_param %>">
-                <%= link_to best_product_family_url(product_family) do %>
-                  <div class="product_family_box">
-                    <div data-equalizer-watch="family_thumbs" class="family_thumb">
-                      <% if !product_family.family_photo_file_name.blank? %>
-                        <%= translate_image_tag(product_family, :family_photo, alt: :name) %>
-                      <% elsif product_family.first_product_with_photo(website) %>
-                        <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:small),
-                                      alt: translate_content(product_family, :name), lazy: false) %>
-                      <% end %>
-                    </div>
-                    <% if product_family.family_photo_file_name.blank? %>
-                      <h2><%= translate_content(product_family, :name) %></h2>
-                    <% end %>
+        <%# SHOW PRODUCTS%>
+        <% if has_current_products %>
+            <div class="large-8 medium-8 small-12 columns">
+              <table class="data" width="100%">
+                <tr><th colspan=4 style="background-color:rgb(11,64,106);font-weight:400;text-shadow:none;"><%=@product_family.name%></th></tr>
+                <tr>
+                  <th>Brand</th>
+                  <th>Model</th>
+                  <th>Description</th>
+                  <th></th>
+                </tr>
+                <% @product_family.current_products.each do |product| %>
+                <tr>
+                  <td><%= website.brand.name%></td>
+                  <td><%= link_to product.name, product_path(product, locale: I18n.locale) %></td>
+                  <td><%= product.short_description %></td>
+                  <td><%= product.specifications_jitc_status_content.strip %></td>
+                </tr>
+                <% end %>
+              </table>
+            </div>
+        <% end %> <%# if has_current_products %>
+        </div>
 
-                    <% if product_family.short_description.present? %>
-                      <p><%=strip_html translate_content(product_family, :short_description) %></p>
-                    <% elsif product_family.family_photo.blank? %>
-                      <% if product_family.intro.present? %>
-                        <p><%= truncate(strip_html(translate_content(product_family, :intro)), length: 100) %></p>
-                      <% elsif product_family.current_products_plus_child_products(website).length == 10 && product_family.family_photo_file_name.blank? %>
-                        <p><%= truncate(strip_html(translate_content(product_family.current_products_plus_child_products(website).first, :short_description)), length: 100) %></p>
-                      <% elsif product_family.current_products_plus_child_products(website).length > 0 && product_family.family_photo_file_name.blank? %>
-                        <p><%= truncate(product_family.current_products_plus_child_products(website).map{|p| translate_content(p, :name)}.join(", "), length: 100) %></p>
-                      <% end %>
+    <% else %> <%# standard product family page, not a jitc product family page%>
+        <%# SHOW PRODUCT FAMILY TILES%>
+            <% if @children_with_current_products.length > 0 %>
+              <% hide_product_family_tiles = website.value_for("hide_product_family_tiles").present? && website.value_for("hide_product_family_tiles").gsub(/\s+/, "") .split(",").include?(@product_family.cached_slug) %>
+              <% unless hide_product_family_tiles %>
+                <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up">
+                <h1><%= translate_content(@product_family, :name) %> Categories</h1>
+                <% if @children_with_current_products.length > 19 %>
+                  <div class="row">
+                    <% @children_with_current_products.in_groups(3).each do |group| %>
+                      <div class="large-4 medium-4 small-12 columns product-subgroups">
+                        <% group.each do |product_family| %>
+                          <% if product_family.is_a?(ProductFamily) && product_family.parent_id == @product_family.id %>
+                            <h3><%= link_to translate_content(product_family, :name), best_product_family_url(product_family) %></h3>
+                            <% if product_family.children_with_current_products(website, locale: I18n.locale).length > 0 %>
+                              <ul>
+                                <% product_family.children_with_current_products(website, locale: I18n.locale).each do |pf| %>
+                                  <li><%= link_to translate_content(pf, :name), best_product_family_url(pf) %></li>
+                                <% end %>
+                              </ul>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </div>
                     <% end %>
                   </div>
+                <% else %>
+                    <ul class="small-block-grid-1 medium-block-grid-4">
+                  <% @children_with_current_products.where(parent_id: @product_family.id).each do |product_family| %>
+                    <li>
+                      <div id="<%= product_family.to_param %>">
+                        <%= link_to best_product_family_url(product_family) do %>
+                          <div class="product_family_box">
+                            <div data-equalizer-watch="family_thumbs" class="family_thumb">
+                              <% if !product_family.family_photo_file_name.blank? %>
+                                <%= translate_image_tag(product_family, :family_photo, alt: :name) %>
+                              <% elsif product_family.first_product_with_photo(website) %>
+                                <%= image_tag(product_family.first_product_with_photo(website).primary_photo.product_attachment.url(:small),
+                                              alt: translate_content(product_family, :name), lazy: false) %>
+                              <% end %>
+                            </div>
+                            <% if product_family.family_photo_file_name.blank? %>
+                              <h2><%= translate_content(product_family, :name) %></h2>
+                            <% end %>
+
+                            <% if product_family.short_description.present? %>
+                              <p><%=strip_html translate_content(product_family, :short_description) %></p>
+                            <% elsif product_family.family_photo.blank? %>
+                              <% if product_family.intro.present? %>
+                                <p><%= truncate(strip_html(translate_content(product_family, :intro)), length: 100) %></p>
+                              <% elsif product_family.current_products_plus_child_products(website).length == 10 && product_family.family_photo_file_name.blank? %>
+                                <p><%= truncate(strip_html(translate_content(product_family.current_products_plus_child_products(website).first, :short_description)), length: 100) %></p>
+                              <% elsif product_family.current_products_plus_child_products(website).length > 0 && product_family.family_photo_file_name.blank? %>
+                                <p><%= truncate(product_family.current_products_plus_child_products(website).map{|p| translate_content(p, :name)}.join(", "), length: 100) %></p>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </li>
+                  <% end %>
+                  </ul>
                 <% end %>
+              </div><!-- <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up"> -->
+              <% end %> <%# unless hide_product_family_tiles %>
+
+            <% end %> <%# if @children_with_current_products.length > 0 %>
+
+        <%# SHOW PRODUCTS%>
+            <% if has_current_products %>
+              <div class="row" id="product_thumbs_container">
+                <div class="large-12 columns" data-equalizer="product_thumbs">
+                  <h1><%= translate_content(@product_family, :name) %> Products</h1>
+                  <% if @product_family.show_comparisons? %>
+                    <%= form_tag compare_products_path, method: :post %>
+                  <% end %>
+
+                  <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
+
+                  <% if @product_family.show_comparisons? %>
+                    </form>
+                  <% end %>
+
+                </div>
               </div>
-            </li>
-          <% end %>
-          </ul>
-        <% end %>
-      </div><!-- <div data-equalizer="family_thumbs" data-equalizer-mq="medium-up"> -->
-      <% end %> <%# unless hide_product_family_tiles %>
+              <p>&nbsp;</p>
+            <% end %>
+    <% end %> <%# if is_jitc_product_family_page %>
 
-    <% end %> <%# if @children_with_current_products.length > 0 %>
-
-    <% if @product_family.current_products.length > 0 %>
-      <div class="row" id="product_thumbs_container">
-        <div class="large-12 columns" data-equalizer="product_thumbs">
-          <h1><%= translate_content(@product_family, :name) %> Products</h1>
-          <% if @product_family.show_comparisons? %>
-            <%= form_tag compare_products_path, method: :post %>
-          <% end %>
-
-          <%= render_partial "product_families/product_family", product_family: @product_family, skip_header: true  %>
-
-          <% if @product_family.show_comparisons? %>
-            </form>
-          <% end %>
-
-        </div>
-      </div>
-      <p>&nbsp;</p>
-    <% end %>
-
-  <% end %>
+  <% end %> <%#= cache ["product_family_content", @product_family, I18n.locale, session['geo_country']] do %>
 
   <% # ============================ FEATURES BELOW PRODUCTS GO HERE ================================%>
   <% show_below_products_features = get_custom_feature_list(@product_family.features, "show_below_products") %>
@@ -182,6 +232,6 @@
 
   <%= render_partial 'shared/other_languages_button', item: @product_family %>
 
-</div>
+</div> <!-- <div class="product_family_body"> -->
 
 <p>&nbsp;</p>

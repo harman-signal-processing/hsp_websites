@@ -82,6 +82,15 @@ class SiteMailer < ApplicationMailer
          subject: "AMX Partner Interest Form")
   end  #  def amx_partner_interest_form(data, recipients)
 
+  def security_info_request(contact_message, products, additional_info, request_type, other, recipients)
+    @contact_message = contact_message
+    @products = products
+    @additional_info = additional_info
+    @request_type = request_type
+    @other = other
+    mail(to: recipients.split(";"), subject: @contact_message.subject)
+  end
+
   def jbl_vertec_vtx_owner_form(data, recipients)
     @jbl_vertec_vtx_owner = data
     mail(to: recipients.split(";"),
