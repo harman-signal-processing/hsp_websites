@@ -12,11 +12,8 @@ class NewsImage < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression],
-    convert_options: {
-      banner: "-define webp:lossless=true ",
-      large: "-define webp:lossless=true "
-    }
+    },
+    processors: [:thumbnail, :compression],
   }
   validates_attachment :image, content_type: { content_type: /\Aimage/i }
 

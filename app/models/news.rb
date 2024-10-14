@@ -17,11 +17,9 @@ class News < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression],
-    convert_options: {
-      banner: "-define webp:lossless=true ",
-      large: "-define webp:lossless=true "
-    }, default_url: "news_photo.jpg"
+    },
+    processors: [:thumbnail, :compression],
+    default_url: "news_photo.jpg"
   }
   validates_attachment :news_photo, content_type: { content_type: /\Aimage/i }
 
@@ -38,11 +36,9 @@ class News < ApplicationRecord
       thumb_square: "100x100#",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression],
-    convert_options: {
-      banner: "-define webp:lossless=true ",
-      large: "-define webp:lossless=true "
-    }, default_url: "news_photo.jpg"
+    },
+    processors: [:thumbnail, :compression],
+    default_url: "news_photo.jpg"
   }
   validates_attachment :square, content_type: { content_type: /\Aimage/i }
 

@@ -19,14 +19,12 @@ class ProductAttachment < ApplicationRecord
       tiny: "64x64",
       tiny_square: "64x64#",
       soundcomm: "160x160"
-    }, processors: [:thumbnail, :compression] ,
+    },
+    processors: [:thumbnail, :compression] ,
     convert_options: {
-      x_large: "-define webp:lossless=true ",
-      x_large_2x: "-define webp:lossless=true ",
-      full_width: "-define webp:lossless=true ",
-      lightbox: "-define webp:lossless=true ",
       soundcomm: "-gravity center -extent 160x160"
-    }}
+    }
+  }
   validates_attachment :product_attachment, content_type: { content_type: /\Aimage/i }
 
   has_attached_file :product_media

@@ -10,13 +10,9 @@ class Setting < ApplicationRecord
       thumb: "100x100>",
       tiny: "64x64>",
       tiny_square: "64x64#"
-    }, processors: [:thumbnail, :compression],
-    convert_options: {
-      x_large: "-define webp:lossless=true ",
-      x_large_2x: "-define webp:lossless=true ",
-      large: "-define webp:lossless=true ",
-      large_2x: "-define webp:lossless=true "
-    }}.merge(SETTINGS_STORAGE)
+    },
+    processors: [:thumbnail, :compression],
+  }.merge(SETTINGS_STORAGE)
   validates_attachment :slide,
     content_type: { content_type: /\A(image|video)/i },
     size: { in: 0..300.kilobytes }
