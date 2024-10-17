@@ -1,3 +1,7 @@
+<% content_for :extra_header_code do %>
+  <%= javascript_include_tag "where_to_find" %>
+<% end %>
+
 <% set_meta_tags title: @page_title,
 				 reverse: true,
                  description: t('meta.description.where_to_buy', brand: website.brand_name),

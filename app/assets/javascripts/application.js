@@ -7,13 +7,11 @@
 //= require foundation
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
-//= require jquery.bxSlider.min
 //= require jquery.pin
 //= require slick
 //= require global_functions
 //= require product_tabs
 //= require buy_it_now
-//= require where_to_find
 //= require slideshow
 //= require tools
 //= require homepage

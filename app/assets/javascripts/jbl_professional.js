@@ -11,19 +11,15 @@
 // about supported directives.
 //
 //= require jquery.fancybox.min
-//= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.rwdImageMaps.min
 //= require jquery.cookie
 //= require slick
 //= require global_functions
-//= require where_to_find
 //= require homepage
 //= require foundation
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require will_paginate_infinite
 //= require jbl_professional_application
 //= require_self

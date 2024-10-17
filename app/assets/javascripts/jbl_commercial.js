@@ -20,8 +20,6 @@
 //= require foundation
 //= require will_paginate_infinite
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require_self
 
 $(function(){

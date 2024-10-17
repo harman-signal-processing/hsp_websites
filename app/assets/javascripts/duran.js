@@ -1,15 +1,11 @@
 //= require jquery.fancybox.min
-//= require jquery.bxSlider.min
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require slick
 //= require global_functions
-//= require where_to_find
 //= require homepage
 //= require foundation
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require will_paginate_infinite
 //= require duran_application
 //= require_self

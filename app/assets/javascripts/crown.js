@@ -15,15 +15,12 @@
 //= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require slick
-//= require where_to_find
 //= require homepage
 //= require foundation
 //= require will_paginate_infinite
 //= require crown_application
 //= require network_audio
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require_self
 
 //crown.js

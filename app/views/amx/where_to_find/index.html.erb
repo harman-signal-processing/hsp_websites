@@ -3,6 +3,10 @@
   file here is named "where-to-buy" but the routes file has a
   special case for AMX routing "/contacts" here. %>
 
+<% content_for :extra_header_code do %>
+  <%= javascript_include_tag "where_to_find" %>
+<% end %>
+
 <% set_meta_tags title: t('where_to_buy').titleize,
   reverse: true,
   description: t('meta.description.where_to_buy', brand: website.brand_name),

@@ -17,12 +17,9 @@
 //= require jquery.cookie
 //= require slick
 //= require global_functions
-//= require where_to_find
 //= require homepage
 //= require foundation
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require will_paginate_infinite
 //= require amx_application
 //= require network_audio

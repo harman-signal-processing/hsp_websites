@@ -6,3 +6,5 @@
 //= require s3_direct_upload
 //= require admin_upload
 //= require sorting
+//= require tinymce-jquery
+//= require tiny

@@ -17,12 +17,9 @@
 //= require jquery.rwdImageMaps.min
 //= require slick
 //= require global_functions
-//= require where_to_find
 //= require homepage
 //= require foundation
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require will_paginate_infinite
 //= require martin_application
 //= require_self

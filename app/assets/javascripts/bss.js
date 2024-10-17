@@ -20,8 +20,6 @@
 //= require homepage
 //= require foundation
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require will_paginate_infinite
 //= require bss_application
 //= require network_audio

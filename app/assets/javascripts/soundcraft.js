@@ -18,14 +18,11 @@
 //= require jquery.cookie
 //= require global_functions
 //= require slick
-//= require where_to_find
 //= require homepage
 //= require foundation
 //= require will_paginate_infinite
 //= require soundcraft_application
 //= require tools
-//= require tinymce-jquery
-//= require tiny
 //= require_self
 
 /* vendor/jquery.js (v2) doesn't work with Muse scrolling so downgraded to muse/jquery-1.8.3.min.js 30/12/2014 */

@@ -15,7 +15,8 @@
   <div class="alert-box alert"><%= @err %></div>
 <% end %>
 
-<%= content_for :custom_css do %>
+<% content_for :extra_header_code do %>
+  <%= javascript_include_tag "where_to_find" %>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=<%= ENV['GOOGLE_MAPS_KEY'] %>" type="text/javascript"></script>
   <script type="text/javascript" charset="utf-8">
 markers_json = <%= raw @results.to_json(except: [:account_number, :brand_id, :created_at, :updated_at, :name2, :name3, :name4]) %>;
