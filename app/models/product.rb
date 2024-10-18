@@ -605,7 +605,7 @@ class Product < ApplicationRecord
 
   # Promotions which are current and relate to this Product
   def current_promotions
-    promotions.where(["start_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL OR end_on = '')", Date.today, Date.today]).order("start_on")
+    promotions.where(["start_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL OR length(end_on) = 0)", Date.today, Date.today]).order("start_on")
   end
 
   def first_promo_with_price_adjustment
