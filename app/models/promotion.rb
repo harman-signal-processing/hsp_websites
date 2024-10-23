@@ -61,7 +61,7 @@ class Promotion < ApplicationRecord
   # All CURRENT promotions (those which are not expired) for the given Website
   #
   def self.current_for_website(website)
-    website.brand.promotions.where(["start_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL or end_on = '')", Date.today, Date.today]).order("end_on ASC")
+    website.brand.promotions.where(["start_on IS NOT NULL AND start_on <= ? AND (end_on >= ? OR end_on IS NULL or length(end_on) = 0)", Date.today, Date.today]).order("end_on ASC")
   end
 
   def update_banner
