@@ -12,10 +12,8 @@
 //
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
-//= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require slick
-//= require homepage
 //= require foundation
 //= require will_paginate_infinite
 //= require crown_application
@@ -42,7 +40,4 @@ $(function(){
     autoplay: true,
     autoplaySpeed: 4000
   });
-
-  $('img[usemap]').rwdImageMaps();
-
 });  //  $(function(){

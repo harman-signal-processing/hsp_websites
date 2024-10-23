@@ -13,9 +13,7 @@
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
 //= require jquery.pin
-//= require jquery.rwdImageMaps.min
 //= require global_functions
-//= require homepage
 //= require foundation
 //= require tools
 //= require will_paginate_infinite
@@ -32,8 +30,5 @@ $(function(){
       equalize_on_stack: true
     }
   });
-
-  $('img[usemap]').rwdImageMaps();
-
 });
 

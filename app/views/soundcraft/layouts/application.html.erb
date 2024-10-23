@@ -46,7 +46,6 @@
     <% end %>
 
 		<%= javascript_include_tag website.folder %>
-		<%= javascript_include_tag "vendor/modernizr" %>
 		<%= yield :extra_header_code %>
     <%= cache [website, "other_header_scripts", Date.today, I18n.locale] do %>
       <% if Rails.env.production? && !!website.value_for('other_header_scripts') %>

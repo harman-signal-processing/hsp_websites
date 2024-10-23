@@ -14,10 +14,8 @@
 //= require jquery.datetimepicker
 //= require jquery.pin
 //= require jquery.bonsai
-//= require jquery.rwdImageMaps.min
 //= require slick
 //= require global_functions
-//= require homepage
 //= require foundation
 //= require tools
 //= require will_paginate_infinite
@@ -87,8 +85,6 @@ $(function(){
       }
     ]
   });
-
-  $('img[usemap]').rwdImageMaps();
 
   $( "#market-segment-accordion" ).accordion({ collapsible: true, active: false });
 

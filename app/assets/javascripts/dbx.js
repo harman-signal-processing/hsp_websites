@@ -15,7 +15,6 @@
 //= require jquery.pin
 //= require slick
 //= require global_functions
-//= require homepage
 //= require foundation
 //= require tools
 //= require will_paginate_infinite
@@ -40,7 +39,4 @@ $(function(){
     autoplay: true,
     autoplaySpeed: 4000
   });
-
-  $('img[usemap]').rwdImageMaps();
-
 });  //  $(function(){

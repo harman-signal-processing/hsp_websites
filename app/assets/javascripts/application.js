@@ -12,9 +12,7 @@
 //= require global_functions
 //= require product_tabs
 //= require buy_it_now
-//= require slideshow
 //= require tools
-//= require homepage
 
 //application.js
 $(function(){

@@ -12,11 +12,9 @@
 //
 //= require jquery.fancybox.min
 //= require jquery.datetimepicker
-//= require jquery.rwdImageMaps.min
 //= require global_functions
 //= require buy_it_now
 //= require where_to_find
-//= require homepage
 //= require foundation
 //= require will_paginate_infinite
 //= require tools
@@ -32,9 +30,6 @@ $(function(){
       equalize_on_stack: true
     }
   });
-
-  $('img[usemap]').rwdImageMaps();
-
 });
 
 //

@@ -8,3 +8,10 @@
 //= require sorting
 //= require tinymce-jquery
 //= require tiny
+//= require jquery.rwdImageMaps.min
+
+$(function(){
+
+  $('img[usemap]').rwdImageMaps();
+
+});

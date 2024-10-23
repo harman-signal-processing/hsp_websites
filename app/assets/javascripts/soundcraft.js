@@ -14,11 +14,9 @@
 //= require jquery-ui.min
 //= require jquery.datetimepicker
 //= require jquery.pin
-//= require jquery.rwdImageMaps.min
 //= require jquery.cookie
 //= require global_functions
 //= require slick
-//= require homepage
 //= require foundation
 //= require will_paginate_infinite
 //= require soundcraft_application
@@ -45,8 +43,5 @@ $(function(){
     autoplay: true,
     autoplaySpeed: 4000
   });
-
-  $('img[usemap]').rwdImageMaps();
-
 });  //  $(function(){
 
