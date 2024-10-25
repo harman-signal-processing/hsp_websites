@@ -1,4 +1,5 @@
 class JitcRequestsController < ApplicationController
+  before_action :set_locale
 
   def index
     process_request

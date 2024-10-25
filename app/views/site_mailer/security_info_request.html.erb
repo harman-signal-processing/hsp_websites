@@ -1,15 +1,24 @@
 <h1>HARMAN Pro Security Request Form Submission</h1>
 
-<p>
+<div>
+  <h3>Request Details</h3>
   <strong>Request Type:</strong> <%= @request_type %><br/>
   <% if @request_type == "Other" && @other.present? %>
-    <strong>Other Request Type: <%= @other%></strong><br/>
+    <strong>Other Request Type:</strong> <%= @other%>
   <% end %>
-  <strong>Products: <%= @products %></strong>
-  <% if @additional_info.present? %>
-    <strong>Additional Info: <%= @additional_info %></strong><br/>
-  <% end %>
-  <strong>Name: <%= @contact_message.name %></strong><br/>
-  <strong>Organization: <%= @contact_message.company %></strong>
-  <strong>Email: <%= @contact_message.email %></strong>
-</p>
+</div>
+
+<div>
+  <strong>Products:</strong> <%= @products %>
+</div>
+
+<% if @additional_info.present? %>
+  <div><strong>Additional Info:</strong> <%= @additional_info %></div>
+<% end %>
+
+<div>
+  <h3>Contact Information</h3>
+  <strong>Name:</strong> <%= @contact_message.name %><br/>
+  <strong>Organization:</strong> <%= @contact_message.company %><br/>
+  <strong>Email:</strong> <%= @contact_message.email %>
+</div>
