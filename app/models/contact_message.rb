@@ -28,7 +28,7 @@ class ContactMessage < ApplicationRecord
     :shipping_zip,
     :shipping_country, presence: true, length: 1..128, if: :require_shipping_address?
 
-  attr_accessor :require_country, :email_to
+  attr_accessor :require_country, :email_to, :products, :security_request_type, :other, :additional_info
 
   def set_defaults
     self.message_type ||= "support" #others: rma_request, part_request
