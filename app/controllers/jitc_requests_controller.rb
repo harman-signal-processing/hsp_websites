@@ -10,20 +10,24 @@ class JitcRequestsController < ApplicationController
       @contact_message = ContactMessage.new(contact_message_params) do |m|
         request_type = params[:contact_message][:security_request_type]
         other = params[:contact_message][:other]
-        products = params[:contact_message][:products].reject(&:blank?)
-        @products = products.join(', ')
+        # products = params[:contact_message][:products].reject(&:blank?)
+        # @products = products.join(', ')
+        products = params[:contact_message][:products]
+        @products = products
         additional_content = params[:contact_message][:additional_info]
         @additional_info = additional_content
         @request_type = request_type
         @other = other
         message_content = request_type =="Other" ? "Request Type: #{request_type}, #{other}\r\n" : "Request Type: #{request_type}\r\n"
-        message_content += "Products: #{products.join(', ')}\r\n"
+        # message_content += "Products: #{products.join(', ')}\r\n"
+        message_content += "Products: #{products}\r\n"
         message_content += "Additional Information: #{additional_content}\r\n" if additional_content.present?
         m.message = message_content
         m.message_type = request_type
         m.brand = website.brand
         m.subject = "HARMAN Pro Security Request Form Submission"
-        m.product = products.join(", ").length > 100 ? "Product list is in the message." : "#{products.join(', ')}"
+        # m.product = products.join(", ").length > 100 ? "Product list is in the message." : "#{products.join(', ')}"
+        m.product = products.length > 100 ? "Product list is in the message." : "#{products}"
       end
       if verify_recaptcha(model: @contact_message, secret_key: website.recaptcha_private_key) && @contact_message.valid?
       # if @contact_message.valid?

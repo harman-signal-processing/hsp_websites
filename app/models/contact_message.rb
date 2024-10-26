@@ -4,6 +4,7 @@ class ContactMessage < ApplicationRecord
 
   validates :name, :subject, :message_type, presence: true, length: 1..128
   validates :email, presence: true, length: 1..128, email: true
+  validates :company, presence: { message: "Organization can't be blank"}, length: { within: 1..128, message: "Organization is too short (minimum is 1 character)"}, if: :require_company?
   validates :message, presence: true, if: :support?
   validates :product, presence: true, length: 1..128, if: :require_product?
   validates :shipping_country, presence: true, length: 1..128, if: :require_country?
@@ -55,6 +56,10 @@ class ContactMessage < ApplicationRecord
 
   def require_country?
     !!(self.require_country)
+  end
+
+  def require_company?
+    self.subject.present? && self.subject.downcase == "harman pro security request form submission"
   end
 
   def support?
