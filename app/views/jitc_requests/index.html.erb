@@ -3,7 +3,8 @@ message_type ||= params[:message_type]
 is_jitc_firmware_request = message_type.to_s.match(/jitc_certified_firmware_request/).present?
 is_security_info_request = message_type.to_s.match(/security_information_request/).present?
 path_to_use = is_jitc_firmware_request ? jitc_certified_firmware_request_path : security_information_request_path
-title_to_use = is_jitc_firmware_request ? "Request JITC Certified Firmware" : "Request Security Information"
+# title_to_use = is_jitc_firmware_request ? "Request JITC Certified Firmware" : "Request Security Information"
+title_to_use = "Request Security Information"
 %>
 
 <div id="breadcrumbs"><a href="/">Home</a> 
@@ -13,48 +14,52 @@ title_to_use = is_jitc_firmware_request ? "Request JITC Certified Firmware" : "R
 
 <h1><%=title_to_use%></h1>
 <%= simple_form_for @contact_message, url: path_to_use do |f| %>
-    <% if f.object.errors.any? %>
-       <%= f.error_messages %>
-     <% end %>
+<% if f.object.errors.any? %>
+   <%= f.error_messages.gsub("Company", "").html_safe %>
+<% end %>
 <%= f.hidden_field :message_type, value: message_type %>
 <%= f.hidden_field :message, value: "placeholder_message" %>
 <%= f.hidden_field :subject, value: "placeholder_subject" %>
 
-<legend>Request Details</legend>
-<fieldset>
-<div style="margin-bottom: 1rem;">Type of request</div>
-    <ul class="small-block-grid-1 large-block-grid-1" id="security_request_type_selector">
-      <li><%=f.radio_button :security_request_type, 'JITC Certified Firmware', checked: is_jitc_firmware_request %>JITC Certified Firmware</li>
-      <li><%=f.radio_button :security_request_type, 'Certificate of Volatility'%>Certificate of Volatility</li>
-      <li><%=f.radio_button :security_request_type, 'Section 508 Compliance'%>Section 508 Compliance</li>
-      <li><%=f.radio_button :security_request_type, 'CVE Information', checked: (is_security_info_request) %>CVE Information</li>
-      <li><%=f.radio_button :security_request_type, 'Other'%>Other<%=f.input :other, label: false, placeholder: 'Other request type',input_html: { style: 'display: inline; width: 20%; height: 30px;'}%></li>
-    </ul>
-</fieldset>
-<legend>Related HARMAN Professional Product(s)</legend>
-<fieldset>
-<%= f.input :products,
-    label: "Select Products",
-    collection: ProductFamily.find_by_cached_slug("jitc-certified-products").current_products.sort_by(&:name),
-    value_method: :name,
-    label_method: :name,
-    prompt: false,
-    multiple: true,
-    input_html: {
-        style: 'height: 200px;'
-    },
-    required: true %>
+<h3 style="margin-bottom: -16px;">Request Details</h3>
+<fieldset style="padding-top: 4px;">
+    <h5>Type of request</h5>
+    <fieldset style="padding-top: 0;">
+        <ul class="small-block-grid-1 large-block-grid-1" id="security_request_type_selector">
+          <li><%=f.radio_button :security_request_type, 'JITC Certified Firmware', checked: is_jitc_firmware_request %>JITC Certified Firmware</li>
+          <li><%=f.radio_button :security_request_type, 'Certificate of Volatility'%>Certificate of Volatility</li>
+          <li><%=f.radio_button :security_request_type, 'Section 508 Compliance'%>Section 508 Compliance</li>
+          <li><%=f.radio_button :security_request_type, 'CVE Information', checked: (is_security_info_request) %>CVE Information</li>
+          <li><%=f.radio_button :security_request_type, 'Other'%>Other<%=f.input :other, label: false, placeholder: 'Other request type',input_html: { style: 'display: inline; width: 20%; height: 30px;'}%></li>
+        </ul>
+    </fieldset>
+    <h5>Related HARMAN Professional Product(s)</h5>
+    <fieldset>
+    <!-- <%#= f.input :products,
+    #     label: "Select Products",
+    #     collection: ProductFamily.find_by_cached_slug("jitc-certified-products").current_products.sort_by(&:name),
+    #     value_method: :name,
+    #     label_method: :name,
+    #     prompt: false,
+    #     multiple: true,
+    #     input_html: {
+    #         style: 'height: 200px;'
+    #     },
+    #     required: true %> -->
+    <%= f.input :products, as: :text, label: "Products", placeholder: "Enter products you would like security information about" %>
+    </fieldset>
+    
+    <h5>Additional Information</h5>
+    <fieldset>
+    <%= f.input :additional_info,
+        as: :text,
+        label: "Provide any additional information",
+        input_html: { style: "height: 150px"} %>
+    </fieldset>
 </fieldset>
 
-<legend>Additional Information</legend>
-<fieldset>
-<%= f.input :additional_info,
-    as: :text,
-    label: "Provide any additional information",
-    input_html: { style: "height: 150px"} %>
-</fieldset>
 
-<legend>Contact Information</legend>
+<h3 style="margin-bottom: -16px;">Contact Information</h3>
 <fieldset>
 <%= f.input :name %>
 <%= f.input :company, label: "Organization", required: true %>
