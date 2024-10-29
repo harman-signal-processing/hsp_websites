@@ -5,6 +5,8 @@ class WarrantyRegistration < ApplicationRecord
   validates :first_name, :last_name, :country, presence: true, length: 1..127, format: {
     without: /[\\\/\$\%\^\&\*]|http/i, message: "invalid characters found"
   }
+  validate :first_and_last_name_must_be_different
+  validate :company_not_google
   validates :serial_number, :purchased_on, presence: true, length: 1..127
   validates :email, presence: true, email: true, length: 1..127
   validates :company, presence: true, if: :require_company?
@@ -43,6 +45,18 @@ class WarrantyRegistration < ApplicationRecord
   # Only Studer wants the company required
   def require_company?
     !!(self.brand && self.brand.name.to_s.match(/studer/i))
+  end
+
+  def first_and_last_name_must_be_different
+    if first_name == last_name
+      errors.add(:base, "Something is not right about the values provided.")
+    end
+  end
+
+  def company_not_google
+    if company == "google"
+      errors.add(:base, "Something is not right about the values provided.")
+    end
   end
 
   # String output matching the legacy format which SAP uses to import these records
