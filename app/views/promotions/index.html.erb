@@ -1,4 +1,6 @@
-<% set_meta_tags title: t('titles.promotions'), keywords: @current_promotions.pluck(:name), reverse: true %>
+<% set_meta_tags title: t('titles.promotions'),
+  noindex: true,
+  keywords: @current_promotions.pluck(:name), reverse: true %>
 
 <% if website.promotions_banner %>
   <div class="category-banner">

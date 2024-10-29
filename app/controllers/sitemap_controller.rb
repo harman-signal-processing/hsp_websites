@@ -101,6 +101,10 @@ class SitemapController < ApplicationController
             updated_at: 5.days.ago,
             changefreq: 'weekly',
             priority: 0.7 }
+          @pages << { url: software_index_url,
+            updated_at: 5.days.ago,
+            changefreq: 'weekly',
+            priority: 0.7 }
           website.current_softwares.each do |software|
             if software.has_additional_info?
               @pages << { url: url_for(software),
@@ -109,6 +113,12 @@ class SitemapController < ApplicationController
                 priority: 0.8 }
             end
           end
+        end
+        if website.brand.current_firmwares.size > 0 || website.brand.name.match?(/martin/i)
+          @pages << { url: firmware_index_url,
+            updated_at: 5.days.ago,
+            changefreq: 'weekly',
+            priority: 0.7 }
         end
         all_news = News.all_for_website(website)
         if all_news.size > 0

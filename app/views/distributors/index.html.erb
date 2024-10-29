@@ -1,6 +1,7 @@
 <% set_meta_tags reverse: true,
-				 title: (@country) ? "#{@country} | #{ucfirst(t('titles.international_distributors'))}" : ucfirst(t('titles.international_distributors')),
-                 description: "International distributors" %>
+	noindex: true,
+	title: (@country) ? "#{@country} | #{ucfirst(t('titles.international_distributors'))}" : ucfirst(t('titles.international_distributors')),
+	description: "International distributors" %>
 
 <h1 class="page_title">
 <% if File.exist?(Rails.root.join("app", "assets", "images", "#{website.folder}/#{I18n.locale}/worldwide_distributors_head.jpg")) %>
@@ -10,7 +11,7 @@
   	AXYS Tunnel by HARMAN Distributors
   <% else %>
 	  <%= website.brand.name %>
-	  <%= t('titles.international_distributors') %>  
+	  <%= t('titles.international_distributors') %>
   <% end %>
 <% end %>
 </h1>
@@ -24,11 +25,11 @@
 			<%= label_tag t('select_your_country') %>
 			<div class="row collapse">
 				<div class="large-9 small-8 columns">
-            <%= select_tag :geo, 
-            options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, @country_code.upcase), 
+            <%= select_tag :geo,
+            options_for_select(CountryList.countries.sort_by { |item| item[:harman_name]}.map {|country| [country[:harman_name], country[:alpha2]] }, @country_code.upcase),
             # class: 'chosen-select',
             prompt: "Select Your Country"
-            %> 
+            %>
 				</div>
 				<div class="large-3 small-4 columns">
 					<%= submit_tag t('submit'), class: "postfix button" %>
@@ -44,7 +45,7 @@
       		<%=render_partial "support/distributor", distributor: distributor %>
   		<% end %> <%# @distributors.each do |distributor| %>
 		</ul>
-<% else %>	
+<% else %>
     <div>We didn't find a distributor in your country. Please contact us with the information below.</div>
   	<% if addr = website.value_for("address_and_phone") %>
 	  	<div class="panel">

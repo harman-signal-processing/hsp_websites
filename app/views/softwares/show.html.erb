@@ -22,10 +22,11 @@
 <h1><%= @page_title %></h1>
 
 <% if @software.is_replaced? %>
-<div data-alert class="alert-box">
-	Note: this is an old version. The current version is: <%= link_to_software(@software.replaced_by) %>.
-	<a href="#" class="close">&times;</a>
-</div>
+  <% set_meta_tags noindex: true %>
+  <div data-alert class="alert-box">
+  	Note: this is an old version. The current version is: <%= link_to_software(@software.replaced_by) %>.
+  	<a href="#" class="close">&times;</a>
+  </div>
 <% end %>
 
 <div class="row">

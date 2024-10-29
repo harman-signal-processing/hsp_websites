@@ -23,6 +23,10 @@ set_meta_tags title: translate_content(@news, :title),
    }
 %>
 
+<% if @news.post_on < 10.years.ago %>
+  <% set_meta_tags noindex: true %>
+<% end %>
+
 <div class="row">
   <div class="medium-4 push-8 columns news-sidebar">
     <div class="back-to-news">

@@ -23,6 +23,10 @@ set_meta_tags title: translate_content(@news, :title),
    }
 %>
 
+<% if @news.post_on < 10.years.ago %>
+  <% set_meta_tags noindex: true %>
+<% end %>
+
 <% if @news.news_photo.present? %>
   <% unless website.hide_featured_news.to_i > 0 %>
     <%= content_for :feature do %>

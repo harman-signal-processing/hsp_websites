@@ -1,6 +1,5 @@
 <% set_meta_tags title: t('titles.rohs'),
-				 description: truncate(t('rohs_intro'), length: 100, omission: ""),
-				 keywords: @products.collect{|p| p.name}.join(", "),
+				 noindex: true,
 				 reverse: true %>
 
 <h1><%= t('titles.rohs') %></h1>
