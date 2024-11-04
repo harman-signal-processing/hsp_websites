@@ -47,7 +47,7 @@ class SitemapController < ApplicationController
         end
         pf_count = 0
         ProductFamily.all_with_current_products(website, I18n.locale).each do |product_family|
-          unless product_family.preview_password.present?
+          unless product_family.preview_password.present? || product_family.hide_from_navigation?
             if product_family.hreflangs(website).include?(I18n.locale.to_s) &&
               (product_family.features.length > 0 || product_family.current_products_plus_child_products(website).length > 1)
               @pages << { url: url_for(product_family),

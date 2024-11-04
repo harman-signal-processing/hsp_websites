@@ -3,6 +3,10 @@
   description: @product_family.meta_description.present? ? translate_content(@product_family, :meta_description) : translate_content(@product_family, :intro),
   keywords: translate_content(@product_family, :keywords) %>
 
+<% if @product_family.hide_from_navigation? %>
+  <% set_meta_tags noindex: true %>
+<% end %>
+
 <% if @product_family.has_custom_background? %>
 	<%= content_for :custom_css do %>
 		<style type="text/css" media="screen">
