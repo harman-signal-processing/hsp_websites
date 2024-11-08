@@ -1,3 +1,5 @@
 <%= content_for :support_chat_javascript do %>
-  <script src="https://pochatcentralus.crm.powerobjects.net/chatbox/pochat.js.aspx?t=Yz1waEszVHlqRENrQ3pSdiUyQiUyQkdFOVFOUSUzRCUzRCZiPXhiYmxmQ2VIc0VLdmRmaDhOc1NtMUElM0QlM0Q%3D"></script>
+  <% if website.value_for('tech_support_chat') %>
+    <%= raw website.value_for('tech_support_chat') %>
+  <% end %>
 <% end %>
