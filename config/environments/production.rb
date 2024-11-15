@@ -59,7 +59,15 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-  config.cache_store = :mem_cache_store, "127.0.0.1", { namespace: "HSPWWW", expires_in: 1.day, compress: true }
+  #config.cache_store = :mem_cache_store, "127.0.0.1", { namespace: "HSPWWW", expires_in: 1.day, compress: true }
+  config.cache_store = :redis_cache_store, {
+    url: ENV['REDIS_URL'],
+    connect_timeout: 30,
+    read_timeout: 0.2,
+    write_timeout: 0.2,
+    reconnect_attempts: 1,
+    expires_in: 1.day
+  }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   config.action_controller.asset_host = ENV['ASSET_HOST']

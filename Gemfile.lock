@@ -205,8 +205,6 @@ GEM
     csv (3.3.0)
     daemons (1.4.1)
     dalli (3.2.8)
-    dalli-elasticache (1.0.1)
-      dalli (>= 2.0.0)
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.2.0)
@@ -351,6 +349,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashie (5.0.0)
+    hiredis (0.6.3)
     http (5.2.0)
       addressable (~> 2.8)
       base64 (~> 0.1)
@@ -788,7 +787,6 @@ DEPENDENCIES
   country_select
   daemons
   dalli
-  dalli-elasticache
   database_cleaner
   delayed_job_active_record
   devise
@@ -815,6 +813,7 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
+  hiredis
   httparty
   jquery-rails
   json-schema

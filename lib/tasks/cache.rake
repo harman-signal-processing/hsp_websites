@@ -1,7 +1,7 @@
 namespace :cache do
-  
+
   desc "Clear the homepage fragment caches"
-  task :refresh_homepage => :environment do 
+  task :refresh_homepage => :environment do
     Website.all.each do |website|
       w = ActionController::Base.new
       # w.expire_fragment("#{website.brand_name}_twitter_feed")
@@ -32,5 +32,11 @@ namespace :cache do
   task :pull_new_tweets => :environment do
     Brand.pull_tweets
   end
-  
+
+  desc "Clears the redis cache"
+  task :flush_redis => :environment do
+    redis = Redis.new(url: ENV['REDIS_URL'])
+    redis.flushall
+  end
+
 end
