@@ -73,6 +73,7 @@ gem 'language_list'
 gem 'ransack' #, "< 4.0.0" # 4.0.0 requires whitelisting params to search by
 gem "dalli"
 gem "dalli-elasticache"
+gem "redis"
 gem "rabl"
 gem "money"
 gem 'money-rails', ">= 1.9.0" # 2017-12-01
