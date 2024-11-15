@@ -443,6 +443,9 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
       get "scheduled_tasks/:id/value_field/:field_name" => 'scheduled_tasks#value_field'
 
+      get "utilities" => "utilities#index"
+      put "utilities/flush_cache" => "utilities#flush_cache", as: :flush_cache
+
       #match "translations/:target_locale(/:action)" => "content_translations", as: :translations
       get 'content_translation/languages' => 'content_translations#languages', as: :content_translation_languages
       scope path: '/:target_locale', target_locale: /#{Locale.all_unique_locales.join('|')}/ do
