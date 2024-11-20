@@ -71,9 +71,8 @@ gem 'country_select'
 gem 'chosen-rails', git: 'https://github.com/adamtao/chosen-rails'
 gem 'language_list'
 gem 'ransack' #, "< 4.0.0" # 4.0.0 requires whitelisting params to search by
-gem "dalli" # for memcache
 gem "redis"
-gem "hiredis" # for redis
+gem "hiredis"
 gem "rabl"
 gem "money"
 gem 'money-rails', ">= 1.9.0" # 2017-12-01
