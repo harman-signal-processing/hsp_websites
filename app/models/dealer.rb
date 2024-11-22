@@ -399,6 +399,78 @@ class Dealer < ApplicationRecord
 
   end  #  def self.simple_report_for_admin(brand, options={}, dealer_list=[])
 
+  def self.simple_report_for_admin_by_type(brand, options={}, dealer_list=[], product_slugs=[])
+    options = { title: "Dealers", format: 'xls' }.merge
+    dealers = dealer_list
+
+    if options[:format] == 'xls'
+      xls_report = StringIO.new
+      Spreadsheet.client_encoding = "UTF-8"
+      book = Spreadsheet::Workbook.new
+      sheet = book.create_worksheet
+
+      column_header_format = Spreadsheet::Format.new(
+        weight: :bold
+      )
+
+      sheet.row(0).default_format = column_header_format
+      standard_headers = ['Region*', 'Country*', 'Dealer_ID', 'Dealer Name*', 'Address*', 'Address 2', 'Address 3', 'Town/City*', 'State/Province', 'Postalcode/ZIP*', 'Phone', 'Email', 'Website', 'Is Install Company?', 'Is Rental Company?', 'Is Resale Company?', 'Is Service Company?']
+      sheet.row(0).concat (standard_headers)
+
+      sheet.column(0).width = 20 # Region
+      sheet.column(1).width = 20 # Country
+      sheet.column(2).width = 10 # Dealer ID (in website)
+      sheet.column(3).width = 30 # Dealer
+      sheet.column(4).width = 40 # Address
+      sheet.column(5).width = 40 # Address 2
+      sheet.column(6).width = 40 # Address 3
+      sheet.column(7).width = 20 # City
+      sheet.column(8).width = 20 # State
+      sheet.column(9).width = 20 # Postal Code
+      sheet.column(10).width = 20 # Phone
+      sheet.column(11).width = 20 # Email
+      sheet.column(12).width = 20 # Website
+      sheet.column(13).width = 20 # Install
+      sheet.column(14).width = 20 # Rental
+      sheet.column(15).width = 20 # Resale
+      sheet.column(16).width = 20 # Service
+
+
+      row = 1
+
+      dealers.each do |dealer|
+        addr = dealer.address.gsub("<br />", "---addr-break---").gsub("<br>","---addr-break---").gsub("<br/>","---addr-break---") if dealer.address.present?
+        addr1 = addr.split("---addr-break---")[0] if addr.present?
+        addr2 = addr.split("---addr-break---")[1] if addr.present?
+        addr3 = addr.split("---addr-break---")[2] if addr.present?
+            sheet[row, 0] = dealer.region
+            sheet[row, 1] = dealer.country
+            sheet[row, 2] = dealer.id
+            sheet[row, 3] = dealer.name
+            sheet[row, 4] = addr1
+            sheet[row, 5] = addr2
+            sheet[row, 6] = addr3
+            sheet[row, 7] = dealer.city
+            sheet[row, 8] = dealer.state
+            sheet[row, 9] = dealer.zip
+            sheet[row, 10] = dealer.telephone
+            sheet[row, 11] = dealer.email
+            sheet[row, 12] = dealer.website
+            sheet[row, 13] = dealer.installation
+            sheet[row, 14] = dealer.rental
+            sheet[row, 15] = dealer.resale
+            sheet[row, 16] = dealer.service
+
+        row += 1
+      end  #  dealers.each do |dealer|
+
+      book.write(xls_report)
+      xls_report.string
+
+    end  #  if options[:format] == 'xls'
+
+  end  #  def self.simple_report_for_admin_by_type(brand, options={}, dealer_list=[])
+
   def self.report(brand, options={}, dealer_list=[])
     options = { rental: false, resell: false, title: "Dealers", format: 'xls' }.merge options
     if dealer_list.present?
