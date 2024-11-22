@@ -137,6 +137,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get 'show_campaign/:id' => 'signups#show_campaign', as: 'show_campaign'
       get 'stats/multiple_charts_one_site', as: :stats_page
       get 'dealers/export' => 'dealers#export_dealer_list', as: :export_dealer_list, defaults: { format: :xls }
+      get 'dealers/export_by_type' => 'dealers#export_dealer_list_by_type', as: :export_dealer_list_by_type, defaults: { format: :xls }
       resources :products do
         collection do
           get :rohs

@@ -116,6 +116,28 @@ class Admin::DealersController < AdminController
 
   end  #  def export_dealer_list
 
+  def export_dealer_list_by_type
+    dealers = website.brand.dealers
+            .where.not(exclude: 1)
+            .or(website.brand.dealers.where(exclude: nil))
+            .sort_by{|item| [item.region, item.country, item.name] }
+
+    respond_to do |format|
+      format.xls {
+        report_data = Dealer.simple_report_for_admin_by_type(
+          website.brand, {
+            format: 'xls'
+          }, dealers
+        )
+        send_data(report_data,
+          filename: "#{website.brand.name}_dealers_by_type_#{I18n.l Date.today}.xls",
+          type: "application/excel; charset=utf-8; header=present"
+        )
+      }
+    end  #  respond_to do |format|
+
+  end  #  def export_dealer_list_by_type
+
   private
 
   def initialize_dealer
