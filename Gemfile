@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem "strscan", "3.1.0"
 gem "digest", "3.1.1"
 
-gem 'rails', '~> 7.1', '< 7.2'
+gem 'rails', '~> 7.2'
 gem 'rails-i18n', '~> 7.0'
 # Github has rails 6.1 support
 gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-action_caching'
@@ -70,7 +70,7 @@ gem 'countries'
 gem 'country_select'
 gem 'chosen-rails', git: 'https://github.com/adamtao/chosen-rails'
 gem 'language_list'
-gem 'ransack' #, "< 4.0.0" # 4.0.0 requires whitelisting params to search by
+gem 'ransack'
 gem "redis"
 gem "hiredis"
 gem "rabl"
