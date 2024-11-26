@@ -23,11 +23,6 @@ ExceptionNotification.configure do |config|
     exception_recipients: ENV['EXCEPTION_RECIPIENTS'].split("|")
   }
 
-  config.add_notifier :slack, {
-    webhook_url: ENV['SLACK_WEBHOOK'],
-    channel: '#site-exceptions'
-  }
-
   config.add_notifier :log_exceptions, -> (exception, options) {
     logger = ActiveSupport::Logger.new("log/brandsite_500_exception.log")
     time = Time.now
