@@ -73,8 +73,7 @@ gem 'language_list'
 gem 'ransack'
 gem "redis"
 gem "hiredis"
-# 2024-11-26 mast branch below support rails 8.0
-gem "rabl", github: 'nesquena/rabl'
+gem "rabl", ">= 0.17"
 gem "money"
 gem 'money-rails', ">= 1.9.0" # 2017-12-01
 gem 'will_paginate'
