@@ -166,7 +166,11 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       resources :product_families do
         collection { post :update_order }
         member do
-          get :delete_background, :delete_family_photo, :delete_family_banner, :delete_title_banner, :copy_products
+          get :delete_background
+          get :delete_family_photo
+          get :delete_family_banner
+          get :delete_title_banner
+          get :copy_products
           put :copy
           post :copy_products
         end
@@ -451,7 +455,10 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       get 'content_translation/languages' => 'content_translations#languages', as: :content_translation_languages
       scope path: '/:target_locale', target_locale: /#{Locale.all_unique_locales.join('|')}/ do
         resources :content_translations do
-          collection {get :list, :combined}
+          collection {
+            get :list
+            get :combined
+          }
           collection {post :combined}
         end
       end
@@ -474,7 +481,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
         get :increment_count
       end
     end
-    resources :software_attachments, only: [:download] do
+    resources :software_attachments, only: [] do
       member { get :download }
     end
 
@@ -517,7 +524,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
       end
     end
     resources :testimonials, only: :show
-    resources :products, only: [:index, :discontinued] do
+    resources :products, only: [:index] do
       member do
         get :buy_it_now
         get :preview

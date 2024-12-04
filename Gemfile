@@ -4,10 +4,10 @@ source 'https://rubygems.org'
 gem "strscan", "3.1.0"
 gem "digest", "3.1.1"
 
-gem 'rails', '~> 7.2'
-gem 'rails-i18n', '~> 7.0'
+gem 'rails', '~> 8.0'
+gem 'rails-i18n'
 # Github has rails 6.1 support
-gem 'actionpack-action_caching', git: 'https://github.com/rails/actionpack-action_caching'
+gem 'actionpack-action_caching', github: 'rails/actionpack-action_caching'
 gem 'responders'
 gem 'bootsnap', require: false
 gem 'sprockets'
@@ -37,7 +37,7 @@ gem 'asset_sync'
 gem "kt-paperclip", ">= 7.0"
 gem 'kt-paperclip-compression'
 gem 'kt-delayed_paperclip'
-gem 's3_direct_upload' #, git: 'https://github.com/adamtao/s3_direct_upload'
+gem 's3_direct_upload' #, github: 'adamtao/s3_direct_upload'
 gem 'meta-tags'
 gem 'tinymce-rails',
   git: 'https://github.com/spohlenz/tinymce-rails.git',
@@ -68,17 +68,17 @@ gem 'whenever' #, require: false
 gem "simple_form", ">= 5.0.0"
 gem 'countries'
 gem 'country_select'
-gem 'chosen-rails', git: 'https://github.com/adamtao/chosen-rails'
+gem 'chosen-rails', github: 'adamtao/chosen-rails'
 gem 'language_list'
 gem 'ransack'
 gem "redis"
 gem "hiredis"
-gem "rabl"
+gem "rabl", ">= 0.17"
 gem "money"
 gem 'money-rails', ">= 1.9.0" # 2017-12-01
 gem 'will_paginate'
 gem 'will_paginate_infinite',
-  git: 'https://github.com/adamtao/will_paginate_infinite.git',
+  github: 'adamtao/will_paginate_infinite',
   branch: 'master'
 
 gem "possessive"
@@ -87,11 +87,10 @@ gem 'figaro'
 gem 'oauth2'
 gem 'typhoeus' # For link validator
 gem 'slick_rails' # slick carousel
-gem 'mailgun_rails' # mailer service
 gem 'nokogiri', '>= 1.13.4'
 gem 'email_validator'
-gem "exception_notification"
-gem 'slack-notifier'
+# 2024-11-26 ref below supports rails 8.0
+gem "exception_notification", github: 'smartinez87/exception_notification', ref: 'refs/pull/544/head'
 gem 'google-api-client', '~> 0.36'
 gem 'wicked_pdf'
 

@@ -114,16 +114,18 @@ feature "Geofencing" do
       allow_any_instance_of(ActionDispatch::Request).to receive(:remote_ip) { '34.101.81.171' }
     end
 
-    it "tries to visit en should redirect to en-asia" do
+    # Originally, SHOULD redirect. Now should NOT--due to complaints.
+    it "tries to visit en should NOT redirect to en-asia" do
       visit root_path(locale: "en")
 
-      expect(page.current_path).to eq("/en-asia")
+      expect(page.current_path).not_to eq("/en-asia")
     end
 
-    it "tries to visit en-US should redirect to en-asia" do
+    # Originally, SHOULD redirect. Now should NOT--due to complaints.
+    it "tries to visit en-US should NOT redirect to en-asia" do
       visit root_path(locale: "en-US")
 
-      expect(page.current_path).to eq("/en-asia")
+      expect(page.current_path).not_to eq("/en-asia")
     end
 
     it "visits homepage with no locale in URL" do
@@ -139,16 +141,18 @@ feature "Geofencing" do
       allow_any_instance_of(ActionDispatch::Request).to receive(:remote_ip) { '124.223.30.144' }
     end
 
-    it "tries to visit en should redirect to en-asia" do
+    # Originally, SHOULD redirect. Now should NOT--due to complaints.
+    it "tries to visit en should NOT redirect to en-asia" do
       visit root_path(locale: "en")
 
-      expect(page.current_path).to eq("/en-asia")
+      expect(page.current_path).not_to eq("/en-asia")
     end
 
-    it "tries to visit en-US should redirect to en-asia" do
+    # Originally, SHOULD redirect. Now should NOT--due to complaints.
+    it "tries to visit en-US should NOT redirect to en-asia" do
       visit root_path(locale: "en-US")
 
-      expect(page.current_path).to eq("/en-asia")
+      expect(page.current_path).not_to eq("/en-asia")
     end
 
     it "visits homepage with no locale in URL" do
@@ -164,16 +168,18 @@ feature "Geofencing" do
       allow_any_instance_of(ActionDispatch::Request).to receive(:remote_ip) { '18.167.234.221' }
     end
 
-    it "tries to visit en should redirect to en-asia" do
+    # Originally, SHOULD redirect. Now should NOT--due to complaints.
+    it "tries to visit en should NOT redirect to en-asia" do
       visit root_path(locale: "en")
 
-      expect(page.current_path).to eq("/en-asia")
+      expect(page.current_path).not_to eq("/en-asia")
     end
 
-    it "tries to visit en-US should redirect to en-asia" do
+    # Originally, SHOULD redirect. Now should NOT--due to complaints.
+    it "tries to visit en-US should NOT redirect to en-asia" do
       visit root_path(locale: "en-US")
 
-      expect(page.current_path).to eq("/en-asia")
+      expect(page.current_path).not_to eq("/en-asia")
     end
 
     it "visits homepage with no locale in URL" do
