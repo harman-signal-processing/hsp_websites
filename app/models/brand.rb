@@ -229,20 +229,25 @@ class Brand < ApplicationRecord
     end
   end
 
-  def family_products
-    Rails.cache.fetch("#{cache_key_with_version}/family_products", expires_in: 6.hours) do
+  def family_product_ids
+    Rails.cache.fetch("#{cache_key_with_version}/family_product_ids", expires_in: 6.hours) do
       Product.joins(product_family_products: :product_family).
         where(product_family: { brand_id: self.id } ).
-        order(Arel.sql("UPPER(products.name)"))
+        pluck(:id)
     end
   end
 
+  def family_products
+    Product.where(id: family_product_ids).
+      order(Arel.sql("UPPER(products.name)"))
+  end
+
   def products
-    fp = self.family_products.select(:id)
-    if fp.blank?
+    fp_ids = self.family_product_ids
+    if fp_ids.blank?
       Product.where(brand_id: self.id).order(Arel.sql("UPPER(name)"))
     else
-      Product.where(brand_id: self.id).or(Product.where(id: fp)).order(Arel.sql("UPPER(name)"))
+      Product.where(brand_id: self.id).or(Product.where(id: fp_ids)).order(Arel.sql("UPPER(name)"))
     end
   end
 
