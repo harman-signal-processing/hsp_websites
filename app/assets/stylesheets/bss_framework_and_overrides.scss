@@ -1,35 +1,5 @@
 @import 'foundation/functions';
 
-@font-face {
-    font-family: 'dinregular';
-    src: font-url('DIN-webfont.eot');
-    src: font-url('DIN-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('DIN-webfont.woff') format('woff'),
-         font-url('DIN-webfont.ttf') format('truetype'),
-         font-url('DIN-webfont.svg#dinregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'din_mediumregular';
-    src: font-url('DIN-Medium-webfont.eot');
-    src: font-url('DIN-Medium-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('DIN-Medium-webfont.woff') format('woff'),
-         font-url('DIN-Medium-webfont.ttf') format('truetype'),
-         font-url('DIN-Medium-webfont.svg#din_mediumregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'dinbold';
-    src: font-url('DIN-Bold-webfont.eot');
-    src: font-url('DIN-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         font-url('DIN-Bold-webfont.woff') format('woff'),
-         font-url('DIN-Bold-webfont.ttf') format('truetype'),
-         font-url('DIN-Bold-webfont.svg#dinbold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 $row-width: rem-calc(1170);
 $strip-bg-even: #E1E1E1;
 $strip-bg-odd: #000000;
@@ -42,14 +12,14 @@ $medium-gray: #999;
 $dark-gray: #444;
 $body-bg: #FFF;
 $body-font-color: #121212;
-$body-font-family: "dinregular", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $body-font-weight: 400;
 
 $secondary-color: $medium-gray;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
 $include-print-styles: true;
-$header-font-family: "din_mediumregular", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-family: "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 500;
 // $header-font-style: normal;
 $header-font-color: $dark-gray;

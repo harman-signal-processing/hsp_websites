@@ -79,7 +79,7 @@ class Brand < ApplicationRecord
   end
 
   def promotions
-    Rails.cache.fetch("#{cache_key_with_version}/promotions", expires_in: 6.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/promotions", expires_in: 6.hours) do
       product_promos = Promotion.find_by_sql("SELECT DISTINCT promotions.id FROM promotions
                                              INNER JOIN product_promotions ON product_promotions.promotion_id = promotions.id
                                              INNER JOIN products ON products.id = product_promotions.product_id
@@ -89,7 +89,7 @@ class Brand < ApplicationRecord
       product_promos_query = (product_promos.blank?) ? "" : " OR id IN (#{product_promos}) "
 
       Promotion.select("DISTINCT *").where("brand_id = ? #{product_promos_query}", self.id)
-    end
+    #end
   end
 
   def method_missing(sym, *args)
@@ -213,28 +213,28 @@ class Brand < ApplicationRecord
   end
 
   def current_product_ids(opts={})
-    Rails.cache.fetch("#{cache_key_with_version}/current_product_ids/#{opts}", expires_in: 6.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/current_product_ids/#{opts}", expires_in: 6.hours) do
       prods = product_families.includes(:products).
         where(products: { product_status: ProductStatus.current_ids })
       if opts[:locale].present?
         prods = prods.where("products.hidden_locales IS NULL OR (',' + products.hidden_locales + ',') NOT LIKE '%,#{opts[:locale].to_s},%'")
       end
       prods.pluck("products.id").uniq
-    end
+    #end
   end
 
   def current_products(opts={})
-    Rails.cache.fetch("#{cache_key_with_version}/current_products/#{opts}", expires_in: 6.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/current_products/#{opts}", expires_in: 6.hours) do
       Product.where(id: current_product_ids(opts))
-    end
+    #end
   end
 
   def family_product_ids
-    Rails.cache.fetch("#{cache_key_with_version}/family_product_ids", expires_in: 6.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/family_product_ids", expires_in: 6.hours) do
       Product.joins(product_family_products: :product_family).
         where(product_family: { brand_id: self.id } ).
         pluck(:id)
-    end
+    #end
   end
 
   def family_products

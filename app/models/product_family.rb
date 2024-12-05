@@ -158,26 +158,26 @@ class ProductFamily < ApplicationRecord
 
   # Collection of all families with at least one active product
   def self.all_with_current_products(website, locale)
-    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_products", expires_in: 2.hours) do
+    #Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_products", expires_in: 2.hours) do
       where(brand_id: website.brand_id).order("position").select do |f|
         f if f.current_products_plus_child_products_count(website) > 0 && f.locales(website).include?(locale.to_s)
       end
-    end
+    #end
   end
 
   # Collection of all families with at least one current or discontinued product
   # for the given website and locale
   def self.all_with_current_or_discontinued_products(website, locale)
-    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_or_discontinued_products", expires_in: 2.hours) do
+    #Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/all_with_current_or_discontinued_products", expires_in: 2.hours) do
       where(brand_id: website.brand_id).order("position").select do |f|
         f if ( f.current_products_plus_child_products_count(website) > 0 || f.current_and_discontinued_products.size > 0 ) && f.locales(website).include?(locale.to_s)
       end
-    end
+    #end
   end
 
   # Parent categories with at least one active product
   def self.parents_with_current_products(website, locale)
-    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/parents_with_current_products", expires_in: 2.hours) do
+    #Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/parents_with_current_products", expires_in: 2.hours) do
       pf = []
       top_level_for(website).each do |f|
         if f.locales(website).include?(locale.to_s)
@@ -185,7 +185,7 @@ class ProductFamily < ApplicationRecord
         end
       end
       pf
-    end
+    #end
   end
 
   def self.top_level_for(brand)
@@ -194,9 +194,9 @@ class ProductFamily < ApplicationRecord
   end
 
   def self.customizable(website, locale)
-    Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/customizable", expires_in: 2.hours) do
+    #Rails.cache.fetch("#{website.cache_key_with_version}/#{locale}/product_families/customizable", expires_in: 2.hours) do
       all_with_current_products(website, locale).select{|pf| pf if pf.product_family_customizable_attributes.size > 0}
-    end
+    #end
   end
 
   # We flatten the families for the employee store.
@@ -216,14 +216,14 @@ class ProductFamily < ApplicationRecord
 
   # Recurses down the product family trees to collect all the disontinued products (for the toolkit)
   def all_discontinued_products
-    Rails.cache.fetch("#{cache_key_with_version}/all_discontinued_products", expires_in: 12.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/all_discontinued_products", expires_in: 12.hours) do
       products = []
       products += discontinued_products
       children.each do |child|
         products += child.all_discontinued_products
       end
       products.flatten.uniq
-    end
+    #end
   end
 
   def discontinued_products
@@ -261,11 +261,11 @@ class ProductFamily < ApplicationRecord
   end
 
   def product_ids_for_current_locale
-    Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}/8", expires_in: 12.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/product_ids_for_current_locale/#{I18n.locale.to_s}/8", expires_in: 12.hours) do
       # match any excluded locales right in the query instead of after
       products.where("products.hidden_locales IS NULL OR (',' + products.hidden_locales + ',') NOT LIKE '%,#{I18n.locale.to_s},%'").pluck(:id)
       #products.select{|p| p unless p.locales_where_hidden.include?(I18n.locale.to_s)}.pluck(:id).uniq
-    end
+    #end
   end
 
   # Determine current and discontinued products for the ProductFamily
@@ -275,7 +275,7 @@ class ProductFamily < ApplicationRecord
 
   # w = a Brand or a Website
   def current_products_plus_child_products(w, opts={})
-    Rails.cache.fetch("#{cache_key_with_version}/#{w.cache_key_with_version}/#{opts.values.join}/current_products_plus_child_products/#{I18n.locale.to_s}", expires_in: 2.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/#{w.cache_key_with_version}/#{opts.values.join}/current_products_plus_child_products/#{I18n.locale.to_s}", expires_in: 2.hours) do
       cp = []
       self.current_products.each do |prod|
         if prod.locales(w).include?(I18n.locale.to_s)
@@ -294,7 +294,7 @@ class ProductFamily < ApplicationRecord
       else
         cp.sort_by(&:name).uniq
       end
-    end
+    #end
   end
 
   def has_current_products?(w)
@@ -317,7 +317,7 @@ class ProductFamily < ApplicationRecord
 
   # w = a Brand or a Website
   def discontinued_products_plus_child_products(w, opts={})
-    Rails.cache.fetch("#{cache_key_with_version}/#{w.cache_key_with_version}/#{opts.values.join}/discontinued_products_plus_child_products/#{I18n.locale.to_s}", expires_in: 2.hours) do
+    #Rails.cache.fetch("#{cache_key_with_version}/#{w.cache_key_with_version}/#{opts.values.join}/discontinued_products_plus_child_products/#{I18n.locale.to_s}", expires_in: 2.hours) do
       cp = []
       self.discontinued_products.each do |prod|
         if prod.locales(w).include?(I18n.locale.to_s)
@@ -336,7 +336,7 @@ class ProductFamily < ApplicationRecord
       else
         cp.sort_by(&:name).uniq
       end
-    end
+    #end
   end
 
   # w = Brand or Website
