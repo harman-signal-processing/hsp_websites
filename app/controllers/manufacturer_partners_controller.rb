@@ -85,7 +85,7 @@ class ManufacturerPartnersController < ApplicationController
     def banner_image_exists(banner_image_url)
         begin
             file_exists = RestClient.head(banner_image_url).code == 200
-        rescue RestClient::Exception => error
+        rescue #RestClient::Exception => error
             file_exists = false
         end
         file_exists

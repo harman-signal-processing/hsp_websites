@@ -78,18 +78,20 @@ class Brand < ApplicationRecord
     true
   end
 
-  def promotions
-    #Rails.cache.fetch("#{cache_key_with_version}/promotions", expires_in: 6.hours) do
-      product_promos = Promotion.find_by_sql("SELECT DISTINCT promotions.id FROM promotions
-                                             INNER JOIN product_promotions ON product_promotions.promotion_id = promotions.id
-                                             INNER JOIN products ON products.id = product_promotions.product_id
-                                             INNER JOIN product_family_products ON product_family_products.product_id = products.id
-                                             INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
-                                             WHERE product_families.brand_id = #{self.id}").collect{|p| p.id}.join(", ")
-      product_promos_query = (product_promos.blank?) ? "" : " OR id IN (#{product_promos}) "
+  def product_promotion_ids
+    Rails.cache.fetch("#{cache_key_with_version}/product_promotion_ids", expires_in: 8.hours) do
+      Promotion.find_by_sql("SELECT DISTINCT promotions.id FROM promotions
+        INNER JOIN product_promotions ON product_promotions.promotion_id = promotions.id
+        INNER JOIN products ON products.id = product_promotions.product_id
+        INNER JOIN product_family_products ON product_family_products.product_id = products.id
+        INNER JOIN product_families ON product_families.id = product_family_products.product_family_id
+        WHERE product_families.brand_id = #{self.id}").collect{|p| p.id}.join(", ")
+    end
+  end
 
-      Promotion.select("DISTINCT *").where("brand_id = ? #{product_promos_query}", self.id)
-    #end
+  def promotions
+    product_promos_query = (product_promotion_ids.blank?) ? "" : " OR id IN (#{product_promotion_ids}) "
+    Promotion.select("DISTINCT *").where("brand_id = ? #{product_promos_query}", self.id)
   end
 
   def method_missing(sym, *args)
@@ -224,9 +226,7 @@ class Brand < ApplicationRecord
   end
 
   def current_products(opts={})
-    #Rails.cache.fetch("#{cache_key_with_version}/current_products/#{opts}", expires_in: 6.hours) do
-      Product.where(id: current_product_ids(opts))
-    #end
+    Product.where(id: current_product_ids(opts))
   end
 
   def family_product_ids
