@@ -147,9 +147,9 @@ class Website < ApplicationRecord
   end
 
   def current_and_discontinued_product_ids
-    #Rails.cache.fetch("#{cache_key_with_version}/current_and_discontinued_product_ids", expires_in: 2.hours) do
+    Rails.cache.fetch("#{cache_key_with_version}/current_and_discontinued_product_ids", expires_in: 2.hours) do
       brand.products.where(product_status_id: ProductStatus.current_and_discontinued_ids).pluck(:id)
-    #end
+    end
   end
 
   def discontinued_and_vintage_products

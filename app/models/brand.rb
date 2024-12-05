@@ -213,14 +213,14 @@ class Brand < ApplicationRecord
   end
 
   def current_product_ids(opts={})
-    #Rails.cache.fetch("#{cache_key_with_version}/current_product_ids/#{opts}", expires_in: 6.hours) do
+    Rails.cache.fetch("#{cache_key_with_version}/current_product_ids/#{opts}", expires_in: 6.hours) do
       prods = product_families.includes(:products).
         where(products: { product_status: ProductStatus.current_ids })
       if opts[:locale].present?
         prods = prods.where("products.hidden_locales IS NULL OR (',' + products.hidden_locales + ',') NOT LIKE '%,#{opts[:locale].to_s},%'")
       end
       prods.pluck("products.id").uniq
-    #end
+    end
   end
 
   def current_products(opts={})
@@ -230,11 +230,11 @@ class Brand < ApplicationRecord
   end
 
   def family_product_ids
-    #Rails.cache.fetch("#{cache_key_with_version}/family_product_ids", expires_in: 6.hours) do
+    Rails.cache.fetch("#{cache_key_with_version}/family_product_ids", expires_in: 6.hours) do
       Product.joins(product_family_products: :product_family).
         where(product_family: { brand_id: self.id } ).
         pluck(:id)
-    #end
+    end
   end
 
   def family_products
