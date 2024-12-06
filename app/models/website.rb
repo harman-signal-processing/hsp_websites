@@ -139,9 +139,7 @@ class Website < ApplicationRecord
 
   def current_and_discontinued_products(included_attributes=[])
     included_attributes << :product_status
-    Rails.cache.fetch("#{cache_key_with_version}/#{included_attributes.join}/current_and_discontinued_products", expires_in: 2.hours) do
-      brand.products.includes(included_attributes).where(product_status_id: ProductStatus.current_and_discontinued_ids)
-    end
+    brand.products.includes(included_attributes).where(product_status_id: ProductStatus.current_and_discontinued_ids)
   end
 
   def current_and_discontinued_product_ids
