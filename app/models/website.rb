@@ -122,7 +122,7 @@ class Website < ApplicationRecord
   end
 
   def featured_products
-    #Rails.cache.fetch("#{cache_key_with_version}/featured_products", expires_in: 6.hours) do
+    Rails.cache.fetch("#{cache_key_with_version}/featured_products", expires_in: 6.hours) do
       begin
         @featured_products ||= self.brand.featured_products.present? ?
           self.brand.featured_products.split(/\,|\|\s?/).map{|i| Product.find_by(cached_slug: i)}.select{|p| p if p.is_a?(Product) && p.show_on_website?(self)} :
@@ -130,20 +130,18 @@ class Website < ApplicationRecord
       rescue
         Array.new
       end
-    #end
+    end
   end
 
   def product_families
-    #Rails.cache.fetch("#{cache_key_with_version}/product_families", expires_in: 6.hours) do
-      ProductFamily.all_with_current_or_discontinued_products(self, I18n.locale)
-    #end
+    ProductFamily.all_with_current_or_discontinued_products(self, I18n.locale)
   end
 
   def current_and_discontinued_products(included_attributes=[])
     included_attributes << :product_status
-    #Rails.cache.fetch("#{cache_key_with_version}/#{included_attributes.join}/current_and_discontinued_products", expires_in: 2.hours) do
+    Rails.cache.fetch("#{cache_key_with_version}/#{included_attributes.join}/current_and_discontinued_products", expires_in: 2.hours) do
       brand.products.includes(included_attributes).where(product_status_id: ProductStatus.current_and_discontinued_ids)
-    #end
+    end
   end
 
   def current_and_discontinued_product_ids
@@ -153,24 +151,24 @@ class Website < ApplicationRecord
   end
 
   def discontinued_and_vintage_products
-    #Rails.cache.fetch("#{cache_key_with_version}/discontinued_and_vintage_products", expires_in: 6.hours) do
+    Rails.cache.fetch("#{cache_key_with_version}/discontinued_and_vintage_products", expires_in: 6.hours) do
       brand.products.unscope(:order).joins(:product_status).
         where(product_statuses: {discontinued: true})
-    #end
+    end
   end
 
   def vintage_products
-    #Rails.cache.fetch("#{ cache_key_with_version}/vintage_products", expires_in: 1.week) do
+    Rails.cache.fetch("#{ cache_key_with_version}/vintage_products", expires_in: 1.week) do
       brand.products.unscope(:order).joins(:product_status).
         where("product_statuses.name LIKE 'vintage'")
-    #end
+    end
   end
 
   def upcoming_products
-    #Rails.cache.fetch("#{ cache_key_with_version}/upcoming_products", expires_in: 1.week) do
+    Rails.cache.fetch("#{ cache_key_with_version}/upcoming_products", expires_in: 1.week) do
       brand.products.unscope(:order).joins(:product_status).
         where("product_statuses.name LIKE '%development%' OR product_statuses.name LIKE '%soon%'")
-    #end
+    end
   end
 
   def all_downloads(user)

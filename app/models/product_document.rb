@@ -50,7 +50,7 @@ class ProductDocument < ApplicationRecord
   # Gathers up all the ProductDocument downloads for a given website. Returns a hash
   # that is used by the support downloads page.
   def self.downloads(website)
-    #Rails.cache.fetch("#{website.cache_key_with_version}/#{I18n.locale}/product_downloads", expires_in: 1.day) do
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{I18n.locale}/product_downloads", expires_in: 1.day) do
       downloads = {}
       where(product_id: website.current_and_discontinued_product_ids, link_status: ["", nil, "200"], show_on_public_site: true).find_each do |product_document|
         if product_document.for_current_locale?
@@ -58,19 +58,19 @@ class ProductDocument < ApplicationRecord
         end
       end
       downloads
-    #end
+    end
   end
 
   # Returns the individual hash data for a given ProductDocument. Highly cached as it
   # isn't likely to change often.
   def details_hash
-    #Rails.cache.fetch("#{cache_key_with_version}/#{I18n.locale}/details_hash", expires_in: 2.weeks) do
+    Rails.cache.fetch("#{cache_key_with_version}/#{I18n.locale}/details_hash", expires_in: 2.weeks) do
       {
         param_name: hash_key,
         name: doctype_name,
         downloads: [download_details_hash]
       }
-    #end
+    end
   end
 
   # Used by the ProductDocument#downloads method to see if the current ProductDocument

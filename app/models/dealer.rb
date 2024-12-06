@@ -49,9 +49,9 @@ class Dealer < ApplicationRecord
     brand_dealer = BrandDealer.where("brand_id=? and dealer_id=?", brand.id, dealer.id).first
     if brand_dealer.present?
       begin
-        #Rails.cache.fetch("rental_products_#{brand.id}_#{dealer.id}", expires_in: 6.hours) do
+        Rails.cache.fetch("rental_products_#{brand.id}_#{dealer.id}", expires_in: 6.hours) do
           Product.joins(:brand_dealer_rental_products).where("brand_dealer_rental_products.brand_dealer_id = ?", brand_dealer).order(:position)
-        #end
+        end
       rescue => e
         error_message = "Error in Dealer.rental_products. BrandDealer #{brand_dealer.id} #{e.message}"
         puts error_message
@@ -609,7 +609,7 @@ class Dealer < ApplicationRecord
   end  #  def self.report(brand, options={})
 
   def rental_product_names(brand)
-    #Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+    Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
       results = rental_products(brand).to_ary
 
       if results.pluck(:cached_slug).grep(/jbl-eon7/).any?
@@ -625,11 +625,11 @@ class Dealer < ApplicationRecord
         results << ProductFamily.find_by_cached_slug("srx900-series")
       end
       results.pluck(:name).join(', ')
-    #end  #  Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+    end  #  Rails.cache.fetch("rental_product_names_#{brand.id}_#{self.id}", expires_in: 6.hours) do
   end  #  def rental_product_names(brand)
 
   def rental_product_slugs(brand)
-    #Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+    Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
       # calls instance method rental_products(brand) which calls scope (class) method rental_products(brand,dealer)
       results = rental_products(brand).to_ary
 
@@ -646,7 +646,7 @@ class Dealer < ApplicationRecord
         results << ProductFamily.find_by_cached_slug("srx900-series")
       end
       results.pluck(:cached_slug).join(',')
-    #end  #  Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
+    end  #  Rails.cache.fetch("rental_product_slugs_#{brand.id}_#{self.id}", expires_in: 6.hours) do
   end  #  def rental_product_slugs(brand)
 
   def has_rental_products_for(brand, cached_slug)  #  this currently only applies to jbl pro

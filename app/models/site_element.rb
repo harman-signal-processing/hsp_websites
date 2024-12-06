@@ -249,7 +249,7 @@ class SiteElement < ApplicationRecord
   # Refactored from the Website model, this collects and caches all the SiteElements that
   # are relevant to the given Website and accessible by the given User.
   def self.downloads(website, user)
-    #Rails.cache.fetch("#{website.cache_key_with_version}/#{user}/#{I18n.locale}/se_downloads", expires_in: 6.hours) do
+    Rails.cache.fetch("#{website.cache_key_with_version}/#{user}/#{I18n.locale}/se_downloads", expires_in: 6.hours) do
       downloads = {}
       ability = Ability.new(user)
       website.site_elements.where(show_on_public_site: true, link_status: ["", nil, "200"]).where("resource_type IS NOT NULL AND resource_type != ''").find_each do |site_element|
@@ -258,20 +258,20 @@ class SiteElement < ApplicationRecord
         end
       end
       downloads
-    #end
+    end
   end
 
   # Collects and caches hash data for the current SiteElement. Caching here helps speed up
   # caching the same data for multiple users with different access when both users can access
   # this SiteElement.
   def details_hash
-    #Rails.cache.fetch("#{cache_key_with_version}/#{I18n.locale}/details_hash", expires_in: 6.days) do
+    Rails.cache.fetch("#{cache_key_with_version}/#{I18n.locale}/details_hash", expires_in: 6.days) do
       {
         param_name: hash_key,
         name: doctype_name,
         downloads: [download_details_hash]
       }
-    #end
+    end
   end
 
   # Determines the key to be used in the big hash of all the downloads
