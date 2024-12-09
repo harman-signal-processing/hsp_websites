@@ -149,23 +149,22 @@ class Website < ApplicationRecord
   end
 
   def discontinued_and_vintage_products
-    Rails.cache.fetch("#{cache_key_with_version}/discontinued_and_vintage_products", expires_in: 6.hours) do
-      brand.products.unscope(:order).joins(:product_status).
-        where(product_statuses: {discontinued: true})
+    Rails.cache.fetch("#{cache_key_with_version}/discontinued_and_vintage_products/1", expires_in: 6.hours) do
+      brand.products.unscope(:order).where(product_status_id: ProductStatus.discontinued_ids)
     end
   end
 
   def vintage_products
-    Rails.cache.fetch("#{ cache_key_with_version}/vintage_products", expires_in: 1.week) do
-      brand.products.unscope(:order).joins(:product_status).
-        where("product_statuses.name LIKE 'vintage'")
+    Rails.cache.fetch("#{ cache_key_with_version}/vintage_products/1", expires_in: 1.week) do
+      vintage_status_ids = ProductStatus.where("name LIKE 'vintage'").pluck(:id)
+      brand.products.unscope(:order).where(product_status_id: vintage_status_ids)
     end
   end
 
   def upcoming_products
-    Rails.cache.fetch("#{ cache_key_with_version}/upcoming_products", expires_in: 1.week) do
-      brand.products.unscope(:order).joins(:product_status).
-        where("product_statuses.name LIKE '%development%' OR product_statuses.name LIKE '%soon%'")
+    Rails.cache.fetch("#{ cache_key_with_version}/upcoming_products/1", expires_in: 1.week) do
+      upcoming_status_ids = ProductStatus.where("name LIKE '%development%' OR name LIKE '%soon%'").pluck(:id)
+      brand.products.unscope(:order).where(product_status_id: upcoming_status_ids)
     end
   end
 
