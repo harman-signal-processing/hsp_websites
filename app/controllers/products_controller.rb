@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
       redirect_to product and return false
     else
       @products = website.discontinued_and_vintage_products.order("UPPER(products.name)")
-      product_ids = @products.unscope(:order).select("products.id")
+      product_ids = @products.unscope(:order).pluck(:id)
       product_family_ids = ProductFamilyProduct.select(:product_family_id).where(product_id: product_ids).distinct
       @product_families = ProductFamily.where(id: product_family_ids, brand_id: website.brand_id).order("name")
       render_template
