@@ -218,5 +218,11 @@
 		<% end %>
 
     <%= render_partial "shared/footer_scripts" %>
+
+    <% if website.raven_flyover.present? && website.raven_flyover.to_i == 1 %>
+      <% flyover = website.brand.settings.where(name: "raven_flyover").first %>
+      <%=raw flyover.text_value %>
+      <%=image_tag flyover.string_value, alt: "Raven", class: "flyover" %>
+    <% end %>
 	</body>
 </html>
