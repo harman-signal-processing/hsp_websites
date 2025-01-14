@@ -22,10 +22,10 @@ class Admin::ScheduledTasksController < AdminController
       format.xml  { render xml: @scheduled_task }
     end
   end
-  
+
   def value_field
     @scheduled_task_action = ScheduledTaskAction.new(scheduled_task: @scheduled_task, field_name: params[:field_name])
-    
+
     respond_to do |format|
       format.js
     end
@@ -104,6 +104,6 @@ class Admin::ScheduledTasksController < AdminController
   end
 
   def scheduled_task_params
-    params.require(:scheduled_task).permit(:perform_at, :schedulable_type, :schedulable_friendly_id)
+    params.require(:scheduled_task).permit(:perform_at, :schedulable_type, :schedulable_friendly_id, :status)
   end
 end

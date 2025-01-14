@@ -1,5 +1,12 @@
 <%= simple_form_for [:admin, @scheduled_task] do |f| %>
 
+  <% if f.object.errors.any? %>
+    <div class="alert-box alert">
+      <%= f.object.errors.full_messages.join(", ").html_safe %>
+    </div>
+    <br/>
+  <% end %>
+
   <p>Note: Tasks run according to <%= Rails.configuration.time_zone %>. Adjust your schedule accordingly.</p>
   <div class="row">
     <div class="small-12 medium-6 columns">
@@ -15,7 +22,7 @@
   <div class="row">
     <div class="small-12 medium-6 columns">
       <%= f.input :schedulable_friendly_id,
-        label: "Target Object Friendly ID",
+        label: "Target Object Friendly ID (use numeric ID for settings)",
         hint: "Paste the Friendly ID here. (what appears in the URL. Something like: \"zbt-4000\")" %>
     </div>
   </div>

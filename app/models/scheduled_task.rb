@@ -5,7 +5,7 @@ class ScheduledTask < ApplicationRecord
   has_many :scheduled_task_logs
 
   validates :schedulable_type, presence: true
-  validates :schedulable_id, presence: true
+  validate  :related_object_exists
 
   accepts_nested_attributes_for :scheduled_task_actions
 
@@ -19,12 +19,20 @@ class ScheduledTask < ApplicationRecord
     ]
   end
 
+  def related_object_exists
+    begin
+      self.schedulable_id =  schedulable_type.constantize.send(:find, schedulable_friendly_id).id
+    rescue
+      self.errors.add :base, "Could not find related <strong>#{schedulable_type}</strong> with the provided ID."
+    end
+  end
+
   #writer
   def schedulable_friendly_id=(val)
     begin
       self.schedulable_id =  schedulable_type.constantize.send(:find, val).id
     rescue
-      raise("could not find an ID based on the provided friendly_id")
+      logger.debug "Coud not find related object to schedule"
     end
   end
 
@@ -32,7 +40,11 @@ class ScheduledTask < ApplicationRecord
   def schedulable_friendly_id
     if schedulable_type.present? && schedulable_id.present?
       begin
-        schedulable_type.constantize.send(:find, schedulable_id).friendly_id
+        if schedulable_type.constantize.new.respond_to?(:friendly_id)
+          schedulable_type.constantize.send(:find, schedulable_id).friendly_id
+        else
+          schedulable_id
+        end
       rescue
         "--"
       end
