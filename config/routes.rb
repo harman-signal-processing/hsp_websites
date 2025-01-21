@@ -11,7 +11,7 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
   get "signup/complete" => "signups#complete", as: :signup_complete
 
   get "warranty" => "support#warranty_policy"
-  get "register" => "support#warranty_registration"
+  get "register" => redirect("https://service.harmanpro.com/")
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
@@ -584,7 +584,8 @@ HarmanSignalProcessingWebsite::Application.routes.draw do
     post '/support_downloads' => "support#downloads_search", as: :support_downloads_search
     match '/software' => 'softwares#index', as: :software_index, via: :all
     match '/firmware' => 'softwares#firmware', as: :firmware_index, via: :all
-    match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
+    #match '/support/warranty_registration(/:product_id)' => 'support#warranty_registration', as: :warranty_registration, via: :all
+    match '/support/warranty_registration(/:product_id)' => redirect('https://service.harmanpro.com/'), as: :warranty_registration, via: :all
     match '/support/parts' => 'support#parts', as: :parts_request, via: :all
     match '/support/jitc_certified_firmware_request' => 'jitc_requests#index', as: :jitc_certified_firmware_request, message_type: "jitc_certified_firmware_request", via: :all
     match '/support/security_information_request' => 'jitc_requests#index', as: :security_information_request, message_type: "security_information_request", via: :all
