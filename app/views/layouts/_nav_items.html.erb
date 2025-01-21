@@ -11,7 +11,7 @@
         <li><%= link_to ucfirst(t('software_downloads')), software_index_path %></li>
       <% end %>
       <% if website.has_product_registrations? %>
-        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path, target: "_blank" %></li>
       <% end %>
       <% if ( website.has_dealers? || website.has_distributors? || website.has_online_retailers? ) && I18n.locale.to_s.match?(/us/i) %>
         <li><%= link_to "Promotions", promotions_path %></li>

@@ -61,7 +61,7 @@
       <li><%= link_to t('downloads').titleize, support_downloads_path %></li>
       <li><%= link_to t('warranty').titleize, warranty_path %></li>
       <% if website.has_product_registrations? %>
-        <li><%= link_to t('warranty_registration').titleize, warranty_registration_path %></li>
+        <li><%= link_to t('warranty_registration').titleize, warranty_registration_path, target: "_blank" %></li>
       <% end %>
       <% if !!(website.forum_link) %>
         <li><%= link_to t("forum").titleize, website.forum_link %></li>

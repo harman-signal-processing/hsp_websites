@@ -91,7 +91,7 @@
       <li><%= link_to t('nav.downloads').titleize, support_downloads_path %></li>
       <li><%= link_to t('warranty').titleize, warranty_path %></li>
       <% if website.has_product_registrations? %>
-        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path, target: "_blank" %></li>
       <% end %>
       <li><%= link_to t('nav.service').titleize, "https://assets.harman.com/portals/wokfvf2u/JBLProfessionalParts", target: "_blank" %></li>
       <% if !!(website.forum_link) %>

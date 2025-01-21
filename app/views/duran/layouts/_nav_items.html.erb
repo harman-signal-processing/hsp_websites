@@ -8,7 +8,7 @@
 				<%= product_family_nav_links(product_family) %>
 			<% end %>
       <% if website.has_product_registrations? %>
-        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path %></li>
+        <li><%= link_to ucfirst(t('warranty_registration')), warranty_registration_path, target: "_blank" %></li>
       <% end %>
 			<li><%= link_to t('discontinued_products').titleize, discontinued_products_path %></li>
 		</ul>
@@ -76,7 +76,7 @@
       <li><%= link_to t('nav.downloads').titleize, support_downloads_path %></li>
       <li><%= link_to t('warranty').titleize, warranty_path %></li>
       <% if website.has_product_registrations? %>
-        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path %></li>
+        <li><%= link_to t("warranty_registration").titleize, warranty_registration_path, target: "_blank" %></li>
       <% end %>
       <% if !!(website.forum_link) %>
         <li><%= link_to t("forum").titleize, website.forum_link %></li>

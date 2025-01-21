@@ -7,7 +7,7 @@
 	<dd><%= link_to t('software_downloads'), software_index_path %></dd>
 	<% end %>
   <% if website.has_product_registrations? %>
-    <dd><%= link_to t('warranty_registration'), warranty_registration_path %></dd>
+    <dd><%= link_to t('warranty_registration'), warranty_registration_path, target: "_blank" %></dd>
   <% end %>
 	<dd class="active"><%= link_to t('downloads'), support_downloads_path %></dd>
 </dl>

@@ -1,7 +1,7 @@
 <ul class="support">
 	<% if product.can_be_registered? && website.has_product_registrations? %>
 	<li><%= link_to t('register_your_product', product: product.name),
-				warranty_registration_path(product.to_param) %></li>
+				warranty_registration_path(product.to_param), target: "_blank" %></li>
 	<% end %>
 	<li><%= link_to t('contact_tech_support'), support_path %></li>
   <% if !!(website.value_for("anytime_support_url")) %>
