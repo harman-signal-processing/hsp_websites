@@ -13,6 +13,7 @@ class ScheduledTask < ApplicationRecord
     [
       ["Product Family", "ProductFamily"],
       ["Product", "Product"],
+      ["Fancy Feature", "Feature"],
       ["News", "News"],
       ["Banner", "Banner"],
       ["Setting", "Setting"]
