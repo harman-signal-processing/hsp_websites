@@ -10,8 +10,13 @@
 <% end %>
 </h1>
 
+<% all_product_families = ProductFamily.parents_with_current_products(website, I18n.locale) %>
+<% if all_product_families.size > 10 %>
 <ul class="small-block-grid-2 large-block-grid-5">
-<% ProductFamily.parents_with_current_products(website, I18n.locale).each do |product_family| %>
+<% else %>
+<ul class="small-block-grid-1 large-block-grid-2">
+<% end %>
+<% all_product_families.each do |product_family| %>
   <% if product_family.locales(website).include?(I18n.locale.to_s) %>
     <li><div id="<%= product_family.to_param %>">
       <%= link_to best_product_family_url(product_family) do %>
