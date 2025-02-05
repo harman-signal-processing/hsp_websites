@@ -839,6 +839,10 @@ class Product < ApplicationRecord
     end
   end
 
+  def training
+    training_url
+  end
+
   # Merge the list of locales where this Product  should appear with
   # available translations plus our usual English locales
   # Then remove the current locale

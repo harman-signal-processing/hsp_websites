@@ -153,6 +153,9 @@
 			<%= f.input :custom_css %>
 
 			<%= f.input :demo_link, placeholder: "https://#{website.url}/#{I18n.default_locale}/..." %>
+			<% if f.object.brand.main_tabs.include?("training") %>
+			<%= f.input :training_url, hint: "Side nav on product page will link here." %>
+			<% end %>
 
 			<% unless @product.layout_class == 'epedal' %>
 			<div class="row">

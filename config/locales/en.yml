@@ -278,7 +278,7 @@ en:
       larger_images: Larger Images
       news: News
       news_and_reviews: "News & Reviews"
-      parats: Parts
+      parts: Parts
       parts_service: "Parts & Service"
       pedals: Pedals
       photometrics: Photometrics
@@ -292,6 +292,7 @@ en:
       specs_manuals_etc: "specs, manuals, reviews, etc..."
       support: "Support/FAQs"
       tones: Tone Library
+      training: Training
       training_modules: Training Modules
       videos: Videos
 

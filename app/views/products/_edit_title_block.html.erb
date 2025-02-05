@@ -24,6 +24,9 @@
           include_blank: true,
           input_html: { class: 'chosen-select' } %>
     <br/>
+    <% if @product.brand.main_tabs.include?("training") %>
+    <%= f.input :training_url %>
+    <% end %>
     <% if website.brand.show_pricing? %>
       <div class="row">
         <div class="small-6 columns">

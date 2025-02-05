@@ -283,6 +283,7 @@ class Admin::ProductsController < AdminController
       :highlight_format,
       :hide_product_photo,
       :custom_css,
+      :training_url,
       product_prices_attributes: {},
       product_specifications_attributes: {},
       product_product_filter_values_attributes: {},

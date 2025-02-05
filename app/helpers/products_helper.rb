@@ -112,6 +112,15 @@ module ProductsHelper
               )
             )
           end
+        elsif product_tab.key == "training"
+          side_links << content_tag(
+              :dd,
+              link_to(
+                tab_title(product_tab, product: product),
+                product.training_url,
+                target: "_blank"
+              )
+            )
         else
           side_links << content_tag(
             :dd,
@@ -157,7 +166,7 @@ module ProductsHelper
 
     main_tabs_content = ""
     main_tabs.each_with_index do |product_tab,i|
-      next if i == 0 || product_tab.key == "photometrics" || product_tab.key == "parts"
+      next if i == 0 || product_tab.key.in?(["photometrics","parts","training"])
 
       if options[:active_tab]
         active_class = (product_tab.key == options[:active_tab]) ? "active" : ""

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_05_28_202105) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_04_201139) do
   create_table "access_levels", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "distributor"
@@ -1571,6 +1571,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_05_28_202105) do
     t.string "highlight_format"
     t.boolean "hide_product_photo", default: false
     t.text "custom_css"
+    t.string "training_url"
     t.index ["brand_id", "product_status_id"], name: "index_products_on_brand_id_and_product_status_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["cached_slug"], name: "index_products_on_cached_slug", unique: true
