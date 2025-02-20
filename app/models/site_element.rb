@@ -312,6 +312,7 @@ protected
       file_name: file_name,
       thumbnail: is_image? ? resource.url(:tiny_square) : nil,
       url: url,
+      resource_type: resource_type_key
     }
   end
 

@@ -117,6 +117,7 @@ protected
       name: name.to_s.match?(/#{product.name}/) ? name : "#{product.name} #{name}",
       file_name: document_file_name,
       url: url,
+      resource_type: document_type
     }
   end
 

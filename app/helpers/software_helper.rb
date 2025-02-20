@@ -10,6 +10,15 @@ module SoftwareHelper
     opts = default_options.merge(opts)
     link_text = software.send(opts[:label_method])
 
+    css_classes = ["download_#{software.resource_type.downcase.gsub(" ", "_")}"]
+    css_classes << [opts[:class]] if opts[:class].present?
+    # make sure the classes list is uniq and does not contain duplicates
+    if opts[:class].present?
+      opts[:class] = opts[:class].split(" ").uniq.join(" ")
+    else
+      opts[:class] = css_classes
+    end
+
     # new record entries appear to be Martin firmware built on the fly
     if software.link.present? && software.new_record?
       link_to(link_text, software.link, opts)
@@ -17,7 +26,7 @@ module SoftwareHelper
     # link to software hosted by 3rd party, first show a popup
     elsif software.links_to_3rd_party_site?
       software_disclaimer_popup_for(software) +
-      link_to(link_text, '#', data: { "reveal-id": "software_#{software.id}_popup"})
+      link_to(link_text, '#', data: { "reveal-id": "software_#{software.id}_popup"}, class: css_classes.join(" "))
 
     # link to software details page if there is more info
     elsif software.has_additional_info?
