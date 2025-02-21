@@ -26,7 +26,7 @@ module SoftwareHelper
     # link to software hosted by 3rd party, first show a popup
     elsif software.links_to_3rd_party_site?
       software_disclaimer_popup_for(software) +
-      link_to(link_text, '#', data: { "reveal-id": "software_#{software.id}_popup"}, class: css_classes.join(" "))
+      link_to(link_text, '#', data: { "reveal-id": "software_#{software.id}_popup"}, class: opts[:class])
 
     # link to software details page if there is more info
     elsif software.has_additional_info?
