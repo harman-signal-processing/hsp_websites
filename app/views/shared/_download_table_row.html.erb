@@ -7,7 +7,7 @@
             <div class="row">
               <div class="small-11 columns">
                 <%= file_type_icon(item) %>
-                <%= link_to item.name, item %>
+                <%= link_to item.name, item, class: "download_#{item.resource_type.downcase.gsub(" ","_")}" %>
                 <%= keys_for(item) %>
                 <div class="show-for-small">
                   <%= flag_for(item) %>
@@ -23,7 +23,7 @@
             </div>
           <% else %>
               <%= file_type_icon(item) %>
-              <%= link_to item.name, item %>
+              <%= link_to item.name, item, class: "download_#{item.resource_type.downcase.gsub(" ","_")}" %>
               <%= keys_for(item) %>
               <div class="show-for-small">
                 <%= flag_for(item) %>
@@ -49,7 +49,7 @@
             <div class="row">
               <div class="small-11 columns">
                 <%= file_type_icon(item) %>
-                <%= link_to item.name, item %>
+                <%= link_to item.name, item, class: "download_#{item.resource_type.downcase.gsub(" ","_")}" %>
                 <%= keys_for(item) %>
                 <div class="show-for-small">
                   <%= flag_for(item) %>
@@ -65,7 +65,7 @@
             </div>
           <% else %>
               <%= file_type_icon(item) %>
-              <%= link_to item.name, item %>
+              <%= link_to item.name, item, class: "download_#{item.resource_type.downcase.gsub(" ","_")}" %>
               <%= keys_for(item) %>
               <div class="show-for-small">
                 <%= flag_for(item) %>
@@ -83,7 +83,7 @@
 
       <% elsif item.content.present? %>
         <td>
-          <%= link_to item.name, item %>
+          <%= link_to item.name, item, class: "download_#{item.resource_type.downcase.gsub(" ","_")}" %>
           <%= keys_for(item) %>
           <div class="show-for-small">
             <%= flag_for(item) %>
@@ -109,7 +109,7 @@
     <% elsif item.is_a?(ProductDocument) %>
       <td>
         <%= file_type_icon(item) %>
-        <%= link_to item.name, item %>
+        <%= link_to item.name, item, class: "download_#{item.document_type.downcase.gsub(" ", "_")}" %>
         <div class="show-for-small">
           <%= flag_for(item) %>
           <i>
@@ -129,7 +129,7 @@
           <div class="row">
             <div class="small-11 columns">
               <%= platform_icon(item, 17) %>
-              <%= link_to_software(item, label_method: :name) %>
+              <%= link_to_software(item, label_method: :name, class: "download_#{item.resource_type.downcase.gsub(" ", "_")}") %>
               <div class="show-for-small">
                 <%= flag_for(item) %>
                 <i>
@@ -144,7 +144,7 @@
           </div>
         <% else %>
             <%= platform_icon(item, 17) %>
-            <%= link_to_software(item, label_method: :name) %>
+            <%= link_to_software(item, label_method: :name, class: "download_#{item.resource_type.downcase.gsub(" ", "_")}") %>
             <div class="show-for-small">
               <%= flag_for(item) %>
               <i>
@@ -183,7 +183,7 @@
   <% if website.show_software_attachments_on_product_page && item.respond_to?(:software_attachments) && item.software_attachments.count > 0 %>
     <% item.software_attachments.each do |sa| %>
       <tr>
-        <td> <%= link_to sa.name, sa.software_attachment.url %> </td>
+        <td><%= link_to sa.name, sa.software_attachment.url, class: "download_software_attachment" %> </td>
         <td class="text-center"> <% if sa.respond_to?(:version) %><%= sa.version %><% end %>&nbsp; </td>
         <td class="text-center"> <%= flag_for(sa) %>&nbsp; </td>
         <td>

@@ -3,7 +3,7 @@
   <%= cache ["download-type-list", @download_type, I18n.locale] do %>
     <ul>
       <% @download_type[:downloads].sort{|a,b| a[:name] <=> b[:name]}.each do |d| %>
-        <li><%= link_to d[:name], d[:url] %></li>
+        <li><%= link_to d[:name], d[:url], class: "download_#{d[:resource_type]}" %></li>
       <% end %>
     </ul>
   <% end %>
